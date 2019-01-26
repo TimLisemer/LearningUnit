@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import learningunit.learningunit.BeforeStart.FirstScreen;
+import learningunit.learningunit.Menu.Learn.Vocabulary.Vokabeln;
 import learningunit.learningunit.Menu.MainActivity;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
@@ -105,8 +106,8 @@ public class ManageData extends MainActivity{
                 for(ArrayList<String> alist : list){
                     Log.d("Download", "Downloaded List with name: " + alist.get(1) + " ");
                     boolean go = true;
-                    for (int i = 0; i < VocabularyMethods.vocabularylists.size(); i ++){
-                        if(VocabularyMethods.vocabularylists.get(i).getName().equals(alist.get(1))){
+                    for (int i = 0; i < VocabularyMethods.vocabularylists.size(); i++) {
+                        if (VocabularyMethods.vocabularylists.get(i).getName().equals(alist.get(1))) {
                             go = false;
                         }
                     }
@@ -137,22 +138,37 @@ public class ManageData extends MainActivity{
                 Log.d("Download", "----------------------------------------------------------------------------------------------");
                 Log.d("Download", "Downloading Vocabularys for VocabularyList: " + Name);
                 Log.d("Download", "------------------------------------------------------------------------------------------------------");
-                VocabularyList vocabularyList = VocabularyMethods.getVocabularyList(Name);
-
-                vocabularyList.getVocabularylist().clear();
+                VocabularyList vocabularyList;
+                if(Vokabeln.publiclist == false) {
+                    vocabularyList = VocabularyMethods.getVocabularyList(Name);
+                    vocabularyList.getVocabularylist().clear();
+                }else{
+                    vocabularyList = Vokabeln.sharedlist;
+                    Vokabeln.sharedlist.getVocabularylist().clear();
+                }
 
                 ArrayList<ArrayList<String>> voclist;
-                String json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + getUserID() + "&Titel=" + vocabularyList.getName());
-                voclist = gson.fromJson(json1, type);
+                String json1;
+                if(Vokabeln.publiclist == false) {
+                    json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + getUserID() + "&Titel=" + vocabularyList.getName());
+                    voclist = gson.fromJson(json1, type);
+                }else{
+                    json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + Vokabeln.sharedID + "&Titel=" + vocabularyList.getName());
+                    voclist = gson.fromJson(json1, type);
+                }
 
                 for (ArrayList a : voclist) {
-
-                    Vocabulary voc = new Vocabulary(a.get(0).toString(), a.get(1).toString(), vocabularyList.getLanguageName1(), vocabularyList.getLanguageName2());
-                    vocabularyList.addVocabulary(voc);
+                    if(Vokabeln.publiclist == false) {
+                        Vocabulary voc = new Vocabulary(a.get(0).toString(), a.get(1).toString(), vocabularyList.getLanguageName1(), vocabularyList.getLanguageName2());
+                        vocabularyList.addVocabulary(voc);
+                    }else{
+                        Vocabulary voc = new Vocabulary(a.get(0).toString(), a.get(1).toString(), Vokabeln.sharedlist.getLanguageName1(), Vokabeln.sharedlist.getLanguageName2());
+                        Vokabeln.sharedlist.addVocabulary(voc);
+                    }
                 }
 
             } catch (Exception e) {
-                Log.d("DownloadVocabularys", e.toString());
+                //Log.d("DownloadVocabularys", e.toString());
             }
         }else{
             Log.d("DownloadVocabularys", "Kein Internet Verfügbar");

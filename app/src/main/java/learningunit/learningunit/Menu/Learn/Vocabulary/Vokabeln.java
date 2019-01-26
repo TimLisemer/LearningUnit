@@ -352,14 +352,18 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void showvocabularys(final int id){
-        train.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                start_train(id);
-            }
-        });
-
-        VocabularyList vocabularyList = VocabularyMethods.vocabularylists.get(id);
+        VocabularyList vocabularyList;
+        if(publiclist == false) {
+            train.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    start_train(id);
+                }
+            });
+            vocabularyList = VocabularyMethods.vocabularylists.get(id);
+        }else{
+            vocabularyList = sharedlist;
+        }
 
         downoriginal  = new TextView[vocabularyList.size()];
         downtranslation = new TextView[vocabularyList.size() + 10000];
@@ -379,12 +383,13 @@ public class Vokabeln extends AppCompatActivity {
 
         boolean f1 = true;
         int e1 = 0;
+        //ssasadsasa
 
         findViewById(R.id.vocabulary_scrollView).setVisibility(View.INVISIBLE);
         findViewById(R.id.vocabulary_scrollview1).setVisibility(View.VISIBLE);
 
-        lang1.setText(VocabularyMethods.vocabularylists.get(id).getLanguageName1());
-        lang2.setText(VocabularyMethods.vocabularylists.get(id).getLanguageName2());
+        lang1.setText(vocabularyList.getLanguageName1());
+        lang2.setText(vocabularyList.getLanguageName2());
 
         for (int i = 1; i < vocabularyList.size(); i++) {
             downoriginal[i] = new TextView(Vokabeln.this);
@@ -1041,6 +1046,9 @@ public class Vokabeln extends AppCompatActivity {
     private ConstraintLayout ShareLayout;
     private ConstraintSet SharedConstraintSet;
     private Button SharedButtonList0[], SharedButtonList1[], SharedButtonList2[], SharedButtonList3[];
+    public static boolean publiclist;
+    public static VocabularyList sharedlist;
+    public static int sharedID;
 
 
 
@@ -1191,7 +1199,7 @@ public class Vokabeln extends AppCompatActivity {
     public void openSharedList(ArrayList<String> SharedList){
         findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.GONE);
         int size = (SharedButtonList0.length + SharedButtonList1.length + SharedButtonList2.length + SharedButtonList3.length) / 4;
-        for(int i = 0; i < size; i++){
+        for(int i = 1; i < size; i++){
             ShareLayout.removeView(SharedButtonList0[i]);
             ShareLayout.removeView(SharedButtonList1[i]);
             ShareLayout.removeView(SharedButtonList2[i]);
@@ -1204,7 +1212,13 @@ public class Vokabeln extends AppCompatActivity {
                 }
             }
         }else{
-
+            sharedID = Integer.parseInt(SharedList.get(6));
+            publiclist = true;
+            Log.d("SharedID", sharedID + "      --------------------------------------------------------------------------------------------------------------");
+            VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true);
+            sharedlist = list;
+            ManageData.DownloadVocabularys(list.getName(), context);
+            showvocabularys(VocabularyMethods.vocabularylists.indexOf(list));
         }
     }
 
@@ -1215,7 +1229,6 @@ public class Vokabeln extends AppCompatActivity {
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-
                         if(Button1.getHeight() > Button0.getHeight()){
                             Button0.setHeight(Button1.getHeight());
                         }else if(Button1.getHeight() < Button0.getHeight()){
