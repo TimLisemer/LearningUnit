@@ -84,6 +84,13 @@ public class Vokabeln extends AppCompatActivity {
         shared_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int size = (SharedButtonList0.length + SharedButtonList1.length + SharedButtonList2.length + SharedButtonList3.length) / 4;
+                for(int i = 1; i < size; i++){
+                    ShareLayout.removeView(SharedButtonList0[i]);
+                    ShareLayout.removeView(SharedButtonList1[i]);
+                    ShareLayout.removeView(SharedButtonList2[i]);
+                    ShareLayout.removeView(SharedButtonList3[i]);
+                }
                 findViewById(R.id.vocabulary_scrollView).setVisibility(View.VISIBLE);
                 findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.GONE);
             }
@@ -353,7 +360,7 @@ public class Vokabeln extends AppCompatActivity {
 
     public void showvocabularys(final int id){
         VocabularyList vocabularyList;
-        if(publiclist == false) {
+        if(publiclist == false || sharedlist == null) {
             train.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -466,16 +473,19 @@ public class Vokabeln extends AppCompatActivity {
 
     public void open_back1(){
         for(int i = 0; i < downoriginal.length; i++){
-            //Log.d("downorginalremove", downoriginal[i].getText().toString());
             layout1.removeView(downoriginal[i]);
         }
-
         for(int i = 0; i < downtranslation.length; i++){
-            //Log.d("downtranslationremove", downtranslation[i].getText().toString());
             layout1.removeView(downtranslation[i]);
         }
-        findViewById(R.id.vocabulary_scrollView).setVisibility(View.VISIBLE);
-        findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
+        if(publiclist == false) {
+            findViewById(R.id.vocabulary_scrollView).setVisibility(View.VISIBLE);
+            findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
+        }else{
+            findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.VISIBLE);
+            findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
+        }
+        publiclist = false;
     }
 
     public void open_create(){
@@ -1197,23 +1207,18 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void openSharedList(ArrayList<String> SharedList){
+        publiclist = true;
         findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.GONE);
-        int size = (SharedButtonList0.length + SharedButtonList1.length + SharedButtonList2.length + SharedButtonList3.length) / 4;
-        for(int i = 1; i < size; i++){
-            ShareLayout.removeView(SharedButtonList0[i]);
-            ShareLayout.removeView(SharedButtonList1[i]);
-            ShareLayout.removeView(SharedButtonList2[i]);
-            ShareLayout.removeView(SharedButtonList3[i]);
-        }
         if(Integer.parseInt(SharedList.get(6)) == ManageData.getUserID()) {
             for(VocabularyList list : VocabularyMethods.vocabularylists){
                 if(list.getName().equals(SharedList.get(1))){
+                    sharedlist = null;
                     showvocabularys(VocabularyMethods.vocabularylists.indexOf(list));
+                    break;
                 }
             }
         }else{
             sharedID = Integer.parseInt(SharedList.get(6));
-            publiclist = true;
             Log.d("SharedID", sharedID + "      --------------------------------------------------------------------------------------------------------------");
             VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true);
             sharedlist = list;
