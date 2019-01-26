@@ -126,8 +126,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/main_timetable"
@@ -142,8 +141,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toTopOf="@+id/guideline10"
-                />
+                app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
             <Button
                 android:id="@+id/main_organizer"
@@ -158,8 +156,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline10"
-                />
+                app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
             <Button
                 android:id="@+id/main_statistics"
@@ -174,8 +171,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline9"
-                />
+                app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
             <Button
                 android:id="@+id/main_settings"
@@ -190,8 +186,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toTopOf="@+id/guideline9"
-                />
+                app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
         </android.support.constraint.ConstraintLayout>
 
