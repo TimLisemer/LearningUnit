@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="learningunit.learningunit">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Menu.MainActivity" android:parentActivityName=".Menu.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".BeforeStart.FirstScreen" android:parentActivityName=".BeforeStart.FirstScreen"/>
+        <activity android:name=".BeforeStart.Login" android:parentActivityName=".BeforeStart.FirstScreen"/>
+        <activity android:name=".BeforeStart.Register" android:parentActivityName=".BeforeStart.FirstScreen"/>
+        <activity android:name=".Menu.Organizer.Organizer" android:parentActivityName=".Menu.MainActivity"/>
+        <activity android:name=".Menu.Learn.Vocabulary.Vokabeln" android:parentActivityName=".Menu.MainActivity"/>
+        <activity android:name=".Menu.Learn.Vocabulary.CreateVocList" android:parentActivityName=".Menu.Learn.Vocabulary.Vokabeln"/>
+        <activity android:name=".Menu.Organizer.Timetable.Timetable"></activity>
+    </application>
+
+</manifest>
