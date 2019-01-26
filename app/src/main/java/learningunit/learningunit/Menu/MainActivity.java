@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_GetVocabLists = ROOT_URL + "GetVocabLists&id=";
     public static final String URL_GetVocabs = ROOT_URL + "GetVocabs&id=";
     public static final String URL_GetSharedLists = ROOT_URL + "GetSharedLists";
+    public static final String URL_ListAvailable = ROOT_URL + "ListAvailable";
 
 
 

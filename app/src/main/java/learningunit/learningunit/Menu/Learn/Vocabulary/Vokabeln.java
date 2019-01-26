@@ -24,8 +24,10 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Random;
 
+import learningunit.learningunit.BeforeStart.Register;
 import learningunit.learningunit.Menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.RequestHandler;
@@ -103,6 +105,7 @@ public class Vokabeln extends AppCompatActivity {
 
         ShareGetList = (EditText) findViewById(R.id.vocabulary_ShareGetList);
         ShareLayout = (ConstraintLayout) findViewById(R.id.vocabulary_ShareScrollMainLayout);
+        ShareInfo = (TextView) findViewById(R.id.vocabulary_shareInfo);
 
         //Shared
 
@@ -368,8 +371,25 @@ public class Vokabeln extends AppCompatActivity {
                 }
             });
             vocabularyList = VocabularyMethods.vocabularylists.get(id);
+            if(publiclist == false) {
+                ShareInfo.setVisibility(View.GONE);
+            }else{
+
+                LinkedHashMap<String, String> params = new LinkedHashMap <>();
+                params.put("id", ManageData.getUserID() + "");
+                params.put("Titel", VocabularyMethods.vocabularylists.get(id).getName());
+
+                RequestHandler requestHandler = new RequestHandler();
+                String sd = requestHandler.sendPostRequest(MainActivity.URL_ListAvailable, params);
+                sd = sd.substring(1, sd.length()-1);
+                sd = sd.replaceAll("^\"|\"$", "");
+
+                ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sd + " zu erreichen.");
+                ShareInfo.setVisibility(View.VISIBLE);
+            }
         }else{
             vocabularyList = sharedlist;
+            ShareInfo.setVisibility(View.VISIBLE);
         }
 
         downoriginal  = new TextView[vocabularyList.size()];
@@ -1052,6 +1072,7 @@ public class Vokabeln extends AppCompatActivity {
     //Shared
 
     private Button ShareScrollBase0, ShareScrollBase1, ShareScrollBase2, ShareScrollBase3, ShareSearch;
+    private TextView ShareInfo;
     private EditText ShareGetList;
     private ConstraintLayout ShareLayout;
     private ConstraintSet SharedConstraintSet;
@@ -1223,6 +1244,7 @@ public class Vokabeln extends AppCompatActivity {
             VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true);
             sharedlist = list;
             ManageData.DownloadVocabularys(list.getName(), context);
+            ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + SharedList.get(7) + " zu erreichen.");
             showvocabularys(VocabularyMethods.vocabularylists.indexOf(list));
         }
     }
