@@ -39,9 +39,9 @@ import learningunit.learningunit.R;
 
 public class Vokabeln extends AppCompatActivity {
 
-    private Button back, back1, create, base, train, all;
+    private Button back, back1, create, base, train, all, follow, rate;
     private TextView lang1, lang2, original, translation, error, nolist;
-    ConstraintLayout layout, layout1;
+    ConstraintLayout layout, layout1, bottom;
     ConstraintSet constraintSet, constraintSeto, constraintSett;
 
     private ArrayList<Vocabulary> vocabularylist;
@@ -172,14 +172,17 @@ public class Vokabeln extends AppCompatActivity {
 
         //Lernbereich
 
-
         layout = (ConstraintLayout) findViewById(R.id.vocabulary_scrollview4);
         layout1 = (ConstraintLayout) findViewById(R.id.vocabulary_constraintlayout1);
-        ManageData.loadVocabularyLists(context);
 
+        ManageData.loadVocabularyLists(context);
 
         //Initialisieren der Knöpfe und rufen der OnClick methode
 
+        bottom = (ConstraintLayout) findViewById(R.id.vocabulary_showvocabularybottom);
+
+        rate = (Button) findViewById(R.id.vocabulary_rate);
+        follow = (Button) findViewById(R.id.vocabulary_follow);
         base = (Button) findViewById(R.id.vocabulary_base);
         nolist = (TextView) findViewById(R.id.vocabulary_nolists);
         lang1 = (TextView) findViewById(R.id.vocabulary_language);
@@ -362,6 +365,8 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void showvocabularys(final int id){
+        int listiD;
+
         VocabularyList vocabularyList;
         if(publiclist == false || sharedlist == null) {
             train.setOnClickListener(new View.OnClickListener() {
@@ -373,6 +378,7 @@ public class Vokabeln extends AppCompatActivity {
             vocabularyList = VocabularyMethods.vocabularylists.get(id);
             if(publiclist == false) {
                 ShareInfo.setVisibility(View.GONE);
+                bottom.setVisibility(View.GONE);
             }else{
 
                 LinkedHashMap<String, String> params = new LinkedHashMap <>();
@@ -383,12 +389,15 @@ public class Vokabeln extends AppCompatActivity {
                 String sd = requestHandler.sendPostRequest(MainActivity.URL_ListAvailable, params);
                 sd = sd.substring(1, sd.length()-1);
                 sd = sd.replaceAll("^\"|\"$", "");
+                listiD = Integer.parseInt(sd);
 
-                ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sd + " zu erreichen.");
+                ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + listiD + " zu erreichen.");
+                bottom.setVisibility(View.VISIBLE);
                 ShareInfo.setVisibility(View.VISIBLE);
             }
         }else{
             vocabularyList = sharedlist;
+            bottom.setVisibility(View.VISIBLE);
             ShareInfo.setVisibility(View.VISIBLE);
         }
 
@@ -1079,7 +1088,7 @@ public class Vokabeln extends AppCompatActivity {
     private Button SharedButtonList0[], SharedButtonList1[], SharedButtonList2[], SharedButtonList3[];
     public static boolean publiclist;
     public static VocabularyList sharedlist;
-    public static int sharedID;
+    public static int sharedID, sharedListID;
 
 
 
@@ -1240,11 +1249,11 @@ public class Vokabeln extends AppCompatActivity {
             }
         }else{
             sharedID = Integer.parseInt(SharedList.get(6));
-            Log.d("SharedID", sharedID + "      --------------------------------------------------------------------------------------------------------------");
+            sharedListID = Integer.parseInt(SharedList.get(7));
             VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true);
             sharedlist = list;
             ManageData.DownloadVocabularys(list.getName(), context);
-            ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + SharedList.get(7) + " zu erreichen.");
+            ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sharedListID + " zu erreichen.");
             showvocabularys(VocabularyMethods.vocabularylists.indexOf(list));
         }
     }
