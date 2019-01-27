@@ -2,70 +2,288 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="learningunit.learningunit.BeforeStart.FirstScreen">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/first_scrollview"
-        android:layout_width="307dp"
-        android:layout_height="261dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@mipmap/bg"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.309">
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/login_error"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="Unter diesen Daten konte kein Account gefunden werden"
+            android:textAlignment="center"
+            android:textColor="@color/TEXT_WHITE"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_password_layout" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_email_layout"
+            style="@style/Text_Feld"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:layout_constraintVertical_bias="0.13999999">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/login_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/textbalken"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:hint="E MA I L / B E N U T Z E R N A M E"
+                android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_password_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_email_layout"
+            app:layout_constraintVertical_bias="0.0">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/textbalken"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:hint="P  A  S  S  W  O  R  T"
+                android:inputType="textPassword"
+                android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/first_continue"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+
+            android:layout_marginEnd="8dp"
+            android:text="Ohne Konto Fortfahren"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/OhneKonto"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first_register"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/first_register"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="KONTO ERSTELLEN"
+            android:textAlignment="center"
+            android:textColor="@color/TEXT_WHITE"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first_login"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/first_login"
+            android:layout_width="0dp"
+            android:layout_height="91dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:background="@mipmap/buttonaktiv"
+            android:text="L  O  G  I  N"
+            android:textColor="@color/TEXT_WHITE"
+            android:textSize="20sp"
+            android:textStyle="normal|bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_error"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="74dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/transper" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="L E A R N I N G   U N I T"
+            android:textAlignment="center"
+            android:textColor="@color/TEXT_WHITE"
+            android:textColorLink="@color/TEXT_WHITE"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            app:layout_constraintVertical_bias="0.041" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/login_ScrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/first_layout"
-            android:layout_width="307dp"
-            android:layout_height="260dp"
+            android:id="@+id/login_Layout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/login_info2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="64dp"
+                android:text="Andernfalls gehen diese dauerhaft verloren."
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_info1" />
 
             <Button
-                android:id="@+id/first_login"
-                android:layout_width="0dp"
+                android:id="@+id/login_decline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="Nein, danke"
+                app:layout_constraintEnd_toEndOf="@+id/login_info2"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_info2" />
+
+            <Button
+                android:id="@+id/login_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="Ok"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.75"
+                app:layout_constraintStart_toStartOf="@+id/login_info2"
+                app:layout_constraintTop_toBottomOf="@+id/login_info2" />
+
+            <Button
+                android:id="@+id/login_back1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Anmelden"
+                android:text="Zurück"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.214" />
+                app:layout_constraintVertical_bias="0.0" />
 
-            <Button
-                android:id="@+id/first_register"
+            <TextView
+                android:id="@+id/login_info1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="Noch kein Konto?"
+                android:layout_height="117dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="75dp"
+                android:layout_marginEnd="64dp"
+                android:layout_marginBottom="8dp"
+                android:text="Sollen deine vorhandenen Daten wie Vokabeln,  Formeln, Kalendereinträge usw. in diesen Account übertragen werden?"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/first_login" />
+                app:layout_constraintTop_toBottomOf="@+id/login_back1"
+                app:layout_constraintVertical_bias="0.0" />
 
-            <Button
-                android:id="@+id/first_continue"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="Ohne Konto Fortfahren"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/first_register" />
+
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
@@ -73,11 +291,11 @@
         android:id="@+id/first_scrollview1"
         android:layout_width="368dp"
         android:layout_height="332dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:visibility="invisible"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,8 +316,8 @@
                 android:id="@+id/first_back"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginBottom="24dp"
                 android:text="Zurück"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -108,8 +326,8 @@
                 android:id="@+id/first_continue1"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="24dp"
                 android:text="Fortfahren"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -118,10 +336,10 @@
                 android:id="@+id/first_textview"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:text=" BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toTopOf="@+id/first_continue1"
@@ -130,7 +348,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.04000002" />
         </android.support.constraint.ConstraintLayout>
-
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

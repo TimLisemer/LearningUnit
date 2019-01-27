@@ -18,10 +18,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class RequestHandler {
 
 
-    public String sendPostRequest(String requestURL,
-                                  LinkedHashMap<String, String> postDataParams) {
-
-
+    public String sendPostRequest(String requestURL, LinkedHashMap<String, String> postDataParams) {
 
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8)
@@ -68,6 +65,7 @@ public class RequestHandler {
                     //Reading server response
                     while ((response = br.readLine()) != null) {
                         sb.append(response);
+                        //Log.d("sendGetRequest", url + "   ----------------------------------------------------------------------------");
                     }
                 }
 
@@ -84,6 +82,7 @@ public class RequestHandler {
     }
 
     public String sendGetRequest(String requestURL) {
+        //Log.d("sendGetRequest", requestURL + "   ----------------------------------------------------------------------------");
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8)
         {

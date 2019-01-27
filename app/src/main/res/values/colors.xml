@@ -3,4 +3,7 @@
     <color name="colorPrimary">#3037be</color>
     <color name="colorPrimaryDark">#03040c</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="TEXT_WHITE">#FFFFFF</color>
+    <color name="TEXT_PRESSED">#1B243E</color>
+    <color name="OhneKonto">#535353</color>
 </resources>
