@@ -38,7 +38,7 @@ public class FirstScreen extends AppCompatActivity {
     public static SharedPreferences sharedPreferences;
     private Button Back, accept, decline;
     private EditText email, editpassword1;
-    private int ready1, ready, ready2;
+    private int ready1, ready;
     private TextView errorview;
     private ConstraintLayout view1, view2;
     private static Context context;
@@ -91,25 +91,28 @@ public class FirstScreen extends AppCompatActivity {
                     }
                 });
 
+                errorview = (TextView) findViewById(R.id.login_error);
+
                 email = (EditText) findViewById(R.id.login_email);
                 email.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        Log.d("sssss", "ssssssssssss");
+
                     }
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         email.setError(null);
                         editpassword1.setError(null);
-                        ready2 = 1;
+                        ready = 1;
+                        errorview.setVisibility(View.GONE);
                         String inhalt = email.getText().toString().trim();
                         if(!inhalt.isEmpty()){
                             ready = 1;
                         }else{
                             ready = 0;
                         }
-                        if(ready == 1 && ready1 == 1 && ready2 == 1){
+                        if(ready == 1 && ready1 == 1){
                             login.setEnabled(true);
                         }else{
                             login.setEnabled(false);
@@ -127,21 +130,21 @@ public class FirstScreen extends AppCompatActivity {
                 editpassword1.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        Log.d("ddddddddd", "ssssssssssss");
+
                     }
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         email.setError(null);
                         editpassword1.setError(null);
-                        ready2 = 1;
+                        errorview.setVisibility(View.GONE);
                         String inhalt = editpassword1.getText().toString().trim();
                         if(!inhalt.isEmpty()){
                             ready1 = 1;
                         }else{
                             ready1 = 0;
                         }
-                        if(ready == 1 && ready1 == 1 && ready2 == 1){
+                        if(ready == 1 && ready1 == 1){
                             login.setEnabled(true);
                         }else{
                             login.setEnabled(false);
@@ -216,7 +219,6 @@ public class FirstScreen extends AppCompatActivity {
         }else{
             errorview.setVisibility(View.VISIBLE);
             errorview.setText("Unter diesen Daten konnte kein Account gefunden werden");
-            ready2 = 0;
             login.setEnabled(false);
             return false;
         }

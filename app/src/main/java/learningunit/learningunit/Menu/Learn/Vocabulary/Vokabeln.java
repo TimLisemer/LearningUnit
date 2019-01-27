@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
+import learningunit.learningunit.BeforeStart.FirstScreen;
 import learningunit.learningunit.BeforeStart.Register;
 import learningunit.learningunit.Menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
@@ -39,8 +40,8 @@ import learningunit.learningunit.R;
 
 public class Vokabeln extends AppCompatActivity {
 
-    private Button back, back1, create, base, train, all, follow, rate, settings;
-    private TextView lang1, lang2, original, translation, error, nolist;
+    private Button back, back1, create, base, train, all, follow, rate, settings, errorBack, errorLogin;
+    private TextView lang1, lang2, original, translation, error, nolist, errorText;
     ConstraintLayout layout, layout1, bottom;
     ConstraintSet constraintSet, constraintSeto, constraintSett;
 
@@ -79,7 +80,7 @@ public class Vokabeln extends AppCompatActivity {
         shared.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openShared();
+                sharedClick();
             }
         });
         shared_back = (Button) findViewById(R.id.vocabulary_ShareBack);
@@ -180,7 +181,9 @@ public class Vokabeln extends AppCompatActivity {
         //Initialisieren der Knöpfe und rufen der OnClick methode
 
         bottom = (ConstraintLayout) findViewById(R.id.vocabulary_showvocabularybottom);
-
+        errorText = (TextView) findViewById(R.id.vocabulary_errorText);
+        errorBack = (Button) findViewById(R.id.vocabulary_errorBack);
+        errorLogin = (Button) findViewById(R.id.vocabulary_errorLogin);
         settings = (Button) findViewById(R.id.vocabulary_edit);
         rate = (Button) findViewById(R.id.vocabulary_rate);
         follow = (Button) findViewById(R.id.vocabulary_follow);
@@ -386,7 +389,7 @@ public class Vokabeln extends AppCompatActivity {
             sd = sd.substring(1, sd.length()-1);
             sd = sd.replaceAll("^\"|\"$", "");
             listiD = Integer.parseInt(sd);
-
+            settings.setText("Einstellungen");
             settings.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -402,6 +405,11 @@ public class Vokabeln extends AppCompatActivity {
                 ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + listiD + " zu erreichen.");
                 bottom.setVisibility(View.VISIBLE);
                 follow.setText("... Follower");
+                follow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                });
                 rate.setText("4,5 Sterne");
                 ShareInfo.setVisibility(View.VISIBLE);
             }
@@ -421,14 +429,13 @@ public class Vokabeln extends AppCompatActivity {
             }else{
                 follow.setText("Gefolgt");
             }
-
+            settings.setText("Liste Melden");
             settings.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    openSettings(sharedListID);
+                    Log.d("Liste", "Gemeldet");
                 }
             });
-
             follow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -1130,6 +1137,75 @@ public class Vokabeln extends AppCompatActivity {
     public static int sharedID, sharedListID;
 
 
+    public void sharedClick(){
+        if(ManageData.OfflineAccount == 1){
+            findViewById(R.id.vocabulary_buttonView).setVisibility(View.GONE);
+            findViewById(R.id.vocabulary_errorlayout).setVisibility(View.VISIBLE);
+            errorText.setText("Du musst einen Account verwenden, um auf Öffentliche Listen zugreifen zu können.");
+            errorBack.setText("Zurück");
+            errorBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    findViewById(R.id.vocabulary_errorlayout).setVisibility(View.VISIBLE);
+                    findViewById(R.id.vocabulary_buttonView).setVisibility(View.VISIBLE);
+                }
+            });
+            errorLogin.setText("Anmelden / Regestrieren");
+            errorLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ManageData.RemoveOfflineData();
+                    Intent intent = new Intent(Vokabeln.this, FirstScreen.class);
+                    startActivity(intent);
+                    findViewById(R.id.vocabulary_buttonView).setVisibility(View.VISIBLE);
+                }
+            });
+            shared.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    findViewById(R.id.vocabulary_errorlayout).setVisibility(View.GONE);
+                    findViewById(R.id.vocabulary_buttonView).setVisibility(View.VISIBLE);
+                    shared.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            sharedClick();
+                        }
+                    });
+                }
+            });
+        }else {
+            if(ManageData.InternetAvailable(context) == true) {
+                openShared();
+                findViewById(R.id.vocabulary_buttonView).setVisibility(View.VISIBLE);
+                findViewById(R.id.vocabulary_errorlayout).setVisibility(View.GONE);
+            }else{
+                findViewById(R.id.vocabulary_errorlayout).setVisibility(View.VISIBLE);
+                findViewById(R.id.vocabulary_buttonView).setVisibility(View.GONE);
+                errorText.setText("Es ist eine Internetverbinung erforderlich, um auf Öffentliche Listen zugreifen zu können.");
+                errorBack.setText("Zurück");
+                errorBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        findViewById(R.id.vocabulary_errorlayout).setVisibility(View.GONE);
+                        findViewById(R.id.vocabulary_buttonView).setVisibility(View.VISIBLE);
+                    }
+                });
+                shared.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sharedClick();
+                    }
+                });
+                errorLogin.setText("Erneut Versuchen");
+                errorLogin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sharedClick();
+                    }
+                });
+            }
+        }
+    }
 
 
     public void openShared(){
