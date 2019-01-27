@@ -39,7 +39,7 @@ import learningunit.learningunit.R;
 
 public class Vokabeln extends AppCompatActivity {
 
-    private Button back, back1, create, base, train, all, follow, rate;
+    private Button back, back1, create, base, train, all, follow, rate, settings;
     private TextView lang1, lang2, original, translation, error, nolist;
     ConstraintLayout layout, layout1, bottom;
     ConstraintSet constraintSet, constraintSeto, constraintSett;
@@ -181,6 +181,7 @@ public class Vokabeln extends AppCompatActivity {
 
         bottom = (ConstraintLayout) findViewById(R.id.vocabulary_showvocabularybottom);
 
+        settings = (Button) findViewById(R.id.vocabulary_edit);
         rate = (Button) findViewById(R.id.vocabulary_rate);
         follow = (Button) findViewById(R.id.vocabulary_follow);
         base = (Button) findViewById(R.id.vocabulary_base);
@@ -365,9 +366,9 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void showvocabularys(final int id){
-        int listiD;
+        final int listiD;
 
-        VocabularyList vocabularyList;
+        final VocabularyList vocabularyList;
         if(publiclist == false || sharedlist == null) {
             train.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -376,28 +377,65 @@ public class Vokabeln extends AppCompatActivity {
                 }
             });
             vocabularyList = VocabularyMethods.vocabularylists.get(id);
+            LinkedHashMap<String, String> params = new LinkedHashMap <>();
+            params.put("id", ManageData.getUserID() + "");
+            params.put("Titel", VocabularyMethods.vocabularylists.get(id).getName());
+
+            RequestHandler requestHandler = new RequestHandler();
+            String sd = requestHandler.sendPostRequest(MainActivity.URL_ListAvailable, params);
+            sd = sd.substring(1, sd.length()-1);
+            sd = sd.replaceAll("^\"|\"$", "");
+            listiD = Integer.parseInt(sd);
+
+            settings.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openSettings(listiD);
+                }
+            });
+
             if(publiclist == false) {
                 ShareInfo.setVisibility(View.GONE);
                 bottom.setVisibility(View.GONE);
             }else{
 
-                LinkedHashMap<String, String> params = new LinkedHashMap <>();
-                params.put("id", ManageData.getUserID() + "");
-                params.put("Titel", VocabularyMethods.vocabularylists.get(id).getName());
-
-                RequestHandler requestHandler = new RequestHandler();
-                String sd = requestHandler.sendPostRequest(MainActivity.URL_ListAvailable, params);
-                sd = sd.substring(1, sd.length()-1);
-                sd = sd.replaceAll("^\"|\"$", "");
-                listiD = Integer.parseInt(sd);
-
                 ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + listiD + " zu erreichen.");
                 bottom.setVisibility(View.VISIBLE);
+                follow.setText("... Follower");
+                rate.setText("4,5 Sterne");
                 ShareInfo.setVisibility(View.VISIBLE);
             }
         }else{
             vocabularyList = sharedlist;
+            Log.d("Lenght", vocabularyList.getVocabularylist().size() + " Size ---------------------------------------------------------");
             bottom.setVisibility(View.VISIBLE);
+            RequestHandler requestHandler = new RequestHandler();
+            String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + sharedListID + "&UserID=" + ManageData.getUserID());
+            Gson gson = new Gson();
+            Type type = new TypeToken<String>() {}.getType();
+            String a = gson.fromJson(json, type);
+
+            final int followStatus = Integer.parseInt(a);
+            if(followStatus == 0) {
+                follow.setText("Folgen");
+            }else{
+                follow.setText("Gefolgt");
+            }
+
+            settings.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openSettings(sharedListID);
+                }
+            });
+
+            follow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openFollow();
+                }
+            });
+            rate.setText("Bewerten");
             ShareInfo.setVisibility(View.VISIBLE);
         }
 
@@ -493,6 +531,7 @@ public class Vokabeln extends AppCompatActivity {
             constraintSett.applyTo(layout1);
         }
         translation.setText(vocabularyList.getVocabularylist().get(0).getTranslation());
+
     }
 
     public void open_back(){
@@ -1273,6 +1312,71 @@ public class Vokabeln extends AppCompatActivity {
                     }
                 });
     }
+
+
+
+    public void openFollow(){
+        RequestHandler requestHandler = new RequestHandler();
+        String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + sharedListID + "&UserID=" + ManageData.getUserID());
+        Gson gson = new Gson();
+        Type type = new TypeToken<String>() {}.getType();
+        String a = gson.fromJson(json, type);
+
+        final int followStatus = Integer.parseInt(a);
+
+        LinkedHashMap<String, String> params = new LinkedHashMap <>();
+        params.put("VocID", sharedListID+ "");
+        params.put("UserID", ManageData.getUserID() + "");
+        params.put("UserID", ManageData.getUserID() + "");
+        if(followStatus == 0) {
+            params.put("State", 1 + "");
+            follow.setText("Gefolgt");
+        }else{
+            params.put("State", 0 + "");
+            follow.setText("Folgen");
+        }
+
+        requestHandler.sendPostRequest(MainActivity.URL_Follow, params);
+    }
+
+
+
+    public void openSettings(int vocID){
+        if(ManageData.InternetAvailable(context)) {
+            RequestHandler requestHandler = new RequestHandler();
+            String json = requestHandler.sendGetRequest(MainActivity.URL_GetShared + vocID);
+            Gson gson = new Gson();
+            Type type = new TypeToken<String>() {
+            }.getType();
+            String a = gson.fromJson(json, type);
+
+            final int sharedStatus = Integer.parseInt(a);
+            if (sharedStatus == 0) {
+                requestHandler.sendGetRequest(MainActivity.URL_changesShared + vocID + "&State=1");
+                ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + vocID + " zu erreichen.");
+                ShareInfo.setVisibility(View.VISIBLE);
+            } else {
+                requestHandler.sendGetRequest(MainActivity.URL_changesShared + vocID + "&State=0");
+                ShareInfo.setVisibility(View.GONE);
+
+            }
+        }else{
+            ShareInfo.setText("Internet nicht Verfügbar");
+            ShareInfo.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

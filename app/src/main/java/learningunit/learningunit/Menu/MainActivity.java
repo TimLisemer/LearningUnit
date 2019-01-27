@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_GetVocabs = ROOT_URL + "GetVocabs&id=";
     public static final String URL_GetSharedLists = ROOT_URL + "GetSharedLists";
     public static final String URL_ListAvailable = ROOT_URL + "ListAvailable";
+    public static final String URL_GetShared = ROOT_URL + "GetShared&id=";
+    public static final String URL_changesShared = ROOT_URL + "changesShared&id=";
+    public static final String URL_getFollow = ROOT_URL + "getFollow&VocID=";
+    public static final String URL_Follow = ROOT_URL + "Follow";
 
 
 

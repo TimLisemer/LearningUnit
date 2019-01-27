@@ -133,8 +133,7 @@ public class ManageData extends MainActivity{
             try {
                 RequestHandler requestHandler = new RequestHandler();
                 Gson gson = new Gson();
-                Type type = new TypeToken<ArrayList<ArrayList<String>>>() {
-                }.getType();
+                Type type = new TypeToken<ArrayList<ArrayList<String>>>() {}.getType();
                 Log.d("Download", "----------------------------------------------------------------------------------------------");
                 Log.d("Download", "Downloading Vocabularys for VocabularyList: " + Name);
                 Log.d("Download", "------------------------------------------------------------------------------------------------------");
@@ -152,7 +151,7 @@ public class ManageData extends MainActivity{
                 if(Vokabeln.publiclist == false) {
                     json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + getUserID() + "&Titel=" + vocabularyList.getName());
                     voclist = gson.fromJson(json1, type);
-                }else{
+                }else {
                     json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + Vokabeln.sharedID + "&Titel=" + vocabularyList.getName());
                     voclist = gson.fromJson(json1, type);
                 }
