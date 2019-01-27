@@ -62,9 +62,6 @@ public class VocabularyMethods {
     }
 
     public static void saveVocabularyList(VocabularyList VocList){
-
-
-
         if(VocabularyMethods.vocabularylists != null) {
             if (!(VocabularyMethods.vocabularylists.contains(VocList))) {
                 VocabularyMethods.vocabularylists.add(VocList);
