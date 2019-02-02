@@ -287,7 +287,7 @@ public class Vokabeln extends AppCompatActivity {
                         languageslistsString.add(list.getName());
                     } else {
                         if (list.getFollowed() == false) {
-                           yourlistsString.add(list.getName());
+                            yourlistsString.add(list.getName());
                         } else {
                             followedlistsString.add(list.getName());
                         }
@@ -495,7 +495,7 @@ public class Vokabeln extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try {
-                           showvocabularys(VocabularyMethods.getVocabularyList0(s));
+                            showvocabularys(VocabularyMethods.getVocabularyList0(s));
                         }catch (Exception e){}
                     }
                 });
@@ -828,19 +828,19 @@ public class Vokabeln extends AppCompatActivity {
                 }else{
 
                     if((level0.size() == 1) && (level1.size() == 0) && (level2.size() == 0) && (level3.size() == 0)){
-                        voc = level0.get(0);
+                        voc = level0.get(d);
                         lastvocabulary = d;
                         break;
                     }else if((level0.size() == 0) && (level1.size() == 1) && (level2.size() == 0) && (level3.size() == 0)){
-                        voc = level1.get(0);
+                        voc = level1.get(d);
                         lastvocabulary = d;
                         break;
                     }else if((level0.size() == 0) && (level1.size() == 0) && (level2.size() == 1) && (level3.size() == 0)){
-                        voc = level2.get(0);
+                        voc = level2.get(d);
                         lastvocabulary = d;
                         break;
                     }else if((level0.size() == 0) && (level1.size() == 0) && (level2.size() == 0) && (level3.size() == 1)) {
-                        voc = level3.get(0);
+                        voc = level3.get(d);
                         lastvocabulary = d;
                         break;
                     }
@@ -871,11 +871,11 @@ public class Vokabeln extends AppCompatActivity {
                     if(level0.contains(voc)) {
                         open_learn_showtranslation(showvocablist,true, level0, level1, level2, level3, level4);
                     }else if(level1.contains(voc)) {
-                        open_learn_showtranslation(showvocablist,false, level0, level1, level2, level3, level4);
+                        open_learn_showtranslation(showvocablist,true, level0, level1, level2, level3, level4);
                     }else if(level2.contains(voc)) {
                         open_learn_showtranslation(showvocablist,true, level0, level1, level2, level3, level4);
                     }else if(level3.contains(voc)) {
-                        open_learn_showtranslation(showvocablist,false, level0, level1, level2, level3, level4);
+                        open_learn_showtranslation(showvocablist,true, level0, level1, level2, level3, level4);
                     }
                 }
             });
@@ -887,11 +887,11 @@ public class Vokabeln extends AppCompatActivity {
                     if (level0.contains(voc)) {
                         open_learn_enter(showvocablist,true, level0, level1, level2, level3, level4 );
                     } else if (level1.contains(voc)) {
-                        open_learn_enter(showvocablist,false, level0, level1, level2, level3, level4);
+                        open_learn_enter(showvocablist,true, level0, level1, level2, level3, level4);
                     } else if (level2.contains(voc)) {
                         open_learn_enter(showvocablist,true, level0, level1, level2, level3, level4);
                     } else if (level3.contains(voc)) {
-                        open_learn_enter(showvocablist,false, level0, level1, level2, level3, level4);
+                        open_learn_enter(showvocablist,true, level0, level1, level2, level3, level4);
                     }
                 }
             });
@@ -918,11 +918,11 @@ public class Vokabeln extends AppCompatActivity {
                     if(level0.contains(voc)) {
                         open_learn_showtranslation(showvocablist,false, level0, level1, level2, level3, level4);
                     }else if(level1.contains(voc)) {
-                        open_learn_showtranslation(showvocablist,true, level0, level1, level2, level3, level4);
+                        open_learn_showtranslation(showvocablist,false, level0, level1, level2, level3, level4);
                     }else if(level2.contains(voc)) {
                         open_learn_showtranslation(showvocablist,false, level0, level1, level2, level3, level4);
                     }else if(level3.contains(voc)) {
-                        open_learn_showtranslation(showvocablist,true, level0, level1, level2, level3, level4);
+                        open_learn_showtranslation(showvocablist,false, level0, level1, level2, level3, level4);
                     }
                 }
             });
@@ -935,11 +935,11 @@ public class Vokabeln extends AppCompatActivity {
                     if(level0.contains(voc)) {
                         open_learn_enter(showvocablist, false, level0, level1, level2, level3, level4);
                     }else if(level1.contains(voc)) {
-                        open_learn_enter(showvocablist,true, level0, level1, level2, level3, level4);
+                        open_learn_enter(showvocablist,false, level0, level1, level2, level3, level4);
                     }else if(level2.contains(voc)) {
                         open_learn_enter(showvocablist,false, level0, level1, level2, level3, level4);
                     }else if(level3.contains(voc)) {
-                        open_learn_enter(showvocablist,true, level0, level1, level2, level3, level4);
+                        open_learn_enter(showvocablist,false, level0, level1, level2, level3, level4);
                     }
                 }
 
@@ -974,8 +974,6 @@ public class Vokabeln extends AppCompatActivity {
                         level3.remove(voc);
                     }
 
-                    Log.d("Wrong", "Next Vocabulary, Ungerade");
-                    Log.d("Wrong", voc.getTranslation() + " != " + learn_translation.getText().toString());
                     open_train(showvocablist, level0, level1, level2, level3, level4);
                 }
             }else{
@@ -996,11 +994,8 @@ public class Vokabeln extends AppCompatActivity {
 
 
                 if(level4.size() == vocabularylist.size()){
-                    Log.d("Right", "Finish");
                     openfinish();
                 }else {
-                    Log.d("Right", "Next Vocabulary, ID: Ungerade");
-                    Log.d("Right", voc.getTranslation() + " == " + learn_translation.getText().toString());
                     open_train(showvocablist, level0, level1, level2, level3, level4);
                 }
             }
@@ -1029,8 +1024,6 @@ public class Vokabeln extends AppCompatActivity {
                         level3.remove(voc);
                     }
 
-                    Log.d("Wrong", "Next Vocabulary, ID: Gerade");
-                    Log.d("Wrong", voc.getOriginal() + " != " + learn_translation.getText().toString());
                     open_train(showvocablist, level0, level1, level2, level3, level4);
                 }
             }else{
@@ -1050,11 +1043,8 @@ public class Vokabeln extends AppCompatActivity {
                 }
 
                 if(level4.size() == vocabularylist.size()){
-                    Log.d("Right", "Finish");
                     openfinish();
                 }else {
-                    Log.d("Right", "Next Vocabulary, Gerade");
-                    Log.d("Right", voc.getOriginal() + " == " + learn_translation.getText().toString());
                     open_train(showvocablist, level0, level1, level2, level3, level4);
                 }
             }
@@ -1133,7 +1123,6 @@ public class Vokabeln extends AppCompatActivity {
                 }else{
 
                     //learn_masterTranslation.setText(vocabularylist.get(lastvocabulary).getOriginal());
-                    learn_masterTranslation.setText("Hallo");
 
                     learn_languages.setText(voc.getLanguageName2() + " - " + voc.getLanguageName1());
                     learn_vocabularys.setText(voc.getTranslation() + " - " + voc.getOriginal());
