@@ -33,9 +33,9 @@ public class VocabularyMethods {
     public static void removeFollowedVocabularys(VocabularyList SharedList){
         VocabularyList list = null;
         if(VocabularyMethods.VocabularyLanguageUsed(SharedList.getLanguageName1(), SharedList.getLanguageName2()) == 1){
-            list = VocabularyMethods.getVocabularyList("AllVoc_" + SharedList.getLanguageName1() + "_" + SharedList.getLanguageName2(), true);
+            list = VocabularyMethods.getVocabularyList("AllVoc_" + SharedList.getLanguageName1() + " <--> " + SharedList.getLanguageName2(), true);
         }else if(VocabularyMethods.VocabularyLanguageUsed(SharedList.getLanguageName1(), SharedList.getLanguageName2()) == 2) {
-            list = VocabularyMethods.getVocabularyList("AllVoc_" + SharedList.getLanguageName2() + "_" + SharedList.getLanguageName1(), true);
+            list = VocabularyMethods.getVocabularyList("AllVoc_" + SharedList.getLanguageName2() + " <--> " + SharedList.getLanguageName1(), true);
         }
 
         if(list != null) {
@@ -49,10 +49,10 @@ public class VocabularyMethods {
         if (vocabularylists != null) {
             for (int i = 0; i < vocabularylists.size(); i++) {
                 VocabularyList list = vocabularylists.get(i);
-                if (list.getName().equalsIgnoreCase("AllVoc_" + language1 + "_" + language2)) {
+                if (list.getName().equalsIgnoreCase("AllVoc_" + language1 + " <--> " + language2)) {
                     return 1;
 
-                }else if (list.getName().equalsIgnoreCase("AllVoc_" + language2 + "_" + language1)) {
+                }else if (list.getName().equalsIgnoreCase("AllVoc_" + language2 + " <--> " + language1)) {
                     return  2;
 
                 }

@@ -18,27 +18,27 @@ public class Vocabulary {
         if(VocabularyMethods.VocabularyLanguageUsed(LanguageName1, getLanguageName2()) == 0){
             VocabularyList list;
             if(ManageData.OfflineAccount != 2){
-                list = new VocabularyList(getLanguageName1(), LanguageName2, "AllVoc_" + LanguageName1 + "_" + LanguageName2, false, followed);
+                list = new VocabularyList(getLanguageName1(), LanguageName2, "AllVoc_" + LanguageName1 + " <--> " + LanguageName2, false, followed);
             }else{
-                list = new VocabularyList(getLanguageName1(), LanguageName2, "AllVoc_" + LanguageName1 + "_" + LanguageName2, true, followed);
+                list = new VocabularyList(getLanguageName1(), LanguageName2, "AllVoc_" + LanguageName1 + " <--> " + LanguageName2, true, followed);
             }
             if(!(list.ContainsVocabulary(this))) {
                 list.addVocabulary(this);
-                Log.d("ADDED", this.getOriginal() + " - " + this.getTranslation() + " to ALLLIST");
+                Log.d("ADDED", this.getOriginal() + " <--> " + this.getTranslation() + " to ALLLIST");
                 VocabularyMethods.saveVocabularyList(list);
             }
         }else if(VocabularyMethods.VocabularyLanguageUsed(LanguageName1, getLanguageName2()) == 1){
-            VocabularyList list = VocabularyMethods.getVocabularyList("AllVoc_" + LanguageName1 + "_" + LanguageName2, followed);
+            VocabularyList list = VocabularyMethods.getVocabularyList("AllVoc_" + LanguageName1 + " <--> " + LanguageName2, followed);
             if(!(list.ContainsVocabulary(this))) {
                 list.addVocabulary(this);
                 VocabularyMethods.saveVocabularyList(list);
-                Log.d("ADDED", this.getOriginal() + " - " + this.getTranslation() + " to ALLLIST");
+                Log.d("ADDED", this.getOriginal() + " <--> " + this.getTranslation() + " to ALLLIST");
             }
         }else if(VocabularyMethods.VocabularyLanguageUsed(LanguageName1, getLanguageName2()) == 2){
-            VocabularyList list = VocabularyMethods.getVocabularyList("AllVoc_" + LanguageName2 + "_" + LanguageName1, followed);
+            VocabularyList list = VocabularyMethods.getVocabularyList("AllVoc_" + LanguageName2 + " <--> " + LanguageName1, followed);
             if(!(list.ContainsVocabulary(this))) {
                 list.addVocabulary(this);
-                Log.d("ADDED", this.getOriginal() + " - " + this.getTranslation() + " to ALLLIST");
+                Log.d("ADDED", this.getOriginal() + " <--> " + this.getTranslation() + " to ALLLIST");
                 VocabularyMethods.saveVocabularyList(list);
             }
         }
