@@ -173,7 +173,7 @@ public class CreateVocList extends AppCompatActivity{
         }else{
             if (!(languagetext.getText().toString().trim().equalsIgnoreCase(languagetext1.getText().toString().trim()))) {
                 if(VocabularyMethods.nameavailable(listtext.getText().toString()) == true){
-                    list = new VocabularyList(language, language1, listtext.getText().toString(), false);
+                    list = new VocabularyList(language, language1, listtext.getText().toString(), false, false);
                     if(ManageData.OfflineAccount == 2){
                         Log.d("CreateVocList", "Set Source for list " + list.getName() + " to true");
                         list.setSource(true);
@@ -224,7 +224,7 @@ public class CreateVocList extends AppCompatActivity{
         }else if (vocabulary1.length() <= 0){
             error1.setText("Bitte gebe die Vokabel auf " + language1 + " an.");
         }else{
-            Vocabulary voc = new Vocabulary(vocabulary.getText().toString(), vocabulary1.getText().toString(), language, language1);
+            Vocabulary voc = new Vocabulary(vocabulary.getText().toString(), vocabulary1.getText().toString(), language, language1, false);
             list.addVocabulary(voc);
             vocabulary.setText("");
             vocabulary1.setText("");
@@ -254,7 +254,7 @@ public class CreateVocList extends AppCompatActivity{
                 vocabulary1.setHint("Übersetzung (" + language1 + ")");
             }else {
                 MainActivity.hideKeyboard(this);
-                Vocabulary voc = new Vocabulary(vocabulary.getText().toString(), vocabulary1.getText().toString(), language, language1);
+                Vocabulary voc = new Vocabulary(vocabulary.getText().toString(), vocabulary1.getText().toString(), language, language1, false);
                 list.addVocabulary(voc);
 
                 findViewById(R.id.CreateVocList_scrollview1).setVisibility(View.INVISIBLE);

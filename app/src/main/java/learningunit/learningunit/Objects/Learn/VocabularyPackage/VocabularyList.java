@@ -8,20 +8,46 @@ public class VocabularyList {
 
     private ArrayList<Vocabulary> vocabularylist =  new ArrayList<Vocabulary>();
     private String name, LanguageName1, LanguageName2;
-    private boolean source;
+    private boolean source, followed, Shared;
+    private int id;
+    private int CreatorID;
 
-    public VocabularyList(String LanguageName1, String LanguageName2, String name, boolean source) {
+    public VocabularyList(String LanguageName1, String LanguageName2, String name, boolean source, boolean followed) {
         this.source = source;
         this.LanguageName1 = LanguageName1;
         this.LanguageName2 = LanguageName2;
         this.name = name;
+        this.followed = followed;
 
-        Log.d("VocabularyList", "Created Vocabulary List " + name + "Source: " + source);
+        Log.d("VocabularyList", "Created Vocabulary List " + name + "Source: " + source + " Followed: " + followed);
+    }
+
+    public VocabularyList(String LanguageName1, String LanguageName2, String name, boolean source, boolean followed, int ID, int CreatorID) {
+        this.source = source;
+        this.LanguageName1 = LanguageName1;
+        this.LanguageName2 = LanguageName2;
+        this.name = name;
+        this.followed = followed;
+        this.id = ID;
+        this.CreatorID = CreatorID;
+
+        Log.d("VocabularyList", "Created Vocabulary List " + name + "Source: " + source + " Followed: " + followed + " ID: " + id + " CreatorID: " + CreatorID);
     }
 
     public void addVocabulary(Vocabulary voc){
         vocabularylist.add(voc);
 
+    }
+
+    public boolean ContainsVocabulary(Vocabulary voc){
+        boolean falser = false;
+        for (Vocabulary main : this.vocabularylist){
+            if(main.getOriginal().equalsIgnoreCase(voc.getOriginal()) && main.getTranslation().equalsIgnoreCase(voc.getTranslation())){
+                falser = true;
+                break;
+            }
+        }
+        return falser;
     }
 
     public int size(){
@@ -32,7 +58,21 @@ public class VocabularyList {
         return this.vocabularylist;
     }
 
+    public void setID(int ID){
+        this.id = ID;
+    }
 
+    public int getID(){
+        return this.id;
+    }
+
+    public void setCreatorID(int CreatorID){
+        this.CreatorID = CreatorID;
+    }
+
+    public int getCreatorID(){
+        return this.CreatorID;
+    }
 
     public void setLanguageName1(String languageName1) {
         LanguageName1 = languageName1;
@@ -51,8 +91,21 @@ public class VocabularyList {
         this.name = name;
     }
 
+    public boolean getFollowed(){
+        return this.followed;
+    }
+
     public boolean getSource() { //true = online; false = offline
         return source;
+    }
+
+
+
+    public boolean getShared() {
+        return Shared;
+    }
+    public void setShared(boolean Shared) {
+        this.Shared = Shared;
     }
 
     public void setSource(boolean source) { //true = online; false = offline

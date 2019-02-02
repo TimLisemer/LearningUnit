@@ -1,5 +1,7 @@
 package learningunit.learningunit.Objects.Learn.VocabularyPackage;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,21 @@ public class VocabularyMethods {
         return a;
     }
 
+
+    public static void removeFollowedVocabularys(VocabularyList SharedList){
+        VocabularyList list = null;
+        if(VocabularyMethods.VocabularyLanguageUsed(SharedList.getLanguageName1(), SharedList.getLanguageName2()) == 1){
+            list = VocabularyMethods.getVocabularyList("AllVoc_" + SharedList.getLanguageName1() + "_" + SharedList.getLanguageName2(), true);
+        }else if(VocabularyMethods.VocabularyLanguageUsed(SharedList.getLanguageName1(), SharedList.getLanguageName2()) == 2) {
+            list = VocabularyMethods.getVocabularyList("AllVoc_" + SharedList.getLanguageName2() + "_" + SharedList.getLanguageName1(), true);
+        }
+
+        if(list != null) {
+            vocabularylists.remove(list);
+        }
+
+    }
+
     public static int VocabularyLanguageUsed(String language1, String language2){
 
         if (vocabularylists != null) {
@@ -45,7 +62,17 @@ public class VocabularyMethods {
     }
 
 
-    public static VocabularyList getVocabularyList(String name){
+    public static VocabularyList getVocabularyList(String name, boolean followed){
+        for (int i = 0; i < vocabularylists.size(); i ++){
+            VocabularyList list = vocabularylists.get(i);
+            if(list.getName().equalsIgnoreCase(name) && list.getFollowed() == followed){
+                return vocabularylists.get(i);
+            }
+        }
+        return null;
+    }
+
+    public static VocabularyList getVocabularyList0(String name){
         for (int i = 0; i < vocabularylists.size(); i ++){
             VocabularyList list = vocabularylists.get(i);
             if(list.getName().equalsIgnoreCase(name)){
@@ -61,9 +88,8 @@ public class VocabularyMethods {
         vocabularylists.remove(list);
     }
 
+
     public static void saveVocabularyList(VocabularyList VocList){
-
-
 
         if(VocabularyMethods.vocabularylists != null) {
             if (!(VocabularyMethods.vocabularylists.contains(VocList))) {
@@ -77,6 +103,7 @@ public class VocabularyMethods {
             VocabularyMethods.vocabularylists = new ArrayList<VocabularyList>();
             VocabularyMethods.vocabularylists.add(VocList);
         }
+
         ManageData.saveVocabularyLists();
     }
 

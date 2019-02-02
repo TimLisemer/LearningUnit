@@ -3,6 +3,7 @@ package learningunit.learningunit.Menu.Learn.Vocabulary;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.opengl.Visibility;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.constraint.Guideline;
@@ -22,9 +23,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Random;
 
 import learningunit.learningunit.BeforeStart.FirstScreen;
@@ -40,16 +43,19 @@ import learningunit.learningunit.R;
 
 public class Vokabeln extends AppCompatActivity {
 
-    private Button back, back1, create, base, train, all, follow, rate, settings, errorBack, errorLogin;
+    private Button back, back1, create, train, all, follow, rate, settings, errorBack, errorLogin, yourBase, followbase, allBase, nolistButton;
     private TextView lang1, lang2, original, translation, error, nolist, errorText;
-    ConstraintLayout layout, layout1, bottom;
+    ConstraintLayout layout, layout0, layout00, layout1, bottom;
     ConstraintSet constraintSet, constraintSeto, constraintSett;
-
+    private boolean direction = true;
     private ArrayList<Vocabulary> vocabularylist;
-    private ArrayList<Button> buttonlist = new ArrayList<Button>();
-    private ArrayList<Button> buttonlanglist = new ArrayList<Button>();
-    private TextView downoriginal[];
+    private ArrayList<String> yourlistsString = new ArrayList<String>();
+    private ArrayList<String> followedlistsString = new ArrayList<String>();
+    private ArrayList<String> languageslistsString = new ArrayList<String>();
     private TextView downtranslation[];
+    private TextView downoriginal[];
+    private Button downyourLists[];
+    private Button downfollowedLists[];
     private Context context;
 
     //Lernbereich
@@ -61,7 +67,6 @@ public class Vokabeln extends AppCompatActivity {
             learn_language, learn_original, learn_language1, learn_languages, learn_vocabularys, learn_masterTranslation;
 
     private EditText learn_translation;
-
     private TextInputLayout learn_input;
 
     //Lernbereich
@@ -87,15 +92,8 @@ public class Vokabeln extends AppCompatActivity {
         shared_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int size = (SharedButtonList0.length + SharedButtonList1.length + SharedButtonList2.length + SharedButtonList3.length) / 4;
-                for(int i = 1; i < size; i++){
-                    ShareLayout.removeView(SharedButtonList0[i]);
-                    ShareLayout.removeView(SharedButtonList1[i]);
-                    ShareLayout.removeView(SharedButtonList2[i]);
-                    ShareLayout.removeView(SharedButtonList3[i]);
-                }
-                findViewById(R.id.vocabulary_scrollView).setVisibility(View.VISIBLE);
-                findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.GONE);
+                Intent intent = new Intent(Vokabeln.this, Vokabeln.class);
+                startActivity(intent);
             }
         });
 
@@ -174,12 +172,18 @@ public class Vokabeln extends AppCompatActivity {
         //Lernbereich
 
         layout = (ConstraintLayout) findViewById(R.id.vocabulary_scrollview4);
+        layout0 = (ConstraintLayout) findViewById(R.id.vocabulary_scrollview40);
+        layout00 = (ConstraintLayout) findViewById(R.id.vocabulary_scrollview400);
         layout1 = (ConstraintLayout) findViewById(R.id.vocabulary_constraintlayout1);
 
         ManageData.loadVocabularyLists(context);
 
         //Initialisieren der Knöpfe und rufen der OnClick methode
-
+        nolistButton = (Button) findViewById(R.id.vocabulary_nolistsButton);
+        followbase = (Button) findViewById(R.id.vocabulary_followBase);
+        yourBase = (Button) findViewById(R.id.vocabulary_yourBase);
+        allBase = (Button) findViewById(R.id.vocabulary_allBase);
+        followbase = (Button) findViewById(R.id.vocabulary_followBase);
         bottom = (ConstraintLayout) findViewById(R.id.vocabulary_showvocabularybottom);
         errorText = (TextView) findViewById(R.id.vocabulary_errorText);
         errorBack = (Button) findViewById(R.id.vocabulary_errorBack);
@@ -187,20 +191,21 @@ public class Vokabeln extends AppCompatActivity {
         settings = (Button) findViewById(R.id.vocabulary_edit);
         rate = (Button) findViewById(R.id.vocabulary_rate);
         follow = (Button) findViewById(R.id.vocabulary_follow);
-        base = (Button) findViewById(R.id.vocabulary_base);
         nolist = (TextView) findViewById(R.id.vocabulary_nolists);
         lang1 = (TextView) findViewById(R.id.vocabulary_language);
         lang2 = (TextView) findViewById(R.id.vocabulary_language1);
         original = (TextView) findViewById(R.id.vocabulary_original);
         translation = (TextView) findViewById(R.id.vocabulary_translation);
 
-        all = (Button) findViewById(R.id.vocabulary_all);
-        all.setOnClickListener(new View.OnClickListener() {
+        nolistButton = (Button) findViewById(R.id.vocabulary_nolistsButton);
+        nolistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                open_all();
+                open_create();
             }
         });
+
+        all = (Button) findViewById(R.id.vocabulary_all);
 
         back1 = (Button) findViewById(R.id.vocabulary_back1);
         back1.setOnClickListener(new View.OnClickListener() {
@@ -231,11 +236,6 @@ public class Vokabeln extends AppCompatActivity {
         error = (TextView) findViewById(R.id.vocabulary_error);
 
         ShowLists();
-
-        for (int i = 0; i < buttonlanglist.size(); i++){
-            Button b = buttonlanglist.get(i);
-            b.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -251,124 +251,277 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void ShowLists(){
-        int d = 0;
-        int e = 0;
-        boolean f = true;
-
-        if(VocabularyMethods.vocabularylists != null) {
+        if(VocabularyMethods.vocabularylists.size() > 0) {
             nolist.setVisibility(View.GONE);
-            all.setEnabled(true);
-            base.setVisibility(View.INVISIBLE);
-            Button down[] = new Button[VocabularyMethods.vocabularylists.size()];
-            learn_languages.setText("Sprache - Sprache");
-            learn_vocabularys.setText("Original - Übersetzung");
+            nolistButton.setVisibility(View.GONE);
 
-            for (int i = 0; i < VocabularyMethods.vocabularylists.size(); i++) {
-                if (!(VocabularyMethods.vocabularylists.get(i).getName().contains("AllVoc_"))) {
-                    if (!(base.getVisibility() == View.INVISIBLE)) {
-                        down[i] = new Button(Vokabeln.this);
+            if(ManageData.InternetAvailable(context)) {
+                ManageData.DownloadFollowedVocabularyLists(context);
+                ManageData.DownloadVocabularyLists(context);
+            }
 
-                        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
-                                ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            yourlistsString.clear();
+            followedlistsString.clear();
+            languageslistsString.clear();
 
-                        params.setMargins(8, 90, 8, 8);
-
-                        down[i].setText(VocabularyMethods.vocabularylists.get(i).getName());
-                        down[i].setId(i);
-
-
-                        Log.d("i = " + i, "added button with name " + VocabularyMethods.vocabularylists.get(i).getName() + " to view");
-                        layout.addView(down[i], params);
-
-
-                        constraintSet = new ConstraintSet();
-                        constraintSet.clone(layout);
-                        if (f == true) {
-                            constraintSet.connect(i, ConstraintSet.TOP, base.getId(), ConstraintSet.BOTTOM);
-
-                            constraintSet.connect(i, ConstraintSet.RIGHT, base.getId(), ConstraintSet.RIGHT);
-                            constraintSet.connect(i, ConstraintSet.LEFT, base.getId(), ConstraintSet.LEFT);
-                            f = false;
-                        } else {
-                            constraintSet.connect(i, ConstraintSet.TOP, e - 1, ConstraintSet.BOTTOM);
-                            constraintSet.connect(i, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline3).getId(), ConstraintSet.LEFT);
-                            constraintSet.connect(i, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline4).getId(), ConstraintSet.RIGHT);
-                        }
-
-                        e = i + 1;
-                        constraintSet.applyTo(layout);
-                        openshowvocabularys(down[i], i);
-                        buttonlist.add(down[i]);
-                    } else {
-                        base.setVisibility(View.VISIBLE);
-                        base.setText(VocabularyMethods.vocabularylists.get(i).getName());
-                        openshowvocabularys(base, i);
-                        buttonlist.add(base);
+            boolean yourfirst = true, followedfirst = true, allfirst = true;
+            List<VocabularyList> c = new ArrayList<VocabularyList>();
+            List<VocabularyList> d =  new ArrayList<VocabularyList>();
+            for (VocabularyList e : VocabularyMethods.vocabularylists){
+                d .add(e);
+            }
+            for(VocabularyList list : d){
+                if(ManageData.InternetAvailable(context)){
+                    if (!(list.getName().contains("AllVoc_"))) {
+                        Vokabeln.publiclist = false;
+                        Vokabeln.sharedlist = null;
+                        Vokabeln.sharedID = 0;
+                        Vokabeln.sharedListID = 0;
+                        ManageData.DownloadVocabularys(list.getName(), context);
                     }
-                    d++;
-                }else{
-                    if (!(base.getVisibility() == View.INVISIBLE)) {
-                        down[i] = new Button(Vokabeln.this);
-
-                        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
-                                ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                        params.setMargins(8, 90, 8, 8);
-
-                        down[i].setText(VocabularyMethods.vocabularylists.get(i).getLanguageName1() + " - " + VocabularyMethods.vocabularylists.get(i).getLanguageName2());
-                        down[i].setId(i);
-
-
-                        Log.d("i = " + i, "added button with name " + VocabularyMethods.vocabularylists.get(i).getName() + " to view");
-                        layout.addView(down[i], params);
-
-
-                        constraintSet = new ConstraintSet();
-                        constraintSet.clone(layout);
-                        if (f == true) {
-                            constraintSet.connect(i, ConstraintSet.TOP, base.getId(), ConstraintSet.BOTTOM);
-
-                            constraintSet.connect(i, ConstraintSet.RIGHT, base.getId(), ConstraintSet.RIGHT);
-                            constraintSet.connect(i, ConstraintSet.LEFT, base.getId(), ConstraintSet.LEFT);
-                            f = false;
-                        } else {
-                            constraintSet.connect(i, ConstraintSet.TOP, e - 1, ConstraintSet.BOTTOM);
-                            constraintSet.connect(i, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline3).getId(), ConstraintSet.LEFT);
-                            constraintSet.connect(i, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline4).getId(), ConstraintSet.RIGHT);
-                        }
-
-                        e = i + 1;
-                        constraintSet.applyTo(layout);
-                        openshowvocabularys(down[i], i);
-                        buttonlanglist.add(down[i]);
+                }
+                if(list.getVocabularylist().size() == -5){
+                    c.add(list);
+                }else {
+                    if (list.getName().contains("AllVoc_")) {
+                        languageslistsString.add(list.getName());
                     } else {
-                        base.setVisibility(View.VISIBLE);
-                        base.setText(VocabularyMethods.vocabularylists.get(i).getLanguageName1() + " - " + VocabularyMethods.vocabularylists.get(i).getLanguageName2());
-                        openshowvocabularys(base, i);
-                        buttonlanglist.add(base);
+                        if (list.getFollowed() == false) {
+                           yourlistsString.add(list.getName());
+                        } else {
+                            followedlistsString.add(list.getName());
+                        }
                     }
-                    d++;
                 }
             }
+            for(VocabularyList remover : c){
+                Log.d("Removed", "Removed list ++++++++++++++++++++++++++++++++++++++");
+                VocabularyMethods.vocabularylists.remove(c);
+            }
+            if(yourlistsString.size() > 0) {
+                layout.setVisibility(View.VISIBLE);
+                yourBase.setText(yourlistsString.get(0));
+                downyourLists = new Button[yourlistsString.size()];
+                for (int i = 1; i < yourlistsString.size(); i++) {
+                    downyourLists[i] = new Button(Vokabeln.this);
+
+                    ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                    params.setMargins(8, 90, 8, 8);
+
+                    downyourLists[i].setText(yourlistsString.get(i));
+                    downyourLists[i].setId(i);
+                    downyourLists[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                    layout.addView(downyourLists[i], params);
+                    constraintSet = new ConstraintSet();
+                    constraintSet.clone(layout);
+
+                    if (yourfirst) {
+                        constraintSet.connect(i, ConstraintSet.TOP, yourBase.getId(), ConstraintSet.BOTTOM);
+                        constraintSet.connect(i, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline3).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline4).getId(), ConstraintSet.RIGHT);
+                        yourfirst = false;
+                    } else {
+                        constraintSet.connect(i, ConstraintSet.TOP, i - 1, ConstraintSet.BOTTOM);
+                        constraintSet.connect(i, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline3).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline4).getId(), ConstraintSet.RIGHT);
+                    }
+                    constraintSet.applyTo(layout);
+                    final String s = yourlistsString.get(i);
+
+                    downyourLists[i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            try{
+                                showvocabularys(VocabularyMethods.getVocabularyList0(s));
+                            }catch (Exception e){}
+                        }
+                    });
+                }
+                final String s = yourlistsString.get(0);
+                yourBase.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try{
+                            showvocabularys(VocabularyMethods.getVocabularyList0(s));
+                        }catch (Exception e){}
+                    }
+                });
+            }else{
+                layout.setVisibility(View.GONE);
+            }
+
+            if(followedlistsString.size() > 0){
+                layout0.setVisibility(View.VISIBLE);
+                followbase.setText(followedlistsString.get(0));
+
+                int offset = yourlistsString.size();
+                downfollowedLists = new Button[followedlistsString.size()];
+                for (int i = 1; i < followedlistsString.size(); i++) {
+                    downfollowedLists[i] = new Button(Vokabeln.this);
+
+                    ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                    params.setMargins(8, 90, 8, 8);
+                    downfollowedLists[i].setText(followedlistsString.get(i));
+                    downfollowedLists[i].setId(i + offset);
+                    downfollowedLists[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                    layout0.addView(downfollowedLists[i], params);
+                    constraintSet = new ConstraintSet();
+                    constraintSet.clone(layout0);
+                    if(followedfirst){
+                        constraintSet.connect(i + offset, ConstraintSet.TOP, followbase.getId(), ConstraintSet.BOTTOM);
+                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline40).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline30).getId(), ConstraintSet.RIGHT);
+                        followedfirst = false;
+                    }else{
+                        constraintSet.connect(i + offset, ConstraintSet.TOP, i - 1 + offset, ConstraintSet.BOTTOM);
+                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline40).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline30).getId(), ConstraintSet.RIGHT);
+                    }
+                    constraintSet.applyTo(layout0);
+                    final String s = followedlistsString.get(i);
+                    downfollowedLists[i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            VocabularyList list = VocabularyMethods.getVocabularyList0(s);
+                            sharedlist = list;
+                            publiclist = true;
+                            sharedListID = list.getID();
+                            sharedID = list.getCreatorID();
+                            ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sharedListID + " zu erreichen.");
+                            direction = false;
+                            if(list.getVocabularylist().size() > 0) {
+                                try {
+                                    showvocabularys(list);
+                                }catch (Exception e){}
+                            }
+                        }
+                    });
+                    followbase.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            VocabularyList list = VocabularyMethods.getVocabularyList0(s);
+                            sharedlist = list;
+                            publiclist = true;
+                            sharedListID = list.getID();
+                            sharedID = list.getCreatorID();
+                            ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sharedListID + " zu erreichen.");
+                            if(ManageData.InternetAvailable(context)){
+                                ManageData.DownloadVocabularys(s, context);
+                            }
+                            direction = false;
+                            if(list.getVocabularylist().size() > 0) {
+                                try {
+                                    showvocabularys(list);
+                                }catch (Exception e){ }
+                            }
+                        }
+                    });
+                }
+                final String s = followedlistsString.get(0);
+                followbase.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        VocabularyList list = VocabularyMethods.getVocabularyList0(s);
+                        sharedlist = list;
+                        publiclist = true;
+                        sharedListID = list.getID();
+                        sharedID = list.getCreatorID();
+                        ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sharedListID + " zu erreichen.");
+                        if(ManageData.InternetAvailable(context)){
+                            ManageData.DownloadVocabularys(s, context);
+                        }
+                        direction = false;
+                        if(list.getVocabularylist().size() > 0) {
+                            try {
+                                showvocabularys(list);
+                            }catch (Exception e){ }
+                        }
+                    }
+                });
+            }else{
+                layout0.setVisibility(View.GONE);
+            }
+
+            if(languageslistsString.size() > 0){
+                allBase.setText(languageslistsString.get(0).replace("AllVoc_", ""));
+
+                int offset = languageslistsString.size() + 3597874;
+                Button[] downallLists = new Button[languageslistsString.size()];
+                for (int i = 1; i < languageslistsString.size(); i++) {
+                    downallLists[i] = new Button(Vokabeln.this);
+
+                    ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                    params.setMargins(8, 90, 8, 8);
+                    downallLists[i].setText(languageslistsString.get(i).replace("AllVoc_", ""));
+                    downallLists[i].setId(i + offset);
+                    downallLists[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                    layout00.addView(downallLists[i], params);
+                    constraintSet = new ConstraintSet();
+                    constraintSet.clone(layout00);
+                    if(allfirst){
+                        constraintSet.connect(i + offset, ConstraintSet.TOP, allBase.getId(), ConstraintSet.BOTTOM);
+                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline300).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline400).getId(), ConstraintSet.RIGHT);
+                        allfirst = false;
+                    }else{
+                        constraintSet.connect(i + offset, ConstraintSet.TOP, i - 1 + offset, ConstraintSet.BOTTOM);
+                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline300).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline400).getId(), ConstraintSet.RIGHT);
+                    }
+                    constraintSet.applyTo(layout00);
+                    layout00.setVisibility(View.GONE);
+                    final String s = languageslistsString.get(i);
+                    downallLists[i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            try {
+
+                                showvocabularys(VocabularyMethods.getVocabularyList0(s));
+                            }catch (Exception e){ Log.d("ALL", e.toString());}
+                        }
+                    });
+                }
+                final String s = languageslistsString.get(0);
+                allBase.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                           showvocabularys(VocabularyMethods.getVocabularyList0(s));
+                        }catch (Exception e){}
+                    }
+                });
+                all.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        openALL();
+                    }
+                });
+            }else{
+                layout00.setVisibility(View.GONE);
+                all.setEnabled(false);
+            }
+
         }else{
+            layout.setVisibility(View.GONE);
+            nolistButton.setVisibility(View.VISIBLE);
             nolist.setVisibility(View.VISIBLE);
-            base.setVisibility(View.INVISIBLE);
             all.setEnabled(false);
         }
     }
 
     //Buttton OnClick Methoden
 
-    public void openshowvocabularys(Button b, final int id){
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showvocabularys(id);
-            }
-        });
-    }
 
-    public void showvocabularys(final int id){
+    public void showvocabularys(final VocabularyList showvocablist){
         final int listiD;
 
         final VocabularyList vocabularyList;
@@ -376,33 +529,42 @@ public class Vokabeln extends AppCompatActivity {
             train.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    start_train(id);
+                    start_train(showvocablist);
                 }
             });
-            vocabularyList = VocabularyMethods.vocabularylists.get(id);
-            LinkedHashMap<String, String> params = new LinkedHashMap <>();
-            params.put("id", ManageData.getUserID() + "");
-            params.put("Titel", VocabularyMethods.vocabularylists.get(id).getName());
 
-            RequestHandler requestHandler = new RequestHandler();
-            String sd = requestHandler.sendPostRequest(MainActivity.URL_ListAvailable, params);
-            sd = sd.substring(1, sd.length()-1);
-            sd = sd.replaceAll("^\"|\"$", "");
-            listiD = Integer.parseInt(sd);
-            settings.setText("Einstellungen");
-            settings.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    openSettings(listiD);
+            vocabularyList = showvocablist;
+            if(MainActivity.InternetAvailable(context)) {
+                try {
+                    if(showvocablist.getID() == 0) {
+                        LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                        params.put("id", ManageData.getUserID() + "");
+                        params.put("Titel", showvocablist.getName());
+                        RequestHandler requestHandler = new RequestHandler();
+                        String sd = requestHandler.sendPostRequest(MainActivity.URL_ListAvailable, params);
+                        sd = sd.substring(1, sd.length() - 1);
+                        sd = sd.replaceAll("^\"|\"$", "");
+                        listiD = Integer.parseInt(sd);
+                        showvocablist.setID(listiD);
+                    }else {
+                        listiD = showvocablist.getID();
+                    }
+                    settings.setText("Einstellungen");
+                    settings.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            openSettings(listiD, showvocablist);
+                        }
+                    });
+                }catch (Exception e){
+                    settings.setText("Einstellungen");
                 }
-            });
+            }
 
             if(publiclist == false) {
-                ShareInfo.setVisibility(View.GONE);
                 bottom.setVisibility(View.GONE);
             }else{
 
-                ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + listiD + " zu erreichen.");
                 bottom.setVisibility(View.VISIBLE);
                 follow.setText("... Follower");
                 follow.setOnClickListener(new View.OnClickListener() {
@@ -411,11 +573,9 @@ public class Vokabeln extends AppCompatActivity {
                     }
                 });
                 rate.setText("4,5 Sterne");
-                ShareInfo.setVisibility(View.VISIBLE);
             }
         }else{
             vocabularyList = sharedlist;
-            Log.d("Lenght", vocabularyList.getVocabularylist().size() + " Size ---------------------------------------------------------");
             bottom.setVisibility(View.VISIBLE);
             RequestHandler requestHandler = new RequestHandler();
             String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + sharedListID + "&UserID=" + ManageData.getUserID());
@@ -443,7 +603,17 @@ public class Vokabeln extends AppCompatActivity {
                 }
             });
             rate.setText("Bewerten");
-            ShareInfo.setVisibility(View.VISIBLE);
+        }
+
+        try{
+            if(showvocablist.getShared() == true){
+                ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + showvocablist.getID() + " zu erreichen.");
+                ShareInfo.setVisibility(View.VISIBLE);
+            }else{
+                ShareInfo.setVisibility(View.GONE);
+            }
+        }catch (Exception e){
+            ShareInfo.setVisibility(View.GONE);
         }
 
         downoriginal  = new TextView[vocabularyList.size()];
@@ -464,7 +634,6 @@ public class Vokabeln extends AppCompatActivity {
 
         boolean f1 = true;
         int e1 = 0;
-        //ssasadsasa
 
         findViewById(R.id.vocabulary_scrollView).setVisibility(View.INVISIBLE);
         findViewById(R.id.vocabulary_scrollview1).setVisibility(View.VISIBLE);
@@ -542,8 +711,19 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void open_back(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        if(layout00.getVisibility() == View.VISIBLE){
+            all.setText("Alle Vokabeln");
+            layout00.setVisibility(View.GONE);
+            if(yourlistsString.size() > 0){
+                layout.setVisibility(View.VISIBLE);
+            }
+            if(followedlistsString.size() > 0){
+                layout0.setVisibility(View.VISIBLE);
+            }
+        }else {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void open_back1(){
@@ -553,12 +733,18 @@ public class Vokabeln extends AppCompatActivity {
         for(int i = 0; i < downtranslation.length; i++){
             layout1.removeView(downtranslation[i]);
         }
-        if(publiclist == false) {
-            findViewById(R.id.vocabulary_scrollView).setVisibility(View.VISIBLE);
-            findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
+        if(direction == false) {
+            Intent intent = new Intent(Vokabeln.this, Vokabeln.class);
+            startActivity(intent);
+            direction = true;
         }else{
-            findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.VISIBLE);
-            findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
+            if (publiclist == false) {
+                findViewById(R.id.vocabulary_scrollView).setVisibility(View.VISIBLE);
+                findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
+            } else {
+                findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.VISIBLE);
+                findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
+            }
         }
         publiclist = false;
     }
@@ -582,7 +768,7 @@ public class Vokabeln extends AppCompatActivity {
     }
 
 
-    public void start_train(final int id) {
+    public void start_train(final VocabularyList showvocablist) {
 
         final ArrayList<Vocabulary> level0 = new ArrayList<Vocabulary>();
         final ArrayList<Vocabulary> level1 = new ArrayList<Vocabulary>();
@@ -590,9 +776,9 @@ public class Vokabeln extends AppCompatActivity {
         final ArrayList<Vocabulary> level3 = new ArrayList<Vocabulary>();
         final ArrayList<Vocabulary> level4 = new ArrayList<Vocabulary>();
 
-        vocabularylist = VocabularyMethods.vocabularylists.get(id).getVocabularylist();
+        vocabularylist = showvocablist.getVocabularylist();
 
-        learn_languages.setText(VocabularyMethods.vocabularylists.get(id).getLanguageName1()+ " - " + VocabularyMethods.vocabularylists.get(id).getLanguageName2());
+        learn_languages.setText(showvocablist.getLanguageName1()+ " - " + showvocablist.getLanguageName2());
         learn_vocabularys.setText("Original - Übersetzung");
 
         findViewById(R.id.vocabulary_scrollView5).setVisibility(View.VISIBLE);
@@ -613,11 +799,11 @@ public class Vokabeln extends AppCompatActivity {
             level0.add(vocabularylist.get(i));
         }
 
-        open_train(id, level0, level1, level2, level3, level4);
+        open_train(showvocablist, level0, level1, level2, level3, level4);
 
     }
 
-    public void open_train(final int id, final ArrayList<Vocabulary> level0, final ArrayList<Vocabulary> level1, final ArrayList<Vocabulary> level2, final ArrayList<Vocabulary> level3, final ArrayList<Vocabulary> level4){
+    public void open_train(final VocabularyList showvocablist, final ArrayList<Vocabulary> level0, final ArrayList<Vocabulary> level1, final ArrayList<Vocabulary> level2, final ArrayList<Vocabulary> level3, final ArrayList<Vocabulary> level4){
         String s = learn_translation.getText().toString();
         learn_level0Score.setText(level0.size() + "");
         learn_level1Score.setText(level1.size() + "");
@@ -683,13 +869,13 @@ public class Vokabeln extends AppCompatActivity {
                     learn_right.setVisibility(View.VISIBLE);
                     learn_wrong.setVisibility(View.VISIBLE);
                     if(level0.contains(voc)) {
-                        open_learn_showtranslation(true, level0, level1, level2, level3, level4, id);
+                        open_learn_showtranslation(showvocablist,true, level0, level1, level2, level3, level4);
                     }else if(level1.contains(voc)) {
-                        open_learn_showtranslation(false, level0, level1, level2, level3, level4, id);
+                        open_learn_showtranslation(showvocablist,false, level0, level1, level2, level3, level4);
                     }else if(level2.contains(voc)) {
-                        open_learn_showtranslation(true, level0, level1, level2, level3, level4, id);
+                        open_learn_showtranslation(showvocablist,true, level0, level1, level2, level3, level4);
                     }else if(level3.contains(voc)) {
-                        open_learn_showtranslation(false, level0, level1, level2, level3, level4, id);
+                        open_learn_showtranslation(showvocablist,false, level0, level1, level2, level3, level4);
                     }
                 }
             });
@@ -699,13 +885,13 @@ public class Vokabeln extends AppCompatActivity {
                 public void onClick(View view){
 
                     if (level0.contains(voc)) {
-                        open_learn_enter(true, level0, level1, level2, level3, level4, id );
+                        open_learn_enter(showvocablist,true, level0, level1, level2, level3, level4 );
                     } else if (level1.contains(voc)) {
-                        open_learn_enter(false, level0, level1, level2, level3, level4, id);
+                        open_learn_enter(showvocablist,false, level0, level1, level2, level3, level4);
                     } else if (level2.contains(voc)) {
-                        open_learn_enter(true, level0, level1, level2, level3, level4, id);
+                        open_learn_enter(showvocablist,true, level0, level1, level2, level3, level4);
                     } else if (level3.contains(voc)) {
-                        open_learn_enter(false, level0, level1, level2, level3, level4, id);
+                        open_learn_enter(showvocablist,false, level0, level1, level2, level3, level4);
                     }
                 }
             });
@@ -730,13 +916,13 @@ public class Vokabeln extends AppCompatActivity {
                     learn_wrong.setVisibility(View.VISIBLE);
 
                     if(level0.contains(voc)) {
-                        open_learn_showtranslation(false, level0, level1, level2, level3, level4, id);
+                        open_learn_showtranslation(showvocablist,false, level0, level1, level2, level3, level4);
                     }else if(level1.contains(voc)) {
-                        open_learn_showtranslation(true, level0, level1, level2, level3, level4, id);
+                        open_learn_showtranslation(showvocablist,true, level0, level1, level2, level3, level4);
                     }else if(level2.contains(voc)) {
-                        open_learn_showtranslation(false, level0, level1, level2, level3, level4, id);
+                        open_learn_showtranslation(showvocablist,false, level0, level1, level2, level3, level4);
                     }else if(level3.contains(voc)) {
-                        open_learn_showtranslation(true, level0, level1, level2, level3, level4, id);
+                        open_learn_showtranslation(showvocablist,true, level0, level1, level2, level3, level4);
                     }
                 }
             });
@@ -747,13 +933,13 @@ public class Vokabeln extends AppCompatActivity {
                 public void onClick(View view) {
 
                     if(level0.contains(voc)) {
-                        open_learn_enter(false, level0, level1, level2, level3, level4, id);
+                        open_learn_enter(showvocablist, false, level0, level1, level2, level3, level4);
                     }else if(level1.contains(voc)) {
-                        open_learn_enter(true, level0, level1, level2, level3, level4, id);
+                        open_learn_enter(showvocablist,true, level0, level1, level2, level3, level4);
                     }else if(level2.contains(voc)) {
-                        open_learn_enter(false, level0, level1, level2, level3, level4, id);
+                        open_learn_enter(showvocablist,false, level0, level1, level2, level3, level4);
                     }else if(level3.contains(voc)) {
-                        open_learn_enter(true, level0, level1, level2, level3, level4, id);
+                        open_learn_enter(showvocablist,true, level0, level1, level2, level3, level4);
                     }
                 }
 
@@ -761,10 +947,10 @@ public class Vokabeln extends AppCompatActivity {
         }
     }
 
-    public void open_learn_enter(boolean gerade, ArrayList<Vocabulary> level0, ArrayList<Vocabulary> level1, ArrayList<Vocabulary> level2, ArrayList<Vocabulary> level3, ArrayList<Vocabulary> level4, int id){
+    public void open_learn_enter(final VocabularyList showvocablist, boolean gerade, ArrayList<Vocabulary> level0, ArrayList<Vocabulary> level1, ArrayList<Vocabulary> level2, ArrayList<Vocabulary> level3, ArrayList<Vocabulary> level4){
 
         MainActivity.hideKeyboard(this);
-        vocabularylist =  VocabularyMethods.vocabularylists.get(id).getVocabularylist();
+        vocabularylist =  showvocablist.getVocabularylist();
 
         if(gerade == false) {
             learn_languages.setText(voc.getLanguageName1() + " - " + voc.getLanguageName2());
@@ -790,7 +976,7 @@ public class Vokabeln extends AppCompatActivity {
 
                     Log.d("Wrong", "Next Vocabulary, Ungerade");
                     Log.d("Wrong", voc.getTranslation() + " != " + learn_translation.getText().toString());
-                    open_train(id, level0, level1, level2, level3, level4);
+                    open_train(showvocablist, level0, level1, level2, level3, level4);
                 }
             }else{
 
@@ -815,7 +1001,7 @@ public class Vokabeln extends AppCompatActivity {
                 }else {
                     Log.d("Right", "Next Vocabulary, ID: Ungerade");
                     Log.d("Right", voc.getTranslation() + " == " + learn_translation.getText().toString());
-                    open_train(id, level0, level1, level2, level3, level4);
+                    open_train(showvocablist, level0, level1, level2, level3, level4);
                 }
             }
 
@@ -845,7 +1031,7 @@ public class Vokabeln extends AppCompatActivity {
 
                     Log.d("Wrong", "Next Vocabulary, ID: Gerade");
                     Log.d("Wrong", voc.getOriginal() + " != " + learn_translation.getText().toString());
-                    open_train(id, level0, level1, level2, level3, level4);
+                    open_train(showvocablist, level0, level1, level2, level3, level4);
                 }
             }else{
 
@@ -869,7 +1055,7 @@ public class Vokabeln extends AppCompatActivity {
                 }else {
                     Log.d("Right", "Next Vocabulary, Gerade");
                     Log.d("Right", voc.getOriginal() + " == " + learn_translation.getText().toString());
-                    open_train(id, level0, level1, level2, level3, level4);
+                    open_train(showvocablist, level0, level1, level2, level3, level4);
                 }
             }
 
@@ -899,10 +1085,10 @@ public class Vokabeln extends AppCompatActivity {
 
 
 
-    public void open_learn_showtranslation(final boolean gerade, final ArrayList<Vocabulary> level0, final ArrayList<Vocabulary> level1, final ArrayList<Vocabulary> level2, final ArrayList<Vocabulary> level3, final ArrayList<Vocabulary> level4, final int id){
+    public void open_learn_showtranslation(final VocabularyList showvocablist, final boolean gerade, final ArrayList<Vocabulary> level0, final ArrayList<Vocabulary> level1, final ArrayList<Vocabulary> level2, final ArrayList<Vocabulary> level3, final ArrayList<Vocabulary> level4){
 
         MainActivity.hideKeyboard(this);
-        vocabularylist =  VocabularyMethods.vocabularylists.get(id).getVocabularylist();
+        vocabularylist =  showvocablist.getVocabularylist();
 
 
         learn_right.setOnClickListener(new View.OnClickListener() {
@@ -941,7 +1127,7 @@ public class Vokabeln extends AppCompatActivity {
 
                         Log.d("Right", "Next Vocabulary, Ungerade");
                         Log.d("Right", voc.getTranslation() + " != " + learn_translation.getText().toString());
-                        open_train(id, level0, level1, level2, level3, level4);
+                        open_train(showvocablist, level0, level1, level2, level3, level4);
                     }
 
                 }else{
@@ -969,7 +1155,7 @@ public class Vokabeln extends AppCompatActivity {
 
                         Log.d("Right", "Next Vocabulary, ID: Gerade");
                         Log.d("Right", voc.getOriginal() + " != " + learn_translation.getText().toString());
-                        open_train(id, level0, level1, level2, level3, level4);
+                        open_train(showvocablist, level0, level1, level2, level3, level4);
                     }
 
                 }
@@ -1018,7 +1204,7 @@ public class Vokabeln extends AppCompatActivity {
                     }else {
                         Log.d("Wrong", "Next Vocabulary, ID: Ungerade");
                         Log.d("Wrong", voc.getTranslation() + " == " + learn_translation.getText().toString());
-                        open_train(id, level0, level1, level2, level3, level4);
+                        open_train(showvocablist, level0, level1, level2, level3, level4);
                     }
 
                 }else{
@@ -1047,7 +1233,7 @@ public class Vokabeln extends AppCompatActivity {
                     }else {
                         Log.d("Wrong", "Next Vocabulary, Gerade");
                         Log.d("Wrong", voc.getOriginal() + " == " + learn_translation.getText().toString());
-                        open_train(id, level0, level1, level2, level3, level4);
+                        open_train(showvocablist, level0, level1, level2, level3, level4);
                     }
 
                 }
@@ -1066,55 +1252,35 @@ public class Vokabeln extends AppCompatActivity {
     //Lernbereich
 
 
-    public void open_all(){
-
-        boolean created = false;
-
-        all.setVisibility(View.INVISIBLE);
-        base.setVisibility(View.INVISIBLE);
-        create.setVisibility(View.INVISIBLE);
-
-        for (int i = 0; i < buttonlist.size(); i++){
-            Button b = buttonlist.get(i);
+    public void openALL(){
+        if(layout00.getVisibility() == View.GONE){
+            all.setText("Alle Listen");
+            layout00.setVisibility(View.VISIBLE);
+            if(layout.getVisibility() == View.VISIBLE){
+                layout.setVisibility(View.GONE);
+            }
+            if(layout0.getVisibility() == View.VISIBLE){
+                layout0.setVisibility(View.GONE);
+            }
+        }else{
+            all.setText("Alle Vokabeln");
+            layout00.setVisibility(View.GONE);
+            if(yourlistsString.size() > 0){
+                layout.setVisibility(View.VISIBLE);
+            }
+            if(followedlistsString.size() > 0){
+                layout0.setVisibility(View.VISIBLE);
+            }
         }
-
-        for (int i = 0; i < buttonlist.size(); i++){
-            Button b = buttonlist.get(i);
-            b.setVisibility(View.GONE);
-        }
-        for (int i = 0; i < buttonlanglist.size(); i++){
-            Button b = buttonlanglist.get(i);
-            b.setVisibility(View.VISIBLE);
-        }
-
-
-
-        back.setOnClickListener(new View.OnClickListener() {
+        all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < buttonlist.size(); i++){
-                    Button b = buttonlist.get(i);
-                    b.setVisibility(View.VISIBLE);
-                }
-                for (int i = 0; i < buttonlanglist.size(); i++){
-                    Button b = buttonlanglist.get(i);
-                    b.setVisibility(View.GONE);
-                }
-
-
-                all.setVisibility(View.VISIBLE);
-                create.setVisibility(View.VISIBLE);
-
-                back.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        open_back();
-                    }
-                });
+                openALL();
             }
         });
 
     }
+
 
 
 
@@ -1146,7 +1312,7 @@ public class Vokabeln extends AppCompatActivity {
             errorBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    findViewById(R.id.vocabulary_errorlayout).setVisibility(View.VISIBLE);
+                    findViewById(R.id.vocabulary_errorlayout).setVisibility(View.GONE);
                     findViewById(R.id.vocabulary_buttonView).setVisibility(View.VISIBLE);
                 }
             });
@@ -1163,14 +1329,19 @@ public class Vokabeln extends AppCompatActivity {
             shared.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    findViewById(R.id.vocabulary_errorlayout).setVisibility(View.GONE);
-                    findViewById(R.id.vocabulary_buttonView).setVisibility(View.VISIBLE);
-                    shared.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            sharedClick();
-                        }
-                    });
+                    if(findViewById(R.id.vocabulary_errorlayout).getVisibility() == View.GONE){
+                        findViewById(R.id.vocabulary_errorlayout).setVisibility(View.VISIBLE);
+                        findViewById(R.id.vocabulary_buttonView).setVisibility(View.GONE);
+                    }else {
+                        findViewById(R.id.vocabulary_errorlayout).setVisibility(View.GONE);
+                        findViewById(R.id.vocabulary_buttonView).setVisibility(View.VISIBLE);
+                        shared.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                sharedClick();
+                            }
+                        });
+                    }
                 }
             });
         }else {
@@ -1358,18 +1529,17 @@ public class Vokabeln extends AppCompatActivity {
             for(VocabularyList list : VocabularyMethods.vocabularylists){
                 if(list.getName().equals(SharedList.get(1))){
                     sharedlist = null;
-                    showvocabularys(VocabularyMethods.vocabularylists.indexOf(list));
+                    showvocabularys(list);
                     break;
                 }
             }
         }else{
             sharedID = Integer.parseInt(SharedList.get(6));
             sharedListID = Integer.parseInt(SharedList.get(7));
-            VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true);
+            VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true, true, sharedListID, sharedID);
             sharedlist = list;
             ManageData.DownloadVocabularys(list.getName(), context);
-            ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sharedListID + " zu erreichen.");
-            showvocabularys(VocabularyMethods.vocabularylists.indexOf(list));
+            showvocabularys(list);
         }
     }
 
@@ -1401,7 +1571,7 @@ public class Vokabeln extends AppCompatActivity {
         final int followStatus = Integer.parseInt(a);
 
         LinkedHashMap<String, String> params = new LinkedHashMap <>();
-        params.put("VocID", sharedListID+ "");
+        params.put("VocID", sharedListID + "");
         params.put("UserID", ManageData.getUserID() + "");
         params.put("UserID", ManageData.getUserID() + "");
         if(followStatus == 0) {
@@ -1410,6 +1580,20 @@ public class Vokabeln extends AppCompatActivity {
         }else{
             params.put("State", 0 + "");
             follow.setText("Folgen");
+
+            VocabularyList g = null;
+            VocabularyMethods.removeFollowedVocabularys(sharedlist);
+            for (VocabularyList list : VocabularyMethods.vocabularylists){
+                if(list.getName().equals(sharedlist.getName())){
+                    g = list;
+                    break;
+                }
+            }
+            if(g != null){
+                VocabularyMethods.vocabularylists.remove(g);
+                Log.d("Remove","Removed VoabularyList " + g.getName() + " from vocabularylists");
+            }
+
         }
 
         requestHandler.sendPostRequest(MainActivity.URL_Follow, params);
@@ -1417,9 +1601,11 @@ public class Vokabeln extends AppCompatActivity {
 
 
 
-    public void openSettings(int vocID){
+    public void openSettings(int vocID, VocabularyList list){
         if(ManageData.InternetAvailable(context)) {
             RequestHandler requestHandler = new RequestHandler();
+            list.setID(vocID);
+
             String json = requestHandler.sendGetRequest(MainActivity.URL_GetShared + vocID);
             Gson gson = new Gson();
             Type type = new TypeToken<String>() {
@@ -1427,14 +1613,21 @@ public class Vokabeln extends AppCompatActivity {
             String a = gson.fromJson(json, type);
 
             final int sharedStatus = Integer.parseInt(a);
-            if (sharedStatus == 0) {
+            if(sharedStatus == 0){
+                list.setShared(false);
+            }else{
+                list.setShared(true);
+            }
+
+            if (list.getShared() == false) {
                 requestHandler.sendGetRequest(MainActivity.URL_changesShared + vocID + "&State=1");
                 ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + vocID + " zu erreichen.");
                 ShareInfo.setVisibility(View.VISIBLE);
+                list.setShared(true);
             } else {
                 requestHandler.sendGetRequest(MainActivity.URL_changesShared + vocID + "&State=0");
                 ShareInfo.setVisibility(View.GONE);
-
+                list.setShared(true);
             }
         }else{
             ShareInfo.setText("Internet nicht Verfügbar");

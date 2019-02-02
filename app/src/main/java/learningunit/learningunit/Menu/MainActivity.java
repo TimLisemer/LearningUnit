@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_changesShared = ROOT_URL + "changesShared&id=";
     public static final String URL_getFollow = ROOT_URL + "getFollow&VocID=";
     public static final String URL_Follow = ROOT_URL + "Follow";
+    public static final String URL_FollowedLists = ROOT_URL + "GetFollowedVocabLists&id=";
 
 
 
@@ -241,19 +242,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static boolean InternetAvailable(Context ctx) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) ctx
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        if ((connectivityManager
-                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager
-                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-                || (connectivityManager
-                .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
-                .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-                .getState() == NetworkInfo.State.CONNECTED)) {
-            return true;
-        } else {
-            return false;
+        if(ManageData.OfflineAccount == 2) {
+            ConnectivityManager connectivityManager = (ConnectivityManager) ctx
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            if ((connectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
+                    || (connectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+                    .getState() == NetworkInfo.State.CONNECTED)) {
+                return true;
+            } else {
+                return false;
+            }
         }
+        return false;
     }
 
     public static Context getAppContext() {

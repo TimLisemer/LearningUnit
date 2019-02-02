@@ -91,6 +91,58 @@ public class ManageData extends MainActivity{
         }
     }
 
+
+
+    public static void DownloadFollowedVocabularyLists(Context ctx){
+        if(MainActivity.InternetAvailable(ctx) == true){
+            RequestHandler requestHandler = new RequestHandler();
+            Log.d("Download", "----------------------------------------------------------------------------------------------");
+            Log.d("Download", "Downloading Followed VocabularyLists");
+            Log.d("Download", "------------------------------------------------------------------------------------------------------");
+            Gson gson = new Gson();
+            String json = requestHandler.sendGetRequest(MainActivity.URL_FollowedLists + getUserID());
+            Type type = new TypeToken<ArrayList<ArrayList<String>>>() {}.getType();
+            try {
+                ArrayList<ArrayList<String>> list = gson.fromJson(json, type);
+                VocabularyList vocabularyList;
+                for(ArrayList<String> alist : list){
+                    Log.d("Download", "Downloaded List with name: " + alist.get(1) + " ");
+                    boolean go = true;
+                    for (int i = 0; i < VocabularyMethods.vocabularylists.size(); i++) {
+                        if (VocabularyMethods.vocabularylists.get(i).getName().equals(alist.get(1))) {
+                            go = false;
+                        }
+                    }
+
+                    if(go == true) {
+
+                        String json1 = requestHandler.sendGetRequest(MainActivity.URL_GetShared + alist.get(0));
+                        Type type1 = new TypeToken<String>() {}.getType();
+                        String a = gson.fromJson(json1, type1);
+                        final int sharedStatus = Integer.parseInt(a);
+                        if(sharedStatus == 1) {
+                            vocabularyList = new VocabularyList(alist.get(2), alist.get(3), alist.get(1), true, true, Integer.parseInt(alist.get(0)), Integer.parseInt(alist.get(4)));
+                            vocabularyList.setShared(true);
+                            VocabularyMethods.vocabularylists.add(vocabularyList);
+                            DownloadVocabularys(vocabularyList.getName(), ctx);
+                        }
+                    }
+                }
+
+            }catch (Exception e) {
+                Log.d("Download", "Nothing to download");
+            }
+        }else{
+            Log.d("DownloadVocabularyLists", "Kein Internet Verfügbar");
+        }
+
+    }
+
+
+
+
+
+
     public static void DownloadVocabularyLists(Context ctx){
         if(MainActivity.InternetAvailable(ctx) == true){
             RequestHandler requestHandler = new RequestHandler();
@@ -113,7 +165,20 @@ public class ManageData extends MainActivity{
                     }
 
                     if(go == true) {
-                        vocabularyList = new VocabularyList(alist.get(2), alist.get(3), alist.get(1), true);
+                        vocabularyList = new VocabularyList(alist.get(2), alist.get(3), alist.get(1), true, false);
+                        vocabularyList.setID(Integer.parseInt(alist.get(0)));
+                        try {
+                            String json1 = requestHandler.sendGetRequest(MainActivity.URL_GetShared + alist.get(0));
+                            Type type1 = new TypeToken<String>() {
+                            }.getType();
+                            String a = gson.fromJson(json1, type1);
+                            final int sharedStatus = Integer.parseInt(a);
+                            if (sharedStatus == 0) {
+                                vocabularyList.setShared(false);
+                            } else {
+                                vocabularyList.setShared(true);
+                            }
+                        }catch (Exception e){ }
                         VocabularyMethods.vocabularylists.add(vocabularyList);
                         DownloadVocabularys(vocabularyList.getName(), ctx);
                     }
@@ -139,7 +204,7 @@ public class ManageData extends MainActivity{
                 Log.d("Download", "------------------------------------------------------------------------------------------------------");
                 VocabularyList vocabularyList;
                 if(Vokabeln.publiclist == false) {
-                    vocabularyList = VocabularyMethods.getVocabularyList(Name);
+                    vocabularyList = VocabularyMethods.getVocabularyList0(Name);
                     vocabularyList.getVocabularylist().clear();
                 }else{
                     vocabularyList = Vokabeln.sharedlist;
@@ -149,8 +214,17 @@ public class ManageData extends MainActivity{
                 ArrayList<ArrayList<String>> voclist;
                 String json1;
                 if(Vokabeln.publiclist == false) {
-                    json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + getUserID() + "&Titel=" + vocabularyList.getName());
-                    voclist = gson.fromJson(json1, type);
+                    if(vocabularyList.getCreatorID() == 0) {
+                        json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + getUserID() + "&Titel=" + vocabularyList.getName());
+                        voclist = gson.fromJson(json1, type);
+                    }else{
+                        if(vocabularyList.getCreatorID() != ManageData.getUserID()){
+                            Vokabeln.publiclist = true;
+                            Vokabeln.sharedlist = vocabularyList;
+                        }
+                        json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + vocabularyList.getCreatorID() + "&Titel=" + vocabularyList.getName());
+                        voclist = gson.fromJson(json1, type);
+                    }
                 }else {
                     json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + Vokabeln.sharedID + "&Titel=" + vocabularyList.getName());
                     voclist = gson.fromJson(json1, type);
@@ -158,52 +232,61 @@ public class ManageData extends MainActivity{
 
                 for (ArrayList a : voclist) {
                     if(Vokabeln.publiclist == false) {
-                        Vocabulary voc = new Vocabulary(a.get(0).toString(), a.get(1).toString(), vocabularyList.getLanguageName1(), vocabularyList.getLanguageName2());
-                        vocabularyList.addVocabulary(voc);
+                        Vocabulary voc = new Vocabulary(a.get(0).toString(), a.get(1).toString(), vocabularyList.getLanguageName1(), vocabularyList.getLanguageName2(), false);
+                        if(!(vocabularyList.ContainsVocabulary(voc))){
+                            vocabularyList.addVocabulary(voc);
+                        }
                     }else{
-                        Vocabulary voc = new Vocabulary(a.get(0).toString(), a.get(1).toString(), Vokabeln.sharedlist.getLanguageName1(), Vokabeln.sharedlist.getLanguageName2());
-                        Vokabeln.sharedlist.addVocabulary(voc);
+                        Vocabulary voc = new Vocabulary(a.get(0).toString(), a.get(1).toString(), Vokabeln.sharedlist.getLanguageName1(), Vokabeln.sharedlist.getLanguageName2(), true);
+                        if(!(Vokabeln.sharedlist.ContainsVocabulary(voc))) {
+                            Vokabeln.sharedlist.addVocabulary(voc);
+                        }
                     }
                 }
 
             } catch (Exception e) {
-                //Log.d("DownloadVocabularys", e.toString());
-            }
+                Log.d("DownloadVocabularys", e.toString() + " ------------------------------------------------------------------");
+           }
+            Vokabeln.publiclist = false;
+            Vokabeln.sharedlist = null;
+
         }else{
             Log.d("DownloadVocabularys", "Kein Internet Verfügbar");
         }
     }
 
     public static void uploadVocabularyList(VocabularyList vocabularyList, Context ctx) {
-        if(MainActivity.InternetAvailable(ctx)) {
-            if (!(vocabularyList.getName().contains("AllVoc_"))) {
-                if (OfflineAccount == 2) {
-                    Log.d("Upload", "----------------------------------------------------------------------------------------------");
-                    Log.d("Upload", "Uploading Vocabularys");
-                    Log.d("Upload", "------------------------------------------------------------------------------------------------------");
-                    LinkedHashMap<String, String> params = new LinkedHashMap<>();
-                    params.put("Titel", vocabularyList.getName());
-                    params.put("Sprache1", vocabularyList.getLanguageName1());
-                    params.put("Sprache2", vocabularyList.getLanguageName2());
-                    params.put("id", getUserID() + "");
+        if(vocabularyList.getFollowed() == false) {
+            if (MainActivity.InternetAvailable(ctx)) {
+                if (!(vocabularyList.getName().contains("AllVoc_"))) {
+                    if (OfflineAccount == 2) {
+                        Log.d("Upload", "----------------------------------------------------------------------------------------------");
+                        Log.d("Upload", "Uploading Vocabularys");
+                        Log.d("Upload", "------------------------------------------------------------------------------------------------------");
+                        LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                        params.put("Titel", vocabularyList.getName());
+                        params.put("Sprache1", vocabularyList.getLanguageName1());
+                        params.put("Sprache2", vocabularyList.getLanguageName2());
+                        params.put("id", getUserID() + "");
 
-                    RequestHandler requestHandler = new RequestHandler();
-                    requestHandler.sendPostRequest(MainActivity.URL_CreateVocList, params);
+                        RequestHandler requestHandler = new RequestHandler();
+                        requestHandler.sendPostRequest(MainActivity.URL_CreateVocList, params);
 
 
-                    for (int i = 0; i < vocabularyList.getVocabularylist().size(); i++) {
-                        LinkedHashMap<String, String> paramss = new LinkedHashMap<>();
-                        paramss.put("Titel", vocabularyList.getName());
-                        paramss.put("Sprache1", vocabularyList.getVocabularylist().get(i).getOriginal());
-                        paramss.put("Sprache2", vocabularyList.getVocabularylist().get(i).getTranslation());
-                        paramss.put("id", getUserID() + "");
-                        paramss.put("extra", i + "");
-                        requestHandler.sendPostRequest(MainActivity.URL_CreateVocabulary, paramss);
+                        for (int i = 0; i < vocabularyList.getVocabularylist().size(); i++) {
+                            LinkedHashMap<String, String> paramss = new LinkedHashMap<>();
+                            paramss.put("Titel", vocabularyList.getName());
+                            paramss.put("Sprache1", vocabularyList.getVocabularylist().get(i).getOriginal());
+                            paramss.put("Sprache2", vocabularyList.getVocabularylist().get(i).getTranslation());
+                            paramss.put("id", getUserID() + "");
+                            paramss.put("extra", i + "");
+                            requestHandler.sendPostRequest(MainActivity.URL_CreateVocabulary, paramss);
+                        }
                     }
                 }
+            } else {
+                Log.d("uploadVocabularyList", "Kein Internet Verfügbar");
             }
-        }else{
-            Log.d("uploadVocabularyList", "Kein Internet Verfügbar");
         }
     }
 

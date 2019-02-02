@@ -34,8 +34,10 @@
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/vocabulary_vocabulary1"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -43,13 +45,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
                     android:text="Es wurde noch keine Vokabelliste erstellt"
                     android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/vocabulary_all" />
@@ -89,6 +91,20 @@
                     app:layout_constraintEnd_toStartOf="@+id/vocabulary_all"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/vocabulary_nolistsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Jetzt Erstellen"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_nolists" />
             </android.support.constraint.ConstraintLayout>
 
             <ScrollView
@@ -103,35 +119,168 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <android.support.constraint.ConstraintLayout
-                    android:id="@+id/vocabulary_scrollview4"
+                    android:id="@+id/vocabulary_scrollview41"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <android.support.constraint.Guideline
-                        android:id="@+id/vocabulary_guideline4"
-                        android:layout_width="wrap_content"
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/vocabulary_scrollview400"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.2" />
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <android.support.constraint.Guideline
-                        android:id="@+id/vocabulary_guideline3"
-                        android:layout_width="wrap_content"
+                        <android.support.constraint.Guideline
+                            android:id="@+id/vocabulary_guideline300"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.8" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/vocabulary_guideline400"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.2" />
+
+                        <TextView
+                            android:id="@+id/vocabulary_allLists"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Alle Vokabeln"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:id="@+id/vocabulary_allBase"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Button"
+                            app:layout_constraintEnd_toStartOf="@+id/vocabulary_guideline300"
+                            app:layout_constraintStart_toStartOf="@+id/vocabulary_guideline400"
+                            app:layout_constraintTop_toBottomOf="@+id/vocabulary_allLists" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/vocabulary_scrollview4"
+                        android:layout_width="411dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.8" />
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <Button
-                        android:id="@+id/vocabulary_base"
+                        <android.support.constraint.Guideline
+                            android:id="@+id/vocabulary_guideline3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.8" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/vocabulary_guideline4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.2" />
+
+                        <TextView
+                            android:id="@+id/vocabulary_yourLists"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Deine Vokabellisten"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:id="@+id/vocabulary_yourBase"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Button"
+                            app:layout_constraintEnd_toStartOf="@+id/vocabulary_guideline3"
+                            app:layout_constraintStart_toStartOf="@+id/vocabulary_guideline4"
+                            app:layout_constraintTop_toBottomOf="@+id/vocabulary_yourLists" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/vocabulary_scrollview40"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Button"
-                        app:layout_constraintEnd_toStartOf="@+id/vocabulary_guideline3"
-                        app:layout_constraintStart_toStartOf="@+id/vocabulary_guideline4"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_conversion_absoluteHeight="48dp"
-                        tools:layout_conversion_absoluteWidth="352dp" />
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_scrollview4">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/vocabulary_guideline30"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.2" />
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/vocabulary_guideline40"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.8" />
+
+                        <TextView
+                            android:id="@+id/vocabulary_followedLists"
+                            android:layout_width="217dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Gefolgte Vokabellisten"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:id="@+id/vocabulary_followBase"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Button"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toStartOf="@+id/vocabulary_guideline40"
+                            app:layout_constraintStart_toStartOf="@+id/vocabulary_guideline30"
+                            app:layout_constraintTop_toBottomOf="@+id/vocabulary_followedLists" />
+                    </android.support.constraint.ConstraintLayout>
 
                 </android.support.constraint.ConstraintLayout>
             </ScrollView>
@@ -979,13 +1128,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.3" />
 
     <android.support.constraint.Guideline
         android:id="@+id/vocabulary_errorguideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.6" />
 
 </android.support.constraint.ConstraintLayout>
