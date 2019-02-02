@@ -1,5 +1,7 @@
 package learningunit.learningunit.BeforeStart;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -326,8 +328,27 @@ public class Register extends AppCompatActivity {
             Log.d("No", "Registrierungs fehler");
         }
         }catch (Exception e){
-            Log.d("Register", "Kein Internet Verfügbar");
             error.setVisibility(View.VISIBLE);
+            Log.d("Register", "Kein Internet Verfügbar");
+            error.setText("Es konnte keine Verbindung mit dem Internet hergestellt werden.");
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
+            builder.setCancelable(true);
+            builder.setNegativeButton("Zurück", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.setTitle("Keine Netzwerkverbindung");
+            builder.setMessage("Es konnte keine Verbindung mit dem Internet hergestellt werden.");
+            builder.setPositiveButton("Erneut Versuchen", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    open_register();
+                }
+            });
+            builder.show();
         }
     }
 

@@ -1,5 +1,7 @@
 package learningunit.learningunit.BeforeStart;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import learningunit.learningunit.Menu.Learn.Vocabulary.Vokabeln;
 import learningunit.learningunit.Menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.RequestHandler;
@@ -228,13 +231,12 @@ public class FirstScreen extends AppCompatActivity {
 
     //Buttton OnClick Methoden
     public void open_login(){
-
-        //try{
+        try {
             boolean con = login();
             if (con == true) {
-                if(ManageData.OfflineDataLeft() == false){
+                if (ManageData.OfflineDataLeft() == false) {
                     open_next();
-                }else{
+                } else {
                     MainActivity.hideKeyboard(this);
                     view1.setVisibility(View.INVISIBLE);
                     view2.setVisibility(View.VISIBLE);
@@ -269,12 +271,29 @@ public class FirstScreen extends AppCompatActivity {
                     });
                 }
             }
-        //}catch (Exception e){
-        //errorview.setVisibility(View.VISIBLE);
-        //Log.d("Login", "Kein Internet Verfügbar");
-        //errorview.setText("Es konnte keine Verbindung mit dem Internet hergestellt werden.");
-        //Log.d("Error", e.toString());
-        //}
+        } catch (Exception e) {
+            errorview.setVisibility(View.VISIBLE);
+            Log.d("Login", "Kein Internet Verfügbar");
+            errorview.setText("Es konnte keine Verbindung mit dem Internet hergestellt werden.");
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(FirstScreen.this);
+            builder.setCancelable(true);
+            builder.setNegativeButton("Zurück", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.setTitle("Keine Netzwerkverbindung");
+            builder.setMessage("Es konnte keine Verbindung mit dem Internet hergestellt werden.");
+            builder.setPositiveButton("Erneut Versuchen", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    open_login();
+                }
+            });
+            builder.show();
+        }
     }
 
     public void open_next(){
