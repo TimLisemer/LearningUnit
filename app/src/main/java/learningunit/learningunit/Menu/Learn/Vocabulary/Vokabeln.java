@@ -240,13 +240,13 @@ public class Vokabeln extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        ManageData.saveVocabularyLists();
+        MainActivity.onAppPause(context);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        ManageData.saveVocabularyLists();
+        MainActivity.onAppShutdown(context);
     }
 
     public void ShowLists(){

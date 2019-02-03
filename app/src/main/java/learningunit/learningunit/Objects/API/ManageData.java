@@ -260,6 +260,7 @@ public class ManageData extends MainActivity{
             if (MainActivity.InternetAvailable(ctx)) {
                 if (!(vocabularyList.getName().contains("AllVoc_"))) {
                     if (OfflineAccount == 2) {
+                        vocabularyList.setSource(true);
                         Log.d("Upload", "----------------------------------------------------------------------------------------------");
                         Log.d("Upload", "Uploading Vocabularys");
                         Log.d("Upload", "------------------------------------------------------------------------------------------------------");
@@ -285,11 +286,25 @@ public class ManageData extends MainActivity{
                     }
                 }
             } else {
-                Log.d("uploadVocabularyList", "Kein Internet Verfügbar");
+                if (OfflineAccount == 2) {
+                    Log.d("uploadVocabularyList", "Kein Internet Verfügbar, hochladen Verschoben");
+                }
             }
         }
     }
 
+    public static void uploadDelayedVocabularyLists(Context ctx){
+        if(OfflineAccount == 2) {
+            if(MainActivity.InternetAvailable(ctx)) {
+                for (VocabularyList list : VocabularyMethods.vocabularylists) {
+                    if (list.getSource() == false) {
+                        list.setSource(true);
+                        uploadVocabularyList(list, ctx);
+                    }
+                }
+            }
+        }
+    }
 
 
     public static void setOnlineAccount(Boolean state){
