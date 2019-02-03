@@ -22,7 +22,7 @@ public class VocabularyList {
         Log.d("VocabularyList", "Created Vocabulary List " + name + "Source: " + source + " Followed: " + followed);
     }
 
-    public VocabularyList(String LanguageName1, String LanguageName2, String name, boolean source, boolean followed, int ID, int CreatorID) {
+    public VocabularyList(String LanguageName1, String LanguageName2, String name, boolean source, boolean followed, int ID, int CreatorID, boolean Shared) {
         this.source = source;
         this.LanguageName1 = LanguageName1;
         this.LanguageName2 = LanguageName2;
@@ -30,6 +30,7 @@ public class VocabularyList {
         this.followed = followed;
         this.id = ID;
         this.CreatorID = CreatorID;
+        this.Shared = Shared;
 
         Log.d("VocabularyList", "Created Vocabulary List " + name + "Source: " + source + " Followed: " + followed + " ID: " + id + " CreatorID: " + CreatorID);
     }
