@@ -648,6 +648,7 @@ public class Vokabeln extends AppCompatActivity {
 
             downoriginal[i].setText(vocabularyList.getVocabularylist().get(i).getOriginal());
             downoriginal[i].setId(i);
+            downoriginal[i].setTextSize(18);
             downoriginal[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
             layout1.addView(downoriginal[i], params);
@@ -682,6 +683,7 @@ public class Vokabeln extends AppCompatActivity {
             params.setMargins(8, 90, 8, 8);
 
             downtranslation[i + 10000].setText(vocabularyList.getVocabularylist().get(i).getTranslation());
+            downtranslation[i + 10000].setTextSize(18);
             downtranslation[i + 10000].setId(i + 10000);
             downtranslation[i + 10000].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
