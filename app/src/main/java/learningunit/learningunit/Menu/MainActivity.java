@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_GetAccounts = ROOT_URL + "GetAccounts";
     public static final String URL_UpdateAccount = ROOT_URL + "UpdateAccount";
     public static final String URL_DeleteAccount = ROOT_URL + "DeleteAccount&id=";
+    public static final String URL_DeleteVocList = ROOT_URL + "DeleteVocList&id=";
     public static final String URL_CreateVocList = ROOT_URL + "CreateVocList";
     public static final String URL_CreateVocabulary = ROOT_URL + "CreateVocabulary";
     public static final String URL_GetVocabLists = ROOT_URL + "GetVocabLists&id=";
@@ -263,6 +264,21 @@ public class MainActivity extends AppCompatActivity {
     public static void onAppShutdown(Context ctx){
         ManageData.uploadDelayedVocabularyLists(ctx);
         ManageData.saveVocabularyLists();
+    }
+
+    public static void NoNetworkAlert(Context ctx){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        builder.setCancelable(true);
+        builder.setNegativeButton("Zurück", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setTitle("Keine Netzwerkverbindung");
+        builder.setMessage("Es ist eine Internetverbinung erforderlich, um diese Aktion auszuführen.");
+
+        builder.show();
     }
 
 
