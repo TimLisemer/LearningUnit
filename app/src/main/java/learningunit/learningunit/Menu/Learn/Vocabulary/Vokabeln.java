@@ -511,7 +511,6 @@ public class Vokabeln extends AppCompatActivity {
 
         final VocabularyList vocabularyList = showvocablist;
         if(showvocablist.getShared() == false || showvocablist.getCreatorID() == ManageData.getUserID()) {
-            Log.d("ShowVocabs False", "ListID: "  + showvocablist.getID() + " CreatorID: " + showvocablist.getCreatorID() + " UserID: " + ManageData.getUserID() + " Shared: " + showvocablist.getShared());
             train.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -563,7 +562,12 @@ public class Vokabeln extends AppCompatActivity {
                 }
             }
         }else{
-            Log.d("ShowVocabs True", "ListID: "  + showvocablist.getID() + " CreatorID: " + showvocablist.getCreatorID() + " UserID: " + ManageData.getUserID() + " Shared: " + showvocablist.getShared());
+            train.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    start_train(showvocablist);
+                }
+            });
             bottom.setVisibility(View.VISIBLE);
             if(MainActivity.InternetAvailable(context)) {
                 RequestHandler requestHandler = new RequestHandler();
