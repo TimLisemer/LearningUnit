@@ -246,7 +246,7 @@ public class ManageData extends MainActivity{
 
             } catch (Exception e) {
                 Log.d("DownloadVocabularys", e.toString() + " ------------------------------------------------------------------");
-           }
+            }
             Vokabeln.publiclist = false;
             Vokabeln.sharedlist = null;
 

@@ -255,6 +255,9 @@ public class Vokabeln extends AppCompatActivity {
             nolistButton.setVisibility(View.GONE);
 
             if(ManageData.InternetAvailable(context)) {
+                VocabularyMethods.vocabularylists.clear();
+                FirstScreen.tinyDB.remove("VocLists");
+                ManageData.saveVocabularyLists();
                 ManageData.DownloadFollowedVocabularyLists(context);
                 ManageData.DownloadVocabularyLists(context);
             }
@@ -562,17 +565,22 @@ public class Vokabeln extends AppCompatActivity {
         }else{
             Log.d("ShowVocabs True", "ListID: "  + showvocablist.getID() + " CreatorID: " + showvocablist.getCreatorID() + " UserID: " + ManageData.getUserID() + " Shared: " + showvocablist.getShared());
             bottom.setVisibility(View.VISIBLE);
-            RequestHandler requestHandler = new RequestHandler();
-            String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + showvocablist.getID() + "&UserID=" + ManageData.getUserID());
-            Gson gson = new Gson();
-            Type type = new TypeToken<String>() {}.getType();
-            String a = gson.fromJson(json, type);
+            if(MainActivity.InternetAvailable(context)) {
+                RequestHandler requestHandler = new RequestHandler();
+                String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + showvocablist.getID() + "&UserID=" + ManageData.getUserID());
+                Gson gson = new Gson();
+                Type type = new TypeToken<String>() {
+                }.getType();
+                String a = gson.fromJson(json, type);
 
-            final int followStatus = Integer.parseInt(a);
-            if(followStatus == 0) {
-                follow.setText("Folgen");
+                final int followStatus = Integer.parseInt(a);
+                if (followStatus == 0) {
+                    follow.setText("Folgen");
+                } else {
+                    follow.setText("Gefolgt");
+                }
             }else{
-                follow.setText("Gefolgt");
+                follow.setText("OFFLINE");
             }
             settings.setText("Liste Melden");
             settings.setOnClickListener(new View.OnClickListener() {
@@ -584,7 +592,7 @@ public class Vokabeln extends AppCompatActivity {
             follow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    openFollow();
+                    openFollow(showvocablist, follow);
                 }
             });
             rate.setText("Bewerten");
@@ -719,17 +727,14 @@ public class Vokabeln extends AppCompatActivity {
             layout1.removeView(downtranslation[i]);
         }
         if(direction == false) {
-            Log.d("Back1", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             Intent intent = new Intent(Vokabeln.this, Vokabeln.class);
             startActivity(intent);
             direction = true;
         }else{
             if (publiclist == false) {
-                Log.d("Back1", "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
                 findViewById(R.id.vocabulary_scrollView).setVisibility(View.VISIBLE);
                 findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
             } else {
-                Log.d("Back1", "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
                 findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.VISIBLE);
                 findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
             }
@@ -1515,42 +1520,54 @@ public class Vokabeln extends AppCompatActivity {
 
 
 
-    public void openFollow(){
-        RequestHandler requestHandler = new RequestHandler();
-        String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + sharedListID + "&UserID=" + ManageData.getUserID());
-        Gson gson = new Gson();
-        Type type = new TypeToken<String>() {}.getType();
-        String a = gson.fromJson(json, type);
+    public void openFollow(VocabularyList flist, Button follow){
+        if(MainActivity.InternetAvailable(context)) {
+            RequestHandler requestHandler = new RequestHandler();
+            String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + flist.getID() + "&UserID=" + ManageData.getUserID());
+            Gson gson = new Gson();
+            Type type = new TypeToken<String>() {
+            }.getType();
+            String a = gson.fromJson(json, type);
 
-        final int followStatus = Integer.parseInt(a);
+            final int followStatus = Integer.parseInt(a);
 
-        LinkedHashMap<String, String> params = new LinkedHashMap <>();
-        params.put("VocID", sharedListID + "");
-        params.put("UserID", ManageData.getUserID() + "");
-        params.put("UserID", ManageData.getUserID() + "");
-        if(followStatus == 0) {
-            params.put("State", 1 + "");
-            follow.setText("Gefolgt");
-        }else{
-            params.put("State", 0 + "");
-            follow.setText("Folgen");
-
-            VocabularyList g = null;
-            VocabularyMethods.removeFollowedVocabularys(sharedlist);
-            for (VocabularyList list : VocabularyMethods.vocabularylists){
-                if(list.getName().equals(sharedlist.getName())){
-                    g = list;
-                    break;
+            if(follow.getText().toString().equalsIgnoreCase("Offline")){
+                if (followStatus == 1) {
+                    follow.setText("Gefolgt");
+                } else {
+                    follow.setText("Folgen");
                 }
-            }
-            if(g != null){
-                VocabularyMethods.vocabularylists.remove(g);
-                Log.d("Remove","Removed VoabularyList " + g.getName() + " from vocabularylists");
-            }
+            }else {
+                LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                params.put("VocID", flist.getID() + "");
+                params.put("UserID", ManageData.getUserID() + "");
+                params.put("UserID", ManageData.getUserID() + "");
+                if (followStatus == 0) {
+                    params.put("State", 1 + "");
+                    follow.setText("Gefolgt");
+                } else {
+                    params.put("State", 0 + "");
+                    follow.setText("Folgen");
 
+                    VocabularyList g = null;
+                    VocabularyMethods.removeFollowedVocabularys(flist);
+                    for (VocabularyList list : VocabularyMethods.vocabularylists) {
+                        if (list.getName().equals(flist.getName())) {
+                            g = list;
+                            break;
+                        }
+                    }
+                    if (g != null) {
+                        VocabularyMethods.vocabularylists.remove(g);
+                        Log.d("Remove", "Removed VoabularyList " + g.getName() + " from vocabularylists");
+                    }
+
+                }
+                requestHandler.sendPostRequest(MainActivity.URL_Follow, params);
+            }
+        }else{
+            follow.setText("OFFLINE");
         }
-
-        requestHandler.sendPostRequest(MainActivity.URL_Follow, params);
     }
 
 
