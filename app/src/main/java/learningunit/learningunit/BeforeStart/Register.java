@@ -3,6 +3,7 @@ package learningunit.learningunit.BeforeStart;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,6 +28,7 @@ import java.util.LinkedHashMap;
 import learningunit.learningunit.Menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.RequestHandler;
+import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
 import learningunit.learningunit.R;
 
 public class Register extends AppCompatActivity {
@@ -35,11 +37,12 @@ public class Register extends AppCompatActivity {
     private static final int CODE_POST_REQUEST = 1025;
 
     //Deklarieren der Knöpfe
-    private Button register, back;
+    private Button register, back, Back1, accept, decline;
     private CheckBox confirm;
     private EditText username, email, editpassword1, editpassword2;
     private int ready, ready1, ready2, ready3, ready4;
     private TextView error;
+    private ConstraintLayout view1, view2;
 
     private void hide(){
         MainActivity.hideKeyboard(this);
@@ -49,12 +52,18 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        ManageData.Account = null;
+        if(ManageData.Account == null){
+            ManageData.Account = new LinkedHashMap<String, String>();
+        }
+        ManageData.Account.clear();
 
         //Initialisieren der Knöpfe und rufen der OnClick methode
-
+        Back1 = (Button) findViewById(R.id.register_back1);
+        accept = (Button) findViewById(R.id.register_accept);
+        decline = (Button) findViewById(R.id.register_decline);
         error = (TextView) findViewById(R.id.register_error);
-
+        view1 = (ConstraintLayout) findViewById(R.id.register_ScrollView1);
+        view2 = (ConstraintLayout) findViewById(R.id.register_ScrollView2);
         register = (Button) findViewById(R.id.register_register);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,6 +258,7 @@ public class Register extends AppCompatActivity {
 
 
     public int Register(){
+        MainActivity.hideKeyboard(Register.this);
         String Username = username.getText().toString().trim(), Email = email.getText().toString().trim(), password1 = md5(editpassword1.getText().toString().trim()), password2 = md5(editpassword2.getText().toString().trim());
         if(password1.equals(password2)){
             if(confirm.isChecked() == true){
@@ -314,19 +324,74 @@ public class Register extends AppCompatActivity {
 
 
 
-    //Buttton OnClick Methoden
+
+
+
+
+
     public void open_register(){
         try {
-            int con = Register();
-        if(con > 0) {
             ManageData.setOnlineAccount(true);
             ManageData.setOfflineAccount(2);
             error.setVisibility(View.GONE);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }else {
-            Log.d("No", "Registrierungs fehler");
-        }
+            if (ManageData.OfflineDataLeft() == false) {
+                int con = Register();
+                if(con > 0) {
+                    open_next();
+                }
+            } else {
+                MainActivity.hideKeyboard(this);
+                view1.setVisibility(View.INVISIBLE);
+                view2.setVisibility(View.VISIBLE);
+
+                Back1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        view1.setVisibility(View.VISIBLE);
+                        view2.setVisibility(View.INVISIBLE);
+                        open_back1();
+                    }
+                });
+
+                accept.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int con = Register();
+                        if(con > 0) {
+                            ManageData.setOnlineAccount(true);
+                            ManageData.setOfflineAccount(2);
+                            view1.setVisibility(View.VISIBLE);
+                            view2.setVisibility(View.INVISIBLE);
+                            open_accept();
+                            Log.d("Register", "Accept");
+                        }else {
+                            open_back1();
+                            Log.d("No", "Registrierungs fehler");
+                        }
+                    }
+                });
+
+                decline.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int con = Register();
+                        if(con > 0) {
+                            ManageData.setOnlineAccount(true);
+                            ManageData.setOfflineAccount(2);
+                            view1.setVisibility(View.VISIBLE);
+                            view2.setVisibility(View.INVISIBLE);
+                            VocabularyMethods.vocabularylists.clear();
+                            FirstScreen.tinyDB.remove("VocLists");
+                            ManageData.saveVocabularyLists();
+                            open_next();
+                            Log.d("Register", "Decline");
+                        }else {
+                            open_back1();
+                            Log.d("No", "Registrierungs fehler");
+                        }
+                    }
+                });
+            }
         }catch (Exception e){
             error.setVisibility(View.VISIBLE);
             Log.d("Register", "Kein Internet Verfügbar");
@@ -352,9 +417,42 @@ public class Register extends AppCompatActivity {
         }
     }
 
+
+    public void open_next(){
+        ManageData.setOnlineAccount(true);
+        ManageData.setOfflineAccount(2);
+        VocabularyMethods.vocabularylists = null;
+        error.setVisibility(View.INVISIBLE);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
+    public void open_accept(){
+        ManageData.setOnlineAccount(true);
+        ManageData.setOfflineAccount(2);
+        for (int i = 0; i < VocabularyMethods.vocabularylists.size(); i++) {
+            VocabularyMethods.vocabularylists.get(i).setSource(true);
+            ManageData.saveVocabularyLists();
+            ManageData.uploadVocabularyList(VocabularyMethods.vocabularylists.get(i), Register.this);
+        }
+        VocabularyMethods.vocabularylists = null;
+        error.setVisibility(View.INVISIBLE);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     public void open_back(){
         Intent intent = new Intent(this, FirstScreen.class);
         startActivity(intent);
+    }
+
+    public void open_back1(){
+        ManageData.RemoveOfflineData();
+        ManageData.OfflineAccount = 0;
+        ManageData.setOnlineAccount(false);
+        view1.setVisibility(View.VISIBLE);
+        view2.setVisibility(View.GONE);
     }
 
 

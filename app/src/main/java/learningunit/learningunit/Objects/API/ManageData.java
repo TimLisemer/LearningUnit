@@ -63,7 +63,7 @@ public class ManageData extends MainActivity{
         VocabularyMethods.vocabularylists = a;
         FirstScreen.tinyDB.remove("VocLists");
         saveVocabularyLists();
-        Account = null;
+        Account.clear();
         OfflineAccount = 0;
         ManageData.setOfflineAccount(0);
         ManageData.setOnlineAccount(false);
@@ -295,7 +295,7 @@ public class ManageData extends MainActivity{
     public static void setOnlineAccount(Boolean state){
         if(state == false){
             FirstScreen.tinyDB.remove("Online");
-            Account = null;
+            Account.clear();
         }else {
             OfflineAccount = 2;
             Gson gson = new Gson();
@@ -331,7 +331,7 @@ public class ManageData extends MainActivity{
             OfflineAccount = gson.fromJson(json, type);
         }else{
             OfflineAccount = 0;
-            Account = null;
+            Account.clear();
         }
     }
 
