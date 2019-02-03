@@ -1,6 +1,7 @@
 package learningunit.learningunit.Menu.Learn.Vocabulary;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,17 +10,22 @@ import android.opengl.Visibility;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.constraint.Guideline;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -250,17 +256,18 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void ShowLists(){
+
+        if(ManageData.InternetAvailable(context)) {
+            VocabularyMethods.vocabularylists.clear();
+            FirstScreen.tinyDB.remove("VocLists");
+            ManageData.saveVocabularyLists();
+            ManageData.DownloadFollowedVocabularyLists(context);
+            ManageData.DownloadVocabularyLists(context);
+        }
+
         if(VocabularyMethods.vocabularylists.size() > 0) {
             nolist.setVisibility(View.GONE);
             nolistButton.setVisibility(View.GONE);
-
-            if(ManageData.InternetAvailable(context)) {
-                VocabularyMethods.vocabularylists.clear();
-                FirstScreen.tinyDB.remove("VocLists");
-                ManageData.saveVocabularyLists();
-                ManageData.DownloadFollowedVocabularyLists(context);
-                ManageData.DownloadVocabularyLists(context);
-            }
 
             yourlistsString.clear();
             followedlistsString.clear();
@@ -518,9 +525,9 @@ public class Vokabeln extends AppCompatActivity {
                 }
             });
 
-            if(MainActivity.InternetAvailable(context)) {
-                try {
-                    if(showvocablist.getID() == 0) {
+            if(showvocablist.getID() == 0) {
+                if (MainActivity.InternetAvailable(context)) {
+                    try {
                         LinkedHashMap<String, String> params = new LinkedHashMap<>();
                         params.put("id", ManageData.getUserID() + "");
                         params.put("Titel", showvocablist.getName());
@@ -530,9 +537,7 @@ public class Vokabeln extends AppCompatActivity {
                         sd = sd.replaceAll("^\"|\"$", "");
                         listiD = Integer.parseInt(sd);
                         showvocablist.setID(listiD);
-                    }else {
-                        listiD = showvocablist.getID();
-                    }
+
                     settings.setText("Einstellungen");
                     settings.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -540,9 +545,19 @@ public class Vokabeln extends AppCompatActivity {
                             openSettings(listiD, showvocablist);
                         }
                     });
-                }catch (Exception e){
-                    settings.setText("Einstellungen");
+                }catch(Exception e) {
+                        settings.setText("Einstellungen");
+                    }
                 }
+            }else{
+            listiD = showvocablist.getID();
+                settings.setText("Einstellungen");
+                settings.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        openSettings(listiD, showvocablist);
+                    }
+                });
             }
 
             if(showvocablist.getShared() == false) {
@@ -1577,8 +1592,50 @@ public class Vokabeln extends AppCompatActivity {
     }
 
 
+    public void openSettings(final int vocID, final VocabularyList list){
+        PopupMenu popup = new PopupMenu(this, settings);
+        MenuInflater settings = getMenuInflater();
+        settings.inflate(R.menu.vocabulary_settings_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.vocabulary_open_share:
+                        if(MainActivity.InternetAvailable(context)) {
+                            openShare(vocID, list);
+                            return true;
+                        }else{
+                            MainActivity.NoNetworkAlert(Vokabeln.this);
+                                return false;
+                        }
+                    case R.id.vocabulary_open_delete:
+                        if(list.getSource() == false){
+                            VocabularyMethods.vocabularylists.remove(list);
+                            FirstScreen.tinyDB.remove("VocLists");
+                            ManageData.saveVocabularyLists();
+                        }else if(MainActivity.InternetAvailable(context)) {
+                            RequestHandler requestHandler = new RequestHandler();
+                            VocabularyMethods.vocabularylists.remove(list);
+                            FirstScreen.tinyDB.remove("VocLists");
+                            ManageData.saveVocabularyLists();
+                            String json = requestHandler.sendGetRequest(MainActivity.URL_DeleteVocList + vocID);
+                            Intent intent = new Intent(Vokabeln.this, Vokabeln.class);
+                            startActivity(intent);
+                            return true;
+                        }else{
+                            MainActivity.NoNetworkAlert(Vokabeln.this);
+                            return false;
+                        }
+                    default:
+                        return false;
+                }
+            }
+        });
+        popup.show();
+    }
 
-    public void openSettings(int vocID, VocabularyList list){
+
+    public void openShare(int vocID, VocabularyList list){
         if(ManageData.InternetAvailable(context)) {
             RequestHandler requestHandler = new RequestHandler();
             list.setID(vocID);
@@ -1610,7 +1667,6 @@ public class Vokabeln extends AppCompatActivity {
             ShareInfo.setText("Internet nicht Verfügbar");
             ShareInfo.setVisibility(View.VISIBLE);
         }
-
     }
 
 
