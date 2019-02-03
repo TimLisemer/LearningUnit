@@ -174,11 +174,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         thread.start();
-
-
-
-
-
     }
 
 
@@ -260,6 +255,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+    public static void onAppPause(Context ctx){
+        ManageData.uploadDelayedVocabularyLists(ctx);
+        ManageData.saveVocabularyLists();
+    }
+    public static void onAppShutdown(Context ctx){
+        ManageData.uploadDelayedVocabularyLists(ctx);
+        ManageData.saveVocabularyLists();
     }
 
 

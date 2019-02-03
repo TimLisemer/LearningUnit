@@ -240,13 +240,13 @@ public class Vokabeln extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        ManageData.saveVocabularyLists();
+        MainActivity.onAppPause(context);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        ManageData.saveVocabularyLists();
+        MainActivity.onAppShutdown(context);
     }
 
     public void ShowLists(){
@@ -511,7 +511,6 @@ public class Vokabeln extends AppCompatActivity {
 
         final VocabularyList vocabularyList = showvocablist;
         if(showvocablist.getShared() == false || showvocablist.getCreatorID() == ManageData.getUserID()) {
-            Log.d("ShowVocabs False", "ListID: "  + showvocablist.getID() + " CreatorID: " + showvocablist.getCreatorID() + " UserID: " + ManageData.getUserID() + " Shared: " + showvocablist.getShared());
             train.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -551,19 +550,24 @@ public class Vokabeln extends AppCompatActivity {
             }else {
                 if (showvocablist.getCreatorID() == ManageData.getUserID()) {
                     bottom.setVisibility(View.VISIBLE);
-                    follow.setText("... Follower");
+                    follow.setText("Platzhalter");
                     follow.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                         }
                     });
-                    rate.setText("4,5 Sterne");
+                    rate.setText("Platzhalter");
                 } else {
                     bottom.setVisibility(View.GONE);
                 }
             }
         }else{
-            Log.d("ShowVocabs True", "ListID: "  + showvocablist.getID() + " CreatorID: " + showvocablist.getCreatorID() + " UserID: " + ManageData.getUserID() + " Shared: " + showvocablist.getShared());
+            train.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    start_train(showvocablist);
+                }
+            });
             bottom.setVisibility(View.VISIBLE);
             if(MainActivity.InternetAvailable(context)) {
                 RequestHandler requestHandler = new RequestHandler();
@@ -644,6 +648,7 @@ public class Vokabeln extends AppCompatActivity {
 
             downoriginal[i].setText(vocabularyList.getVocabularylist().get(i).getOriginal());
             downoriginal[i].setId(i);
+            downoriginal[i].setTextSize(18);
             downoriginal[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
             layout1.addView(downoriginal[i], params);
@@ -678,6 +683,7 @@ public class Vokabeln extends AppCompatActivity {
             params.setMargins(8, 90, 8, 8);
 
             downtranslation[i + 10000].setText(vocabularyList.getVocabularylist().get(i).getTranslation());
+            downtranslation[i + 10000].setTextSize(18);
             downtranslation[i + 10000].setId(i + 10000);
             downtranslation[i + 10000].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 

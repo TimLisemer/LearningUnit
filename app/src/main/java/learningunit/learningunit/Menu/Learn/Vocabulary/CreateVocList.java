@@ -42,11 +42,13 @@ public class CreateVocList extends AppCompatActivity{
     @Override
     public void onPause() {
         super.onPause();
+        MainActivity.onAppPause(context);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        MainActivity.onAppShutdown(context);
     }
 
     @Override
@@ -174,10 +176,6 @@ public class CreateVocList extends AppCompatActivity{
             if (!(languagetext.getText().toString().trim().equalsIgnoreCase(languagetext1.getText().toString().trim()))) {
                 if(VocabularyMethods.nameavailable(listtext.getText().toString()) == true){
                     list = new VocabularyList(language, language1, listtext.getText().toString(), false, false);
-                    if(ManageData.OfflineAccount == 2){
-                        Log.d("CreateVocList", "Set Source for list " + list.getName() + " to true");
-                        list.setSource(true);
-                    }
                     VocabularyMethods.saveVocabularyList(list);
                     vocabulary.setHint("Original (" + language + ")");
                     vocabulary1.setHint("Übersetzung (" + language1 + ")");
