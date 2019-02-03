@@ -551,13 +551,13 @@ public class Vokabeln extends AppCompatActivity {
             }else {
                 if (showvocablist.getCreatorID() == ManageData.getUserID()) {
                     bottom.setVisibility(View.VISIBLE);
-                    follow.setText("... Follower");
+                    follow.setText("Platzhalter");
                     follow.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                         }
                     });
-                    rate.setText("4,5 Sterne");
+                    rate.setText("Platzhalter");
                 } else {
                     bottom.setVisibility(View.GONE);
                 }

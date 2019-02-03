@@ -176,18 +176,6 @@ public class MainActivity extends AppCompatActivity {
         thread.start();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        MainActivity.onAppPause(context);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        MainActivity.onAppShutdown(context);
-    }
-
 
 
 
