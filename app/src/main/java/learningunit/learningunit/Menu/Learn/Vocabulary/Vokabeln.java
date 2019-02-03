@@ -719,14 +719,17 @@ public class Vokabeln extends AppCompatActivity {
             layout1.removeView(downtranslation[i]);
         }
         if(direction == false) {
+            Log.d("Back1", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             Intent intent = new Intent(Vokabeln.this, Vokabeln.class);
             startActivity(intent);
             direction = true;
         }else{
             if (publiclist == false) {
+                Log.d("Back1", "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
                 findViewById(R.id.vocabulary_scrollView).setVisibility(View.VISIBLE);
                 findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
             } else {
+                Log.d("Back1", "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
                 findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.VISIBLE);
                 findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
             }
@@ -1470,6 +1473,7 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void openSharedList(ArrayList<String> SharedList){
+        publiclist = true;
         findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.GONE);
         if(Integer.parseInt(SharedList.get(6)) == ManageData.getUserID()) {
             for(VocabularyList list : VocabularyMethods.vocabularylists){
@@ -1477,7 +1481,6 @@ public class Vokabeln extends AppCompatActivity {
                     sharedlist = null;
                     list.setSource(true);
                     list.setShared(true);
-                    publiclist = true;
                     showvocabularys(list);
                     break;
                 }
