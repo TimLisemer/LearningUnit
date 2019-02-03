@@ -255,6 +255,9 @@ public class Vokabeln extends AppCompatActivity {
             nolistButton.setVisibility(View.GONE);
 
             if(ManageData.InternetAvailable(context)) {
+                VocabularyMethods.vocabularylists.clear();
+                FirstScreen.tinyDB.remove("VocLists");
+                ManageData.saveVocabularyLists();
                 ManageData.DownloadFollowedVocabularyLists(context);
                 ManageData.DownloadVocabularyLists(context);
             }
@@ -286,6 +289,7 @@ public class Vokabeln extends AppCompatActivity {
                         languageslistsString.add(list.getName());
                     } else {
                         if (list.getFollowed() == false) {
+                            list.setCreatorID(ManageData.getUserID());
                             yourlistsString.add(list.getName());
                         } else {
                             followedlistsString.add(list.getName());
@@ -390,6 +394,8 @@ public class Vokabeln extends AppCompatActivity {
                             VocabularyList list = VocabularyMethods.getVocabularyList0(s);
                             sharedlist = list;
                             publiclist = true;
+                            list.setSource(true);
+                            list.setShared(true);
                             sharedListID = list.getID();
                             sharedID = list.getCreatorID();
                             ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sharedListID + " zu erreichen.");
@@ -398,26 +404,6 @@ public class Vokabeln extends AppCompatActivity {
                                 try {
                                     showvocabularys(list);
                                 }catch (Exception e){}
-                            }
-                        }
-                    });
-                    followbase.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            VocabularyList list = VocabularyMethods.getVocabularyList0(s);
-                            sharedlist = list;
-                            publiclist = true;
-                            sharedListID = list.getID();
-                            sharedID = list.getCreatorID();
-                            ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sharedListID + " zu erreichen.");
-                            if(ManageData.InternetAvailable(context)){
-                                ManageData.DownloadVocabularys(s, context);
-                            }
-                            direction = false;
-                            if(list.getVocabularylist().size() > 0) {
-                                try {
-                                    showvocabularys(list);
-                                }catch (Exception e){ }
                             }
                         }
                     });
@@ -523,8 +509,9 @@ public class Vokabeln extends AppCompatActivity {
     public void showvocabularys(final VocabularyList showvocablist){
         final int listiD;
 
-        final VocabularyList vocabularyList;
-        if(publiclist == false || sharedlist == null) {
+        final VocabularyList vocabularyList = showvocablist;
+        if(showvocablist.getShared() == false || showvocablist.getCreatorID() == ManageData.getUserID()) {
+            Log.d("ShowVocabs False", "ListID: "  + showvocablist.getID() + " CreatorID: " + showvocablist.getCreatorID() + " UserID: " + ManageData.getUserID() + " Shared: " + showvocablist.getShared());
             train.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -532,7 +519,6 @@ public class Vokabeln extends AppCompatActivity {
                 }
             });
 
-            vocabularyList = showvocablist;
             if(MainActivity.InternetAvailable(context)) {
                 try {
                     if(showvocablist.getID() == 0) {
@@ -560,33 +546,41 @@ public class Vokabeln extends AppCompatActivity {
                 }
             }
 
-            if(publiclist == false) {
+            if(showvocablist.getShared() == false) {
                 bottom.setVisibility(View.GONE);
-            }else{
-
-                bottom.setVisibility(View.VISIBLE);
-                follow.setText("... Follower");
-                follow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                    }
-                });
-                rate.setText("4,5 Sterne");
+            }else {
+                if (showvocablist.getCreatorID() == ManageData.getUserID()) {
+                    bottom.setVisibility(View.VISIBLE);
+                    follow.setText("... Follower");
+                    follow.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                        }
+                    });
+                    rate.setText("4,5 Sterne");
+                } else {
+                    bottom.setVisibility(View.GONE);
+                }
             }
         }else{
-            vocabularyList = sharedlist;
+            Log.d("ShowVocabs True", "ListID: "  + showvocablist.getID() + " CreatorID: " + showvocablist.getCreatorID() + " UserID: " + ManageData.getUserID() + " Shared: " + showvocablist.getShared());
             bottom.setVisibility(View.VISIBLE);
-            RequestHandler requestHandler = new RequestHandler();
-            String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + sharedListID + "&UserID=" + ManageData.getUserID());
-            Gson gson = new Gson();
-            Type type = new TypeToken<String>() {}.getType();
-            String a = gson.fromJson(json, type);
+            if(MainActivity.InternetAvailable(context)) {
+                RequestHandler requestHandler = new RequestHandler();
+                String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + showvocablist.getID() + "&UserID=" + ManageData.getUserID());
+                Gson gson = new Gson();
+                Type type = new TypeToken<String>() {
+                }.getType();
+                String a = gson.fromJson(json, type);
 
-            final int followStatus = Integer.parseInt(a);
-            if(followStatus == 0) {
-                follow.setText("Folgen");
+                final int followStatus = Integer.parseInt(a);
+                if (followStatus == 0) {
+                    follow.setText("Folgen");
+                } else {
+                    follow.setText("Gefolgt");
+                }
             }else{
-                follow.setText("Gefolgt");
+                follow.setText("OFFLINE");
             }
             settings.setText("Liste Melden");
             settings.setOnClickListener(new View.OnClickListener() {
@@ -598,7 +592,7 @@ public class Vokabeln extends AppCompatActivity {
             follow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    openFollow();
+                    openFollow(showvocablist, follow);
                 }
             });
             rate.setText("Bewerten");
@@ -1490,6 +1484,8 @@ public class Vokabeln extends AppCompatActivity {
             for(VocabularyList list : VocabularyMethods.vocabularylists){
                 if(list.getName().equals(SharedList.get(1))){
                     sharedlist = null;
+                    list.setSource(true);
+                    list.setShared(true);
                     showvocabularys(list);
                     break;
                 }
@@ -1497,9 +1493,11 @@ public class Vokabeln extends AppCompatActivity {
         }else{
             sharedID = Integer.parseInt(SharedList.get(6));
             sharedListID = Integer.parseInt(SharedList.get(7));
-            VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true, true, sharedListID, sharedID);
+            VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true, true, sharedListID, sharedID, true);
+            direction = true;
             sharedlist = list;
             ManageData.DownloadVocabularys(list.getName(), context);
+            publiclist = true;
             showvocabularys(list);
         }
     }
@@ -1522,42 +1520,54 @@ public class Vokabeln extends AppCompatActivity {
 
 
 
-    public void openFollow(){
-        RequestHandler requestHandler = new RequestHandler();
-        String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + sharedListID + "&UserID=" + ManageData.getUserID());
-        Gson gson = new Gson();
-        Type type = new TypeToken<String>() {}.getType();
-        String a = gson.fromJson(json, type);
+    public void openFollow(VocabularyList flist, Button follow){
+        if(MainActivity.InternetAvailable(context)) {
+            RequestHandler requestHandler = new RequestHandler();
+            String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + flist.getID() + "&UserID=" + ManageData.getUserID());
+            Gson gson = new Gson();
+            Type type = new TypeToken<String>() {
+            }.getType();
+            String a = gson.fromJson(json, type);
 
-        final int followStatus = Integer.parseInt(a);
+            final int followStatus = Integer.parseInt(a);
 
-        LinkedHashMap<String, String> params = new LinkedHashMap <>();
-        params.put("VocID", sharedListID + "");
-        params.put("UserID", ManageData.getUserID() + "");
-        params.put("UserID", ManageData.getUserID() + "");
-        if(followStatus == 0) {
-            params.put("State", 1 + "");
-            follow.setText("Gefolgt");
-        }else{
-            params.put("State", 0 + "");
-            follow.setText("Folgen");
-
-            VocabularyList g = null;
-            VocabularyMethods.removeFollowedVocabularys(sharedlist);
-            for (VocabularyList list : VocabularyMethods.vocabularylists){
-                if(list.getName().equals(sharedlist.getName())){
-                    g = list;
-                    break;
+            if(follow.getText().toString().equalsIgnoreCase("Offline")){
+                if (followStatus == 1) {
+                    follow.setText("Gefolgt");
+                } else {
+                    follow.setText("Folgen");
                 }
-            }
-            if(g != null){
-                VocabularyMethods.vocabularylists.remove(g);
-                Log.d("Remove","Removed VoabularyList " + g.getName() + " from vocabularylists");
-            }
+            }else {
+                LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                params.put("VocID", flist.getID() + "");
+                params.put("UserID", ManageData.getUserID() + "");
+                params.put("UserID", ManageData.getUserID() + "");
+                if (followStatus == 0) {
+                    params.put("State", 1 + "");
+                    follow.setText("Gefolgt");
+                } else {
+                    params.put("State", 0 + "");
+                    follow.setText("Folgen");
 
+                    VocabularyList g = null;
+                    VocabularyMethods.removeFollowedVocabularys(flist);
+                    for (VocabularyList list : VocabularyMethods.vocabularylists) {
+                        if (list.getName().equals(flist.getName())) {
+                            g = list;
+                            break;
+                        }
+                    }
+                    if (g != null) {
+                        VocabularyMethods.vocabularylists.remove(g);
+                        Log.d("Remove", "Removed VoabularyList " + g.getName() + " from vocabularylists");
+                    }
+
+                }
+                requestHandler.sendPostRequest(MainActivity.URL_Follow, params);
+            }
+        }else{
+            follow.setText("OFFLINE");
         }
-
-        requestHandler.sendPostRequest(MainActivity.URL_Follow, params);
     }
 
 

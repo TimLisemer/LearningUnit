@@ -31,34 +31,34 @@ public class VocabularyMethods {
 
 
     public static void removeFollowedVocabularys(VocabularyList SharedList){
-        VocabularyList list = null;
-        if(VocabularyMethods.VocabularyLanguageUsed(SharedList.getLanguageName1(), SharedList.getLanguageName2()) == 1){
-            list = VocabularyMethods.getVocabularyList("AllVoc_" + SharedList.getLanguageName1() + " <--> " + SharedList.getLanguageName2(), true);
-        }else if(VocabularyMethods.VocabularyLanguageUsed(SharedList.getLanguageName1(), SharedList.getLanguageName2()) == 2) {
-            list = VocabularyMethods.getVocabularyList("AllVoc_" + SharedList.getLanguageName2() + " <--> " + SharedList.getLanguageName1(), true);
+        if(VocabularyMethods.vocabularylists != null && SharedList != null) {
+            VocabularyList list = null;
+            if (VocabularyMethods.VocabularyLanguageUsed(SharedList.getLanguageName1(), SharedList.getLanguageName2()) == 1) {
+                list = VocabularyMethods.getVocabularyList("AllVoc_" + SharedList.getLanguageName1() + " <--> " + SharedList.getLanguageName2(), true);
+            } else if (VocabularyMethods.VocabularyLanguageUsed(SharedList.getLanguageName1(), SharedList.getLanguageName2()) == 2) {
+                list = VocabularyMethods.getVocabularyList("AllVoc_" + SharedList.getLanguageName2() + " <--> " + SharedList.getLanguageName1(), true);
+            }
+            if (list != null) {
+                vocabularylists.remove(list);
+            }
         }
-
-        if(list != null) {
-            vocabularylists.remove(list);
-        }
-
     }
 
     public static int VocabularyLanguageUsed(String language1, String language2){
-
+        int returner = 0;
         if (vocabularylists != null) {
             for (int i = 0; i < vocabularylists.size(); i++) {
                 VocabularyList list = vocabularylists.get(i);
                 if (list.getName().equalsIgnoreCase("AllVoc_" + language1 + " <--> " + language2)) {
-                    return 1;
-
+                    returner = 1;
+                    break;
                 }else if (list.getName().equalsIgnoreCase("AllVoc_" + language2 + " <--> " + language1)) {
-                    return  2;
-
+                    returner =  2;
+                    break;
                 }
             }
         }
-        return 0;
+        return returner;
     }
 
 

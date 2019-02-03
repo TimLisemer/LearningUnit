@@ -121,7 +121,7 @@ public class ManageData extends MainActivity{
                         String a = gson.fromJson(json1, type1);
                         final int sharedStatus = Integer.parseInt(a);
                         if(sharedStatus == 1) {
-                            vocabularyList = new VocabularyList(alist.get(2), alist.get(3), alist.get(1), true, true, Integer.parseInt(alist.get(0)), Integer.parseInt(alist.get(4)));
+                            vocabularyList = new VocabularyList(alist.get(2), alist.get(3), alist.get(1), true, true, Integer.parseInt(alist.get(0)), Integer.parseInt(alist.get(4)), true);
                             vocabularyList.setShared(true);
                             VocabularyMethods.vocabularylists.add(vocabularyList);
                             DownloadVocabularys(vocabularyList.getName(), ctx);
@@ -246,7 +246,7 @@ public class ManageData extends MainActivity{
 
             } catch (Exception e) {
                 Log.d("DownloadVocabularys", e.toString() + " ------------------------------------------------------------------");
-           }
+            }
             Vokabeln.publiclist = false;
             Vokabeln.sharedlist = null;
 
