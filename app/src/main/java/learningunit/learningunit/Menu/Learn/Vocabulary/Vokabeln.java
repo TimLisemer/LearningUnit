@@ -43,6 +43,7 @@ import learningunit.learningunit.BeforeStart.Register;
 import learningunit.learningunit.Menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.RequestHandler;
+import learningunit.learningunit.Objects.Learn.VocabularyPackage.ReadCsvVocList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
@@ -51,7 +52,7 @@ import learningunit.learningunit.R;
 
 public class Vokabeln extends AppCompatActivity {
 
-    private Button back, back1, create, train, all, follow, rate, settings, yourBase, followbase, allBase, nolistButton;
+    private Button back, back1, create, train, all, follow, rate, settings, yourBase, followbase, allBase, nolistButton, importList;
     private TextView lang1, lang2, original, translation, error, nolist;
     ConstraintLayout layout, layout0, layout00, layout1, bottom;
     ConstraintSet constraintSet, constraintSeto, constraintSett;
@@ -202,6 +203,15 @@ public class Vokabeln extends AppCompatActivity {
         original = (TextView) findViewById(R.id.vocabulary_original);
         translation = (TextView) findViewById(R.id.vocabulary_translation);
 
+        importList = (Button) findViewById(R.id.vocabulary_import);
+        importList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReadCsvVocList rl = new ReadCsvVocList();
+                rl.ReadList(context);
+            }
+        });
+
         nolistButton = (Button) findViewById(R.id.vocabulary_nolistsButton);
         nolistButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -318,7 +328,7 @@ public class Vokabeln extends AppCompatActivity {
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-                    params.setMargins(8, 90, 8, 8);
+                    params.setMargins(0, 90, 0, 8);
 
                     downyourLists[i].setText(yourlistsString.get(i));
                     downyourLists[i].setId(i);
@@ -375,7 +385,7 @@ public class Vokabeln extends AppCompatActivity {
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-                    params.setMargins(8, 90, 8, 8);
+                    params.setMargins(0, 90, 0, 8);
                     downfollowedLists[i].setText(followedlistsString.get(i));
                     downfollowedLists[i].setId(i + offset);
                     downfollowedLists[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -451,7 +461,7 @@ public class Vokabeln extends AppCompatActivity {
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-                    params.setMargins(8, 90, 8, 8);
+                    params.setMargins(0, 90, 0, 8);
                     downallLists[i].setText(languageslistsString.get(i).replace("AllVoc_", ""));
                     downallLists[i].setId(i + offset);
                     downallLists[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -1371,7 +1381,7 @@ public class Vokabeln extends AppCompatActivity {
         final ArrayList<String> SharedList = SharedLists.get(0);
 
         ShareScrollBase0.setText("Name: " + SharedList.get(1));
-        ShareScrollBase1.setText(SharedList.get(2) + "-" + SharedList.get(3));
+        ShareScrollBase1.setText(SharedList.get(2) + " <--> " + SharedList.get(3));
         ShareScrollBase2.setText(SharedList.get(5) + " Vokabeln");
         ShareScrollBase3.setText("Ersteller: " + SharedList.get(4));
 
@@ -1444,7 +1454,7 @@ public class Vokabeln extends AppCompatActivity {
             if(namechoice == 0) {
                 Creator[i].setText("Name: " + SharedLists.get(i).get(1));
             }else if(namechoice == 1) {
-                Creator[i].setText(SharedLists.get(i).get(2) + "-" + SharedLists.get(i).get(3));
+                Creator[i].setText(SharedLists.get(i).get(2) + " <--> " + SharedLists.get(i).get(3));
             }else if(namechoice == 2) {
                 Creator[i].setText(SharedLists.get(i).get(5) + " Vokabeln");
             }else if(namechoice == 3) {
@@ -1609,18 +1619,51 @@ public class Vokabeln extends AppCompatActivity {
                                 return false;
                         }
                     case R.id.vocabulary_open_delete:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Vokabeln.this);
                         if(list.getSource() == false){
-                            VocabularyMethods.vocabularylists.remove(list);
-                            FirstScreen.tinyDB.remove("VocLists");
-                            ManageData.saveVocabularyLists();
+                            builder.setCancelable(true);
+                            builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    VocabularyMethods.vocabularylists.remove(list);
+                                    FirstScreen.tinyDB.remove("VocLists");
+                                    ManageData.saveVocabularyLists();
+                                }
+                            });
+                            builder.setTitle("Vokabelliste Löschen?");
+                            builder.setMessage("Bist du sicher, dass du diese Vokabelliste löschen möchtest?");
+                            builder.show();
+                            return true;
                         }else if(MainActivity.InternetAvailable(context)) {
-                            RequestHandler requestHandler = new RequestHandler();
-                            VocabularyMethods.vocabularylists.remove(list);
-                            FirstScreen.tinyDB.remove("VocLists");
-                            ManageData.saveVocabularyLists();
-                            String json = requestHandler.sendGetRequest(MainActivity.URL_DeleteVocList + vocID);
-                            Intent intent = new Intent(Vokabeln.this, Vokabeln.class);
-                            startActivity(intent);
+
+                            builder.setCancelable(true);
+                            builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    RequestHandler requestHandler = new RequestHandler();
+                                    VocabularyMethods.vocabularylists.remove(list);
+                                    FirstScreen.tinyDB.remove("VocLists");
+                                    ManageData.saveVocabularyLists();
+                                    String json = requestHandler.sendGetRequest(MainActivity.URL_DeleteVocList + vocID);
+                                    Intent intent = new Intent(Vokabeln.this, Vokabeln.class);
+                                    startActivity(intent);
+                                }
+                            });
+                            builder.setTitle("Vokabelliste Löschen?");
+                            builder.setMessage("Bist du sicher, dass du diese Vokabelliste löschen möchtest?");
+                            builder.show();
                             return true;
                         }else{
                             MainActivity.NoNetworkAlert(Vokabeln.this);

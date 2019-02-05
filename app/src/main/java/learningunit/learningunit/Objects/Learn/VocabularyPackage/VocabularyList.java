@@ -121,4 +121,18 @@ public class VocabularyList {
         return LanguageName2;
     }
 
+    @Override
+    public String toString() {
+        return "VocabularyList{" +
+                "vocabularylist=" + vocabularylist +
+                ", name='" + name + '\'' +
+                ", LanguageName1='" + LanguageName1 + '\'' +
+                ", LanguageName2='" + LanguageName2 + '\'' +
+                ", source=" + source +
+                ", followed=" + followed +
+                ", Shared=" + Shared +
+                ", id=" + id +
+                ", CreatorID=" + CreatorID +
+                '}';
+    }
 }
