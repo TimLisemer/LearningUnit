@@ -1,7 +1,11 @@
 package learningunit.learningunit.Menu.Learn.Vocabulary;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +14,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.nbsp.materialfilepicker.MaterialFilePicker;
+import com.nbsp.materialfilepicker.ui.FilePickerActivity;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.regex.Pattern;
 
 import learningunit.learningunit.Menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
+import learningunit.learningunit.Objects.Learn.VocabularyPackage.ReadCsvVocList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
@@ -22,6 +37,11 @@ public class CreateVocList extends AppCompatActivity{
     private EditText vocabulary, vocabulary1, listtext, languagetext, languagetext1;
     private TextView error1, error, Cancel1;
     private String language, language1;
+
+    private EditText listtext1, languagetext11, languagetext21;
+    private TextView error11;
+    private String language11, language21;
+    private boolean file = false;
 
     VocabularyList list;
     private static Context context;
@@ -38,6 +58,9 @@ public class CreateVocList extends AppCompatActivity{
 
     //Deklarieren der Knöpfe ( scrollview3 )
     private Button finish1, return1;
+
+    //Deklarieren der Knöpfe ( scrollview4 )
+    private Button back11, continue1, continue11;
 
     @Override
     public void onPause() {
@@ -150,9 +173,47 @@ public class CreateVocList extends AppCompatActivity{
             }
         });
 
+        //Initialisieren der Knöpfe und rufen der OnClick methode ( scrollview4 )
+        listtext1 = (EditText) findViewById(R.id.CreateVocList_name_list1);
+        languagetext11 = (EditText) findViewById(R.id.CreateVocList_name_language11);
+        languagetext21 = (EditText) findViewById(R.id.CreateVocList_name_language21);
+        error11 = (TextView) findViewById(R.id.CreateVocList_error11);
+        back11 = (Button) findViewById(R.id.CreateVocList_back11);
+        back11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                open_back();
+            }
+        });
+
+        continue1 = (Button) findViewById(R.id.CreateVocList_continue1);
+        continue1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        continue11 = (Button) findViewById(R.id.CreateVocList_continue11);
+        continue11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openContinue();
+            }
+        });
+
+
+        openCreateList();
     }
 
 
+    private void openCreateList(){
+        if(VocabularyMethods.openCreateList == true){
+            findViewById(R.id.CreateVocList_scrollview).setVisibility(View.VISIBLE);
+        }else{
+            findViewById(R.id.CreateVocList_scrollview4).setVisibility(View.VISIBLE);
+        }
+    }
 
 
     //Buttton OnClick Methoden ( scrollview )
@@ -301,6 +362,83 @@ public class CreateVocList extends AppCompatActivity{
         findViewById(R.id.CreateVocList_scrollview3).setVisibility(View.INVISIBLE);
         findViewById(R.id.CreateVocList_scrollview1).setVisibility(View.VISIBLE);
     }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public void openContinue(){
+        language11 = languagetext11.getText().toString().trim();
+        language21 = languagetext21.getText().toString().trim();
+
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1001);
+        }else {
+            new MaterialFilePicker()
+                    .withActivity(this)
+                    .withRequestCode(1000)
+                    .withFilter(Pattern.compile(".*\\.csv$")) // Filtering files and directories by file name using regexp
+                    .withHiddenFiles(true) // Show hidden files and folders
+                    .start();
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){
+            case 1001: {
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(this, "Zugriff gestattet!", Toast.LENGTH_SHORT).show();
+                    openContinue();
+                }else{
+                    Toast.makeText(this, "Zugriff verwehrt!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        }
+
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1000 && resultCode == RESULT_OK){
+            try {
+                String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
+                error11.setText(filePath);
+                File csv = new File(filePath);
+                file = true;
+                continue1.setEnabled(true);
+                final InputStream is = new FileInputStream(csv);
+                continue1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        openContinue1(is);
+                    }
+                });
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void openContinue1(InputStream is){
+        ReadCsvVocList rl = new ReadCsvVocList();
+        rl.ReadList(CreateVocList.this, is, language11, language21, listtext1.getText().toString().trim());
+        Intent intent = new Intent(this, Vokabeln.class);
+        startActivity(intent);
+    }
+
+
+
 
 
 

@@ -207,8 +207,7 @@ public class Vokabeln extends AppCompatActivity {
         importList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReadCsvVocList rl = new ReadCsvVocList();
-                rl.ReadList(context);
+                openImport();
             }
         });
 
@@ -774,6 +773,13 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void open_create(){
+        VocabularyMethods.openCreateList = true;
+        Intent intent = new Intent(this, CreateVocList.class);
+        startActivity(intent);
+    }
+
+    public void openImport(){
+        VocabularyMethods.openCreateList = false;
         Intent intent = new Intent(this, CreateVocList.class);
         startActivity(intent);
     }
@@ -1612,7 +1618,23 @@ public class Vokabeln extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.vocabulary_open_share:
                         if(MainActivity.InternetAvailable(context)) {
-                            openShare(vocID, list);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Vokabeln.this);
+                            builder.setCancelable(true);
+                            builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            builder.setPositiveButton("Veröffentlichen", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    openShare(vocID, list);
+                                }
+                            });
+                            builder.setTitle("Vokabelliste Veröffentlichen?");
+                            builder.setMessage("Mit deiner Freigabe bestätigst du, dass du keine Rechte Dritter verletzt.");
+                            builder.show();
                             return true;
                         }else{
                             MainActivity.NoNetworkAlert(Vokabeln.this);

@@ -10,6 +10,7 @@ import learningunit.learningunit.Objects.API.ManageData;
 public class VocabularyMethods {
 
     public static List<VocabularyList> vocabularylists;
+    public static boolean openCreateList; //True CreateList ; False Import Csv List
 
     public static boolean nameavailable(String name){
         boolean a = true;
