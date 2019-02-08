@@ -884,7 +884,7 @@ public class Vokabeln extends AppCompatActivity {
             learn_language.setText(voc.getLanguageName1());
             learn_original.setText(voc.getOriginal());
             learn_masterTranslation.setText(voc.getTranslation());
-//
+
             learn_language1.setText(voc.getLanguageName2());
 
             learn_showtranslation.setOnClickListener(new View.OnClickListener() {
