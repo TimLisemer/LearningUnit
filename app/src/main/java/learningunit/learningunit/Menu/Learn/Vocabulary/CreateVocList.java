@@ -40,8 +40,6 @@ public class CreateVocList extends AppCompatActivity{
 
     private EditText listtext1, languagetext11, languagetext21;
     private TextView error11;
-    private String language11, language21;
-    private boolean file = false;
 
     VocabularyList list;
     private static Context context;
@@ -210,8 +208,10 @@ public class CreateVocList extends AppCompatActivity{
     private void openCreateList(){
         if(VocabularyMethods.openCreateList == true){
             findViewById(R.id.CreateVocList_scrollview).setVisibility(View.VISIBLE);
+            findViewById(R.id.CreateVocList_scrollview4).setVisibility(View.GONE);
         }else{
             findViewById(R.id.CreateVocList_scrollview4).setVisibility(View.VISIBLE);
+            findViewById(R.id.CreateVocList_scrollview).setVisibility(View.GONE);
         }
     }
 
@@ -368,10 +368,7 @@ public class CreateVocList extends AppCompatActivity{
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
     public void openContinue(){
-        language11 = languagetext11.getText().toString().trim();
-        language21 = languagetext21.getText().toString().trim();
 
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1001);
@@ -415,7 +412,6 @@ public class CreateVocList extends AppCompatActivity{
                 String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
                 error11.setText(filePath);
                 File csv = new File(filePath);
-                file = true;
                 continue1.setEnabled(true);
                 final InputStream is = new FileInputStream(csv);
                 continue1.setOnClickListener(new View.OnClickListener() {
@@ -431,10 +427,30 @@ public class CreateVocList extends AppCompatActivity{
     }
 
     public void openContinue1(InputStream is){
-        ReadCsvVocList rl = new ReadCsvVocList();
-        rl.ReadList(CreateVocList.this, is, language11, language21, listtext1.getText().toString().trim());
-        Intent intent = new Intent(this, Vokabeln.class);
-        startActivity(intent);
+        if(!(listtext1.getText().toString().trim().matches(""))) {
+            if(VocabularyMethods.nameavailable(listtext1.getText().toString().trim())) {
+                if(languagetext11.getText().toString().trim() != "") {
+                    if(languagetext21.getText().toString().trim() != "") {
+                        if(!(languagetext11.getText().toString().trim().equalsIgnoreCase(languagetext21.getText().toString().trim()))){
+                            ReadCsvVocList rl = new ReadCsvVocList();
+                            rl.ReadList(CreateVocList.this, is, languagetext11.getText().toString().trim(), languagetext21.getText().toString().trim(), listtext1.getText().toString().trim());
+                            Intent intent = new Intent(this, Vokabeln.class);
+                            startActivity(intent);
+                        }else{
+                            languagetext21.setError("Identisch zu Sprache 1");
+                        }
+                    }else{
+                        languagetext21.setError("Bitte gebe einen Namen für diese Sprache ein");
+                    }
+                }else{
+                    languagetext11.setError("Bitte gebe einen Namen für diese Sprache ein");
+                }
+            }else{
+                listtext1.setError("Es existiert berreits eine Vokabelliste mit diesem Namen");
+            }
+        }else{
+            listtext1.setError("Bitte gebe einen Namen für die Vokabelliste ein");
+        }
     }
 
 

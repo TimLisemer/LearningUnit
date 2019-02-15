@@ -27,18 +27,30 @@ public class ReadCsvVocList {
         VocabularyList CsvList = new VocabularyList(Sprache1, Sprache2, Name,true, false);
         CsvList.setCreatorID(ManageData.getUserID());
 
-        is = ctx.getResources().openRawResource(R.raw.unit9);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
         String line = "";
-
         try {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
                 Vocabulary voc = new Vocabulary(tokens[0], tokens[1], Sprache1, Sprache2, false);
                 CsvList.addVocabulary(voc);
             }
-            VocabularyMethods.saveVocabularyList(CsvList);
-            ManageData.uploadVocabularyList(CsvList, ctx);
+            if(CsvList.getVocabularylist().size() >= 2) {
+                VocabularyMethods.saveVocabularyList(CsvList);
+                ManageData.uploadVocabularyList(CsvList, ctx);
+            }else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+                builder.setCancelable(true);
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setTitle("CSV - Import");
+                builder.setMessage("Fehler beim Importieren der CSV - Liste");
+                builder.show();
+            }
         }catch (IOException e){
             Log.wtf("ReadCsvlist", "Error: " + e + " Line: " + line);
             e.printStackTrace();

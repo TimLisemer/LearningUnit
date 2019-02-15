@@ -41,13 +41,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <android.support.constraint.Guideline
-                    android:id="@+id/guideline11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.5" />
-
                 <TextView
                     android:id="@+id/vocabulary_nolists"
                     android:layout_width="0dp"
@@ -62,7 +55,7 @@
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_import" />
+                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_all" />
 
                 <Button
                     android:id="@+id/vocabulary_all"
@@ -114,36 +107,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/vocabulary_nolists" />
 
-                <Button
-                    android:id="@+id/vocabulary_import"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="32dp"
-                    android:text="Liste Importieren"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/guideline11"
-                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_create" />
-
-                <Button
-                    android:id="@+id/vocabulary_export"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="Liste Exportieren"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline11"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_back" />
             </android.support.constraint.ConstraintLayout>
 
             <ScrollView
                 android:id="@+id/vocabulary_buttonView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -325,18 +294,39 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <Button
-                    android:id="@+id/vocabulary_shared"
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <Button
+                    android:id="@+id/vocabulary_import"
+                    android:layout_width="174dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Liste Importieren"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline11"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/vocabulary_shared"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:text="Öffentliche Listen"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline11"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
