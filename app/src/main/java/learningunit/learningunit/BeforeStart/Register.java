@@ -43,6 +43,7 @@ public class Register extends AppCompatActivity {
     private int ready, ready1, ready2, ready3, ready4;
     private TextView error;
     private ConstraintLayout view1, view2;
+    private int backLocation = 0;
 
     private void hide(){
         MainActivity.hideKeyboard(this);
@@ -343,6 +344,7 @@ public class Register extends AppCompatActivity {
                 MainActivity.hideKeyboard(this);
                 view1.setVisibility(View.INVISIBLE);
                 view2.setVisibility(View.VISIBLE);
+                backLocation = 1;
 
                 Back1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -362,7 +364,8 @@ public class Register extends AppCompatActivity {
                             ManageData.setOfflineAccount(2);
                             view1.setVisibility(View.VISIBLE);
                             view2.setVisibility(View.INVISIBLE);
-                            open_accept();
+                            backLocation = 0;
+                                    open_accept();
                             Log.d("Register", "Accept");
                         }else {
                             open_back1();
@@ -383,6 +386,7 @@ public class Register extends AppCompatActivity {
                             VocabularyMethods.vocabularylists.clear();
                             FirstScreen.tinyDB.remove("VocLists");
                             ManageData.saveVocabularyLists();
+                            backLocation = 0;
                             open_next();
                             Log.d("Register", "Decline");
                         }else {
@@ -453,6 +457,17 @@ public class Register extends AppCompatActivity {
         ManageData.setOnlineAccount(false);
         view1.setVisibility(View.VISIBLE);
         view2.setVisibility(View.GONE);
+        backLocation = 0;
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(backLocation == 1){
+            open_back1();
+        }else{
+            open_back();
+        }
+
     }
 
 

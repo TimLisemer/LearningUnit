@@ -267,7 +267,7 @@ public class CreateVocList extends AppCompatActivity{
         vocabulary1.setText("");
         vocabulary.setHint("Original (" + language + ")");
         vocabulary1.setHint("Original (" + language1 + ")");
-        MainActivity.hideKeyboard(this);
+        MainActivity.hideKeyboard(CreateVocList.this);
         if(list.getVocabularylist().size() == 0) {
             Cancel1.setText("Wollen sie wirklich abbrechen? Es gehen dadurch KEINE Vokabeln verloren.");
         }else{
@@ -361,6 +361,23 @@ public class CreateVocList extends AppCompatActivity{
         MainActivity.showKeyboard(this);
         findViewById(R.id.CreateVocList_scrollview3).setVisibility(View.INVISIBLE);
         findViewById(R.id.CreateVocList_scrollview1).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(findViewById(R.id.CreateVocList_scrollview).getVisibility() == View.VISIBLE){
+            open_back();
+        }else if(findViewById(R.id.CreateVocList_scrollview1).getVisibility() == View.VISIBLE){
+            open_back1();
+        }else if(findViewById(R.id.CreateVocList_scrollview2).getVisibility() == View.VISIBLE){
+            open_return();
+        }else if(findViewById(R.id.CreateVocList_scrollview3).getVisibility() == View.VISIBLE){
+            open_return1();
+        }else if(findViewById(R.id.CreateVocList_scrollview3).getVisibility() == View.VISIBLE){
+            open_return1();
+        }else if(findViewById(R.id.CreateVocList_scrollview4).getVisibility() == View.VISIBLE){
+            open_back();
+        }
     }
 
 

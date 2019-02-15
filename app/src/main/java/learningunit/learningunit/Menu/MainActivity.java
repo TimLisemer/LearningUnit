@@ -22,12 +22,16 @@ import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.NewsFeed;
 import learningunit.learningunit.R;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
 public class MainActivity extends AppCompatActivity {
 
     private static Context context;
+
+    public int backLocation = 0; // 0 = Main Menu; 1 = Lernen; 2 = Einstellungen;
+
     //Datenbank
     private static final String ROOT_URL = "http://185.233.105.80/MySQL/v1/Api.php?apicall=";
-
     public static final String URL_CreateAccount = ROOT_URL + "CreateAccount";
     public static final String URL_LoginAccount = ROOT_URL + "Login";
     public static final String URL_GetAccount = ROOT_URL + "GetAccount&id=";
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Deklarieren der Knöpfe
-    private Button logout, forum, learn, organizer, timetable, statistics, settings;
+    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode;
     public static TextView news;
     private Button learnBack, learnVocab;
     Activity a = new Activity();
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     Thread thread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        backLocation = 0;
         MainActivity.hideKeyboard(this);
         if(ManageData.OfflineAccount == 0){
             Intent intent = new Intent(this, FirstScreen.class);
@@ -76,10 +81,23 @@ public class MainActivity extends AppCompatActivity {
         learnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                findViewById(R.id.main_mainLayout).setVisibility(View.VISIBLE);
-                findViewById(R.id.main_learnLayout).setVisibility(View.GONE);
-                news.setVisibility(View.VISIBLE);
-                logout.setVisibility(View.VISIBLE);
+                openLearnback();
+            }
+        });
+
+        settingsBack = (Button) findViewById(R.id.main_settingsBack);
+        settingsBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSettingsBack();
+            }
+        });
+
+        darkMode = (Button) findViewById(R.id.main_settingsDarkMode);
+        darkMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startDarkMode();
             }
         });
 
@@ -91,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        logout = (Button) findViewById(R.id.main_logout);
+        logout = (Button) findViewById(R.id.main_settingsLogout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                backLocation = 1;
                 news.setVisibility(View.GONE);
-                logout.setVisibility(View.GONE);
                 findViewById(R.id.main_mainLayout).setVisibility(View.GONE);
                 findViewById(R.id.main_learnLayout).setVisibility(View.VISIBLE);
             }
@@ -175,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         thread.start();
+        backLocation = 0;
     }
 
 
@@ -213,9 +232,56 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open_settings(){
-        //Intent intent = new Intent(this, FirstScreen.class);
-        //startActivity(intent);
+        findViewById(R.id.main_mainLayout0).setVisibility(View.GONE);
+        findViewById(R.id.main_settingsLayout).setVisibility(View.VISIBLE);
+        news.setVisibility(View.GONE);
+        backLocation = 2;
     }
+
+    public void openSettingsBack(){
+        findViewById(R.id.main_mainLayout0).setVisibility(View.VISIBLE);
+        findViewById(R.id.main_settingsLayout).setVisibility(View.GONE);
+        news.setVisibility(View.VISIBLE);
+        backLocation = 0;
+    }
+
+    public void openLearnback(){
+        findViewById(R.id.main_mainLayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.main_learnLayout).setVisibility(View.GONE);
+        news.setVisibility(View.VISIBLE);
+        backLocation = 0;
+    }
+
+    public void startDarkMode(){
+
+        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
+        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
+        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
+        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
+        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
+        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
+        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
+        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
+        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
+        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
+
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(backLocation == 0){
+            finish();
+            this.finishAffinity();
+            finishAndRemoveTask();
+            MainActivity.this.finish();
+            System.exit(0);
+        }else if (backLocation == 1){
+            openLearnback();
+        }else if (backLocation == 2){
+            openSettingsBack();
+        }
+    }
+
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -266,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
         ManageData.saveVocabularyLists();
     }
 
-    public static void NoNetworkAlert(Context ctx){
+    public static void NoNetworkAlert(Context ctx) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
         builder.setCancelable(true);
         builder.setNegativeButton("Zurück", new DialogInterface.OnClickListener() {

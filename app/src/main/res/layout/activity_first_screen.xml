@@ -281,7 +281,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_back1"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.100000024" />
 
 
         </android.support.constraint.ConstraintLayout>
