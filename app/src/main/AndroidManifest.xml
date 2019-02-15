@@ -11,22 +11,23 @@
         android:roundIcon="@mipmap/mylogo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Menu.MainActivity" android:parentActivityName=".Menu.MainActivity">
+        <activity android:name=".Menu.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BeforeStart.FirstScreen" android:parentActivityName=".BeforeStart.FirstScreen"/>
-        <activity android:name=".BeforeStart.Register" android:parentActivityName=".BeforeStart.FirstScreen"/>
-        <activity android:name=".Menu.Organizer.Organizer" android:parentActivityName=".Menu.MainActivity"/>
-        <activity android:name=".Menu.Learn.Vocabulary.Vokabeln" android:parentActivityName=".Menu.MainActivity"/>
-        <activity android:name=".Menu.Learn.Vocabulary.CreateVocList" android:parentActivityName=".Menu.Learn.Vocabulary.Vokabeln"/>
+        <activity android:name=".BeforeStart.FirstScreen"/>
+        <activity android:name=".BeforeStart.Register"/>
+        <activity android:name=".Menu.Organizer.Organizer"/>
+        <activity android:name=".Menu.Learn.Vocabulary.Vokabeln"/>
+        <activity android:name=".Menu.Learn.Vocabulary.CreateVocList"/>
         <activity android:name=".Menu.Organizer.Timetable.Timetable"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
+            android:clearTaskOnLaunch="true"
             android:resource="@array/preloaded_fonts" />
     </application>
 

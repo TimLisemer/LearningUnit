@@ -45,6 +45,7 @@ public class FirstScreen extends AppCompatActivity {
     private TextView errorview;
     private ConstraintLayout view1, view2;
     private static Context context;
+    private int backLocation = 0;
 
 
     @Override
@@ -240,6 +241,7 @@ public class FirstScreen extends AppCompatActivity {
                         MainActivity.hideKeyboard(this);
                         view1.setVisibility(View.INVISIBLE);
                         view2.setVisibility(View.VISIBLE);
+                        backLocation = 1;
                         Back.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -259,6 +261,7 @@ public class FirstScreen extends AppCompatActivity {
                                     view1.setVisibility(View.VISIBLE);
                                     view2.setVisibility(View.INVISIBLE);
                                     Log.d("Login", "Accept");
+                                    backLocation = 0;
                                     open_accept();
                                 } else {
                                     open_back();
@@ -278,6 +281,7 @@ public class FirstScreen extends AppCompatActivity {
                                     VocabularyMethods.vocabularylists.clear();
                                     FirstScreen.tinyDB.remove("VocLists");
                                     ManageData.saveVocabularyLists();
+                                    backLocation = 0;
                                     open_next();
                                     Log.d("Login", "Decline");
                                 } else {
@@ -343,6 +347,7 @@ public class FirstScreen extends AppCompatActivity {
     public void open_continue1(){
         findViewById(R.id.first_scrollview).setVisibility(View.INVISIBLE);
         findViewById(R.id.first_scrollview1).setVisibility(View.VISIBLE);
+        backLocation = 1;
     }
 
     public void open_continue2(){
@@ -365,5 +370,20 @@ public class FirstScreen extends AppCompatActivity {
         findViewById(R.id.first_scrollview1).setVisibility(View.GONE);
         view1.setVisibility(View.VISIBLE);
         view2.setVisibility(View.GONE);
+        backLocation = 0;
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(backLocation == 1){
+            open_back();
+        }else{
+            finish();
+            this.finishAffinity();
+            finishAndRemoveTask();
+            FirstScreen.this.finish();
+            System.exit(0);
+        }
+
     }
 }
