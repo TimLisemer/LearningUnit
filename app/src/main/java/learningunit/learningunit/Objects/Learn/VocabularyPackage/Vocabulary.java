@@ -78,4 +78,13 @@ public class Vocabulary {
         LanguageName2 = languageName2;
     }
 
+    @Override
+    public String toString() {
+        return "Vocabulary{" +
+                "Original='" + Original + '\'' +
+                ", Translation='" + Translation + '\'' +
+                ", LanguageName1='" + LanguageName1 + '\'' +
+                ", LanguageName2='" + LanguageName2 + '\'' +
+                '}';
+    }
 }

@@ -87,13 +87,13 @@ public class ManageData extends MainActivity{
             VocabularyMethods.vocabularylists = new ArrayList<VocabularyList>();
         }
         if(OfflineAccount == 2){
-            DownloadVocabularyLists(ctx);
+            DownloadVocabularyLists(ctx, false);
         }
     }
 
 
 
-    public static void DownloadFollowedVocabularyLists(Context ctx){
+    public static void DownloadFollowedVocabularyLists(Context ctx, boolean downloadVocs){
         if(MainActivity.InternetAvailable(ctx) == true){
             RequestHandler requestHandler = new RequestHandler();
             Log.d("Download", "----------------------------------------------------------------------------------------------");
@@ -124,7 +124,9 @@ public class ManageData extends MainActivity{
                             vocabularyList = new VocabularyList(alist.get(2), alist.get(3), alist.get(1), true, true, Integer.parseInt(alist.get(0)), Integer.parseInt(alist.get(4)), true);
                             vocabularyList.setShared(true);
                             VocabularyMethods.vocabularylists.add(vocabularyList);
-                            DownloadVocabularys(vocabularyList.getName(), ctx);
+                            if(downloadVocs == true) {
+                                DownloadVocabularys(vocabularyList.getName(), ctx);
+                            }
                         }
                     }
                 }
@@ -143,7 +145,7 @@ public class ManageData extends MainActivity{
 
 
 
-    public static void DownloadVocabularyLists(Context ctx){
+    public static void DownloadVocabularyLists(Context ctx, boolean downloadVocs){
         if(MainActivity.InternetAvailable(ctx) == true){
             RequestHandler requestHandler = new RequestHandler();
             Log.d("Download", "----------------------------------------------------------------------------------------------");
@@ -180,7 +182,9 @@ public class ManageData extends MainActivity{
                             }
                         }catch (Exception e){ }
                         VocabularyMethods.vocabularylists.add(vocabularyList);
-                        DownloadVocabularys(vocabularyList.getName(), ctx);
+                        if(downloadVocs == true) {
+                            DownloadVocabularys(vocabularyList.getName(), ctx);
+                        }
                     }
                 }
 

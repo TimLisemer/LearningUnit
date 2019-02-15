@@ -1,23 +1,23 @@
 package learningunit.learningunit.Menu.Learn.Vocabulary;
 
+import android.Manifest;
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.opengl.Visibility;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.constraint.Guideline;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,11 +27,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -39,19 +39,19 @@ import java.util.List;
 import java.util.Random;
 
 import learningunit.learningunit.BeforeStart.FirstScreen;
-import learningunit.learningunit.BeforeStart.Register;
 import learningunit.learningunit.Menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.RequestHandler;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
+import learningunit.learningunit.Objects.Learn.VocabularyPackage.WriteCsvVocList;
 import learningunit.learningunit.R;
 
 
 public class Vokabeln extends AppCompatActivity {
 
-    private Button back, back1, create, train, all, follow, rate, settings, yourBase, followbase, allBase, nolistButton;
+    private Button back, back1, create, train, all, follow, rate, settings, yourBase, followbase, allBase, nolistButton, importList;
     private TextView lang1, lang2, original, translation, error, nolist;
     ConstraintLayout layout, layout0, layout00, layout1, bottom;
     ConstraintSet constraintSet, constraintSeto, constraintSett;
@@ -202,6 +202,14 @@ public class Vokabeln extends AppCompatActivity {
         original = (TextView) findViewById(R.id.vocabulary_original);
         translation = (TextView) findViewById(R.id.vocabulary_translation);
 
+        importList = (Button) findViewById(R.id.vocabulary_import);
+        importList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openImport();
+            }
+        });
+
         nolistButton = (Button) findViewById(R.id.vocabulary_nolistsButton);
         nolistButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,8 +269,9 @@ public class Vokabeln extends AppCompatActivity {
             VocabularyMethods.vocabularylists.clear();
             FirstScreen.tinyDB.remove("VocLists");
             ManageData.saveVocabularyLists();
-            ManageData.DownloadFollowedVocabularyLists(context);
-            ManageData.DownloadVocabularyLists(context);
+            ManageData.DownloadFollowedVocabularyLists(context, true);
+            ManageData.DownloadVocabularyLists(context, true);
+            ManageData.saveVocabularyLists();
         }
 
         if(VocabularyMethods.vocabularylists.size() > 0) {
@@ -286,39 +295,35 @@ public class Vokabeln extends AppCompatActivity {
                         Vokabeln.sharedlist = null;
                         Vokabeln.sharedID = 0;
                         Vokabeln.sharedListID = 0;
-                        ManageData.DownloadVocabularys(list.getName(), context);
                     }
                 }
-                if(list.getVocabularylist().size() == -5){
-                    c.add(list);
-                }else {
-                    if (list.getName().contains("AllVoc_")) {
-                        languageslistsString.add(list.getName());
+                if (list.getName().contains("AllVoc_")) {
+                    languageslistsString.add(list.getName());
+                } else {
+                    if (list.getFollowed() == false) {
+                        list.setCreatorID(ManageData.getUserID());
+                        yourlistsString.add(list.getName());
                     } else {
-                        if (list.getFollowed() == false) {
-                            list.setCreatorID(ManageData.getUserID());
-                            yourlistsString.add(list.getName());
-                        } else {
-                            followedlistsString.add(list.getName());
-                        }
+                        followedlistsString.add(list.getName());
                     }
                 }
             }
             for(VocabularyList remover : c){
                 Log.d("Removed", "Removed list ++++++++++++++++++++++++++++++++++++++");
-                VocabularyMethods.vocabularylists.remove(c);
+                VocabularyMethods.vocabularylists.remove(remover);
             }
             if(yourlistsString.size() > 0) {
                 layout.setVisibility(View.VISIBLE);
                 yourBase.setText(yourlistsString.get(0));
                 downyourLists = new Button[yourlistsString.size()];
                 for (int i = 1; i < yourlistsString.size(); i++) {
+                    final String Name = yourlistsString.get(i);
                     downyourLists[i] = new Button(Vokabeln.this);
 
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
-                            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
-                    params.setMargins(8, 90, 8, 8);
+                    params.setMargins(0, 90, 0, 8);
 
                     downyourLists[i].setText(yourlistsString.get(i));
                     downyourLists[i].setId(i);
@@ -345,6 +350,9 @@ public class Vokabeln extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             try{
+                                if(ManageData.InternetAvailable(context)) {
+                                    ManageData.DownloadVocabularys(Name, context);
+                                }
                                 showvocabularys(VocabularyMethods.getVocabularyList0(s));
                             }catch (Exception e){}
                         }
@@ -355,6 +363,9 @@ public class Vokabeln extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try{
+                            if(ManageData.InternetAvailable(context)) {
+                                ManageData.DownloadVocabularys(yourBase.getText().toString(), context);
+                            }
                             showvocabularys(VocabularyMethods.getVocabularyList0(s));
                         }catch (Exception e){}
                     }
@@ -371,11 +382,12 @@ public class Vokabeln extends AppCompatActivity {
                 downfollowedLists = new Button[followedlistsString.size()];
                 for (int i = 1; i < followedlistsString.size(); i++) {
                     downfollowedLists[i] = new Button(Vokabeln.this);
+                    final String Name = followedlistsString.get(i);
 
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
-                            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
-                    params.setMargins(8, 90, 8, 8);
+                    params.setMargins(0, 90, 0, 8);
                     downfollowedLists[i].setText(followedlistsString.get(i));
                     downfollowedLists[i].setId(i + offset);
                     downfollowedLists[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -409,6 +421,9 @@ public class Vokabeln extends AppCompatActivity {
                             direction = false;
                             if(list.getVocabularylist().size() > 0) {
                                 try {
+                                    if(ManageData.InternetAvailable(context)) {
+                                        ManageData.DownloadVocabularys(Name, context);
+                                    }
                                     showvocabularys(list);
                                 }catch (Exception e){}
                             }
@@ -425,12 +440,12 @@ public class Vokabeln extends AppCompatActivity {
                         sharedListID = list.getID();
                         sharedID = list.getCreatorID();
                         ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sharedListID + " zu erreichen.");
-                        if(ManageData.InternetAvailable(context)){
-                            ManageData.DownloadVocabularys(s, context);
-                        }
                         direction = false;
                         if(list.getVocabularylist().size() > 0) {
                             try {
+                                if(ManageData.InternetAvailable(context)) {
+                                    ManageData.DownloadVocabularys(followbase.getText().toString(), context);
+                                }
                                 showvocabularys(list);
                             }catch (Exception e){ }
                         }
@@ -449,9 +464,9 @@ public class Vokabeln extends AppCompatActivity {
                     downallLists[i] = new Button(Vokabeln.this);
 
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
-                            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
-                    params.setMargins(8, 90, 8, 8);
+                    params.setMargins(0, 90, 0, 8);
                     downallLists[i].setText(languageslistsString.get(i).replace("AllVoc_", ""));
                     downallLists[i].setId(i + offset);
                     downallLists[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -764,6 +779,13 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void open_create(){
+        VocabularyMethods.openCreateList = true;
+        Intent intent = new Intent(this, CreateVocList.class);
+        startActivity(intent);
+    }
+
+    public void openImport(){
+        VocabularyMethods.openCreateList = false;
         Intent intent = new Intent(this, CreateVocList.class);
         startActivity(intent);
     }
@@ -860,7 +882,6 @@ public class Vokabeln extends AppCompatActivity {
                     }
                 }
             }
-
         }
 
         if (vocabularylist.indexOf(voc) % 2 == 0){
@@ -1256,6 +1277,8 @@ public class Vokabeln extends AppCompatActivity {
 
 
     public void openALL(){
+        ManageData.DownloadFollowedVocabularyLists(context, true);
+        ManageData.DownloadVocabularyLists(context, true);
         if(layout00.getVisibility() == View.GONE){
             all.setText("Alle Listen");
             layout00.setVisibility(View.VISIBLE);
@@ -1371,7 +1394,7 @@ public class Vokabeln extends AppCompatActivity {
         final ArrayList<String> SharedList = SharedLists.get(0);
 
         ShareScrollBase0.setText("Name: " + SharedList.get(1));
-        ShareScrollBase1.setText(SharedList.get(2) + "-" + SharedList.get(3));
+        ShareScrollBase1.setText(SharedList.get(2) + " <--> " + SharedList.get(3));
         ShareScrollBase2.setText(SharedList.get(5) + " Vokabeln");
         ShareScrollBase3.setText("Ersteller: " + SharedList.get(4));
 
@@ -1444,7 +1467,7 @@ public class Vokabeln extends AppCompatActivity {
             if(namechoice == 0) {
                 Creator[i].setText("Name: " + SharedLists.get(i).get(1));
             }else if(namechoice == 1) {
-                Creator[i].setText(SharedLists.get(i).get(2) + "-" + SharedLists.get(i).get(3));
+                Creator[i].setText(SharedLists.get(i).get(2) + " <--> " + SharedLists.get(i).get(3));
             }else if(namechoice == 2) {
                 Creator[i].setText(SharedLists.get(i).get(5) + " Vokabeln");
             }else if(namechoice == 3) {
@@ -1602,25 +1625,87 @@ public class Vokabeln extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.vocabulary_open_share:
                         if(MainActivity.InternetAvailable(context)) {
-                            openShare(vocID, list);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Vokabeln.this);
+                            builder.setCancelable(true);
+                            builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            builder.setPositiveButton("Veröffentlichen", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    openShare(vocID, list);
+                                }
+                            });
+                            builder.setTitle("Vokabelliste Veröffentlichen?");
+                            builder.setMessage("Mit deiner Freigabe bestätigst du, dass du keine Rechte Dritter verletzt.");
+                            builder.show();
                             return true;
                         }else{
                             MainActivity.NoNetworkAlert(Vokabeln.this);
                                 return false;
                         }
+
+                    case R.id.vocabulary_open_export:
+
+                        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1002);
+                            exportlist = list;
+                        }else {
+                            WriteCsvVocList writelist = new WriteCsvVocList();
+                            writelist.WriteFile(list, Vokabeln.this);
+                        }
+
+                        return true;
+
                     case R.id.vocabulary_open_delete:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Vokabeln.this);
                         if(list.getSource() == false){
-                            VocabularyMethods.vocabularylists.remove(list);
-                            FirstScreen.tinyDB.remove("VocLists");
-                            ManageData.saveVocabularyLists();
+                            builder.setCancelable(true);
+                            builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    VocabularyMethods.vocabularylists.remove(list);
+                                    FirstScreen.tinyDB.remove("VocLists");
+                                    ManageData.saveVocabularyLists();
+                                }
+                            });
+                            builder.setTitle("Vokabelliste Löschen?");
+                            builder.setMessage("Bist du sicher, dass du diese Vokabelliste löschen möchtest?");
+                            builder.show();
+                            return true;
                         }else if(MainActivity.InternetAvailable(context)) {
-                            RequestHandler requestHandler = new RequestHandler();
-                            VocabularyMethods.vocabularylists.remove(list);
-                            FirstScreen.tinyDB.remove("VocLists");
-                            ManageData.saveVocabularyLists();
-                            String json = requestHandler.sendGetRequest(MainActivity.URL_DeleteVocList + vocID);
-                            Intent intent = new Intent(Vokabeln.this, Vokabeln.class);
-                            startActivity(intent);
+
+                            builder.setCancelable(true);
+                            builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    RequestHandler requestHandler = new RequestHandler();
+                                    VocabularyMethods.vocabularylists.remove(list);
+                                    FirstScreen.tinyDB.remove("VocLists");
+                                    ManageData.saveVocabularyLists();
+                                    String json = requestHandler.sendGetRequest(MainActivity.URL_DeleteVocList + vocID);
+                                    Intent intent = new Intent(Vokabeln.this, Vokabeln.class);
+                                    startActivity(intent);
+                                }
+                            });
+                            builder.setTitle("Vokabelliste Löschen?");
+                            builder.setMessage("Bist du sicher, dass du diese Vokabelliste löschen möchtest?");
+                            builder.show();
                             return true;
                         }else{
                             MainActivity.NoNetworkAlert(Vokabeln.this);
@@ -1632,6 +1717,27 @@ public class Vokabeln extends AppCompatActivity {
             }
         });
         popup.show();
+    }
+
+    VocabularyList exportlist;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){
+            case 1002: {
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(this, "Zugriff gestattet!", Toast.LENGTH_SHORT).show();
+                    WriteCsvVocList writelist = new WriteCsvVocList();
+                    writelist.WriteFile(exportlist, Vokabeln.this);
+                }else{
+                    Toast.makeText(this, "Zugriff verwehrt!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        }
+
     }
 
 
@@ -1658,10 +1764,12 @@ public class Vokabeln extends AppCompatActivity {
                 ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + vocID + " zu erreichen.");
                 ShareInfo.setVisibility(View.VISIBLE);
                 list.setShared(true);
+                showvocabularys(list);
             } else {
                 requestHandler.sendGetRequest(MainActivity.URL_changesShared + vocID + "&State=0");
                 ShareInfo.setVisibility(View.GONE);
                 list.setShared(true);
+                showvocabularys(list);
             }
         }else{
             ShareInfo.setText("Internet nicht Verfügbar");

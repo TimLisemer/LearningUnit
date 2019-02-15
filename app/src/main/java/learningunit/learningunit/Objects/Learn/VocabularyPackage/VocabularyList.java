@@ -4,6 +4,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import learningunit.learningunit.Objects.API.ManageData;
+
 public class VocabularyList {
 
     private ArrayList<Vocabulary> vocabularylist =  new ArrayList<Vocabulary>();
@@ -19,6 +21,17 @@ public class VocabularyList {
         this.name = name;
         this.followed = followed;
 
+        /*
+        if(!(VocabularyMethods.vocabularylanglists.contains(LanguageName1 + "-" + LanguageName2) || VocabularyMethods.vocabularylanglists.contains(LanguageName2 + "-" + LanguageName1))){
+            VocabularyMethods.vocabularylanglists.add(LanguageName1 + "-" + LanguageName2);
+            if(ManageData.OfflineAccount != 2){
+                VocabularyMethods.vocabularylists.add(new VocabularyList(getLanguageName1(), LanguageName2, "AllVoc_" + LanguageName1 + " <--> " + LanguageName2, false, followed));
+            }else{
+                VocabularyMethods.vocabularylists.add(new VocabularyList(getLanguageName1(), LanguageName2, "AllVoc_" + LanguageName1 + " <--> " + LanguageName2, true, followed));
+            }
+        }
+        */
+
         Log.d("VocabularyList", "Created Vocabulary List " + name + "Source: " + source + " Followed: " + followed);
     }
 
@@ -31,6 +44,17 @@ public class VocabularyList {
         this.id = ID;
         this.CreatorID = CreatorID;
         this.Shared = Shared;
+
+        /*
+        if(!(VocabularyMethods.vocabularylanglists.contains(LanguageName1 + "-" + LanguageName2) || VocabularyMethods.vocabularylanglists.contains(LanguageName2 + "-" + LanguageName1))){
+            VocabularyMethods.vocabularylanglists.add(LanguageName1 + "-" + LanguageName2);
+            if(ManageData.OfflineAccount != 2){
+                VocabularyMethods.vocabularylists.add(new VocabularyList(getLanguageName1(), LanguageName2, "AllVoc_" + LanguageName1 + " <--> " + LanguageName2, false, followed));
+            }else{
+                VocabularyMethods.vocabularylists.add(new VocabularyList(getLanguageName1(), LanguageName2, "AllVoc_" + LanguageName1 + " <--> " + LanguageName2, true, followed));
+            }
+        }
+        */
 
         Log.d("VocabularyList", "Created Vocabulary List " + name + "Source: " + source + " Followed: " + followed + " ID: " + id + " CreatorID: " + CreatorID);
     }
@@ -121,4 +145,18 @@ public class VocabularyList {
         return LanguageName2;
     }
 
+    @Override
+    public String toString() {
+        return "VocabularyList{" +
+                "vocabularylist=" + vocabularylist +
+                ", name='" + name + '\'' +
+                ", LanguageName1='" + LanguageName1 + '\'' +
+                ", LanguageName2='" + LanguageName2 + '\'' +
+                ", source=" + source +
+                ", followed=" + followed +
+                ", Shared=" + Shared +
+                ", id=" + id +
+                ", CreatorID=" + CreatorID +
+                '}';
+    }
 }

@@ -11,4 +11,7 @@
     <item android:id="@+id/vocabulary_open_delete"
         android:title="Liste Löschen"
         app:showAsAction="never" />
+    <item android:id="@+id/vocabulary_open_export"
+        android:title="Als CSV Exportieren"
+        app:showAsAction="never" />
 </menu>
