@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="learningunit.learningunit.Menu.Organizer.Organizer">
+    tools:context="learningunit.learningunit.menu.organizer.Organizer">
 
     <Button
         android:id="@+id/organizer_back"

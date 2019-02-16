@@ -1,4 +1,4 @@
-package learningunit.learningunit.BeforeStart;
+package learningunit.learningunit.beforeStart;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,8 +23,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import learningunit.learningunit.Menu.Learn.Vocabulary.Vokabeln;
-import learningunit.learningunit.Menu.MainActivity;
+import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.RequestHandler;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;

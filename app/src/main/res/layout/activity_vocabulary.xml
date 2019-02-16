@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorPrimaryDark"
     android:backgroundTintMode="screen"
-    tools:context="learningunit.learningunit.Menu.Learn.Vocabulary.Vokabeln">
+    tools:context="learningunit.learningunit.menu.learn.vocabulary.Vokabeln">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/vocabulary_scrollView"

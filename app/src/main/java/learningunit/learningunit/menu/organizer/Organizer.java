@@ -1,4 +1,4 @@
-package learningunit.learningunit.Menu.Organizer;
+package learningunit.learningunit.menu.organizer;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import learningunit.learningunit.Menu.MainActivity;
+import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.R;
 
 public class Organizer extends AppCompatActivity {

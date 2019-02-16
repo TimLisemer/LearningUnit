@@ -32,7 +32,7 @@ public class VocabularyList {
         }
         */
 
-        Log.d("VocabularyList", "Created Vocabulary List " + name + "Source: " + source + " Followed: " + followed);
+        Log.d("VocabularyList", "Created vocabulary List " + name + "Source: " + source + " Followed: " + followed);
     }
 
     public VocabularyList(String LanguageName1, String LanguageName2, String name, boolean source, boolean followed, int ID, int CreatorID, boolean Shared) {
@@ -56,7 +56,7 @@ public class VocabularyList {
         }
         */
 
-        Log.d("VocabularyList", "Created Vocabulary List " + name + "Source: " + source + " Followed: " + followed + " ID: " + id + " CreatorID: " + CreatorID);
+        Log.d("VocabularyList", "Created vocabulary List " + name + "Source: " + source + " Followed: " + followed + " ID: " + id + " CreatorID: " + CreatorID);
     }
 
     public void addVocabulary(Vocabulary voc){

@@ -1,4 +1,4 @@
-package learningunit.learningunit.Menu.Learn.Vocabulary;
+package learningunit.learningunit.menu.learn.vocabulary;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,8 +38,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
-import learningunit.learningunit.BeforeStart.FirstScreen;
-import learningunit.learningunit.Menu.MainActivity;
+import learningunit.learningunit.beforeStart.FirstScreen;
+import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.RequestHandler;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
@@ -1161,7 +1160,7 @@ public class Vokabeln extends AppCompatActivity {
                             level3.remove(voc);
                         }
 
-                        Log.d("Right", "Next Vocabulary, Ungerade");
+                        Log.d("Right", "Next vocabulary, Ungerade");
                         Log.d("Right", voc.getTranslation() + " != " + learn_translation.getText().toString());
                         open_train(showvocablist, level0, level1, level2, level3, level4);
                     }
@@ -1188,7 +1187,7 @@ public class Vokabeln extends AppCompatActivity {
                             level3.remove(voc);
                         }
 
-                        Log.d("Right", "Next Vocabulary, ID: Gerade");
+                        Log.d("Right", "Next vocabulary, ID: Gerade");
                         Log.d("Right", voc.getOriginal() + " != " + learn_translation.getText().toString());
                         open_train(showvocablist, level0, level1, level2, level3, level4);
                     }
@@ -1237,7 +1236,7 @@ public class Vokabeln extends AppCompatActivity {
                         Log.d("Wrong", "Finish");
                         openfinish();
                     }else {
-                        Log.d("Wrong", "Next Vocabulary, ID: Ungerade");
+                        Log.d("Wrong", "Next vocabulary, ID: Ungerade");
                         Log.d("Wrong", voc.getTranslation() + " == " + learn_translation.getText().toString());
                         open_train(showvocablist, level0, level1, level2, level3, level4);
                     }
@@ -1266,7 +1265,7 @@ public class Vokabeln extends AppCompatActivity {
                         Log.d("Wrong", "Finish");
                         openfinish();
                     }else {
-                        Log.d("Wrong", "Next Vocabulary, Gerade");
+                        Log.d("Wrong", "Next vocabulary, Gerade");
                         Log.d("Wrong", voc.getOriginal() + " == " + learn_translation.getText().toString());
                         open_train(showvocablist, level0, level1, level2, level3, level4);
                     }

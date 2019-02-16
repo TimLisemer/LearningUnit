@@ -1,4 +1,4 @@
-package learningunit.learningunit.Menu.Organizer.Timetable;
+package learningunit.learningunit.menu.organizer.timetable;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -20,7 +20,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import learningunit.learningunit.Menu.MainActivity;
+import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.Timetable.HourList;
 import learningunit.learningunit.R;
 

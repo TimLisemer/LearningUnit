@@ -11,19 +11,18 @@
         android:roundIcon="@mipmap/mylogo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Menu.MainActivity">
+        <activity android:name=".menu.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BeforeStart.FirstScreen"/>
-        <activity android:name=".BeforeStart.Register"/>
-        <activity android:name=".Menu.Organizer.Organizer"/>
-        <activity android:name=".Menu.Learn.Vocabulary.Vokabeln"/>
-        <activity android:name=".Menu.Learn.Vocabulary.CreateVocList"/>
-        <activity android:name=".Menu.Organizer.Timetable.Timetable"></activity>
+        <activity android:name=".beforeStart.FirstScreen"/>
+        <activity android:name=".beforeStart.Register"/>
+        <activity android:name=".menu.organizer.Organizer"/>
+        <activity android:name=".menu.learn.vocabulary.Vokabeln"/>
+        <activity android:name=".menu.learn.vocabulary.CreateVocList"/>
 
         <meta-data
             android:name="preloaded_fonts"

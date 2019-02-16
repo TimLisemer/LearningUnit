@@ -1,4 +1,4 @@
-package learningunit.learningunit.Menu.Learn.Vocabulary;
+package learningunit.learningunit.menu.learn.vocabulary;
 
 import android.Manifest;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -25,7 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.regex.Pattern;
 
-import learningunit.learningunit.Menu.MainActivity;
+import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.ReadCsvVocList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
@@ -446,8 +445,8 @@ public class CreateVocList extends AppCompatActivity{
     public void openContinue1(InputStream is){
         if(!(listtext1.getText().toString().trim().matches(""))) {
             if(VocabularyMethods.nameavailable(listtext1.getText().toString().trim())) {
-                if(languagetext11.getText().toString().trim() != "") {
-                    if(languagetext21.getText().toString().trim() != "") {
+                if(!(languagetext11.getText().toString().trim().matches(""))) {
+                    if(!(languagetext21.getText().toString().trim().matches(""))) {
                         if(!(languagetext11.getText().toString().trim().equalsIgnoreCase(languagetext21.getText().toString().trim()))){
                             ReadCsvVocList rl = new ReadCsvVocList();
                             rl.ReadList(CreateVocList.this, is, languagetext11.getText().toString().trim(), languagetext21.getText().toString().trim(), listtext1.getText().toString().trim());
