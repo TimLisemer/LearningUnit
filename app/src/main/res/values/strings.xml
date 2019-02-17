@@ -36,4 +36,17 @@
     <string name="Next">Weiter</string>
     <string name="Day">Tag</string>
     <string name="NameOfDay">Name des Tages</string>
+    <string name="Monday">Montag</string>
+    <string name="Tuesday">Dienstag</string>
+    <string name="Wednesday">Mittwoch</string>
+    <string name="Thursday">Donnerstag</string>
+    <string name="Friday">Freitag</string>
+    <string name="Saturday">Samstag</string>
+    <string name="Sunday">Sonntag</string>
+    <string name="CustomHourName">Benutzerdefinierter Stundenname</string>
+    <string name="SuggestedHoursNames">Vorgeschlagene Stunden Namen</string>
+    <string name="CreateTimetable">Stundenplan Erstellen</string>
+    <string name="title_activity_timetable_showcase">TimetableShowcase</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
