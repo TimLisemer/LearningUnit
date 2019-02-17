@@ -43,7 +43,7 @@ public class Vocabulary {
             }
         }
 
-        Log.d("Vocabulary", "Created new Vocabulary - Originallanguage: " + LanguageName1 + " Vocabulary: " +  original + " Translationlanguage: " + LanguageName2 + " Vocabulary: " +  translation);
+        Log.d("vocabulary", "Created new vocabulary - Originallanguage: " + LanguageName1 + " vocabulary: " +  original + " Translationlanguage: " + LanguageName2 + " vocabulary: " +  translation);
     }
 
     public String getOriginal() {
@@ -80,7 +80,7 @@ public class Vocabulary {
 
     @Override
     public String toString() {
-        return "Vocabulary{" +
+        return "vocabulary{" +
                 "Original='" + Original + '\'' +
                 ", Translation='" + Translation + '\'' +
                 ", LanguageName1='" + LanguageName1 + '\'' +

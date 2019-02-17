@@ -1,34 +1,43 @@
-package learningunit.learningunit.Menu;
+package learningunit.learningunit.menu;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
+import java.util.Locale;
 
-import learningunit.learningunit.BeforeStart.FirstScreen;
-import learningunit.learningunit.Menu.Learn.Vocabulary.Vokabeln;
-import learningunit.learningunit.Menu.Organizer.Organizer;
-import learningunit.learningunit.Menu.Organizer.Timetable.Timetable;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+
+import learningunit.learningunit.Objects.API.RequestHandler;
+import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
+import learningunit.learningunit.Objects.PublicAPIs.TinyDB;
+import learningunit.learningunit.beforeStart.FirstScreen;
+import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
+import learningunit.learningunit.menu.organizer.Organizer;
+import learningunit.learningunit.menu.organizer.timetable.Timetable;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.NewsFeed;
 import learningunit.learningunit.R;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
 public class MainActivity extends AppCompatActivity {
 
     private static Context context;
 
-    public int backLocation = 0; // 0 = Main Menu; 1 = Lernen; 2 = Einstellungen;
+    public int backLocation = 0; // 0 = Main Menu; 1 = Lernen; 2 = Einstellungen, 3 = Sprachauswahl;
 
     //Datenbank
     private static final String ROOT_URL = "http://185.233.105.80/MySQL/v1/Api.php?apicall=";
@@ -54,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Deklarieren der Knöpfe
-    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode;
+    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode, languageBack, german, english, changeLanguage;
     public static TextView news;
     private Button learnBack, learnVocab;
     Activity a = new Activity();
@@ -62,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
     Thread thread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        backLocation = 0;
         MainActivity.hideKeyboard(this);
         if(ManageData.OfflineAccount == 0){
             Intent intent = new Intent(this, FirstScreen.class);
@@ -171,6 +179,85 @@ public class MainActivity extends AppCompatActivity {
         news = (TextView) findViewById(R.id.main_news);
         news.setSelected(true);
 
+        changeLanguage = (Button) findViewById(R.id.main_settingsLanguage);
+        changeLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backLocation = 3;
+                findViewById(R.id.main_settingsLanguageLayout).setVisibility(View.VISIBLE);
+                findViewById(R.id.main_settingsLayout).setVisibility(View.GONE);
+            }
+        });
+
+        languageBack = (Button) findViewById(R.id.main_settingsLanguageBack);
+        languageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                open_languageBack();
+            }
+        });
+
+        german = (Button) findViewById(R.id.main_settingsLanguageGerman);
+        german.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setCancelable(true);
+                builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton(R.string.ChangeLanguageQuestion3, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirstScreen.tinyDB.putString("appLanguage", "de-rDE");
+                        setLocale("de-rDE");
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                builder.setTitle(R.string.ChangeLanguageQuestion);
+                String msg0 = getResources().getString(R.string.ChangeLanguageQuestion1);
+                String msg1 = getResources().getString(R.string.ChangeLanguageQuestion2);
+                builder.setMessage(msg0 + german.getText() + msg1);
+                builder.show();
+            }
+        });
+        english = (Button) findViewById(R.id.main_settingsLanguageEnglish);
+        english.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setCancelable(true);
+                builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton(R.string.ChangeLanguageQuestion3, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirstScreen.tinyDB.putString("appLanguage", "en-rUS");
+                        setLocale("en-rUS");
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                builder.setTitle(R.string.ChangeLanguageQuestion);
+                String msg0 = getResources().getString(R.string.ChangeLanguageQuestion1);
+                String msg1 = getResources().getString(R.string.ChangeLanguageQuestion2);
+                builder.setMessage(msg0 + english.getText() + msg1);
+                builder.show();
+            }
+        });
+
 
         thread = new Thread() {
 
@@ -193,11 +280,27 @@ public class MainActivity extends AppCompatActivity {
         };
 
         thread.start();
-        backLocation = 0;
+        /*
+        if(FirstScreen.tinyDB != null) {
+            String language = FirstScreen.tinyDB.getString("appLanguage");
+            if (!(language.matches(""))) {
+                String languageToLoad = FirstScreen.tinyDB.getString("en-US");// your language
+                Locale locale = new Locale(languageToLoad);
+                Locale.setDefault(locale);
+                Configuration config = new Configuration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config,
+                        getBaseContext().getResources().getDisplayMetrics());
+                this.setContentView(R.layout.activity_main);
+            }else{
+                Log.d("Language", "Matches..............................");
+            }
+        }else{
+            Log.d("Language", "Null..............................");
+        }
+
+        */
     }
-
-
-
 
     //Buttton OnClick Methoden
     public void open_logout(){
@@ -252,6 +355,12 @@ public class MainActivity extends AppCompatActivity {
         backLocation = 0;
     }
 
+    public void open_languageBack(){
+        backLocation = 2;
+        findViewById(R.id.main_settingsLanguageLayout).setVisibility(View.GONE);
+        findViewById(R.id.main_settingsLayout).setVisibility(View.VISIBLE);
+    }
+
     public void startDarkMode(){
 
         //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
@@ -267,6 +376,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, MainActivity.class);
+        startActivity(refresh);
+        finish();
+    }
+
     @Override
     public void onBackPressed(){
         if(backLocation == 0){
@@ -279,6 +400,8 @@ public class MainActivity extends AppCompatActivity {
             openLearnback();
         }else if (backLocation == 2){
             openSettingsBack();
+        }else if (backLocation == 3) {
+            open_languageBack();
         }
     }
 
@@ -346,6 +469,9 @@ public class MainActivity extends AppCompatActivity {
 
         builder.show();
     }
+
+
+
 
 
     public static Context getAppContext() {

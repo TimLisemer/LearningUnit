@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Menu.Learn.Vocabulary.CreateVocList"
+    tools:context=".menu.learn.vocabulary.CreateVocList"
     tools:layout_editor_absoluteY="25dp">
 
     <android.support.constraint.ConstraintLayout

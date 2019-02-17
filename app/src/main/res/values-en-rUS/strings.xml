@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Learning Unit</string>
+    <string name="Play">Play</string>
+    <string name="Learn">Learn</string>
+    <string name="Organizer">Organizer</string>
+    <string name="Timetable">Timetable</string>
+    <string name="Statistics">Statistics</string>
+    <string name="Settings">Settings</string>
+    <string name="Vocabularys">Vocabularys</string>
+    <string name="ChangeLanguage">Change Language</string>
+    <string name="Logout">Logout</string>
+    <string name="DeleteAccount">Delete Account</string>
+    <string name="ChangeStyle">Dark Mode</string>
+    <string name="Credentials">E M A I L / U S E R N A M E</string>
+    <string name="Password">P A S S W O R D</string>
+    <string name="Login">L O G I N</string>
+    <string name="CreateAccount">Create Account</string>
+    <string name="ContinueLogin">Continue without Account</string>
+    <string name="login_decline">No, thanks</string>
+    <string name="Ok">Ok</string>
+    <string name="Back">Back</string>
+    <string name="Continue">Continue</string>
+    <string name="app_name0">L E A R N I N G  U N I T</string>
+    <string name="German">German</string>
+    <string name="English">English</string>
+    <string name="ChangeLanguageQuestion">Change Language?</string>
+    <string name="ChangeLanguageQuestion1">"Are you sure you want to change the language to "</string>
+    <string name="ChangeLanguageQuestion2">\?</string>
+    <string name="ChangeLanguageQuestion3">Yes, change Language</string>
+    <string name="Cancel">Cancel</string>
+    <string name="ColourSwitchText0">"Always use this colour for "</string>
+    <string name="ColourSwitchText1">\?</string>
+    <string name="ColourCooseText">"Choose a colour for "</string>
+    <string name="Hour">" Hour"</string>
+    <string name="Next">Next</string>
+    <string name="Day">Day</string>
+    <string name="NameOfDay">Name of the Day</string>
+</resources>

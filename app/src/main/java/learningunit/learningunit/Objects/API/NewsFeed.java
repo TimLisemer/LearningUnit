@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 
-import learningunit.learningunit.Menu.MainActivity;
+import learningunit.learningunit.menu.MainActivity;
 
 public class NewsFeed {
 

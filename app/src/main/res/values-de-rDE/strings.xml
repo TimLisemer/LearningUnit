@@ -29,7 +29,7 @@
     <string name="ChangeLanguageQuestion2">ändern willst?</string>
     <string name="ChangeLanguageQuestion3">Ja, Sprache ändern</string>
     <string name="Cancel">Abbrechen</string>
-    <string name="ColourSwitchText0">"Diese Farbe immer für "</string>
+    <string name="ColourSwitchText0">Diese Farbe immer für</string>
     <string name="ColourSwitchText1">" verwenden?"</string>
     <string name="ColourCooseText">Wähle eine Farbe für</string>
     <string name="Hour">" Stunde"</string>

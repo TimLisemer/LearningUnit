@@ -10,9 +10,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import learningunit.learningunit.BeforeStart.FirstScreen;
-import learningunit.learningunit.Menu.Learn.Vocabulary.Vokabeln;
-import learningunit.learningunit.Menu.MainActivity;
+import learningunit.learningunit.beforeStart.FirstScreen;
+import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
+import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
