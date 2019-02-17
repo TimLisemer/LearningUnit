@@ -29,4 +29,11 @@
     <string name="ChangeLanguageQuestion2">\?</string>
     <string name="ChangeLanguageQuestion3">Yes, change Language</string>
     <string name="Cancel">Cancel</string>
+    <string name="ColourSwitchText0">"Always use this colour for "</string>
+    <string name="ColourSwitchText1">\?</string>
+    <string name="ColourCooseText">"Choose a colour for "</string>
+    <string name="Hour">" Hour"</string>
+    <string name="Next">Next</string>
+    <string name="Day">Day</string>
+    <string name="NameOfDay">Name of the Day</string>
 </resources>

@@ -21,6 +21,7 @@
         <activity android:name=".beforeStart.FirstScreen"/>
         <activity android:name=".beforeStart.Register"/>
         <activity android:name=".menu.organizer.Organizer"/>
+        <activity android:name=".menu.organizer.timetable.Timetable"/>
         <activity android:name=".menu.learn.vocabulary.Vokabeln"/>
         <activity android:name=".menu.learn.vocabulary.CreateVocList"/>
 
