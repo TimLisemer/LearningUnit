@@ -46,4 +46,6 @@
     <string name="CustomHourName">Custom hour name</string>
     <string name="SuggestedHoursNames">Suggested hours names</string>
     <string name="CreateTimetable">CreateTimetable</string>
+    <string name="Share">Share</string>
+    <string name="ChangeView">Change View</string>
 </resources>

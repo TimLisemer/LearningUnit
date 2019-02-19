@@ -32,6 +32,7 @@ import learningunit.learningunit.menu.organizer.timetable.Timetable;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.NewsFeed;
 import learningunit.learningunit.R;
+import learningunit.learningunit.menu.organizer.timetable.TimetableShowcase;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -46,4 +46,6 @@
     <string name="CustomHourName">Benutzerdefinierter Stundenname</string>
     <string name="SuggestedHoursNames">Vorgeschlagene Stunden Namen</string>
     <string name="CreateTimetable">Stundenplan Erstellen</string>
+    <string name="Share">Teilen</string>
+    <string name="ChangeView">Ansicht ändern</string>
 </resources>

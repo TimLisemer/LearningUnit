@@ -16,12 +16,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
+import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
+import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
+import learningunit.learningunit.Objects.Timetable.HourList;
+import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.R;
+import learningunit.learningunit.beforeStart.FirstScreen;
 
 public class TimetableShowcase extends AppCompatActivity {
-
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -64,27 +75,7 @@ public class TimetableShowcase extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_timetable_showcase, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     /**
      * A placeholder fragment containing a simple view.
@@ -112,11 +103,21 @@ public class TimetableShowcase extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+            Gson gson = new Gson();
+            String json = FirstScreen.tinyDB.getString("Week");
+            Type type = new TypeToken<Week>() {}.getType();
+            Week week = gson.fromJson(json, type);
+
             View rootView = inflater.inflate(R.layout.fragment_timetable_showcase, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            TextView Header = (TextView) rootView.findViewById(R.id.timeTableShowCase_Header);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            Header.setText(week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).getName());
+
+            ListView view = rootView.findViewById(R.id.timeTableShowCase_listView);
+
             return rootView;
         }
     }
@@ -140,8 +141,11 @@ public class TimetableShowcase extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            Gson gson = new Gson();
+            String json = FirstScreen.tinyDB.getString("Week");
+            Type type = new TypeToken<Week>() {}.getType();
+            Week week = gson.fromJson(json, type);
+            return week.getDayList().size();
         }
     }
 }

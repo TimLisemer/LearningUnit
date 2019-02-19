@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".menu.organizer.timetable.TimetableShowcase"
-            android:label="@string/title_activity_timetable_showcase"
+            android:label="TimetableShowcase"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".menu.MainActivity">
             <intent-filter>

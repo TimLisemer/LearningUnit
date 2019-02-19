@@ -17,13 +17,8 @@ public class Day {
         return this.Name;
     }
 
-    public void addHourWithoutColour(String Name){
-        hour.add(new Hour(Name));
-    }
-
-    public void addHourWithColour(String Name, ColorDrawable color){
-        Hour h = new Hour(Name);
-        h.setColorCode(color);
+    public void addHour(String Name, String color){
+        Hour h = new Hour(Name, color);
         hour.add(h);
     }
 
