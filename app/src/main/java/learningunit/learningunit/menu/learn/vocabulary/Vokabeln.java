@@ -524,6 +524,7 @@ public class Vokabeln extends AppCompatActivity {
         final VocabularyList showvocablist = VocabularyMethods.getVocabularyList0(ListName);
         final int listiD;
         final VocabularyList vocabularyList = showvocablist;
+
         if(showvocablist.getShared() == false || showvocablist.getCreatorID() == ManageData.getUserID()) {
             train.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1548,6 +1549,7 @@ public class Vokabeln extends AppCompatActivity {
             sharedID = Integer.parseInt(SharedList.get(6));
             sharedListID = Integer.parseInt(SharedList.get(7));
             VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true, true, sharedListID, sharedID, true);
+            VocabularyMethods.vocabularylists.add(list);
             direction = true;
             sharedlist = list;
             ManageData.DownloadVocabularys(list.getName(), context);
