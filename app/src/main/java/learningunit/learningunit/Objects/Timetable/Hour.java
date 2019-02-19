@@ -1,14 +1,22 @@
 package learningunit.learningunit.Objects.Timetable;
 
-import android.graphics.drawable.ColorDrawable;
-
 public class Hour {
 
     private String name;
-    private ColorDrawable colorCode = null;
+    private String colorCode;
+    private transient boolean keep = false;
 
-    public Hour(String name){
+    public Hour(String name, String ColorCode){
         this.name = name;
+        this.colorCode = ColorCode;
+    }
+
+    public void setKeep(boolean keep){
+        this.keep = keep;
+    }
+
+    public boolean getKeep(){
+        return this.keep;
     }
 
     public String getName() {
@@ -19,11 +27,11 @@ public class Hour {
         this.name = name;
     }
 
-    public ColorDrawable getColorCode() {
+    public String getColorCode() {
         return colorCode;
     }
 
-    public void setColorCode(ColorDrawable colorCode) {
+    public void setColorCode(String colorCode) {
         this.colorCode = colorCode;
     }
 }
