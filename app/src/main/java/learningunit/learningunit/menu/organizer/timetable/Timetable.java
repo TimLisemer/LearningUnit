@@ -374,10 +374,13 @@ public class Timetable extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     clearHourName();
-                                    daylayout3.setVisibility(View.GONE);
-                                    day.setVisibility(View.VISIBLE);
+                                    Log.d("nameNext", "3");
+                                    findViewById(R.id.timetable_dayLayout3).setVisibility(View.VISIBLE);
+                                    findViewById(R.id.timetable_hourColorLayout).setVisibility(View.VISIBLE);
+                                    findViewById(R.id.timetable_dayNameScrollview).setVisibility(View.GONE);
+                                    findViewById(R.id.timetable_dayLayout5).setVisibility(View.GONE);
                                     HourList.addHour(nameEditName.getText().toString());
-                                    dayBase.setText(nameEditName.getText().toString());
+                                    ColorVoids(nameNext, dayBase, nameEditName.getText().toString());
                                     MainActivity.hideKeyboard(Timetable.this);
                                 }
                             });
@@ -494,10 +497,13 @@ public class Timetable extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     clearHourName();
-                                    daylayout3.setVisibility(View.GONE);
-                                    day.setVisibility(View.VISIBLE);
+                                    Log.d("nameNext", "2");
+                                    findViewById(R.id.timetable_dayLayout3).setVisibility(View.VISIBLE);
+                                    findViewById(R.id.timetable_hourColorLayout).setVisibility(View.VISIBLE);
+                                    findViewById(R.id.timetable_dayNameScrollview).setVisibility(View.GONE);
+                                    findViewById(R.id.timetable_dayLayout5).setVisibility(View.GONE);
                                     HourList.addHour(nameEditName.getText().toString());
-                                    down[d].setText(nameEditName.getText().toString());
+                                    ColorVoids(nameNext, down[d], nameEditName.getText().toString());
                                     MainActivity.hideKeyboard(Timetable.this);
                                 }
                             });
@@ -616,10 +622,13 @@ public class Timetable extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     clearHourName();
-                                    daylayout3.setVisibility(View.GONE);
-                                    day.setVisibility(View.VISIBLE);
+                                    Log.d("nameNext", "1");
+                                    findViewById(R.id.timetable_dayLayout3).setVisibility(View.VISIBLE);
+                                    findViewById(R.id.timetable_hourColorLayout).setVisibility(View.VISIBLE);
+                                    findViewById(R.id.timetable_dayNameScrollview).setVisibility(View.GONE);
+                                    findViewById(R.id.timetable_dayLayout5).setVisibility(View.GONE);
                                     HourList.addHour(nameEditName.getText().toString());
-                                    dayBase.setText(nameEditName.getText().toString());
+                                    ColorVoids(nameNext, dayBase, nameEditName.getText().toString());
                                     MainActivity.hideKeyboard(Timetable.this);
                                 }
                             });
@@ -671,18 +680,22 @@ public class Timetable extends AppCompatActivity {
 
                         Day d = new Day(dayEditName.getText().toString());
                         ColorDrawable dayBaseBackground = (ColorDrawable) dayBase.getBackground();
-                        if(normalDrawable.equals(dayBaseBackground)){
+                        if(!(normalDrawable.equals(dayBaseBackground))){
                             d.addHour(dayBase.getText().toString(), "#D8D8D8");
+                            Log.d("Standart Color", "dayBase");
                         }else{
                             HourList.checkColor(d, dayBase, dayBaseBackground);
+                            Log.d("Check Color", "dayBase");
                         }
 
                         for(int i = 1; i < size; i++){
                             ColorDrawable ButtonBackground = (ColorDrawable) down[i].getBackground();
                             if(normalDrawable.equals(ButtonBackground)){
                                 d.addHour(down[i].getText().toString(), "#D8D8D8");
+                                Log.d("Standart Down", "dayBase");
                             }else{
                                 HourList.checkColor(d, down[i], ButtonBackground);
+                                Log.d("Check Color", "down");
                             }
                             daylayout.removeView(down[i]);
                         }
@@ -713,6 +726,7 @@ public class Timetable extends AppCompatActivity {
     public void Empty(){
         day.setVisibility(View.GONE);
         daylayout4.setVisibility(View.VISIBLE);
+        MainActivity.hideKeyboard(this);
         day4back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -733,7 +747,7 @@ public class Timetable extends AppCompatActivity {
                         if (h.getKeep() == true) {
                             ColorDrawable c = new ColorDrawable();
                             c.setColor(android.graphics.Color.parseColor(h.getColorCode()));
-                            setColor(Pressed, Hour, null, false, c, "");
+                            setColor(Pressed, Hour, null, false, c, "", "");
                         } else {
                             findViewById(R.id.timetable_dayLayout3).setVisibility(View.VISIBLE);
                             findViewById(R.id.timetable_dayNameScrollview).setVisibility(View.GONE);
@@ -773,10 +787,11 @@ public class Timetable extends AppCompatActivity {
                                     Hour.setTextSize(18);
                                     Hour.setText(Pressed.getText().toString());
                                     Hour.setBackgroundColor(android.graphics.Color.parseColor("#D8D8D8"));
+
                                     MainActivity.hideKeyboard(Timetable.this);
                                 }
                             });
-                            ColorVoids(Pressed, Hour);
+                            ColorVoids(Pressed, Hour, "");
                         }
                     }
                 }
@@ -784,11 +799,11 @@ public class Timetable extends AppCompatActivity {
         });
     }
 
-    public void setColor(final Button Pressed, final Button Hour, final Button Colour, boolean keep, ColorDrawable colour, String ColorCode){
-
+    public void setColor(final Button Pressed, final Button Hour, final Button Colour, boolean keep, ColorDrawable colour, String ColorCode, String Name) {
+        MainActivity.hideKeyboard(this);
         ColorDrawable buttonColor;
 
-        if(colour == null) {
+        if (colour == null) {
 
             buttonColor = (ColorDrawable) Colour.getBackground();
             Hour.setBackgroundColor(buttonColor.getColor());
@@ -802,16 +817,16 @@ public class Timetable extends AppCompatActivity {
                     }
                 }
             }
-        }else{
+        } else {
             buttonColor = colour;
             Hour.setBackgroundColor(buttonColor.getColor());
         }
 
-        ColorDrawable colorBlack =  (ColorDrawable) findViewById(R.id.timetable_hourColor6).getBackground();
+        ColorDrawable colorBlack = (ColorDrawable) findViewById(R.id.timetable_hourColor6).getBackground();
 
-        if(buttonColor == colorBlack){
+        if (buttonColor.getColor() == colorBlack.getColor()) {
             Hour.setTextColor(android.graphics.Color.parseColor("#FFFFFF"));
-        }else{
+        } else {
             Hour.setTextColor(android.graphics.Color.parseColor("#000000"));
         }
 
@@ -826,7 +841,11 @@ public class Timetable extends AppCompatActivity {
         findViewById(R.id.timetable_hourColorLayout).setVisibility(View.GONE);
         daylayout3.setVisibility(View.GONE);
         day.setVisibility(View.VISIBLE);
-        Hour.setText(Pressed.getText().toString());
+        if (Name == "") {
+            Hour.setText(Pressed.getText().toString());
+        }else{
+            Hour.setText(Name);
+        }
         MainActivity.hideKeyboard(Timetable.this);
     }
 
@@ -835,12 +854,15 @@ public class Timetable extends AppCompatActivity {
 
 
 
-    public void ColorVoids(final Button Pressed, final Button Hour){
+    public void ColorVoids(final Button Pressed, final Button Hour, final String Name){
+        MainActivity.hideKeyboard(Timetable.this);
+        MainActivity.hideKeyboard(Timetable.this);
+        MainActivity.hideKeyboard(Timetable.this);
         findViewById(R.id.timetable_hourColor1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor1), switch2.isChecked(), null, "#FF0000");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor1), switch2.isChecked(), null, "#FF0000", Name);
             }
         });
 
@@ -848,7 +870,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor2), switch2.isChecked(), null, "#FF4500");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor2), switch2.isChecked(), null, "#FF4500", Name);
             }
         });
 
@@ -856,7 +878,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor3), switch2.isChecked(), null, "#800000");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor3), switch2.isChecked(), null, "#800000", Name);
             }
         });
 
@@ -864,7 +886,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor4), switch2.isChecked(), null, "#FA8072");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor4), switch2.isChecked(), null, "#FA8072", Name);
             }
         });
 
@@ -872,7 +894,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor5), switch2.isChecked(), null, "#FFFF00");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor5), switch2.isChecked(), null, "#FFFF00", Name);
             }
         });
 
@@ -880,7 +902,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor6), switch2.isChecked(), null, "#000000");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor6), switch2.isChecked(), null, "#000000", Name);
             }
         });
 
@@ -894,7 +916,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor7), switch2.isChecked(), null, "#008000");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor7), switch2.isChecked(), null, "#008000", Name);
             }
         });
 
@@ -902,7 +924,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor8), switch2.isChecked(), null, "#006400");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor8), switch2.isChecked(), null, "#006400", Name);
             }
         });
 
@@ -910,7 +932,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor9), switch2.isChecked(), null, "#7CFC00");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor9), switch2.isChecked(), null, "#7CFC00", Name);
             }
         });
 
@@ -918,7 +940,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor10), switch2.isChecked(), null, "#90EE90");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor10), switch2.isChecked(), null, "#90EE90", Name);
             }
         });
 
@@ -926,7 +948,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor11), switch2.isChecked(), null, "#6B8E23");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor11), switch2.isChecked(), null, "#6B8E23", Name);
             }
         });
 
@@ -934,7 +956,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor12), switch2.isChecked(), null, "#A0522D");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor12), switch2.isChecked(), null, "#A0522D", Name);
             }
         });
 
@@ -947,7 +969,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor13), switch2.isChecked(), null, "#0000FF");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor13), switch2.isChecked(), null, "#0000FF", Name);
             }
         });
 
@@ -955,7 +977,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor14), switch2.isChecked(), null, "#00BFFF");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor14), switch2.isChecked(), null, "#00BFFF", Name);
             }
         });
 
@@ -963,7 +985,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor15), switch2.isChecked(), null, "#483D8B");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor15), switch2.isChecked(), null, "#483D8B", Name);
             }
         });
 
@@ -971,7 +993,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor16), switch2.isChecked(), null, "#8A2BE2");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor16), switch2.isChecked(), null, "#8A2BE2", Name);
             }
         });
 
@@ -979,7 +1001,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor17), switch2.isChecked(), null, "#B0E0E6");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor17), switch2.isChecked(), null, "#B0E0E6", Name);
             }
         });
 
@@ -987,7 +1009,7 @@ public class Timetable extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Switch switch2 = (Switch) findViewById(R.id.timetable_colorSwitch);
-                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor18), switch2.isChecked(), null, "#5F9EA0");
+                setColor(Pressed, Hour, (Button) findViewById(R.id.timetable_hourColor18), switch2.isChecked(), null, "#5F9EA0", Name);
             }
         });
     }

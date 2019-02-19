@@ -47,5 +47,5 @@
     <string name="SuggestedHoursNames">Suggested hours names</string>
     <string name="CreateTimetable">CreateTimetable</string>
     <string name="Share">Share</string>
-    <string name="ChangeView">Change View</string>
+    <string name="ChangeTimetable">New Timetable</string>
 </resources>

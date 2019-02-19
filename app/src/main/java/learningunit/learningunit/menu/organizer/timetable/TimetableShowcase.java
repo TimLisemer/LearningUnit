@@ -1,5 +1,6 @@
 package learningunit.learningunit.menu.organizer.timetable;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +11,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,14 +26,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
+import learningunit.learningunit.Objects.Timetable.CustomAdapter;
+import learningunit.learningunit.Objects.Timetable.Hour;
 import learningunit.learningunit.Objects.Timetable.HourList;
 import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.R;
 import learningunit.learningunit.beforeStart.FirstScreen;
+import learningunit.learningunit.menu.MainActivity;
 
 public class TimetableShowcase extends AppCompatActivity {
     /**
@@ -72,6 +79,25 @@ public class TimetableShowcase extends AppCompatActivity {
             }
         });
 
+        Button back = findViewById(R.id.timetableShowcase_Back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimetableShowcase.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button New = findViewById(R.id.timetableShowcase_New);
+        New.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirstScreen.tinyDB.remove("Week");
+                Intent intent = new Intent(TimetableShowcase.this, Timetable.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -103,7 +129,7 @@ public class TimetableShowcase extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
             Gson gson = new Gson();
             String json = FirstScreen.tinyDB.getString("Week");
@@ -116,7 +142,18 @@ public class TimetableShowcase extends AppCompatActivity {
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             Header.setText(week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).getName());
 
-            ListView view = rootView.findViewById(R.id.timeTableShowCase_listView);
+            String HourList[] = new String[week.getDayList().get(0).getHourList().size()];
+            String ColorCodes[] = new String[week.getDayList().get(0).getHourList().size()];
+            for(int i = 0; i < week.getDayList().get(0).getHourList().size(); i++){
+                HourList[i] = week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).getHourList().get(i).getName();
+                ColorCodes[i] = week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).getHourList().get(i).getColorCode();
+            }
+
+            ListView simpleList = (ListView) rootView.findViewById(R.id.timetable_showcaseListView);
+            CustomAdapter customAdapter = new CustomAdapter(inflater.getContext(), HourList, ColorCodes);
+            simpleList.setAdapter(customAdapter);
+
+
 
             return rootView;
         }

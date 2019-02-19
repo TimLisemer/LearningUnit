@@ -326,8 +326,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open_timetable(){
-        Intent intent = new Intent(this, Timetable.class);
-        startActivity(intent);
+        if(FirstScreen.tinyDB.getString("Week").equals("")) {
+            Intent intent = new Intent(this, Timetable.class);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(this, TimetableShowcase.class);
+            startActivity(intent);
+        }
     }
 
     public void open_statistics(){
