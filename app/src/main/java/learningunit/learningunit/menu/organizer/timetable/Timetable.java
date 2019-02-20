@@ -59,6 +59,10 @@ public class Timetable extends AppCompatActivity {
         HourList.addHour("Religion");
         HourList.addHour("Kunst");
         HourList.addHour("Musik");
+        HourList.addHour("Politik");
+        HourList.addHour("Spanisch");
+        HourList.addHour("Französisch");
+        HourList.addHour("Latein");
 
         MainActivity.hideKeyboard(this);
         super.onCreate(savedInstanceState);

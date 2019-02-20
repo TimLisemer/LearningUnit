@@ -48,4 +48,5 @@
     <string name="CreateTimetable">CreateTimetable</string>
     <string name="Share">Share</string>
     <string name="ChangeTimetable">New Timetable</string>
+    <string name="NoHomeWork">No Homework</string>
 </resources>

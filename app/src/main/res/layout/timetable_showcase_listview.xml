@@ -1,27 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/timetable_showcaseListViewIcon"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/timetable_showcaseListViewText"
-            android:layout_width="fill_parent"
+            android:id="@+id/timetable_showcaseListViewText2"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:padding="@dimen/activity_horizontal_margin"
             android:textAlignment="center"
             android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/timetable_showcaseListViewText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/timetable_showcaseListViewText"
+            app:layout_constraintVertical_bias="0.49" />
+
+        <ImageView
+            android:id="@+id/timetable_showcaseListViewIcon"
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/timetable_showcaseListViewText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/timetable_showcaseListViewIcon"
+            app:layout_constraintHorizontal_bias="0.663"
+            app:layout_constraintStart_toEndOf="@+id/timetable_showcaseListViewText2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/timetable_showcaseListViewText1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="@string/NoHomeWork"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/timetable_showcaseListViewIcon"
+            app:layout_constraintStart_toEndOf="@+id/timetable_showcaseListViewEdit"
+            app:layout_constraintTop_toBottomOf="@+id/timetable_showcaseListViewText" />
+
+        <Button
+            android:id="@+id/timetable_showcaseListViewEdit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_edit_black_24dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/timetable_showcaseListViewText1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/timetable_showcaseListViewText1" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

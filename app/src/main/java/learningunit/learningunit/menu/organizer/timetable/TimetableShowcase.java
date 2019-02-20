@@ -137,23 +137,82 @@ public class TimetableShowcase extends AppCompatActivity {
             Week week = gson.fromJson(json, type);
 
             View rootView = inflater.inflate(R.layout.fragment_timetable_showcase, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             TextView Header = (TextView) rootView.findViewById(R.id.timeTableShowCase_Header);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            Header.setText(week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).getName());
 
-            String HourList[] = new String[week.getDayList().get(0).getHourList().size()];
-            String ColorCodes[] = new String[week.getDayList().get(0).getHourList().size()];
-            for(int i = 0; i < week.getDayList().get(0).getHourList().size(); i++){
-                HourList[i] = week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).getHourList().get(i).getName();
-                ColorCodes[i] = week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).getHourList().get(i).getColorCode();
+            int Count = 0;
+            if(week.getDayList().get(0).getHourList().size() <= 2){
+                Count = 2;
+            }else if(week.getDayList().get(0).getHourList().size() <= 4){
+                Count = 5;
+            }else if(week.getDayList().get(0).getHourList().size() <= 6){
+                Count = 8;
+            }else if(week.getDayList().get(0).getHourList().size() <= 8){
+                Count = 11;
+            }else if(week.getDayList().get(0).getHourList().size() <= 10){
+                Count = 14;
+            }else if(week.getDayList().get(0).getHourList().size() <= 12){
+                Count = 17;
+            }else if(week.getDayList().get(0).getHourList().size() <= 14){
+                Count = 20;
+            }else if(week.getDayList().get(0).getHourList().size() <= 16){
+                Count = 23;
+            }else if(week.getDayList().get(0).getHourList().size() <= 18){
+                Count = 26;
+            }else if(week.getDayList().get(0).getHourList().size() <= 20){
+                Count = 29;
+            }else if(week.getDayList().get(0).getHourList().size() <= 22){
+                Count = 32;
+            }else if(week.getDayList().get(0).getHourList().size() <= 24){
+                Count = 35;
             }
 
-            ListView simpleList = (ListView) rootView.findViewById(R.id.timetable_showcaseListView);
-            CustomAdapter customAdapter = new CustomAdapter(inflater.getContext(), HourList, ColorCodes);
-            simpleList.setAdapter(customAdapter);
+            String HourList[] = new String[Count];
+            String ColorCodes[] = new String[Count];
+            String DayHourList[][] = new String[week.getDayList().size()][Count];
+            String DayHourColor[][] = new String[week.getDayList().size()][Count];
 
+            int id = 0;
+            int id1 = 0;
 
+            if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
+
+                Header.setText(week.getDayList().get(0).getName());
+                for (int i = 0; i < Count; i++) {
+                    if (!(i == 2 | i == 5 || i == 8 || i == 11 || i == 14 || i == 17 || i == 20 || i == 23 || i == 26 || i == 29 || i == 32)) {
+                        HourList[i] = week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).getHourList().get(id1).getName();
+                        ColorCodes[i] = week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).getHourList().get(id1).getColorCode();
+                        id1++;
+                    } else {
+                        HourList[i] = "";
+                        ColorCodes[i] = "";
+                    }
+                }
+
+                DayHourList[0] = HourList;
+                DayHourColor[0] = ColorCodes;
+
+                ListView simpleList = (ListView) rootView.findViewById(R.id.timetable_showcaseListView);
+                CustomAdapter customAdapter = new CustomAdapter(inflater.getContext(), DayHourList, DayHourColor);
+                simpleList.setAdapter(customAdapter);
+
+            }else{
+
+                Header.setText(week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 2).getName());
+                for (int i = 0; i < Count; i++) {
+                    if (!(i == 2 | i == 5 || i == 8 || i == 11 || i == 14 || i == 17 || i == 20 || i == 23 || i == 26 || i == 29 || i == 32)) {
+                        HourList[i] = week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 2).getHourList().get(id).getName();
+                        ColorCodes[i] = week.getDayList().get(getArguments().getInt(ARG_SECTION_NUMBER) - 2).getHourList().get(id).getColorCode();
+                        id++;
+                    } else {
+                        HourList[i] = "";
+                        ColorCodes[i] = "";
+                    }
+                }
+
+                ListView simpleList = (ListView) rootView.findViewById(R.id.timetable_showcaseListView);
+                CustomAdapter customAdapter = new CustomAdapter(inflater.getContext(), HourList, ColorCodes);
+                simpleList.setAdapter(customAdapter);
+            }
 
             return rootView;
         }
@@ -182,7 +241,7 @@ public class TimetableShowcase extends AppCompatActivity {
             String json = FirstScreen.tinyDB.getString("Week");
             Type type = new TypeToken<Week>() {}.getType();
             Week week = gson.fromJson(json, type);
-            return week.getDayList().size();
+            return week.getDayList().size() + 1;
         }
     }
 }
