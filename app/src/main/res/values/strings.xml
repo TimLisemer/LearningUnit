@@ -46,8 +46,8 @@
     <string name="CustomHourName">Benutzerdefinierter Stundenname</string>
     <string name="SuggestedHoursNames">Vorgeschlagene Stunden Namen</string>
     <string name="CreateTimetable">Stundenplan Erstellen</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="Share">Teilen</string>
     <string name="ChangeTimetable">Neuer Stundenplan</string>
     <string name="NoHomeWork">Keine Hausaufgaben</string>
+    <string name="Wochenüberblick">Wochenüberblick</string>
 </resources>

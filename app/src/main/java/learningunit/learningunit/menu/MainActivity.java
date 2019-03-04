@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        /*
         thread = new Thread() {
 
             @Override
@@ -281,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         thread.start();
+        */
         /*
         if(FirstScreen.tinyDB != null) {
             String language = FirstScreen.tinyDB.getString("appLanguage");
