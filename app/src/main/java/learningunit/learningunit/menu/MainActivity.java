@@ -327,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open_timetable(){
-        if(FirstScreen.tinyDB.getString("Week").equals("")) {
+        if(FirstScreen.tinyDB.getString("WeekA").equals("")) {
             Intent intent = new Intent(this, Timetable.class);
             startActivity(intent);
         }else{

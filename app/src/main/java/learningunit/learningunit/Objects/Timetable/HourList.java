@@ -11,6 +11,8 @@ public class HourList {
     public static ArrayList<Hour> hourList =  new ArrayList<Hour>();
     private static ArrayList<String> namelist =  new ArrayList<String>();
 
+    public static boolean weekly, currentWeek, currentWeekShowcase = false;
+
 
     public static void addHour(String name){
 

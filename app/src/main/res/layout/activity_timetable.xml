@@ -83,7 +83,7 @@
             app:layout_constraintTop_toBottomOf="@+id/timetable_createBack" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/Timetable_weekly"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -96,7 +96,7 @@
             app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/Timetable_mute"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -107,7 +107,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+            app:layout_constraintTop_toBottomOf="@+id/Timetable_weekly" />
 
         <Button
             android:id="@+id/timetable_createBack"
@@ -137,7 +137,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline21"
             app:layout_constraintStart_toStartOf="@+id/guideline22"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+            app:layout_constraintTop_toBottomOf="@+id/Timetable_mute" />
 
         <SeekBar
             android:id="@+id/seekBar"

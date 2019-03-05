@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
@@ -41,7 +42,8 @@ public class Timetable extends AppCompatActivity {
     private TextView nameHour, dayName;
     private EditText nameEditName, dayEditName;
     private ColorDrawable normalDrawable;
-    Week week;
+    private CheckBox weekly, mute;
+    Week weekA, weekB;
     private SeekBar bar, bar2;
 
     private int tage;
@@ -121,6 +123,9 @@ public class Timetable extends AppCompatActivity {
             }
         });
 
+        mute = (CheckBox) findViewById(R.id.Timetable_mute);
+        weekly = (CheckBox) findViewById(R.id.Timetable_weekly);
+
         dayEditName = (EditText) findViewById(R.id.timetable_dayEditName);
 
         nameEditName = (EditText) findViewById(R.id.timetable_name_editName);
@@ -193,8 +198,8 @@ public class Timetable extends AppCompatActivity {
 
 
 
-
-
+        HourList.weekly = weekly.isChecked();
+        HourList.currentWeek = false;
     }
 
 
@@ -212,7 +217,8 @@ public class Timetable extends AppCompatActivity {
         create_view.setVisibility(View.GONE);
         MainActivity.hideKeyboard(this);
         tage = bar.getProgress();
-        week = new Week(tage);
+        weekA = new Week(tage);
+        weekB = new Week(tage);
         addDay(bar2.getProgress(), 1);
     }
 
@@ -243,28 +249,79 @@ public class Timetable extends AppCompatActivity {
         int e = 0;
         boolean f = true;
 
-        if(currentDay == 1){
-            dayEditName.setHint(getResources().getString(R.string.Monday));
-            dayName.setText("1. " + getResources().getString(R.string.Day));
-        }else if(currentDay == 2){
-            dayEditName.setHint(getResources().getString(R.string.Tuesday));
-            dayName.setText("2. " + getResources().getString(R.string.Day));
-        }else if(currentDay == 3){
-            dayEditName.setHint(getResources().getString(R.string.Wednesday));
-            dayName.setText("3. " + getResources().getString(R.string.Day));
-        }else if(currentDay == 4){
-            dayEditName.setHint(getResources().getString(R.string.Thursday));
-            dayName.setText("4. " + getResources().getString(R.string.Day));
-        }else if(currentDay == 5){
-            dayEditName.setHint(getResources().getString(R.string.Friday));
-            dayName.setText("5. " + getResources().getString(R.string.Day));
-        }else if(currentDay == 6){
-            dayEditName.setHint(getResources().getString(R.string.Saturday));
-            dayName.setText("6. " + getResources().getString(R.string.Day));
-        }else if(currentDay == 7){
-            dayEditName.setHint(getResources().getString(R.string.Sunday));
-            dayName.setText("7. " + getResources().getString(R.string.Day));
+        if(weekly.isChecked()){
+            if(HourList.currentWeek == true){
+                if(currentDay == 1){
+                    dayEditName.setHint(getResources().getString(R.string.Monday));
+                    dayName.setText("1. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " B");
+                }else if(currentDay == 2){
+                    dayEditName.setHint(getResources().getString(R.string.Tuesday));
+                    dayName.setText("2. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " B");
+                }else if(currentDay == 3){
+                    dayEditName.setHint(getResources().getString(R.string.Wednesday));
+                    dayName.setText("3. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " B");
+                }else if(currentDay == 4){
+                    dayEditName.setHint(getResources().getString(R.string.Thursday));
+                    dayName.setText("4. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " B");
+                }else if(currentDay == 5){
+                    dayEditName.setHint(getResources().getString(R.string.Friday));
+                    dayName.setText("5. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " B");
+                }else if(currentDay == 6){
+                    dayEditName.setHint(getResources().getString(R.string.Saturday));
+                    dayName.setText("6. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " B");
+                }else if(currentDay == 7){
+                    dayEditName.setHint(getResources().getString(R.string.Sunday));
+                    dayName.setText("7. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " B");
+                }
+            }else{
+                if(currentDay == 1){
+                    dayEditName.setHint(getResources().getString(R.string.Monday));
+                    dayName.setText("1. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " A");
+                }else if(currentDay == 2){
+                    dayEditName.setHint(getResources().getString(R.string.Tuesday));
+                    dayName.setText("2. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " A");
+                }else if(currentDay == 3){
+                    dayEditName.setHint(getResources().getString(R.string.Wednesday));
+                    dayName.setText("3. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " A");
+                }else if(currentDay == 4){
+                    dayEditName.setHint(getResources().getString(R.string.Thursday));
+                    dayName.setText("4. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " A");
+                }else if(currentDay == 5){
+                    dayEditName.setHint(getResources().getString(R.string.Friday));
+                    dayName.setText("5. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " A");
+                }else if(currentDay == 6){
+                    dayEditName.setHint(getResources().getString(R.string.Saturday));
+                    dayName.setText("6. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " A");
+                }else if(currentDay == 7){
+                    dayEditName.setHint(getResources().getString(R.string.Sunday));
+                    dayName.setText("7. " + getResources().getString(R.string.Day) + "   <--->   " + getResources().getString(R.string.Week) + " A");
+                }
+            }
+        }else{
+            if(currentDay == 1){
+                dayEditName.setHint(getResources().getString(R.string.Monday));
+                dayName.setText("1. " + getResources().getString(R.string.Day));
+            }else if(currentDay == 2){
+                dayEditName.setHint(getResources().getString(R.string.Tuesday));
+                dayName.setText("2. " + getResources().getString(R.string.Day));
+            }else if(currentDay == 3){
+                dayEditName.setHint(getResources().getString(R.string.Wednesday));
+                dayName.setText("3. " + getResources().getString(R.string.Day));
+            }else if(currentDay == 4){
+                dayEditName.setHint(getResources().getString(R.string.Thursday));
+                dayName.setText("4. " + getResources().getString(R.string.Day));
+            }else if(currentDay == 5){
+                dayEditName.setHint(getResources().getString(R.string.Friday));
+                dayName.setText("5. " + getResources().getString(R.string.Day));
+            }else if(currentDay == 6){
+                dayEditName.setHint(getResources().getString(R.string.Saturday));
+                dayName.setText("6. " + getResources().getString(R.string.Day));
+            }else if(currentDay == 7){
+                dayEditName.setHint(getResources().getString(R.string.Sunday));
+                dayName.setText("7. " + getResources().getString(R.string.Day));
+            }
         }
+
         dayBase.setBackgroundColor(android.graphics.Color.parseColor("#D8D8D8"));
         normalDrawable = (ColorDrawable) dayBase.getBackground();
         dayBase.setTextColor(android.graphics.Color.parseColor("#000000"));
@@ -778,18 +835,42 @@ public class Timetable extends AppCompatActivity {
                             HourList.checkColor(d, down[i], ButtonBackground);
                             daylayout.removeView(down[i]);
                         }
-                        week.addDay(d);
+                        if(weekly.isChecked()){
+                            if(HourList.currentWeek == true){
+                                weekB.addDay(d);
+                            }else{
+                                weekA.addDay(d);
+                            }
+                        }else{
+                            weekA.addDay(d);
+                        }
+
                         dayEditName.setText("");
 
                         if(currentDay == tage){
+                            if(weekly.isChecked()){
+                                if(HourList.currentWeek == true){
+                                    Gson gson = new Gson();
+                                    String json = gson.toJson(weekB);
+                                    FirstScreen.tinyDB.putString("WeekB", json);
 
+                                    Intent intent = new Intent(Timetable.this, TimetableShowcase.class);
+                                    startActivity(intent);
+                                }else{
+                                    Gson gson = new Gson();
+                                    String json = gson.toJson(weekA);
+                                    FirstScreen.tinyDB.putString("WeekA", json);
+                                    HourList.currentWeek = true;
+                                    addDay(hours, 1);
+                                }
+                            }else{
+                                Gson gson = new Gson();
+                                String json = gson.toJson(weekA);
+                                FirstScreen.tinyDB.putString("WeekA", json);
 
-                            Gson gson = new Gson();
-                            String json = gson.toJson(week);
-                            FirstScreen.tinyDB.putString("Week", json);
-
-                            Intent intent = new Intent(Timetable.this, TimetableShowcase.class);
-                            startActivity(intent);
+                                Intent intent = new Intent(Timetable.this, TimetableShowcase.class);
+                                startActivity(intent);
+                            }
                         }else{
                             addDay(hours, currentDay + 1);
                         }

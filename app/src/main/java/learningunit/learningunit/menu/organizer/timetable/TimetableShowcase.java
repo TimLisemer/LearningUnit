@@ -38,6 +38,7 @@ import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.R;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.MainActivity;
+import learningunit.learningunit.menu.organizer.Organizer;
 
 public class TimetableShowcase extends AppCompatActivity {
     /**
@@ -54,10 +55,15 @@ public class TimetableShowcase extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private static boolean currentWeekShowcase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        currentWeekShowcase = HourList.currentWeekShowcase;
+        HourList.currentWeekShowcase = false;
+
         setContentView(R.layout.activity_timetable_showcase);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -74,8 +80,14 @@ public class TimetableShowcase extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(currentWeekShowcase == true){
+                    HourList.currentWeekShowcase = false;
+                }else {
+                    HourList.currentWeekShowcase = true;
+                }
+                overridePendingTransition( 0, 0);
+                startActivity(getIntent());
+                overridePendingTransition( 0, 0);
             }
         });
 
@@ -92,7 +104,8 @@ public class TimetableShowcase extends AppCompatActivity {
         New.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirstScreen.tinyDB.remove("Week");
+                FirstScreen.tinyDB.remove("WeekA");
+                FirstScreen.tinyDB.remove("WeekB");
                 Intent intent = new Intent(TimetableShowcase.this, Timetable.class);
                 startActivity(intent);
             }
@@ -132,7 +145,12 @@ public class TimetableShowcase extends AppCompatActivity {
         public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
             Gson gson = new Gson();
-            String json = FirstScreen.tinyDB.getString("Week");
+            String json;
+            if(currentWeekShowcase == true){
+                json = FirstScreen.tinyDB.getString("WeekB");
+            }else {
+                json = FirstScreen.tinyDB.getString("WeekA");
+            }
             Type type = new TypeToken<Week>() {}.getType();
             Week week = gson.fromJson(json, type);
 
@@ -267,7 +285,7 @@ public class TimetableShowcase extends AppCompatActivity {
         @Override
         public int getCount() {
             Gson gson = new Gson();
-            String json = FirstScreen.tinyDB.getString("Week");
+            String json = FirstScreen.tinyDB.getString("WeekA");
             Type type = new TypeToken<Week>() {}.getType();
             Week week = gson.fromJson(json, type);
             if(week.getDayList().size() >= 2) {

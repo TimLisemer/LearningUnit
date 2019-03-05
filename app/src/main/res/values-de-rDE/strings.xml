@@ -54,4 +54,5 @@
     <string name="TimetableImport">Importieren</string>
     <string name="DayCount">Anzahl Tage</string>
     <string name="HourCount">Anzahl max. Stunden</string>
+    <string name="Week">Woche</string>
 </resources>
