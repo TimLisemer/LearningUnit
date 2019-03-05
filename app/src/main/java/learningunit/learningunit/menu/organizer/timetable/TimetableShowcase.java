@@ -1,5 +1,7 @@
 package learningunit.learningunit.menu.organizer.timetable;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,6 +32,8 @@ import java.lang.reflect.Type;
 import java.sql.Time;
 import java.util.ArrayList;
 
+import learningunit.learningunit.Objects.API.ManageData;
+import learningunit.learningunit.Objects.API.RequestHandler;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
 import learningunit.learningunit.Objects.Timetable.CustomAdapter;
@@ -38,6 +43,7 @@ import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.R;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.MainActivity;
+import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
 import learningunit.learningunit.menu.organizer.Organizer;
 
 public class TimetableShowcase extends AppCompatActivity {
@@ -82,7 +88,9 @@ public class TimetableShowcase extends AppCompatActivity {
             public void onClick(View view) {
                 if(currentWeekShowcase == true){
                     HourList.currentWeekShowcase = false;
+                    Toast.makeText(TimetableShowcase.this, getResources().getString(R.string.Week) + " A", Toast.LENGTH_SHORT).show();
                 }else {
+                    Toast.makeText(TimetableShowcase.this, getResources().getString(R.string.Week) + " B", Toast.LENGTH_SHORT).show();
                     HourList.currentWeekShowcase = true;
                 }
                 overridePendingTransition( 0, 0);
@@ -104,10 +112,30 @@ public class TimetableShowcase extends AppCompatActivity {
         New.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirstScreen.tinyDB.remove("WeekA");
-                FirstScreen.tinyDB.remove("WeekB");
-                Intent intent = new Intent(TimetableShowcase.this, Timetable.class);
-                startActivity(intent);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(TimetableShowcase.this);
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                                FirstScreen.tinyDB.remove("WeekA");
+                                FirstScreen.tinyDB.remove("WeekB");
+                                Intent intent = new Intent(TimetableShowcase.this, Timetable.class);
+                                startActivity(intent);
+                    }
+                });
+
+                builder.setCancelable(true);
+                builder.setNegativeButton(getResources().getString(R.string.Cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.setTitle(getResources().getString(R.string.NewTimetableQuestion));
+                builder.setMessage(getResources().getString(R.string.NewTimetableQuestion1));
+                builder.show();
+
             }
         });
 
@@ -218,7 +246,11 @@ public class TimetableShowcase extends AppCompatActivity {
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1 && week.getDayList().size() >= 2) {
 
-                Header.setText(getResources().getString(R.string.Wochenüberblick));
+                if(currentWeekShowcase == false) {
+                    Header.setText(getResources().getString(R.string.Wochenüberblick) + " " + getResources().getString(R.string.Week) + " A");
+                }else{
+                    Header.setText(getResources().getString(R.string.Wochenüberblick) + " " + getResources().getString(R.string.Week) + " B");
+                }
                 for(int g = 0; g < week.getDayList().size(); g++) {
                     for (int i = 0; i < Count; i++) {
                         if (!(i == 2 | i == 5 || i == 8 || i == 11 || i == 14 || i == 17 || i == 20 || i == 23 || i == 26 || i == 29 || i == 32)) {

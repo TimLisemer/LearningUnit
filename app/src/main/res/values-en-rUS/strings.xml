@@ -55,4 +55,6 @@
     <string name="DayCount">Count of Days</string>
     <string name="HourCount">Max. count of Hours</string>
     <string name="Week">Week</string>
+    <string name="NewTimetableQuestion">Create new Timetable?</string>
+    <string name="NewTimetableQuestion1">Your current timetable will be lost</string>
 </resources>

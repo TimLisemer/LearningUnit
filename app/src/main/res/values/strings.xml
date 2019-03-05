@@ -55,4 +55,6 @@
     <string name="DayCount">Anzahl Tage</string>
     <string name="HourCount">Anzahl max. Stunden</string>
     <string name="Week">Woche</string>
+    <string name="NewTimetableQuestion">Neuen Stundenplan erstellen?</string>
+    <string name="NewTimetableQuestion1">Dein aktueller Stundenplan geht dadurch verloren</string>
 </resources>
