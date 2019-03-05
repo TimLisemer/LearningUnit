@@ -402,7 +402,7 @@ public class Timetable extends AppCompatActivity {
                                     }
                                 }
                             });
-
+//
 
                             nameBack.setOnClickListener(new View.OnClickListener() {
                                 @Override
