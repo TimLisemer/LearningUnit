@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -35,13 +36,13 @@ import learningunit.learningunit.R;
 public class Timetable extends AppCompatActivity {
 
     private Button create_next, create_back, day_back, day_cancel, dayBase, dayNext, day4back, hourNameBase, hourNameBase1, nameNext, nameBack, downHour[], downHour1[], down[];
-    private ScrollView create_view;
-    private ConstraintLayout day, daylayout, daylayout4, daylayout3, dayLayout6;
+    private ConstraintLayout day, daylayout, daylayout4, daylayout3, dayLayout6, create_view;
     private Spinner daySpinner, hourSpinner;
     private TextView nameHour, dayName;
     private EditText nameEditName, dayEditName;
     private ColorDrawable normalDrawable;
     Week week;
+    private SeekBar bar, bar2;
 
     private int tage;
 
@@ -59,6 +60,10 @@ public class Timetable extends AppCompatActivity {
         HourList.addHour("Religion");
         HourList.addHour("Kunst");
         HourList.addHour("Musik");
+        HourList.addHour("Politik");
+        HourList.addHour("Spanisch");
+        HourList.addHour("Französisch");
+        HourList.addHour("Latein");
 
         MainActivity.hideKeyboard(this);
         super.onCreate(savedInstanceState);
@@ -70,17 +75,7 @@ public class Timetable extends AppCompatActivity {
         daylayout3 = (ConstraintLayout) findViewById(R.id.timetable_dayLayout3);
         dayLayout6 = (ConstraintLayout) findViewById(R.id.timetable_dayLayout6);
 
-        daySpinner = (Spinner) findViewById(R.id.timetable_createSpinner);
-        String[] daySpinnerItems = new String[]{"1", "2", "3", "4", "5", "6", "7"};
-        ArrayAdapter<String> daySpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, daySpinnerItems);
-        daySpinner.setAdapter(daySpinnerAdapter);
-
-        hourSpinner = (Spinner) findViewById(R.id.timetable_createSpinner1);
-        String[] hourSpinnerItems = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};
-        ArrayAdapter<String> hourSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, hourSpinnerItems);
-        hourSpinner.setAdapter(hourSpinnerAdapter);
-
-        create_view = (ScrollView) findViewById(R.id.timetable_createScrollview);
+        create_view = (ConstraintLayout) findViewById(R.id.timetable_createScrollviewLayout);
         dayName = findViewById(R.id.timetable_dayName);
 
         nameHour = (TextView) findViewById(R.id.timetable_name_Hour);
@@ -147,6 +142,59 @@ public class Timetable extends AppCompatActivity {
             }
         });
 
+        bar = (SeekBar) findViewById(R.id.seekBar);
+        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                TextView test = (TextView) findViewById(R.id.textView13);
+                test.setText(progress + "");
+                if(bar2.getProgress() > 0 && progress > 0){
+                    findViewById(R.id.timetable_createNext).setEnabled(true);
+                }else{
+                    findViewById(R.id.timetable_createNext).setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+        bar2 = (SeekBar) findViewById(R.id.seekBar2);
+        bar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                TextView test = (TextView) findViewById(R.id.textView14);
+                test.setText(progress + "");
+                if(bar.getProgress() > 0 && progress > 0){
+                    findViewById(R.id.timetable_createNext).setEnabled(true);
+                }else{
+                    findViewById(R.id.timetable_createNext).setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+
+
+
     }
 
 
@@ -163,9 +211,9 @@ public class Timetable extends AppCompatActivity {
         day.setVisibility(View.VISIBLE);
         create_view.setVisibility(View.GONE);
         MainActivity.hideKeyboard(this);
-        tage = Integer.parseInt(daySpinner.getSelectedItem().toString());
+        tage = bar.getProgress();
         week = new Week(tage);
-        addDay(Integer.parseInt(hourSpinner.getSelectedItem().toString()), 1);
+        addDay(bar2.getProgress(), 1);
     }
 
     private void openday_back(){
@@ -373,18 +421,32 @@ public class Timetable extends AppCompatActivity {
                             nameNext.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    clearHourName();
-                                    Log.d("nameNext", "3");
-                                    findViewById(R.id.timetable_dayLayout3).setVisibility(View.VISIBLE);
-                                    findViewById(R.id.timetable_hourColorLayout).setVisibility(View.VISIBLE);
-                                    findViewById(R.id.timetable_dayNameScrollview).setVisibility(View.GONE);
-                                    findViewById(R.id.timetable_dayLayout5).setVisibility(View.GONE);
-                                    HourList.addHour(nameEditName.getText().toString());
-                                    ColorVoids(nameNext, dayBase, nameEditName.getText().toString());
-                                    MainActivity.hideKeyboard(Timetable.this);
+                                    if(nameEditName.getText().toString().length() > 15){
+                                        nameEditName.setError(getResources().getString(R.string.HourNameError));
+                                    }else {
+                                        clearHourName();
+                                        Log.d("nameNext", "3");
+                                        findViewById(R.id.timetable_dayLayout3).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.timetable_hourColorLayout).setVisibility(View.VISIBLE);
+                                        TextView HourColor = (TextView) findViewById(R.id.timetable_color_Hour);
+                                        EditText newHourName = (EditText) findViewById(R.id.timetable_name_editName);
+                                        HourColor.setText(newHourName.getText().toString().trim());
+                                        TextView switchText = (TextView) findViewById(R.id.timetable_colorSwitchText);
+                                        String switch0 = getResources().getString(R.string.ColourSwitchText0);
+                                        String switch1 = getResources().getString(R.string.ColourSwitchText1);
+                                        switchText.setText(switch0 + newHourName.getText().toString().trim() + switch1);
+                                        String colourChooseText = getResources().getString(R.string.ColourCooseText);
+                                        TextView colourChoose = (TextView) findViewById(R.id.timetable_color_Text);
+                                        colourChoose.setText(colourChooseText + newHourName.getText().toString().trim().toString());
+                                        findViewById(R.id.timetable_dayNameScrollview).setVisibility(View.GONE);
+                                        findViewById(R.id.timetable_dayLayout5).setVisibility(View.GONE);
+                                        HourList.addHour(nameEditName.getText().toString());
+                                        ColorVoids(nameNext, dayBase, nameEditName.getText().toString());
+                                        MainActivity.hideKeyboard(Timetable.this);
+                                    }
                                 }
                             });
-
+//
 
                             nameBack.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -496,15 +558,29 @@ public class Timetable extends AppCompatActivity {
                             nameNext.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    clearHourName();
-                                    Log.d("nameNext", "2");
-                                    findViewById(R.id.timetable_dayLayout3).setVisibility(View.VISIBLE);
-                                    findViewById(R.id.timetable_hourColorLayout).setVisibility(View.VISIBLE);
-                                    findViewById(R.id.timetable_dayNameScrollview).setVisibility(View.GONE);
-                                    findViewById(R.id.timetable_dayLayout5).setVisibility(View.GONE);
-                                    HourList.addHour(nameEditName.getText().toString());
-                                    ColorVoids(nameNext, down[d], nameEditName.getText().toString());
                                     MainActivity.hideKeyboard(Timetable.this);
+                                    if(nameEditName.getText().toString().length() > 15){
+                                        nameEditName.setError(getResources().getString(R.string.HourNameError));
+                                    }else {
+                                        clearHourName();
+                                        Log.d("nameNext", "2");
+                                        findViewById(R.id.timetable_dayLayout3).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.timetable_hourColorLayout).setVisibility(View.VISIBLE);
+                                        TextView HourColor = (TextView) findViewById(R.id.timetable_color_Hour);
+                                        EditText newHourName = (EditText) findViewById(R.id.timetable_name_editName);
+                                        HourColor.setText(newHourName.getText().toString().trim());
+                                        TextView switchText = (TextView) findViewById(R.id.timetable_colorSwitchText);
+                                        String switch0 = getResources().getString(R.string.ColourSwitchText0);
+                                        String switch1 = getResources().getString(R.string.ColourSwitchText1);
+                                        switchText.setText(switch0 + newHourName.getText().toString().trim() + switch1);
+                                        String colourChooseText = getResources().getString(R.string.ColourCooseText);
+                                        TextView colourChoose = (TextView) findViewById(R.id.timetable_color_Text);
+                                        colourChoose.setText(colourChooseText + newHourName.getText().toString().trim().toString());
+                                        findViewById(R.id.timetable_dayNameScrollview).setVisibility(View.GONE);
+                                        findViewById(R.id.timetable_dayLayout5).setVisibility(View.GONE);
+                                        HourList.addHour(nameEditName.getText().toString());
+                                        ColorVoids(nameNext, down[d], nameEditName.getText().toString());
+                                    }
                                 }
                             });
 
@@ -621,15 +697,30 @@ public class Timetable extends AppCompatActivity {
                             nameNext.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    clearHourName();
-                                    Log.d("nameNext", "1");
-                                    findViewById(R.id.timetable_dayLayout3).setVisibility(View.VISIBLE);
-                                    findViewById(R.id.timetable_hourColorLayout).setVisibility(View.VISIBLE);
-                                    findViewById(R.id.timetable_dayNameScrollview).setVisibility(View.GONE);
-                                    findViewById(R.id.timetable_dayLayout5).setVisibility(View.GONE);
-                                    HourList.addHour(nameEditName.getText().toString());
-                                    ColorVoids(nameNext, dayBase, nameEditName.getText().toString());
                                     MainActivity.hideKeyboard(Timetable.this);
+                                    if(nameEditName.getText().toString().length() > 15){
+                                        nameEditName.setError(getResources().getString(R.string.HourNameError));
+                                    }else {
+                                        clearHourName();
+                                        Log.d("nameNext", "1");
+                                        findViewById(R.id.timetable_dayLayout3).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.timetable_hourColorLayout).setVisibility(View.VISIBLE);
+                                        TextView HourColor = (TextView) findViewById(R.id.timetable_color_Hour);
+                                        EditText newHourName = (EditText) findViewById(R.id.timetable_name_editName);
+                                        HourColor.setText(newHourName.getText().toString().trim());
+                                        TextView switchText = (TextView) findViewById(R.id.timetable_colorSwitchText);
+                                        String switch0 = getResources().getString(R.string.ColourSwitchText0);
+                                        String switch1 = getResources().getString(R.string.ColourSwitchText1);
+                                        switchText.setText(switch0 + newHourName.getText().toString().trim() + switch1);
+                                        String colourChooseText = getResources().getString(R.string.ColourCooseText);
+                                        TextView colourChoose = (TextView) findViewById(R.id.timetable_color_Text);
+                                        colourChoose.setText(colourChooseText + newHourName.getText().toString().trim().toString());
+                                        findViewById(R.id.timetable_dayNameScrollview).setVisibility(View.GONE);
+                                        findViewById(R.id.timetable_dayLayout5).setVisibility(View.GONE);
+                                        HourList.addHour(nameEditName.getText().toString());
+                                        ColorVoids(nameNext, dayBase, nameEditName.getText().toString());
+                                        MainActivity.hideKeyboard(Timetable.this);
+                                    }
                                 }
                             });
 
@@ -680,23 +771,11 @@ public class Timetable extends AppCompatActivity {
 
                         Day d = new Day(dayEditName.getText().toString());
                         ColorDrawable dayBaseBackground = (ColorDrawable) dayBase.getBackground();
-                        if(!(normalDrawable.equals(dayBaseBackground))){
-                            d.addHour(dayBase.getText().toString(), "#D8D8D8");
-                            Log.d("Standart Color", "dayBase");
-                        }else{
-                            HourList.checkColor(d, dayBase, dayBaseBackground);
-                            Log.d("Check Color", "dayBase");
-                        }
+                        HourList.checkColor(d, dayBase, dayBaseBackground);
 
                         for(int i = 1; i < size; i++){
                             ColorDrawable ButtonBackground = (ColorDrawable) down[i].getBackground();
-                            if(normalDrawable.equals(ButtonBackground)){
-                                d.addHour(down[i].getText().toString(), "#D8D8D8");
-                                Log.d("Standart Down", "dayBase");
-                            }else{
-                                HourList.checkColor(d, down[i], ButtonBackground);
-                                Log.d("Check Color", "down");
-                            }
+                            HourList.checkColor(d, down[i], ButtonBackground);
                             daylayout.removeView(down[i]);
                         }
                         week.addDay(d);
@@ -759,9 +838,9 @@ public class Timetable extends AppCompatActivity {
                             TextView colourChoose = (TextView) findViewById(R.id.timetable_color_Text);
                             String switch0 = getResources().getString(R.string.ColourSwitchText0);
                             String switch1 = getResources().getString(R.string.ColourSwitchText1);
-                            String colourChooseText = getResources().getString(R.string.ColourCooseText);
                             colorSwitch.setText(switch0 + Pressed.getText().toString() + switch1);
                             colourname.setText(Hour.getText().toString());
+                            String colourChooseText = getResources().getString(R.string.ColourCooseText);
                             colourChoose.setText(colourChooseText + Pressed.getText().toString());
 
                             Button colorBack = (Button) findViewById(R.id.timetable_colorBack);

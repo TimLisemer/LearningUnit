@@ -66,6 +66,9 @@ public class HourList {
             d.addHour(b.getText().toString(), "#B0E0E6");
         }else if(colorId == android.graphics.Color.parseColor("#5F9EA0")) {
             d.addHour(b.getText().toString(), "#5F9EA0");
+
+        }else if(colorId == android.graphics.Color.parseColor("#D8D8D8")) {
+            d.addHour(b.getText().toString(), "#D8D8D8");
         }
     }
 

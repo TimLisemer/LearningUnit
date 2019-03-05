@@ -48,4 +48,10 @@
     <string name="CreateTimetable">CreateTimetable</string>
     <string name="Share">Share</string>
     <string name="ChangeTimetable">New Timetable</string>
+    <string name="NoHomeWork">No Homework</string>
+    <string name="Wochenüberblick">Overview</string>
+    <string name="HourNameError">One hour may be max. 15 characters included!</string>
+    <string name="TimetableImport">Import</string>
+    <string name="DayCount">Count of Days</string>
+    <string name="HourCount">Max. count of Hours</string>
 </resources>
