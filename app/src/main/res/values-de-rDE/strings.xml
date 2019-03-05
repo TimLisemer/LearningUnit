@@ -50,4 +50,5 @@
     <string name="ChangeTimetable">Neuer Stundenplan</string>
     <string name="NoHomeWork">Keine Hausaufgaben</string>
     <string name="Wochenüberblick">Wochenüberblick</string>
+    <string name="HourNameError">Eine Stundenname darf aus max. 15 Zeichen bestehen!</string>
 </resources>

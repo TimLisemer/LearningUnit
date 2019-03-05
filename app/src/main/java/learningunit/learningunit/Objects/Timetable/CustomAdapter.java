@@ -250,6 +250,7 @@ public class CustomAdapter extends BaseAdapter {
         TextView number = (TextView) view.findViewById(R.id.timetable_showcaseListViewText2);
         ImageView icon = (ImageView) view.findViewById(R.id.timetable_showcaseListViewIcon);
         TextView ListViewText = (TextView) view.findViewById(R.id.timetable_showcaseListViewText);
+        ListViewText.setSelected(true);
 
         if(!(i == 2 | i == 5 || i == 8 || i == 11 || i == 14 || i == 17 || i == 20 || i == 23 || i == 26 || i == 29 || i == 32)) {
 
@@ -301,39 +302,98 @@ public class CustomAdapter extends BaseAdapter {
                     b.setColor(android.graphics.Color.parseColor(DayHourColor[0][i]));
                     ColorDrawable b1 = new ColorDrawable();
                     b1.setColor(android.graphics.Color.parseColor(DayHourColor[1][i]));
-
-                    view.findViewById(R.id.owcaseListViewButton6).setBackground(b);
-                    view.findViewById(R.id.owcaseListViewButton5).setBackground(b1);
+                    view.findViewById(R.id.owcaseListViewButton5).setBackground(b);
+                    view.findViewById(R.id.owcaseListViewButton6).setBackground(b1);
                 }
 
                 if(DayHourList.length >= 3) {
                     ColorDrawable b = new ColorDrawable();
-                    b.setColor(android.graphics.Color.parseColor(DayHourColor[2][i]));
+                    b.setColor(android.graphics.Color.parseColor(DayHourColor[0][i]));
+                    ColorDrawable b1 = new ColorDrawable();
+                    b1.setColor(android.graphics.Color.parseColor(DayHourColor[1][i]));
+                    ColorDrawable b2 = new ColorDrawable();
+                    b2.setColor(android.graphics.Color.parseColor(DayHourColor[2][i]));
                     view.findViewById(R.id.owcaseListViewButton4).setBackground(b);
+                    view.findViewById(R.id.owcaseListViewButton5).setBackground(b1);
+                    view.findViewById(R.id.owcaseListViewButton6).setBackground(b2);
                 }
 
                 if(DayHourList.length >= 4) {
                     ColorDrawable b = new ColorDrawable();
-                    b.setColor(android.graphics.Color.parseColor(DayHourColor[3][i]));
+                    b.setColor(android.graphics.Color.parseColor(DayHourColor[0][i]));
+                    ColorDrawable b1 = new ColorDrawable();
+                    b1.setColor(android.graphics.Color.parseColor(DayHourColor[1][i]));
+                    ColorDrawable b2 = new ColorDrawable();
+                    b2.setColor(android.graphics.Color.parseColor(DayHourColor[2][i]));
+                    ColorDrawable b3 = new ColorDrawable();
+                    b3.setColor(android.graphics.Color.parseColor(DayHourColor[3][i]));
                     view.findViewById(R.id.owcaseListViewButton3).setBackground(b);
+                    view.findViewById(R.id.owcaseListViewButton4).setBackground(b1);
+                    view.findViewById(R.id.owcaseListViewButton5).setBackground(b2);
+                    view.findViewById(R.id.owcaseListViewButton6).setBackground(b3);
                 }
 
                 if(DayHourList.length >= 5) {
                     ColorDrawable b = new ColorDrawable();
-                    b.setColor(android.graphics.Color.parseColor(DayHourColor[4][i]));
+                    b.setColor(android.graphics.Color.parseColor(DayHourColor[0][i]));
+                    ColorDrawable b1 = new ColorDrawable();
+                    b1.setColor(android.graphics.Color.parseColor(DayHourColor[1][i]));
+                    ColorDrawable b2 = new ColorDrawable();
+                    b2.setColor(android.graphics.Color.parseColor(DayHourColor[2][i]));
+                    ColorDrawable b3 = new ColorDrawable();
+                    b3.setColor(android.graphics.Color.parseColor(DayHourColor[3][i]));
+                    ColorDrawable b4 = new ColorDrawable();
+                    b4.setColor(android.graphics.Color.parseColor(DayHourColor[4][i]));
                     view.findViewById(R.id.owcaseListViewButton2).setBackground(b);
+                    view.findViewById(R.id.owcaseListViewButton3).setBackground(b1);
+                    view.findViewById(R.id.owcaseListViewButton4).setBackground(b2);
+                    view.findViewById(R.id.owcaseListViewButton5).setBackground(b3);
+                    view.findViewById(R.id.owcaseListViewButton6).setBackground(b4);
                 }
 
                 if(DayHourList.length >= 6) {
                     ColorDrawable b = new ColorDrawable();
-                    b.setColor(android.graphics.Color.parseColor(DayHourColor[5][i]));
+                    b.setColor(android.graphics.Color.parseColor(DayHourColor[0][i]));
+                    ColorDrawable b1 = new ColorDrawable();
+                    b1.setColor(android.graphics.Color.parseColor(DayHourColor[1][i]));
+                    ColorDrawable b2 = new ColorDrawable();
+                    b2.setColor(android.graphics.Color.parseColor(DayHourColor[2][i]));
+                    ColorDrawable b3 = new ColorDrawable();
+                    b3.setColor(android.graphics.Color.parseColor(DayHourColor[3][i]));
+                    ColorDrawable b4 = new ColorDrawable();
+                    b4.setColor(android.graphics.Color.parseColor(DayHourColor[4][i]));
+                    ColorDrawable b5 = new ColorDrawable();
+                    b5.setColor(android.graphics.Color.parseColor(DayHourColor[5][i]));
                     view.findViewById(R.id.owcaseListViewButton1).setBackground(b);
+                    view.findViewById(R.id.owcaseListViewButton2).setBackground(b1);
+                    view.findViewById(R.id.owcaseListViewButton3).setBackground(b2);
+                    view.findViewById(R.id.owcaseListViewButton4).setBackground(b3);
+                    view.findViewById(R.id.owcaseListViewButton5).setBackground(b4);
+                    view.findViewById(R.id.owcaseListViewButton6).setBackground(b5);
                 }
 
                 if(DayHourList.length == 7) {
                     ColorDrawable b = new ColorDrawable();
-                    b.setColor(android.graphics.Color.parseColor(DayHourColor[6][i]));
+                    b.setColor(android.graphics.Color.parseColor(DayHourColor[0][i]));
+                    ColorDrawable b1 = new ColorDrawable();
+                    b1.setColor(android.graphics.Color.parseColor(DayHourColor[1][i]));
+                    ColorDrawable b2 = new ColorDrawable();
+                    b2.setColor(android.graphics.Color.parseColor(DayHourColor[2][i]));
+                    ColorDrawable b3 = new ColorDrawable();
+                    b3.setColor(android.graphics.Color.parseColor(DayHourColor[3][i]));
+                    ColorDrawable b4 = new ColorDrawable();
+                    b4.setColor(android.graphics.Color.parseColor(DayHourColor[4][i]));
+                    ColorDrawable b5 = new ColorDrawable();
+                    b5.setColor(android.graphics.Color.parseColor(DayHourColor[5][i]));
+                    ColorDrawable b6 = new ColorDrawable();
+                    b6.setColor(android.graphics.Color.parseColor(DayHourColor[6][i]));
                     view.findViewById(R.id.owcaseListViewButton).setBackground(b);
+                    view.findViewById(R.id.owcaseListViewButton1).setBackground(b1);
+                    view.findViewById(R.id.owcaseListViewButton2).setBackground(b2);
+                    view.findViewById(R.id.owcaseListViewButton3).setBackground(b3);
+                    view.findViewById(R.id.owcaseListViewButton4).setBackground(b4);
+                    view.findViewById(R.id.owcaseListViewButton5).setBackground(b5);
+                    view.findViewById(R.id.owcaseListViewButton6).setBackground(b6);
                 }
 
             }
