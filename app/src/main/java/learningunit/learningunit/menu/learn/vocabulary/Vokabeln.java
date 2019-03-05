@@ -636,10 +636,10 @@ public class Vokabeln extends AppCompatActivity {
             ShareInfo.setVisibility(View.GONE);
         }
 
-        downoriginal  = new TextView[vocabularyList.size()];
-        downtranslation = new TextView[vocabularyList.size() + 10000];
+        downoriginal  = new TextView[showvocablist.size()];
+        downtranslation = new TextView[showvocablist.size() + 10000];
 
-        if(vocabularyList.size() < 5){
+        if(showvocablist.size() < 5){
             error.setVisibility(View.VISIBLE);
             error.setText("Es müssen mindestens 5 Vokabeln in der Vokabelliste vorhanden sein, um die Übung zu starten");
             train.setEnabled(false);
@@ -658,10 +658,10 @@ public class Vokabeln extends AppCompatActivity {
         findViewById(R.id.vocabulary_scrollView).setVisibility(View.INVISIBLE);
         findViewById(R.id.vocabulary_scrollview1).setVisibility(View.VISIBLE);
 
-        lang1.setText(vocabularyList.getLanguageName1());
-        lang2.setText(vocabularyList.getLanguageName2());
+        lang1.setText(showvocablist.getLanguageName1());
+        lang2.setText(showvocablist.getLanguageName2());
 
-        for (int i = 1; i < vocabularyList.size(); i++) {
+        for (int i = 1; i < showvocablist.size(); i++) {
             downoriginal[i] = new TextView(Vokabeln.this);
 
             ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
@@ -669,7 +669,7 @@ public class Vokabeln extends AppCompatActivity {
 
             params.setMargins(8, 90, 8, 8);
 
-            downoriginal[i].setText(vocabularyList.getVocabularylist().get(i).getOriginal());
+            downoriginal[i].setText(showvocablist.getVocabularylist().get(i).getOriginal());
             downoriginal[i].setId(i);
             downoriginal[i].setTextSize(18);
             downoriginal[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -692,8 +692,8 @@ public class Vokabeln extends AppCompatActivity {
             e = i + 1;
             constraintSeto.applyTo(layout1);
         }
-        original.setText(vocabularyList.getVocabularylist().get(0).getOriginal());
-        learn_masterTranslation.setText(vocabularyList.getVocabularylist().get(0).getTranslation());
+        original.setText(showvocablist.getVocabularylist().get(0).getOriginal());
+        learn_masterTranslation.setText(showvocablist.getVocabularylist().get(0).getTranslation());
 
 
 
@@ -1584,7 +1584,9 @@ public class Vokabeln extends AppCompatActivity {
             Type type = new TypeToken<String>() {
             }.getType();
             String a = gson.fromJson(json, type);
-
+            if(a.equalsIgnoreCase("s")){
+                throw new IllegalArgumentException("Cannot cast String a to int: a == " + a);
+            }
             final int followStatus = Integer.parseInt(a);
 
             if(follow.getText().toString().equalsIgnoreCase("Offline")){
