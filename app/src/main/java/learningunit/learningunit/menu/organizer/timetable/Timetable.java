@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -35,13 +36,13 @@ import learningunit.learningunit.R;
 public class Timetable extends AppCompatActivity {
 
     private Button create_next, create_back, day_back, day_cancel, dayBase, dayNext, day4back, hourNameBase, hourNameBase1, nameNext, nameBack, downHour[], downHour1[], down[];
-    private ScrollView create_view;
-    private ConstraintLayout day, daylayout, daylayout4, daylayout3, dayLayout6;
+    private ConstraintLayout day, daylayout, daylayout4, daylayout3, dayLayout6, create_view;
     private Spinner daySpinner, hourSpinner;
     private TextView nameHour, dayName;
     private EditText nameEditName, dayEditName;
     private ColorDrawable normalDrawable;
     Week week;
+    private SeekBar bar, bar2;
 
     private int tage;
 
@@ -74,17 +75,7 @@ public class Timetable extends AppCompatActivity {
         daylayout3 = (ConstraintLayout) findViewById(R.id.timetable_dayLayout3);
         dayLayout6 = (ConstraintLayout) findViewById(R.id.timetable_dayLayout6);
 
-        daySpinner = (Spinner) findViewById(R.id.timetable_createSpinner);
-        String[] daySpinnerItems = new String[]{"1", "2", "3", "4", "5", "6", "7"};
-        ArrayAdapter<String> daySpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, daySpinnerItems);
-        daySpinner.setAdapter(daySpinnerAdapter);
-
-        hourSpinner = (Spinner) findViewById(R.id.timetable_createSpinner1);
-        String[] hourSpinnerItems = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};
-        ArrayAdapter<String> hourSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, hourSpinnerItems);
-        hourSpinner.setAdapter(hourSpinnerAdapter);
-
-        create_view = (ScrollView) findViewById(R.id.timetable_createScrollview);
+        create_view = (ConstraintLayout) findViewById(R.id.timetable_createScrollviewLayout);
         dayName = findViewById(R.id.timetable_dayName);
 
         nameHour = (TextView) findViewById(R.id.timetable_name_Hour);
@@ -151,6 +142,59 @@ public class Timetable extends AppCompatActivity {
             }
         });
 
+        bar = (SeekBar) findViewById(R.id.seekBar);
+        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                TextView test = (TextView) findViewById(R.id.textView13);
+                test.setText(progress + "");
+                if(bar2.getProgress() > 0 && progress > 0){
+                    findViewById(R.id.timetable_createNext).setEnabled(true);
+                }else{
+                    findViewById(R.id.timetable_createNext).setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+        bar2 = (SeekBar) findViewById(R.id.seekBar2);
+        bar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                TextView test = (TextView) findViewById(R.id.textView14);
+                test.setText(progress + "");
+                if(bar.getProgress() > 0 && progress > 0){
+                    findViewById(R.id.timetable_createNext).setEnabled(true);
+                }else{
+                    findViewById(R.id.timetable_createNext).setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+
+
+
     }
 
 
@@ -167,9 +211,9 @@ public class Timetable extends AppCompatActivity {
         day.setVisibility(View.VISIBLE);
         create_view.setVisibility(View.GONE);
         MainActivity.hideKeyboard(this);
-        tage = Integer.parseInt(daySpinner.getSelectedItem().toString());
+        tage = bar.getProgress();
         week = new Week(tage);
-        addDay(Integer.parseInt(hourSpinner.getSelectedItem().toString()), 1);
+        addDay(bar2.getProgress(), 1);
     }
 
     private void openday_back(){

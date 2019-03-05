@@ -51,4 +51,7 @@
     <string name="NoHomeWork">No Homework</string>
     <string name="Wochenüberblick">Overview</string>
     <string name="HourNameError">One hour may be max. 15 characters included!</string>
+    <string name="TimetableImport">Import</string>
+    <string name="DayCount">Count of Days</string>
+    <string name="HourCount">Max. count of Hours</string>
 </resources>
