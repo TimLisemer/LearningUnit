@@ -263,17 +263,16 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void ShowLists(){
+        if(ManageData.InternetAvailable(context)) {
+            VocabularyMethods.vocabularylists.clear();
+            FirstScreen.tinyDB.remove("VocLists");
+            ManageData.saveVocabularyLists();
+            ManageData.NewDownloadVocabularyLists(context, true);
+            ManageData.DownloadFollowedVocabularyLists(context, true);
+        }
         if(VocabularyMethods.vocabularylists.size() > 0) {
             nolist.setVisibility(View.GONE);
             nolistButton.setVisibility(View.GONE);
-
-            if(ManageData.InternetAvailable(context)) {
-                VocabularyMethods.vocabularylists.clear();
-                FirstScreen.tinyDB.remove("VocLists");
-                ManageData.saveVocabularyLists();
-                ManageData.DownloadFollowedVocabularyLists(context, true);
-                ManageData.DownloadVocabularyLists(context, true);
-            }
 
             yourlistsString.clear();
             followedlistsString.clear();
@@ -292,7 +291,7 @@ public class Vokabeln extends AppCompatActivity {
                         Vokabeln.sharedlist = null;
                         Vokabeln.sharedID = 0;
                         Vokabeln.sharedListID = 0;
-                        ManageData.DownloadVocabularys(list.getName(), context);
+                        //ManageData.DownloadVocabularys(list.getName(), context);
                     }
                 }
                 if(list.getVocabularylist().size() == -5){
@@ -413,6 +412,9 @@ public class Vokabeln extends AppCompatActivity {
                             sharedID = list.getCreatorID();
                             ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sharedListID + " zu erreichen.");
                             direction = false;
+                            if(ManageData.InternetAvailable(context)){
+                                ManageData.DownloadVocabularys(s, context);
+                            }
                             if(list.getVocabularylist().size() > 0) {
                                 try {
                                     showvocabularys(list.getName());
@@ -520,10 +522,16 @@ public class Vokabeln extends AppCompatActivity {
 
 
     public void showvocabularys(final String ListName){
-
-        final VocabularyList showvocablist = VocabularyMethods.getVocabularyList0(ListName);
         final int listiD;
-        final VocabularyList vocabularyList = showvocablist;
+        final VocabularyList showvocablist;
+        final VocabularyList vocabularyList;
+        if(publiclist == false) {
+            showvocablist = VocabularyMethods.getVocabularyList0(ListName);
+        }else{
+            showvocablist = sharedlist;
+        }
+
+        vocabularyList = showvocablist;
 
         if(showvocablist.getShared() == false || showvocablist.getCreatorID() == ManageData.getUserID()) {
             train.setOnClickListener(new View.OnClickListener() {
@@ -1289,7 +1297,7 @@ public class Vokabeln extends AppCompatActivity {
 
     public void openALL(){
         ManageData.DownloadFollowedVocabularyLists(context, true);
-        ManageData.DownloadVocabularyLists(context, true);
+        ManageData.NewDownloadVocabularyLists(context, true);
         if(layout00.getVisibility() == View.GONE){
             all.setText("Alle Listen");
             layout00.setVisibility(View.VISIBLE);
@@ -1526,6 +1534,7 @@ public class Vokabeln extends AppCompatActivity {
             Creator[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("AAAA----", SharedList.toString());
                     openSharedList(SharedList);
                 }
             });
@@ -1547,14 +1556,17 @@ public class Vokabeln extends AppCompatActivity {
             }
         }else{
             sharedID = Integer.parseInt(SharedList.get(6));
-            sharedListID = Integer.parseInt(SharedList.get(7));
+            sharedListID = Integer.parseInt(SharedList.get(0));
             VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true, true, sharedListID, sharedID, true);
             VocabularyMethods.vocabularylists.add(list);
             direction = true;
             sharedlist = list;
-            ManageData.DownloadVocabularys(list.getName(), context);
             publiclist = true;
+            Vokabeln.sharedlist = list;
+            ManageData.DownloadVocabularys(list.getName(), context);
             showvocabularys(list.getName());
+            Vokabeln.publiclist = false;
+            Vokabeln.sharedlist = null;
         }
     }
 

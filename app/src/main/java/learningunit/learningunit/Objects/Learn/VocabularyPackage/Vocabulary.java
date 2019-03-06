@@ -24,7 +24,7 @@ public class Vocabulary {
             }
             if(!(list.ContainsVocabulary(this))) {
                 list.addVocabulary(this);
-                Log.d("ADDED", this.getOriginal() + " <--> " + this.getTranslation() + " to ALLLIST");
+                //Log.d("ADDED", this.getOriginal() + " <--> " + this.getTranslation() + " to ALLLIST");
                 VocabularyMethods.saveVocabularyList(list);
             }
         }else if(VocabularyMethods.VocabularyLanguageUsed(LanguageName1, getLanguageName2()) == 1){
@@ -32,18 +32,18 @@ public class Vocabulary {
             if(!(list.ContainsVocabulary(this))) {
                 list.addVocabulary(this);
                 VocabularyMethods.saveVocabularyList(list);
-                Log.d("ADDED", this.getOriginal() + " <--> " + this.getTranslation() + " to ALLLIST");
+                //Log.d("ADDED", this.getOriginal() + " <--> " + this.getTranslation() + " to ALLLIST");
             }
         }else if(VocabularyMethods.VocabularyLanguageUsed(LanguageName1, getLanguageName2()) == 2){
             VocabularyList list = VocabularyMethods.getVocabularyList("AllVoc_" + LanguageName2 + " <--> " + LanguageName1, followed);
             if(!(list.ContainsVocabulary(this))) {
                 list.addVocabulary(this);
-                Log.d("ADDED", this.getOriginal() + " <--> " + this.getTranslation() + " to ALLLIST");
+                //Log.d("ADDED", this.getOriginal() + " <--> " + this.getTranslation() + " to ALLLIST");
                 VocabularyMethods.saveVocabularyList(list);
             }
         }
 
-        Log.d("vocabulary", "Created new vocabulary - Originallanguage: " + LanguageName1 + " vocabulary: " +  original + " Translationlanguage: " + LanguageName2 + " vocabulary: " +  translation);
+        //Log.d("vocabulary", "Created new vocabulary - Originallanguage: " + LanguageName1 + " vocabulary: " +  original + " Translationlanguage: " + LanguageName2 + " vocabulary: " +  translation);
     }
 
     public String getOriginal() {
