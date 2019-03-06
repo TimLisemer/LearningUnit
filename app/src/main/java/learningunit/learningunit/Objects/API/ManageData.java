@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -163,11 +164,12 @@ public class ManageData extends MainActivity{
                     for (int i = 0; i < VocabularyMethods.vocabularylists.size(); i++) {
                         if (VocabularyMethods.vocabularylists.get(i).getName().equals(alist.get(1))) {
                             go = false;
+                            break;
                         }
                     }
 
+                    vocabularyList = new VocabularyList(alist.get(2), alist.get(3), alist.get(1), true, false);
                     if(go == true) {
-                        vocabularyList = new VocabularyList(alist.get(2), alist.get(3), alist.get(1), true, false);
                         vocabularyList.setID(Integer.parseInt(alist.get(0)));
                         try {
                             String json1 = requestHandler.sendGetRequest(MainActivity.URL_GetShared + alist.get(0));
@@ -184,6 +186,16 @@ public class ManageData extends MainActivity{
                         VocabularyMethods.vocabularylists.add(vocabularyList);
                         if(downloadVocs == true) {
                             DownloadVocabularys(vocabularyList.getName(), ctx);
+                        }
+                    }else{
+                        for (int i = 0; i < VocabularyMethods.vocabularylists.size(); i++) {
+                            if (VocabularyMethods.vocabularylists.get(i).getName().equals(alist.get(1))) {
+                                VocabularyMethods.vocabularylists.get(i).setLanguageName1(alist.get(2));
+                                VocabularyMethods.vocabularylists.get(i).setLanguageName2(alist.get(3));
+                                VocabularyMethods.vocabularylists.get(i).setName(alist.get(1));
+                                VocabularyMethods.vocabularylists.get(i).setSource(true);
+                                break;
+                            }
                         }
                     }
                 }
@@ -353,6 +365,199 @@ public class ManageData extends MainActivity{
             Account.clear();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static void NewDownloadVocabularyLists(Context ctx, boolean downloadVocs){
+        if(MainActivity.InternetAvailable(ctx) == true){
+            RequestHandler requestHandler = new RequestHandler();
+            Log.d("NewDownload", "----------------------------------------------------------------------------------------------");
+            Log.d("NewDownload", "Downloading VocabularyLists");
+            Log.d("NewDownload", "------------------------------------------------------------------------------------------------------");
+            Gson gson = new Gson();
+            String json = requestHandler.sendGetRequest(MainActivity.URL_NewCreateVocList + getUserID());
+            Type type = new TypeToken<Object[][]>() {}.getType();
+
+            Object[][] afterjson = gson.fromJson(json, type);
+            //try {
+                ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+                for (int gh = 0; gh < afterjson.length; gh ++){
+                    ArrayList<String> jk = new ArrayList<String>();
+                    jk.add(afterjson[gh][0].toString());
+                    jk.add(afterjson[gh][1].toString());
+                    jk.add(afterjson[gh][2].toString());
+                    jk.add(afterjson[gh][3].toString());
+                    jk.add(afterjson[gh][5].toString());
+                    list.add(jk);
+                }
+                VocabularyList vocabularyList;
+                int o = 0;
+                for(ArrayList<String> alist : list){
+
+                    boolean go = true;
+                    for (int i = 0; i < VocabularyMethods.vocabularylists.size(); i++) {
+                        if (VocabularyMethods.vocabularylists.get(i).getName().equals(alist.get(1))) {
+                            go = false;
+                            break;
+                        }
+                    }
+
+                    vocabularyList = new VocabularyList(alist.get(2), alist.get(3), alist.get(1), true, false);
+                    vocabularyList.setID(Integer.parseInt(alist.get(0)));
+                    if(go == true) {
+
+                        try {
+                            final int sharedStatus = Integer.parseInt(alist.get(4));
+                            if (sharedStatus == 0) {
+                                vocabularyList.setShared(false);
+                            } else {
+                                vocabularyList.setShared(true);
+                            }
+                        }catch (Exception e){ }
+
+                        Type type1 = new TypeToken<ArrayList<ArrayList<String>>>() {}.getType();
+
+                        ArrayList<ArrayList<String>> voclist = (ArrayList<ArrayList<String>>) afterjson[o][4];
+                        for (ArrayList a : voclist) {
+                            if(Vokabeln.publiclist == false) {
+                                Vocabulary voc = new Vocabulary(a.get(0).toString(), a.get(1).toString(), vocabularyList.getLanguageName1(), vocabularyList.getLanguageName2(), false);
+                                vocabularyList.addVocabulary(voc);
+                            }else{
+                                Vocabulary voc = new Vocabulary(a.get(0).toString(), a.get(1).toString(), vocabularyList.getLanguageName1(), vocabularyList.getLanguageName2(), true);
+                                vocabularyList.addVocabulary(voc);
+                            }
+                        }
+                        VocabularyMethods.vocabularylists.add(vocabularyList);
+
+                    }else{
+                        for (int i = 0; i < VocabularyMethods.vocabularylists.size(); i++) {
+                            if (VocabularyMethods.vocabularylists.get(i).getName().equals(alist.get(1))) {
+                                VocabularyMethods.vocabularylists.get(i).setLanguageName1(alist.get(2));
+                                VocabularyMethods.vocabularylists.get(i).setLanguageName2(alist.get(3));
+                                VocabularyMethods.vocabularylists.get(i).setName(alist.get(1));
+                                vocabularyList.setID(Integer.parseInt(alist.get(0)));
+                                VocabularyMethods.vocabularylists.get(i).setSource(true);
+                                break;
+                            }
+                        }
+                    }
+                    o++;
+                }
+
+            //}catch (Exception e) {
+                //Log.d("NewDownload", e + "");
+            //}
+        }else{
+            Log.d("NewDownloadVocLists", "Kein Internet Verfügbar");
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_DeleteAccount = ROOT_URL + "DeleteAccount&id=";
     public static final String URL_DeleteVocList = ROOT_URL + "DeleteVocList&id=";
     public static final String URL_CreateVocList = ROOT_URL + "CreateVocList";
+    public static final String URL_NewCreateVocList = ROOT_URL + "NewGetVocabLists&id=";
     public static final String URL_CreateVocabulary = ROOT_URL + "CreateVocabulary";
     public static final String URL_GetVocabLists = ROOT_URL + "GetVocabLists&id=";
     public static final String URL_GetVocabs = ROOT_URL + "GetVocabs&id=";

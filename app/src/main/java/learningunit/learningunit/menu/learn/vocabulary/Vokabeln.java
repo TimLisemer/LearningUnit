@@ -272,7 +272,7 @@ public class Vokabeln extends AppCompatActivity {
                 FirstScreen.tinyDB.remove("VocLists");
                 ManageData.saveVocabularyLists();
                 ManageData.DownloadFollowedVocabularyLists(context, true);
-                ManageData.DownloadVocabularyLists(context, true);
+                ManageData.NewDownloadVocabularyLists(context, true);
             }
 
             yourlistsString.clear();
@@ -292,7 +292,7 @@ public class Vokabeln extends AppCompatActivity {
                         Vokabeln.sharedlist = null;
                         Vokabeln.sharedID = 0;
                         Vokabeln.sharedListID = 0;
-                        ManageData.DownloadVocabularys(list.getName(), context);
+                        //ManageData.DownloadVocabularys(list.getName(), context);
                     }
                 }
                 if(list.getVocabularylist().size() == -5){
@@ -1289,7 +1289,7 @@ public class Vokabeln extends AppCompatActivity {
 
     public void openALL(){
         ManageData.DownloadFollowedVocabularyLists(context, true);
-        ManageData.DownloadVocabularyLists(context, true);
+        ManageData.NewDownloadVocabularyLists(context, true);
         if(layout00.getVisibility() == View.GONE){
             all.setText("Alle Listen");
             layout00.setVisibility(View.VISIBLE);
