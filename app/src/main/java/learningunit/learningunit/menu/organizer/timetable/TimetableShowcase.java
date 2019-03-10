@@ -1,11 +1,13 @@
 package learningunit.learningunit.menu.organizer.timetable;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Environment;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -14,42 +16,30 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.File;
 import java.lang.reflect.Type;
-import java.sql.Time;
-import java.util.ArrayList;
 
 import learningunit.learningunit.Objects.API.AnalyticsApplication;
 import learningunit.learningunit.Objects.API.ManageData;
-import learningunit.learningunit.Objects.API.RequestHandler;
-import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
-import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
 import learningunit.learningunit.Objects.Timetable.CustomAdapter;
-import learningunit.learningunit.Objects.Timetable.Hour;
 import learningunit.learningunit.Objects.Timetable.HourList;
 import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.R;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.MainActivity;
-import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
-import learningunit.learningunit.menu.organizer.Organizer;
 
 public class TimetableShowcase extends AppCompatActivity {
     /**
@@ -169,8 +159,38 @@ public class TimetableShowcase extends AppCompatActivity {
                     String json = FirstScreen.tinyDB.getString("WeekA");
                     Type type = new TypeToken<Week>() {
                     }.getType();
-                    Week week = gson.fromJson(json, type);
-                    Toast.makeText(TimetableShowcase.this, week.getWeekID() + "", Toast.LENGTH_LONG).show();
+                    final Week week = gson.fromJson(json, type);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TimetableShowcase.this);
+                    builder.setCancelable(true);
+                    TextView CopyWeekID = new TextView(TimetableShowcase.this);
+                    CopyWeekID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    CopyWeekID.setTextSize(22);
+                    //CopyWeekID.setTypeface(CopyWeekID.getTypeface(), Typeface.BOLD_ITALIC);
+                    CopyWeekID.setTypeface(null, Typeface.BOLD_ITALIC);
+                    CopyWeekID.setText("#" + week.getWeekID() + "");
+                    CopyWeekID.setPaintFlags(CopyWeekID.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+                    builder.setView(CopyWeekID);
+                    builder.setTitle(getResources().getString(R.string.TimetableID));
+                    builder.setMessage(getResources().getString(R.string.TimetableIDInfo));
+                    builder.setNegativeButton(getResources().getString(R.string.Back), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.setPositiveButton(getResources().getString(R.string.CopyID), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            Toast.makeText(TimetableShowcase.this, "ID: #" + week.getWeekID() + getResources().getString(R.string.CopyMessage), Toast.LENGTH_LONG).show();
+                            ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText("ID", "#" + week.getWeekID());
+                            clipboard.setPrimaryClip(clip);
+                        }
+                    });
+                    builder.show();
+
+
                 }else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(TimetableShowcase.this);
                     builder.setCancelable(true);

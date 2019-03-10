@@ -65,4 +65,8 @@
     <string name="AccountNeeded">Account erforderlich</string>
     <string name="PublicVocabInfo">Du musst einen Account verwenden, um auf Öffentliche Vokabellisten zugreifen zu können.</string>
     <string name="TimetableShareInfo">Du musst einen Account verwenden, um deinen Stundenplan zu teilen.</string>
+    <string name="TimetableID">Stundenplan ID</string>
+    <string name="TimetableIDInfo">Teile diese ID, damit andere deinen Stundenplan kopieren können</string>
+    <string name="CopyID">ID in die Zwischenablage kopieren</string>
+    <string name="CopyMessage">" wurde in die Zwischenablage kopiert"</string>
 </resources>

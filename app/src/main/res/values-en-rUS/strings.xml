@@ -65,4 +65,8 @@
     <string name="AccountNeeded">Account needed</string>
     <string name="PublicVocabInfo">An account is needed, to access public vocabulary lists.</string>
     <string name="TimetableShareInfo">An account is needed, to share your Timetable.</string>
+    <string name="TimetableID">Timetable ID</string>
+    <string name="TimetableIDInfo">Share this ID, so others can Copy your Timetable</string>
+    <string name="CopyID">Copy ID to clipboard</string>
+    <string name="CopyMessage">" has been copied to the clipboard"</string>
 </resources>
