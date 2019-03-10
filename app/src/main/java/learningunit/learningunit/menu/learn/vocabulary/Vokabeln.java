@@ -29,6 +29,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,6 +40,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
+import learningunit.learningunit.Objects.API.AnalyticsApplication;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
@@ -83,9 +86,14 @@ public class Vokabeln extends AppCompatActivity {
     private Button shared, shared_back;
     //Shared
 
+    private Tracker mTracker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_vocabulary);
         context = getApplicationContext();
         //Shared
@@ -1352,15 +1360,15 @@ public class Vokabeln extends AppCompatActivity {
         if(ManageData.OfflineAccount == 1){
             AlertDialog.Builder builder = new AlertDialog.Builder(Vokabeln.this);
             builder.setCancelable(true);
-            builder.setTitle("Account Erforderlich");
-            builder.setMessage("Du musst einen Account verwenden, um auf Öffentliche Vokabellisten zugreifen zu können.");
-            builder.setNegativeButton("Zurück", new DialogInterface.OnClickListener() {
+            builder.setTitle(getResources().getString(R.string.AccountNeeded));
+            builder.setMessage(getResources().getString(R.string.PublicVocabInfo));
+            builder.setNegativeButton(getResources().getString(R.string.Back), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
             });
-            builder.setPositiveButton("Anmelden / Regestrieren", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getResources().getString(R.string.LoginRegister), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     ManageData.RemoveOfflineData();

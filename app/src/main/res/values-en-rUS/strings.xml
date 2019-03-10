@@ -57,4 +57,12 @@
     <string name="Week">Week</string>
     <string name="NewTimetableQuestion">Create new Timetable?</string>
     <string name="NewTimetableQuestion1">Your current timetable will be lost</string>
+    <string name="NoNetworkConnection">No network connection</string>
+    <string name="NoNetworkInfo">An internet connection is required to complete this action.</string>
+    <string name="TryAgain">Try Again</string>
+    <string name="DelOfflineData">Delete Offline data</string>
+    <string name="LoginRegister">Login / Register</string>
+    <string name="AccountNeeded">Account needed</string>
+    <string name="PublicVocabInfo">An account is needed, to access public vocabulary lists.</string>
+    <string name="TimetableShareInfo">An account is needed, to share your Timetable.</string>
 </resources>

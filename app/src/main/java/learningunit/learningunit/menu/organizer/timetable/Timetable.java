@@ -1,10 +1,15 @@
 package learningunit.learningunit.menu.organizer.timetable;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.RippleDrawable;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
@@ -24,8 +29,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 
+import java.util.LinkedHashMap;
+
+import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.API.ManageData;
+import learningunit.learningunit.Objects.API.RequestHandler;
 import learningunit.learningunit.Objects.Timetable.Day;
 import learningunit.learningunit.Objects.Timetable.Hour;
 import learningunit.learningunit.Objects.Timetable.Week;
@@ -48,8 +60,14 @@ public class Timetable extends AppCompatActivity {
 
     private int tage;
 
+    private Tracker mTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+        super.onCreate(savedInstanceState);
         HourList.addHour("Mathe");
         HourList.addHour("Freistunde");
         HourList.addHour("Deutsch");
@@ -68,7 +86,6 @@ public class Timetable extends AppCompatActivity {
         HourList.addHour("Latein");
 
         MainActivity.hideKeyboard(this);
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
 
         day = (ConstraintLayout) findViewById(R.id.timetable_dayLayout0);
@@ -503,7 +520,7 @@ public class Timetable extends AppCompatActivity {
                                     }
                                 }
                             });
-//
+
 
                             nameBack.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -854,8 +871,16 @@ public class Timetable extends AppCompatActivity {
                                     String json = gson.toJson(weekB);
                                     FirstScreen.tinyDB.putString("WeekB", json);
 
-                                    Intent intent = new Intent(Timetable.this, TimetableShowcase.class);
-                                    startActivity(intent);
+                                    if(ManageData.OfflineAccount == 2) {
+
+                                        HourList.noConnection(false, Timetable.this, weekA, weekB);
+
+                                    }else{
+                                        Intent intent = new Intent(Timetable.this, TimetableShowcase.class);
+                                        startActivity(intent);
+                                    }
+
+
                                 }else{
                                     Gson gson = new Gson();
                                     String json = gson.toJson(weekA);
@@ -868,8 +893,14 @@ public class Timetable extends AppCompatActivity {
                                 String json = gson.toJson(weekA);
                                 FirstScreen.tinyDB.putString("WeekA", json);
 
-                                Intent intent = new Intent(Timetable.this, TimetableShowcase.class);
-                                startActivity(intent);
+                                if(ManageData.OfflineAccount == 2) {
+
+                                    HourList.noConnection(true, Timetable.this, weekA, weekB);
+
+                                }else{
+                                    Intent intent = new Intent(Timetable.this, TimetableShowcase.class);
+                                    startActivity(intent);
+                                }
                             }
                         }else{
                             addDay(hours, currentDay + 1);

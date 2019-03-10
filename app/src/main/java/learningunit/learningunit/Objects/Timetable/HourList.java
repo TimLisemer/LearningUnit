@@ -1,10 +1,26 @@
 package learningunit.learningunit.Objects.Timetable;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.widget.Button;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
+import learningunit.learningunit.Objects.API.ManageData;
+import learningunit.learningunit.Objects.API.RequestHandler;
+import learningunit.learningunit.R;
+import learningunit.learningunit.beforeStart.FirstScreen;
+import learningunit.learningunit.menu.MainActivity;
+import learningunit.learningunit.menu.organizer.timetable.Timetable;
+import learningunit.learningunit.menu.organizer.timetable.TimetableShowcase;
 
 public class HourList {
 
@@ -73,6 +89,117 @@ public class HourList {
             d.addHour(b.getText().toString(), "#D8D8D8");
         }
     }
+
+
+    public static void noConnection(final Boolean type, final Context ctx, final Week weekA, final Week weekB){
+        if(!(ManageData.InternetAvailable(ctx))) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+            builder.setCancelable(true);
+            builder.setNegativeButton(ctx.getResources().getString(R.string.Cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    FirstScreen.tinyDB.putString("WeekA", "");
+                    FirstScreen.tinyDB.putString("WeekB", "");
+                    Intent intent = new Intent(ctx, MainActivity.class);
+                    ctx.startActivity(intent);
+                }
+            });
+            builder.setPositiveButton(ctx.getResources().getString(R.string.TryAgain), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    noConnection(type, ctx, weekA, weekB);
+                }
+            });
+            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    dialog.cancel();
+                    noConnection(type, ctx, weekA, weekB);
+                }
+            });
+            builder.setTitle(ctx.getResources().getString(R.string.NoNetworkConnection));
+            builder.setMessage(ctx.getResources().getString(R.string.NoNetworkInfo));
+            builder.show();
+        }else{
+            Gson gson = new Gson();
+            if(type) {
+                String[][] NameArray = new String[weekA.getDayList().size()][weekA.getDayList().get(0).getHourList().size()];
+                String[][] ColourArray = new String[weekA.getDayList().size()][weekA.getDayList().get(0).getHourList().size()];
+                String[] DayNameArray = new String[weekA.getDayList().size()];
+
+                for (int g = 0; g < weekA.getDayList().size(); g++) {
+                    for (int k = 0; k < weekA.getDayList().get(g).getHourList().size(); k++) {
+                        NameArray[g][k] = weekA.getDayList().get(g).getHourList().get(k).getName();
+                        String co = weekA.getDayList().get(g).getHourList().get(k).getColorCode().replace("#", "");
+                        ColourArray[g][k] = co;
+                        DayNameArray[g] = weekA.getDayList().get(g).getName();
+                    }
+                }
+
+                LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                params.put("id", ManageData.getUserID() + "");
+                params.put("Tage", weekA.getDayList().size() + "");
+                params.put("Stunde", weekA.getDayList().get(0).getHourCount() + "");
+                params.put("jsonNameArray", gson.toJson(NameArray));
+                params.put("jsonColourArray", gson.toJson(ColourArray));
+                params.put("jsonDayNameArray", gson.toJson(DayNameArray));
+
+                RequestHandler requestHandler = new RequestHandler();
+                String sd = requestHandler.sendPostRequest(MainActivity.URL_insertWeek, params);
+
+                if (ManageData.LoadTimetable(false, ManageData.getUserID())) {
+                    FirstScreen.tinyDB.putString("WeekA", "");
+                    FirstScreen.tinyDB.putString("WeekB", "");
+                    Intent intent = new Intent(ctx, TimetableShowcase.class);
+                    ctx.startActivity(intent);
+                }
+            }else{
+                String[][] NameArray = new String[weekA.getDayList().size() * 2][weekA.getDayList().get(0).getHourList().size()];
+                String[][] ColourArray = new String[weekA.getDayList().size() * 2][weekA.getDayList().get(0).getHourList().size()];
+                String[] DayNameArray = new String[weekA.getDayList().size() * 2];
+
+                for (int g = 0; g < weekA.getDayList().size(); g++) {
+                    for (int k = 0; k < weekA.getDayList().get(g).getHourList().size(); k++) {
+                        NameArray[g][k] = weekA.getDayList().get(g).getHourList().get(k).getName();
+                        String co = weekA.getDayList().get(g).getHourList().get(k).getColorCode().replace("#", "");
+                        ColourArray[g][k] = co;
+                        DayNameArray[g] = weekA.getDayList().get(g).getName();
+                    }
+                }
+
+
+                for (int g = 0; g < weekB.getDayList().size(); g++) {
+                    for (int k = 0; k < weekB.getDayList().get(g).getHourList().size(); k++) {
+                        NameArray[g + weekA.getDayList().size()][k] = weekB.getDayList().get(g).getHourList().get(k).getName();
+                        String co = weekB.getDayList().get(g).getHourList().get(k).getColorCode().replace("#", "");
+                        ColourArray[g + weekA.getDayList().size()][k] = co;
+                        DayNameArray[g + weekB.getDayList().size()] = weekB.getDayList().get(g).getName();
+                    }
+                }
+
+                LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                params.put("id", ManageData.getUserID() + "");
+                params.put("Tage", weekA.getDayList().size() + "");
+                params.put("Stunde", weekA.getDayList().get(0).getHourCount() + "");
+                params.put("jsonNameArray", gson.toJson(NameArray));
+                params.put("jsonColourArray", gson.toJson(ColourArray));
+                params.put("jsonDayNameArray", gson.toJson(DayNameArray));
+
+                RequestHandler requestHandler = new RequestHandler();
+                String sd = requestHandler.sendPostRequest(MainActivity.URL_insertWeek, params);
+
+
+                if (ManageData.LoadTimetable(false, ManageData.getUserID())) {
+                    FirstScreen.tinyDB.putString("WeekA", "");
+                    FirstScreen.tinyDB.putString("WeekB", "");
+                    Intent intent = new Intent(ctx, TimetableShowcase.class);
+                    ctx.startActivity(intent);
+                }
+            }
+        }
+    }
+
 
     public static void clearList(){
         /*

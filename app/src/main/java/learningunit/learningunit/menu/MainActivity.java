@@ -16,15 +16,24 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.lang.reflect.Type;
 import java.util.Locale;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import learningunit.learningunit.Objects.API.AnalyticsApplication;
 import learningunit.learningunit.Objects.API.RequestHandler;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
 import learningunit.learningunit.Objects.PublicAPIs.TinyDB;
+import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
 import learningunit.learningunit.menu.organizer.Organizer;
@@ -61,18 +70,26 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_getFollow = ROOT_URL + "getFollow&VocID=";
     public static final String URL_Follow = ROOT_URL + "Follow";
     public static final String URL_FollowedLists = ROOT_URL + "GetFollowedVocabLists&id=";
+    public static final String URL_insertWeek= ROOT_URL + "insertWeek";
+    public static final String URL_getWeekbyUser= ROOT_URL + "getWeekbyUser&id=";
+    public static final String URL_getWeekbyId= ROOT_URL + "getWeekbyId&id=";
 
 
 
     //Deklarieren der Knöpfe
-    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode, languageBack, german, english, changeLanguage;
+    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode, languageBack, german, english, changeLanguage, dellOfflineData;
     public static TextView news;
     private Button learnBack, learnVocab;
     Activity a = new Activity();
-
     Thread thread;
+
+    private Tracker mTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
         MainActivity.hideKeyboard(this);
         if(ManageData.OfflineAccount == 0){
             Intent intent = new Intent(this, FirstScreen.class);
@@ -86,6 +103,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Initialisieren der Knöpfe und rufen der OnClick methode
+
+        dellOfflineData = (Button) findViewById(R.id.main_settingsDeleteOfflineData);
+        dellOfflineData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDelOfflineData();
+            }
+        });
 
         learnBack = (Button) findViewById(R.id.main_learn_back);
         learnBack.setOnClickListener(new View.OnClickListener() {
@@ -329,8 +354,42 @@ public class MainActivity extends AppCompatActivity {
 
     public void open_timetable(){
         if(FirstScreen.tinyDB.getString("WeekA").equals("")) {
-            Intent intent = new Intent(this, Timetable.class);
-            startActivity(intent);
+
+            if(ManageData.OfflineAccount == 2){
+                if(ManageData.InternetAvailable(MainActivity.this)) {
+                    if (ManageData.LoadTimetable(false, ManageData.getUserID())) {
+                        Intent intent = new Intent(this, TimetableShowcase.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(this, Timetable.class);
+                        startActivity(intent);
+                    }
+                }else{
+                    ManageData.hideKeyboard(MainActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setCancelable(true);
+                    builder.setNegativeButton(getResources().getString(R.string.Cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.setPositiveButton(getResources().getString(R.string.TryAgain), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            open_timetable();
+                        }
+                    });
+
+                    builder.setTitle(getResources().getString(R.string.NoNetworkConnection));
+                    builder.setMessage(getResources().getString(R.string.NoNetworkInfo));
+                    builder.show();
+                }
+            }else {
+                Intent intent = new Intent(this, Timetable.class);
+                startActivity(intent);
+            }
         }else{
             Intent intent = new Intent(this, TimetableShowcase.class);
             startActivity(intent);
@@ -369,8 +428,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_settingsLayout).setVisibility(View.VISIBLE);
     }
 
-    public void startDarkMode(){
+    public void openDelOfflineData(){
+        FirstScreen.tinyDB.putString("WeekA", "");
+        FirstScreen.tinyDB.putString("WeekB", "");
+    }
 
+    public void startDarkMode(){
         //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
         //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
         //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
@@ -466,15 +529,14 @@ public class MainActivity extends AppCompatActivity {
     public static void NoNetworkAlert(Context ctx) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
         builder.setCancelable(true);
-        builder.setNegativeButton("Zurück", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(ctx.getResources().getString(R.string.Back), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
-        builder.setTitle("Keine Netzwerkverbindung");
-        builder.setMessage("Es ist eine Internetverbinung erforderlich, um diese Aktion auszuführen.");
-
+        builder.setTitle(ctx.getResources().getString(R.string.NoNetworkConnection));
+        builder.setMessage(ctx.getResources().getString(R.string.NoNetworkInfo));
         builder.show();
     }
 

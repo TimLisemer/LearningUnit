@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import learningunit.learningunit.Objects.API.AnalyticsApplication;
 import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.R;
 
@@ -15,8 +19,13 @@ public class Organizer extends AppCompatActivity {
     //Deklarieren der Knöpfe
     private Button back, homework, notes, formulary, pictures;
 
+    private Tracker mTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organizer);
 

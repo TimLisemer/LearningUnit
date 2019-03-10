@@ -16,6 +16,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -25,6 +27,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.Timetable.HourList;
+import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.RequestHandler;
@@ -49,8 +54,12 @@ public class Register extends AppCompatActivity {
         MainActivity.hideKeyboard(this);
     }
 
+    private Tracker mTracker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         if(ManageData.Account == null){
@@ -426,6 +435,8 @@ public class Register extends AppCompatActivity {
         ManageData.setOnlineAccount(true);
         ManageData.setOfflineAccount(2);
         VocabularyMethods.vocabularylists = null;
+        FirstScreen.tinyDB.putString("WeekA", "");
+        FirstScreen.tinyDB.putString("WeekB", "");
         error.setVisibility(View.INVISIBLE);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -441,6 +452,21 @@ public class Register extends AppCompatActivity {
             ManageData.uploadVocabularyList(VocabularyMethods.vocabularylists.get(i), Register.this);
         }
         VocabularyMethods.vocabularylists = null;
+
+        Gson gson = new Gson();
+        String jsona = FirstScreen.tinyDB.getString("WeekA");
+        String jsonb = FirstScreen.tinyDB.getString("WeekA");
+        Type type = new TypeToken<Week>() {}.getType();
+        if (jsona.equalsIgnoreCase("")) {
+            try {
+                if (jsonb.equalsIgnoreCase("")) {
+                    HourList.noConnection(true, Register.this, (Week) gson.fromJson(jsona, type), null);
+                } else {
+                    HourList.noConnection(false, Register.this, (Week) gson.fromJson(jsona, type), (Week) gson.fromJson(jsonb, type));
+                }
+            }catch(Exception e){}
+        }
+
         error.setVisibility(View.INVISIBLE);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

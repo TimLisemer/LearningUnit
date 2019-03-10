@@ -3,6 +3,7 @@ package learningunit.learningunit.menu.organizer.timetable;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -25,13 +26,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.sql.Time;
 import java.util.ArrayList;
 
+import learningunit.learningunit.Objects.API.AnalyticsApplication;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.RequestHandler;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
@@ -61,10 +66,15 @@ public class TimetableShowcase extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private static boolean currentWeekShowcase;
+    private static boolean currentWeekShowcase, fabBool;
+
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
         super.onCreate(savedInstanceState);
 
         currentWeekShowcase = HourList.currentWeekShowcase;
@@ -82,22 +92,33 @@ public class TimetableShowcase extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        if(FirstScreen.tinyDB.getString("WeekB").equalsIgnoreCase("")) {
+            fabBool = false;
+        }else{
+            fabBool = true;
+        }
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(currentWeekShowcase == true){
-                    HourList.currentWeekShowcase = false;
-                    Toast.makeText(TimetableShowcase.this, getResources().getString(R.string.Week) + " A", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(TimetableShowcase.this, getResources().getString(R.string.Week) + " B", Toast.LENGTH_SHORT).show();
-                    HourList.currentWeekShowcase = true;
+        if(fabBool) {
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (currentWeekShowcase == true) {
+                        HourList.currentWeekShowcase = false;
+                        Toast.makeText(TimetableShowcase.this, getResources().getString(R.string.Week) + " A", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(TimetableShowcase.this, getResources().getString(R.string.Week) + " B", Toast.LENGTH_SHORT).show();
+                        HourList.currentWeekShowcase = true;
+                    }
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
                 }
-                overridePendingTransition( 0, 0);
-                startActivity(getIntent());
-                overridePendingTransition( 0, 0);
-            }
-        });
+            });
+        }else{
+            fab.setVisibility(View.GONE);
+        }
 
         Button back = findViewById(R.id.timetableShowcase_Back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +160,41 @@ public class TimetableShowcase extends AppCompatActivity {
             }
         });
 
+        Button Share = (Button) findViewById(R.id.timetableShowcase_Share);
+        Share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ManageData.OfflineAccount == 2) {
+                    Gson gson = new Gson();
+                    String json = FirstScreen.tinyDB.getString("WeekA");
+                    Type type = new TypeToken<Week>() {
+                    }.getType();
+                    Week week = gson.fromJson(json, type);
+                    Toast.makeText(TimetableShowcase.this, week.getWeekID() + "", Toast.LENGTH_LONG).show();
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TimetableShowcase.this);
+                    builder.setCancelable(true);
+                    builder.setTitle(getResources().getString(R.string.AccountNeeded));
+                    builder.setMessage(getResources().getString(R.string.TimetableShareInfo));
+                    builder.setNegativeButton(getResources().getString(R.string.Back), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.setPositiveButton(getResources().getString(R.string.LoginRegister), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ManageData.RemoveOfflineData();
+                            Intent intent = new Intent(TimetableShowcase.this, FirstScreen.class);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.show();
+                }
+            }
+        });
+
     }
 
 
@@ -171,18 +227,22 @@ public class TimetableShowcase extends AppCompatActivity {
 
         @Override
         public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+            View rootView = inflater.inflate(R.layout.fragment_timetable_showcase, container, false);
             Gson gson = new Gson();
             String json;
-            if(currentWeekShowcase == true){
-                json = FirstScreen.tinyDB.getString("WeekB");
+            if(!(FirstScreen.tinyDB.getString("WeekB").equalsIgnoreCase(""))) {
+                fabBool = true;
+                if (currentWeekShowcase) {
+                    json = FirstScreen.tinyDB.getString("WeekB");
+                } else {
+                    json = FirstScreen.tinyDB.getString("WeekA");
+                }
             }else {
+                fabBool = false;
                 json = FirstScreen.tinyDB.getString("WeekA");
             }
             Type type = new TypeToken<Week>() {}.getType();
             Week week = gson.fromJson(json, type);
-
-            View rootView = inflater.inflate(R.layout.fragment_timetable_showcase, container, false);
             TextView Header = (TextView) rootView.findViewById(R.id.timeTableShowCase_Header);
 
             int Count = 0;

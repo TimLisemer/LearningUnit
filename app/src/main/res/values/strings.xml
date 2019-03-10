@@ -31,7 +31,7 @@
     <string name="Cancel">Abbrechen</string>
     <string name="ColourSwitchText0">"Diese Farbe immer für "</string>
     <string name="ColourSwitchText1">" verwenden?"</string>
-    <string name="ColourCooseText">Wähle eine Farbe für</string>
+    <string name="ColourCooseText">"Wähle eine Farbe für "</string>
     <string name="Hour">" Stunde"</string>
     <string name="Next">Weiter</string>
     <string name="Day">Tag</string>
@@ -57,4 +57,12 @@
     <string name="Week">Woche</string>
     <string name="NewTimetableQuestion">Neuen Stundenplan erstellen?</string>
     <string name="NewTimetableQuestion1">Dein aktueller Stundenplan geht dadurch verloren</string>
+    <string name="NoNetworkConnection">Keine Netzwerkverbindung</string>
+    <string name="NoNetworkInfo">Es ist eine Internetverbindung erforderlich, um diese Aktion auszuführen.</string>
+    <string name="TryAgain">Erneut versuchen</string>
+    <string name="DelOfflineData">Offline Daten löschen</string>
+    <string name="LoginRegister">Anmelden / Registrieren</string>
+    <string name="AccountNeeded">Account erforderlich</string>
+    <string name="PublicVocabInfo">Du musst einen Account verwenden, um auf Öffentliche Vokabellisten zugreifen zu können.</string>
+    <string name="TimetableShareInfo">Du musst einen Account verwenden, um deinen Stundenplan zu teilen.</string>
 </resources>
