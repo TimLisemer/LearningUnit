@@ -355,9 +355,9 @@ public class FirstScreen extends AppCompatActivity {
         if (jsona.equalsIgnoreCase("")) {
             try {
                 if (jsonb.equalsIgnoreCase("")) {
-                    HourList.noConnection(true, context, (Week) gson.fromJson(jsona, type), null);
+                    HourList.noConnection(true, context, (Week) gson.fromJson(jsona, type), null, false);
                 } else {
-                    HourList.noConnection(false, context, (Week) gson.fromJson(jsona, type), (Week) gson.fromJson(jsonb, type));
+                    HourList.noConnection(false, context, (Week) gson.fromJson(jsona, type), (Week) gson.fromJson(jsonb, type), false);
                 }
             }catch(Exception e){}
         }

@@ -357,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(ManageData.OfflineAccount == 2){
                 if(ManageData.InternetAvailable(MainActivity.this)) {
-                    if (ManageData.LoadTimetable(false, ManageData.getUserID())) {
+                    if (ManageData.LoadTimetable(false, ManageData.getUserID(), MainActivity.this, false)) {
                         Intent intent = new Intent(this, TimetableShowcase.class);
                         startActivity(intent);
                     } else {

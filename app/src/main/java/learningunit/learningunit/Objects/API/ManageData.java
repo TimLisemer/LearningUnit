@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 
 import learningunit.learningunit.Objects.Timetable.Day;
 import learningunit.learningunit.Objects.Timetable.Hour;
+import learningunit.learningunit.Objects.Timetable.HourList;
 import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
@@ -395,7 +396,7 @@ public class ManageData extends MainActivity{
 
 
 
-    public static boolean LoadTimetable(boolean weekId, int id){
+    public static boolean LoadTimetable(boolean weekId, int id, Context ctx, boolean upload){
 
         RequestHandler requestHandler = new RequestHandler();
         Gson gson = new Gson();
@@ -405,12 +406,11 @@ public class ManageData extends MainActivity{
         }else {
             json = requestHandler.sendGetRequest(MainActivity.URL_getWeekbyUser + id);
         }
-
-        if(json.equalsIgnoreCase("")){
-            //Log.d("LoadTimetable", json);
+        if(json.isEmpty()){
+            Log.d("LoadTimetable false", json);
             return false;
         }else {
-            //Log.d("LoadTimetable", json);
+            Log.d("LoadTimetable true", json);
             Week weekA, weekB;
             Type type = new TypeToken<Object[][]>() {
             }.getType();
@@ -421,6 +421,7 @@ public class ManageData extends MainActivity{
                 DetailArrayList.add(Integer.parseInt(afterjson[0][0].toString()));
                 DetailArrayList.add(Integer.parseInt(afterjson[0][1].toString()));
                 DetailArrayList.add(Integer.parseInt(afterjson[0][2].toString()));
+                DetailArrayList.add(Integer.parseInt(afterjson[0][3].toString()));
 
                 Day[] day = new Day[afterjson[3].length];
                 Hour[] hour = new Hour[DetailArrayList.get(1) * afterjson[3].length];
@@ -447,6 +448,11 @@ public class ManageData extends MainActivity{
                     FirstScreen.tinyDB.putString("WeekA", json1);
                     String json2 = gson.toJson(weekB);
                     FirstScreen.tinyDB.putString("WeekB", json2);
+
+                    if(DetailArrayList.get(3) != ManageData.getUserID() && upload){
+                        HourList.noConnection(false, ctx, weekA, weekB, false);
+                    }
+
                 }else{
                     weekA = new Week(DetailArrayList.get(0));
                     weekA.setWeekID(DetailArrayList.get(2));
@@ -463,11 +469,15 @@ public class ManageData extends MainActivity{
                     FirstScreen.tinyDB.putString("WeekA", json1);
                 }
 
+                if(DetailArrayList.get(3) != ManageData.getUserID() && upload){
+                    HourList.noConnection(true, ctx, weekA, null, false);
+                }
 
+                return true;
             } catch (Exception e){
                 Log.d("LoadTimetable", e + "");
+                return false;
             }
-            return true;
         }
     }
 

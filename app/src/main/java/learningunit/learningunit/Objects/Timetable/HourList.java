@@ -91,7 +91,7 @@ public class HourList {
     }
 
 
-    public static void noConnection(final Boolean type, final Context ctx, final Week weekA, final Week weekB){
+    public static void noConnection(final Boolean type, final Context ctx, final Week weekA, final Week weekB, final boolean download){
         if(!(ManageData.InternetAvailable(ctx))) {
             AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
             builder.setCancelable(true);
@@ -108,14 +108,14 @@ public class HourList {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
-                    noConnection(type, ctx, weekA, weekB);
+                    noConnection(type, ctx, weekA, weekB, download);
                 }
             });
             builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
                     dialog.cancel();
-                    noConnection(type, ctx, weekA, weekB);
+                    noConnection(type, ctx, weekA, weekB, download);
                 }
             });
             builder.setTitle(ctx.getResources().getString(R.string.NoNetworkConnection));
@@ -148,11 +148,13 @@ public class HourList {
                 RequestHandler requestHandler = new RequestHandler();
                 String sd = requestHandler.sendPostRequest(MainActivity.URL_insertWeek, params);
 
-                if (ManageData.LoadTimetable(false, ManageData.getUserID())) {
-                    FirstScreen.tinyDB.putString("WeekA", "");
-                    FirstScreen.tinyDB.putString("WeekB", "");
-                    Intent intent = new Intent(ctx, TimetableShowcase.class);
-                    ctx.startActivity(intent);
+                if(download) {
+                    if (ManageData.LoadTimetable(false, ManageData.getUserID(), ctx, false)) {
+                        FirstScreen.tinyDB.putString("WeekA", "");
+                        FirstScreen.tinyDB.putString("WeekB", "");
+                        Intent intent = new Intent(ctx, TimetableShowcase.class);
+                        ctx.startActivity(intent);
+                    }
                 }
             }else{
                 String[][] NameArray = new String[weekA.getDayList().size() * 2][weekA.getDayList().get(0).getHourList().size()];
@@ -189,12 +191,13 @@ public class HourList {
                 RequestHandler requestHandler = new RequestHandler();
                 String sd = requestHandler.sendPostRequest(MainActivity.URL_insertWeek, params);
 
-
-                if (ManageData.LoadTimetable(false, ManageData.getUserID())) {
-                    FirstScreen.tinyDB.putString("WeekA", "");
-                    FirstScreen.tinyDB.putString("WeekB", "");
-                    Intent intent = new Intent(ctx, TimetableShowcase.class);
-                    ctx.startActivity(intent);
+                if(download){
+                    if (ManageData.LoadTimetable(false, ManageData.getUserID(), ctx, false)) {
+                        FirstScreen.tinyDB.putString("WeekA", "");
+                        FirstScreen.tinyDB.putString("WeekB", "");
+                        Intent intent = new Intent(ctx, TimetableShowcase.class);
+                        ctx.startActivity(intent);
+                    }
                 }
             }
         }

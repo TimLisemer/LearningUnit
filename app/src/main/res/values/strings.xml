@@ -69,4 +69,12 @@
     <string name="TimetableIDInfo">Teile diese ID, damit andere deinen Stundenplan kopieren können</string>
     <string name="CopyID">ID in die Zwischenablage kopieren</string>
     <string name="CopyMessage">" wurde in die Zwischenablage kopiert"</string>
+    <string name="CreateNewTimetable">Neuen Stundenplan erstellen</string>
+    <string name="LoadSharedTimetable">Geteilten Stundenplan laden</string>
+    <string name="TimetableEnterID">Gebe deine erhaltene ID ein, um den entsprechenden Stundenplan zu laden</string>
+    <string name="LoadTimetable">Stundenplan laden</string>
+    <string name="ErrorOccurred">Ein Fehler ist aufgetreten, bitte überprüfe deine Eingabe</string>
+    <string name="NoTimetableFound">Unter dieser ID wurde kein Stundenplan gefunden</string>
+    <string name="NoValueEntered">Bitte gebe einen Wert an</string>
+    <string name="TimetableReceiveShareInfo">Du musst einen Account verwenden, um einen geteilten Stundenplan zu laden.</string>
 </resources>

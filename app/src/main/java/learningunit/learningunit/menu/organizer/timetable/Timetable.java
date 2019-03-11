@@ -22,17 +22,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 
+import java.sql.Time;
 import java.util.LinkedHashMap;
 
 import learningunit.learningunit.Objects.API.AnalyticsApplication;
@@ -48,7 +51,7 @@ import learningunit.learningunit.R;
 
 public class Timetable extends AppCompatActivity {
 
-    private Button create_next, create_back, day_back, day_cancel, dayBase, dayNext, day4back, hourNameBase, hourNameBase1, nameNext, nameBack, downHour[], downHour1[], down[];
+    private Button create_next, create_back, create_back0, createNew, createShared, day_back, day_cancel, dayBase, dayNext, day4back, hourNameBase, hourNameBase1, nameNext, nameBack, downHour[], downHour1[], down[];
     private ConstraintLayout day, daylayout, daylayout4, daylayout3, dayLayout6, create_view;
     private Spinner daySpinner, hourSpinner;
     private TextView nameHour, dayName;
@@ -87,6 +90,30 @@ public class Timetable extends AppCompatActivity {
 
         MainActivity.hideKeyboard(this);
         setContentView(R.layout.activity_timetable);
+
+        createNew = findViewById(R.id.timetable_createNew);
+        createNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                opencreate_new();
+            }
+        });
+
+        create_back0 = findViewById(R.id.timetable_createBack0);
+        create_back0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                opencreate_back0();
+            }
+        });
+
+        createShared = findViewById(R.id.timetable_createShared);
+        createShared.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                opencreateShared();
+            }
+        });
 
         day = (ConstraintLayout) findViewById(R.id.timetable_dayLayout0);
         daylayout = (ConstraintLayout) findViewById(R.id.timetable_dayLayout);
@@ -219,11 +246,128 @@ public class Timetable extends AppCompatActivity {
         HourList.currentWeek = false;
     }
 
+    private void opencreateShared(){
+        if(ManageData.OfflineAccount == 2) {
+            if (ManageData.InternetAvailable(Timetable.this)) {
 
+                final AlertDialog.Builder builder = new AlertDialog.Builder(Timetable.this);
+                builder.setCancelable(true);
+                builder.setTitle(getResources().getString(R.string.TimetableID));
+                builder.setMessage(getResources().getString(R.string.TimetableEnterID));
 
+                LinearLayout editLayout = new LinearLayout(Timetable.this);
+                final EditText editID = new EditText(Timetable.this);
+                editID.setHint("ID");
+                editID.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                params.setMargins(48, 8, 48, 8);
+                editLayout.addView(editID, params);
+                builder.setView(editLayout);
+
+                builder.setNegativeButton(getResources().getString(R.string.Back), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton(getResources().getString(R.string.LoadTimetable), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String editIDText = editID.getText().toString();
+                        if (!(editIDText.equalsIgnoreCase(""))) {
+                            editIDText = editIDText.replace("#", "");
+
+                            try {
+                                boolean load = false;
+                                load = ManageData.LoadTimetable(true, Integer.parseInt(editIDText), Timetable.this, true);
+                                if (load) {
+                                    Intent intent = new Intent(Timetable.this, TimetableShowcase.class);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(Timetable.this, getResources().getString(R.string.NoTimetableFound), Toast.LENGTH_LONG).show();
+                                }
+                            } catch (Exception e) {
+                                Toast.makeText(Timetable.this, getResources().getString(R.string.ErrorOccurred), Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(Timetable.this, getResources().getString(R.string.NoValueEntered), Toast.LENGTH_LONG).show();
+                        }
+
+                        dialog.cancel();
+
+                    }
+                });
+                builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+
+            } else {
+                ManageData.hideKeyboard(Timetable.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Timetable.this);
+                builder.setCancelable(true);
+                builder.setNegativeButton(getResources().getString(R.string.Cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton(getResources().getString(R.string.TryAgain), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        opencreateShared();
+                    }
+                });
+
+                builder.setTitle(getResources().getString(R.string.NoNetworkConnection));
+                builder.setMessage(getResources().getString(R.string.NoNetworkInfo));
+                builder.show();
+            }
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(Timetable.this);
+            builder.setCancelable(true);
+            builder.setTitle(getResources().getString(R.string.AccountNeeded));
+            builder.setMessage(getResources().getString(R.string.TimetableReceiveShareInfo));
+            builder.setNegativeButton(getResources().getString(R.string.Back), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.setPositiveButton(getResources().getString(R.string.LoginRegister), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ManageData.RemoveOfflineData();
+                    Intent intent = new Intent(Timetable.this, FirstScreen.class);
+                    startActivity(intent);
+                }
+            });
+            builder.show();
+        }
+    }
+
+    private void opencreate_new(){
+        HourList.clearList();
+        findViewById(R.id.timetable_createScrollviewLayout0).setVisibility(View.GONE);
+        create_view.setVisibility(View.VISIBLE);
+        create_view.setVisibility(View.VISIBLE);
+        findViewById(R.id.timetable_createScrollviewLayout01).setVisibility(View.VISIBLE);
+    }
 
 
     private void opencreate_back(){
+        HourList.clearList();
+        findViewById(R.id.timetable_createScrollviewLayout0).setVisibility(View.VISIBLE);
+        create_view.setVisibility(View.GONE);
+    }
+
+    private void opencreate_back0(){
         HourList.clearList();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -242,6 +386,7 @@ public class Timetable extends AppCompatActivity {
     private void openday_back(){
         day.setVisibility(View.GONE);
         create_view.setVisibility(View.VISIBLE);
+        findViewById(R.id.timetable_createScrollviewLayout01).setVisibility(View.VISIBLE);
         MainActivity.hideKeyboard(this);
 
         clearHourName();
@@ -873,7 +1018,7 @@ public class Timetable extends AppCompatActivity {
 
                                     if(ManageData.OfflineAccount == 2) {
 
-                                        HourList.noConnection(false, Timetable.this, weekA, weekB);
+                                        HourList.noConnection(false, Timetable.this, weekA, weekB, true);
 
                                     }else{
                                         Intent intent = new Intent(Timetable.this, TimetableShowcase.class);
@@ -895,7 +1040,7 @@ public class Timetable extends AppCompatActivity {
 
                                 if(ManageData.OfflineAccount == 2) {
 
-                                    HourList.noConnection(true, Timetable.this, weekA, weekB);
+                                    HourList.noConnection(true, Timetable.this, weekA, weekB, true);
 
                                 }else{
                                     Intent intent = new Intent(Timetable.this, TimetableShowcase.class);
