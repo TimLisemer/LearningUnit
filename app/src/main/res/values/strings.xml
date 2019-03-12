@@ -31,7 +31,7 @@
     <string name="Cancel">Abbrechen</string>
     <string name="ColourSwitchText0">"Diese Farbe immer für "</string>
     <string name="ColourSwitchText1">" verwenden?"</string>
-    <string name="ColourCooseText">Wähle eine Farbe für</string>
+    <string name="ColourCooseText">"Wähle eine Farbe für "</string>
     <string name="Hour">" Stunde"</string>
     <string name="Next">Weiter</string>
     <string name="Day">Tag</string>
@@ -57,4 +57,24 @@
     <string name="Week">Woche</string>
     <string name="NewTimetableQuestion">Neuen Stundenplan erstellen?</string>
     <string name="NewTimetableQuestion1">Dein aktueller Stundenplan geht dadurch verloren</string>
+    <string name="NoNetworkConnection">Keine Netzwerkverbindung</string>
+    <string name="NoNetworkInfo">Es ist eine Internetverbindung erforderlich, um diese Aktion auszuführen.</string>
+    <string name="TryAgain">Erneut versuchen</string>
+    <string name="DelOfflineData">Offline Daten löschen</string>
+    <string name="LoginRegister">Anmelden / Registrieren</string>
+    <string name="AccountNeeded">Account erforderlich</string>
+    <string name="PublicVocabInfo">Du musst einen Account verwenden, um auf Öffentliche Vokabellisten zugreifen zu können.</string>
+    <string name="TimetableShareInfo">Du musst einen Account verwenden, um deinen Stundenplan zu teilen.</string>
+    <string name="TimetableID">Stundenplan ID</string>
+    <string name="TimetableIDInfo">Teile diese ID, damit andere deinen Stundenplan kopieren können</string>
+    <string name="CopyID">ID in die Zwischenablage kopieren</string>
+    <string name="CopyMessage">" wurde in die Zwischenablage kopiert"</string>
+    <string name="CreateNewTimetable">Neuen Stundenplan erstellen</string>
+    <string name="LoadSharedTimetable">Geteilten Stundenplan laden</string>
+    <string name="TimetableEnterID">Gebe deine erhaltene ID ein, um den entsprechenden Stundenplan zu laden</string>
+    <string name="LoadTimetable">Stundenplan laden</string>
+    <string name="ErrorOccurred">Ein Fehler ist aufgetreten, bitte überprüfe deine Eingabe</string>
+    <string name="NoTimetableFound">Unter dieser ID wurde kein Stundenplan gefunden</string>
+    <string name="NoValueEntered">Bitte gebe einen Wert an</string>
+    <string name="TimetableReceiveShareInfo">Du musst einen Account verwenden, um einen geteilten Stundenplan zu laden.</string>
 </resources>

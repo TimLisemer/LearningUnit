@@ -16,6 +16,8 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -23,6 +25,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.Timetable.HourList;
+import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.RequestHandler;
@@ -47,8 +52,12 @@ public class FirstScreen extends AppCompatActivity {
     private int backLocation = 0;
 
 
+    private Tracker mTracker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
         super.onCreate(savedInstanceState);
         tinyDB = new TinyDB(this);
         sharedPreferences = getSharedPreferences("variables", MODE_PRIVATE);
@@ -321,6 +330,8 @@ public class FirstScreen extends AppCompatActivity {
         ManageData.setOnlineAccount(true);
         ManageData.setOfflineAccount(2);
         VocabularyMethods.vocabularylists = null;
+        FirstScreen.tinyDB.putString("WeekA", "");
+        FirstScreen.tinyDB.putString("WeekB", "");
         errorview.setVisibility(View.INVISIBLE);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -330,12 +341,27 @@ public class FirstScreen extends AppCompatActivity {
     public void open_accept(){
         ManageData.setOnlineAccount(true);
         ManageData.setOfflineAccount(2);
+        Gson gson = new Gson();
         for (int i = 0; i < VocabularyMethods.vocabularylists.size(); i++) {
             VocabularyMethods.vocabularylists.get(i).setSource(true);
             ManageData.saveVocabularyLists();
             ManageData.uploadVocabularyList(VocabularyMethods.vocabularylists.get(i), context);
         }
         VocabularyMethods.vocabularylists = null;
+
+        String jsona = FirstScreen.tinyDB.getString("WeekA");
+        String jsonb = FirstScreen.tinyDB.getString("WeekA");
+        Type type = new TypeToken<Week>() {}.getType();
+        if (jsona.equalsIgnoreCase("")) {
+            try {
+                if (jsonb.equalsIgnoreCase("")) {
+                    HourList.noConnection(true, context, (Week) gson.fromJson(jsona, type), null, false);
+                } else {
+                    HourList.noConnection(false, context, (Week) gson.fromJson(jsona, type), (Week) gson.fromJson(jsonb, type), false);
+                }
+            }catch(Exception e){}
+        }
+
         errorview.setVisibility(View.INVISIBLE);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

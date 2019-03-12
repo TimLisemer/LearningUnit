@@ -45,7 +45,7 @@
     <string name="Sunday">Sunday</string>
     <string name="CustomHourName">Custom hour name</string>
     <string name="SuggestedHoursNames">Suggested hours names</string>
-    <string name="CreateTimetable">CreateTimetable</string>
+    <string name="CreateTimetable">Create Timetable</string>
     <string name="Share">Share</string>
     <string name="ChangeTimetable">New Timetable</string>
     <string name="NoHomeWork">No Homework</string>
@@ -57,4 +57,24 @@
     <string name="Week">Week</string>
     <string name="NewTimetableQuestion">Create new Timetable?</string>
     <string name="NewTimetableQuestion1">Your current timetable will be lost</string>
+    <string name="NoNetworkConnection">No network connection</string>
+    <string name="NoNetworkInfo">An internet connection is required to complete this action.</string>
+    <string name="TryAgain">Try Again</string>
+    <string name="DelOfflineData">Delete Offline data</string>
+    <string name="LoginRegister">Login / Register</string>
+    <string name="AccountNeeded">Account needed</string>
+    <string name="PublicVocabInfo">An account is needed, to access public vocabulary lists.</string>
+    <string name="TimetableShareInfo">An account is needed, to share your Timetable.</string>
+    <string name="TimetableID">Timetable ID</string>
+    <string name="TimetableIDInfo">Share this ID, so others can Copy your Timetable</string>
+    <string name="CopyID">Copy ID to clipboard</string>
+    <string name="CopyMessage">" has been copied to the clipboard"</string>
+    <string name="CreateNewTimetable">Create new Timetable</string>
+    <string name="LoadSharedTimetable">Load Shared Timetable</string>
+    <string name="TimetableEnterID">Enter your received ID to load the appropriate Timetable</string>
+    <string name="LoadTimetable">Load Timetable</string>
+    <string name="ErrorOccurred">An error has occurred, please check your input</string>
+    <string name="NoTimetableFound">No timetable was found under this ID</string>
+    <string name="NoValueEntered">Please enter a Value</string>
+    <string name="TimetableReceiveShareInfo">An account is needed, to load a shared Timetable.</string>
 </resources>

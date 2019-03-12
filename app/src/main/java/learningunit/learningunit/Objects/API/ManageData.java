@@ -1,6 +1,7 @@
 package learningunit.learningunit.Objects.API;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -11,12 +12,17 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import learningunit.learningunit.Objects.Timetable.Day;
+import learningunit.learningunit.Objects.Timetable.Hour;
+import learningunit.learningunit.Objects.Timetable.HourList;
+import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
 import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
+import learningunit.learningunit.menu.organizer.timetable.Timetable;
 
 public class ManageData extends MainActivity{
 
@@ -42,7 +48,13 @@ public class ManageData extends MainActivity{
             if((VocabularyMethods.vocabularylists.size() - d) == 0){
                 return false;
             }else{
-                return true;
+                String jsona = FirstScreen.tinyDB.getString("WeekA");
+                String jsonb = FirstScreen.tinyDB.getString("WeekA");
+                if(jsona.equalsIgnoreCase("") && jsonb.equalsIgnoreCase("")) {
+                    return true;
+                }else{
+                    return false;
+                }
             }
         }else{
             return false;
@@ -63,6 +75,8 @@ public class ManageData extends MainActivity{
         }
         VocabularyMethods.vocabularylists = a;
         FirstScreen.tinyDB.remove("VocLists");
+        FirstScreen.tinyDB.remove("WeekA");
+        FirstScreen.tinyDB.remove("WeekB");
         saveVocabularyLists();
         Account.clear();
         OfflineAccount = 0;
@@ -292,22 +306,6 @@ public class ManageData extends MainActivity{
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public static void NewDownloadVocabularyLists(Context ctx, boolean downloadVocs){
         if(MainActivity.InternetAvailable(ctx) == true){
             RequestHandler requestHandler = new RequestHandler();
@@ -384,15 +382,104 @@ public class ManageData extends MainActivity{
                 }
 
             }catch (Exception e) {
-                //Log.d("NewDownload", e + "");
+                Log.d("NewDownload", e + "");
             }
         }else{
             Log.d("NewDownloadVocLists", "Kein Internet Verfügbar");
         }
-
     }
 
 
+
+
+
+
+
+
+    public static boolean LoadTimetable(boolean weekId, int id, Context ctx, boolean upload){
+
+        RequestHandler requestHandler = new RequestHandler();
+        Gson gson = new Gson();
+        String json;
+        if(weekId){
+            json = requestHandler.sendGetRequest(MainActivity.URL_getWeekbyId + id);
+        }else {
+            json = requestHandler.sendGetRequest(MainActivity.URL_getWeekbyUser + id);
+        }
+        if(json.isEmpty()){
+            Log.d("LoadTimetable false", json);
+            return false;
+        }else {
+            Log.d("LoadTimetable true", json);
+            Week weekA, weekB;
+            Type type = new TypeToken<Object[][]>() {
+            }.getType();
+            try {
+                Object[][] afterjson = gson.fromJson(json, type);
+
+                ArrayList<Integer> DetailArrayList = new ArrayList<Integer>();
+                DetailArrayList.add(Integer.parseInt(afterjson[0][0].toString()));
+                DetailArrayList.add(Integer.parseInt(afterjson[0][1].toString()));
+                DetailArrayList.add(Integer.parseInt(afterjson[0][2].toString()));
+                DetailArrayList.add(Integer.parseInt(afterjson[0][3].toString()));
+
+                Day[] day = new Day[afterjson[3].length];
+                Hour[] hour = new Hour[DetailArrayList.get(1) * afterjson[3].length];
+
+
+                if(afterjson[3].length != DetailArrayList.get(0)){
+                    weekA = new Week(DetailArrayList.get(0));
+                    weekA.setWeekID(DetailArrayList.get(2));
+                    weekB = new Week(DetailArrayList.get(0));
+                    for (int i = 0; i < afterjson[3].length; i++) {
+                        day[i] = new Day(afterjson[3][i].toString());
+                        for (int d = 1 ; d <= DetailArrayList.get(1); d++) {
+                            int e = ((i * DetailArrayList.get(1)) + d) - 1;
+                            hour[e] = new Hour(afterjson[1][e].toString(), "#" + afterjson[2][e].toString());
+                            day[i].getHourList().add(hour[e]);
+                        }
+                        if(i < DetailArrayList.get(0)) {
+                            weekA.addDay(day[i]);
+                        }else{
+                            weekB.addDay(day[i]);
+                        }
+                    }
+                    String json1 = gson.toJson(weekA);
+                    FirstScreen.tinyDB.putString("WeekA", json1);
+                    String json2 = gson.toJson(weekB);
+                    FirstScreen.tinyDB.putString("WeekB", json2);
+
+                    if(DetailArrayList.get(3) != ManageData.getUserID() && upload){
+                        HourList.noConnection(false, ctx, weekA, weekB, false);
+                    }
+
+                }else{
+                    weekA = new Week(DetailArrayList.get(0));
+                    weekA.setWeekID(DetailArrayList.get(2));
+                    for (int i = 0; i < afterjson[3].length; i++) {
+                        day[i] = new Day(afterjson[3][i].toString());
+                        for (int d = 1 ; d <= DetailArrayList.get(1); d++) {
+                            int e = ((i * DetailArrayList.get(1)) + d) - 1;
+                            hour[e] = new Hour(afterjson[1][e].toString(), "#" + afterjson[2][e].toString());
+                            day[i].getHourList().add(hour[e]);
+                        }
+                        weekA.addDay(day[i]);
+                    }
+                    String json1 = gson.toJson(weekA);
+                    FirstScreen.tinyDB.putString("WeekA", json1);
+                }
+
+                if(DetailArrayList.get(3) != ManageData.getUserID() && upload){
+                    HourList.noConnection(true, ctx, weekA, null, false);
+                }
+
+                return true;
+            } catch (Exception e){
+                Log.d("LoadTimetable", e + "");
+                return false;
+            }
+        }
+    }
 
 
 
