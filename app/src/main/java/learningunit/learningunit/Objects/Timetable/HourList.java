@@ -150,8 +150,6 @@ public class HourList {
 
                 if(download) {
                     if (ManageData.LoadTimetable(false, ManageData.getUserID(), ctx, false)) {
-                        FirstScreen.tinyDB.putString("WeekA", "");
-                        FirstScreen.tinyDB.putString("WeekB", "");
                         Intent intent = new Intent(ctx, TimetableShowcase.class);
                         ctx.startActivity(intent);
                     }
@@ -193,8 +191,6 @@ public class HourList {
 
                 if(download){
                     if (ManageData.LoadTimetable(false, ManageData.getUserID(), ctx, false)) {
-                        FirstScreen.tinyDB.putString("WeekA", "");
-                        FirstScreen.tinyDB.putString("WeekB", "");
                         Intent intent = new Intent(ctx, TimetableShowcase.class);
                         ctx.startActivity(intent);
                     }
