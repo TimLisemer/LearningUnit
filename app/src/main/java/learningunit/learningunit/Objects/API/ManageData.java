@@ -446,12 +446,10 @@ public class ManageData extends MainActivity{
                     }
                     String json1 = gson.toJson(weekA);
                     FirstScreen.tinyDB.putString("WeekA", json1);
+                    Log.d("LoadTimetable WeekA", json1);
                     String json2 = gson.toJson(weekB);
                     FirstScreen.tinyDB.putString("WeekB", json2);
-
-                    if(DetailArrayList.get(3) != ManageData.getUserID() && upload){
-                        HourList.noConnection(false, ctx, weekA, weekB, false);
-                    }
+                    Log.d("LoadTimetable WeekB", json2);
 
                 }else{
                     weekA = new Week(DetailArrayList.get(0));
@@ -467,6 +465,7 @@ public class ManageData extends MainActivity{
                     }
                     String json1 = gson.toJson(weekA);
                     FirstScreen.tinyDB.putString("WeekA", json1);
+                    Log.d("LoadTimetable WeekA", json1);
                 }
 
                 if(DetailArrayList.get(3) != ManageData.getUserID() && upload){
@@ -474,10 +473,10 @@ public class ManageData extends MainActivity{
                 }
 
                 return true;
-            } catch (Exception e){
-                Log.d("LoadTimetable", e + "");
-                return false;
-            }
+                } catch (Exception e){
+                    Log.d("LoadTimetable", e + "");
+                    return false;
+                }
         }
     }
 
