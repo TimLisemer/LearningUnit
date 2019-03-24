@@ -23,6 +23,12 @@ import java.util.Locale;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -432,21 +438,42 @@ public class MainActivity extends AppCompatActivity {
         FirstScreen.tinyDB.putString("WeekA", "");
         FirstScreen.tinyDB.putString("WeekB", "");
     }
-
-    public void startDarkMode(){
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-
+    /* TIM gucken bitte danke schtüss LOL LIL LAL
+    private Switch main_settingsDarkMode;
+    Darkmode darkmode;
+    @Override
+    public void startDarkMode(Bundle savedInstanceState){
+        darkmode = new Darkmode(this);
+        if(darkmode.loadNightModeState()==true) {
+            setTheme(R.style.darktheme);
+        }
+        else  setTheme(R.style.AppTheme);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        main_settingsDarkMode=(Switch)findViewById(R.id.main_settingsDarkMode);
+        if (darkmode.loadNightModeState()==true) {
+            myswitch.setChecked(true);
+        }
+        main_settingsDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    darkmode.setNightModeState(true);
+                    restartApp();
+                }
+                else {
+                    darkmode.setNightModeState(false);
+                    restartApp();
+                }
+            }
+        });
     }
-
+    public void restartApp () {
+        Intent i = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(i);
+        finish();
+    }
+*/
     public void setLocale(String lang) {
         Locale myLocale = new Locale(lang);
         Resources res = getResources();
