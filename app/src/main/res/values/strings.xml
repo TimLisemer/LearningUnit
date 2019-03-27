@@ -87,4 +87,5 @@
     <string name="Notes">Notizen</string>
     <string name="Pictures">Bilder</string>
     <string name="Events">Termine</string>
+    <string name="NextEvent">Nächstes Event</string>
 </resources>
