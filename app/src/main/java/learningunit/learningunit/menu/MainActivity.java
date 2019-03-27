@@ -5,41 +5,29 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.lang.reflect.Type;
 import java.util.Locale;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import learningunit.learningunit.Objects.API.AnalyticsApplication;
-import learningunit.learningunit.Objects.API.RequestHandler;
-import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
-import learningunit.learningunit.Objects.PublicAPIs.TinyDB;
-import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
 import learningunit.learningunit.menu.organizer.Organizer;
 import learningunit.learningunit.menu.organizer.timetable.Timetable;
 import learningunit.learningunit.Objects.API.ManageData;
-import learningunit.learningunit.Objects.API.NewsFeed;
 import learningunit.learningunit.R;
 import learningunit.learningunit.menu.organizer.timetable.TimetableShowcase;
 
