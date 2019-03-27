@@ -77,4 +77,14 @@
     <string name="NoTimetableFound">Unter dieser ID wurde kein Stundenplan gefunden</string>
     <string name="NoValueEntered">Bitte gebe einen Wert an</string>
     <string name="TimetableReceiveShareInfo">Du musst einen Account verwenden, um einen geteilten Stundenplan zu laden.</string>
+    <string name="title_activity_organizer">Organizer</string>
+    <string name="title_home">Start</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="New">Neu</string>
+    <string name="Calendar">Kalender</string>
+    <string name="Homework">Hausaufgaben</string>
+    <string name="Exam">Arbeiten</string>
+    <string name="Notes">Notizen</string>
+    <string name="Pictures">Bilder</string>
+    <string name="Events">Termine</string>
 </resources>

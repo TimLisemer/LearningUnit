@@ -77,4 +77,14 @@
     <string name="NoTimetableFound">No timetable was found under this ID</string>
     <string name="NoValueEntered">Please enter a Value</string>
     <string name="TimetableReceiveShareInfo">An account is needed, to load a shared Timetable.</string>
+    <string name="title_activity_organizer">Organizer</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="New">New</string>
+    <string name="Calendar">Calendar</string>
+    <string name="Homework">Homework</string>
+    <string name="Exam">Exam</string>
+    <string name="Notes">Notes</string>
+    <string name="Pictures">Pictures</string>
+    <string name="Events">Events</string>
 </resources>

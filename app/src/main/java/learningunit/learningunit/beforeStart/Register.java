@@ -477,7 +477,6 @@ public class Register extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     public void open_back1(){
         ManageData.RemoveOfflineData();
         ManageData.OfflineAccount = 0;
