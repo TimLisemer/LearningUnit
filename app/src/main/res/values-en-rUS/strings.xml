@@ -88,4 +88,7 @@
     <string name="Pictures">Pictures</string>
     <string name="Events">Events</string>
     <string name="NextEvent">Next Event</string>
+    <string name="DutyDate">Duty Date</string>
+    <string name="EnterNewHomework">Enter new Homework</string>
+    <string name="InvalidDate">Invalid Date</string>
 </resources>

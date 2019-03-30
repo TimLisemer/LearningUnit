@@ -2,6 +2,7 @@ package learningunit.learningunit.menu.organizer;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,10 +16,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.Tracker;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.Organizer.HomeFragmentMethods;
 import learningunit.learningunit.R;
 
 public class Organizer extends AppCompatActivity {
@@ -84,8 +93,19 @@ public class Organizer extends AppCompatActivity {
                 else
                     navigation.getMenu().getItem(0).setChecked(false);
 
-                navigation.getMenu().getItem(position).setChecked(true);
-                prevMenuItem = navigation.getMenu().getItem(position);
+                    navigation.getMenu().getItem(position).setChecked(true);
+                    prevMenuItem = navigation.getMenu().getItem(position);
+
+                    try{
+                        ScrollView newEvent = (ScrollView) findViewById(R.id.fragment_organizer_home_NewEventLayout);
+                        ConstraintLayout homeLayout = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_MainLayout);
+                        newEvent.setVisibility(View.GONE);
+                        homeLayout.setVisibility(View.VISIBLE);
+                        CalendarView cv = (CalendarView) findViewById(R.id.fragment_organizer_home_NewEvent_Calendar);
+                        cv.setDate(new Date().getTime(), false, true);
+                    }catch (Exception e){
+                        throw new IllegalArgumentException(e);
+                    }
             }
 
             @Override
@@ -93,6 +113,9 @@ public class Organizer extends AppCompatActivity {
 
             }
         });
+
+
+        ///////////////////////////////////////////////////////////////////////
     }
 
 
@@ -121,23 +144,23 @@ public class Organizer extends AppCompatActivity {
 
 
         @Override
-        public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = null;
+        public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                rootView = inflater.inflate(R.layout.fragment_organizer_home, container, false);
+                final View fragmentView = inflater.inflate(R.layout.fragment_organizer_home, container, false);
+
+                new HomeFragmentMethods(fragmentView, getActivity());
+
+                return fragmentView;
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2){
-                rootView = inflater.inflate(R.layout.fragment_organizer_dashboard, container, false);
+                final View fragmentView = inflater.inflate(R.layout.fragment_organizer_dashboard, container, false);
+                return fragmentView;
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
-                rootView = inflater.inflate(R.layout.fragment_organizer_calendar, container, false);
+                final View fragmentView = inflater.inflate(R.layout.fragment_organizer_calendar, container, false);
+                return fragmentView;
+            }else{
+                return null;
             }
-
-            return rootView;
         }
-
-
-
-
-
     }
 
 

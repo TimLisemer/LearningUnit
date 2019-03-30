@@ -88,4 +88,7 @@
     <string name="Pictures">Bilder</string>
     <string name="Events">Termine</string>
     <string name="NextEvent">Nächstes Event</string>
+    <string name="DutyDate">Abgabe Datum</string>
+    <string name="EnterNewHomework">Neue Hausaufgabe eintragen</string>
+    <string name="InvalidDate">Ungültiges Datum</string>
 </resources>
