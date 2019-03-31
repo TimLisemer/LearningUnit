@@ -91,4 +91,10 @@
     <string name="DutyDate">Abgabe Datum</string>
     <string name="EnterNewHomework">Neue Hausaufgabe eintragen</string>
     <string name="InvalidDate">Ungültiges Datum</string>
+    <string name="Titel">Titel</string>
+    <string name="Description">Beschreibung</string>
+    <string name="ChooseHour">Stunde auswählen</string>
+    <string name="NoHourNameChosen">Keinen Stundennamen gewählt</string>
+    <string name="EmptyField">Dieses feld darf nicht leer sein</string>
+    <string name="NoTimetableCreated">Richte dir einen Stundenplan ein, um auf diese Stundenbezeichnungen zugreifen zu können.</string>
 </resources>

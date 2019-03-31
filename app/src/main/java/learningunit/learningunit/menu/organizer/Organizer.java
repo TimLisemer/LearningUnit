@@ -99,7 +99,27 @@ public class Organizer extends AppCompatActivity {
                     try{
                         ScrollView newEvent = (ScrollView) findViewById(R.id.fragment_organizer_home_NewEventLayout);
                         ConstraintLayout homeLayout = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_MainLayout);
+                        ScrollView newHomework = (ScrollView) findViewById(R.id.fragment_organizer_home_NewHomeworkLayout);
+                        ScrollView HourSelection = (ScrollView) findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView);
+
+                        try{
+
+                            for(int i = 0; i < HomeFragmentMethods.downHour.length; i++){
+                                HourSelection.removeView(HomeFragmentMethods.downHour[i]);
+                            }
+                            for(int i = 0; i < HomeFragmentMethods.downHour1.length; i++){
+                                HourSelection.removeView(HomeFragmentMethods.downHour1[i]);
+                            }
+                            HomeFragmentMethods.HourChosen = false;
+                            TextView hourinfo = (TextView) findViewById(R.id.fragment_organizer_home_NewHomework_HourInfo);
+                            hourinfo.setText(getResources().getString(R.string.NoHourNameChosen));
+                        }catch (Exception e){
+                            Log.d("Exception", e.toString());
+                        }
+
+                        HourSelection.setVisibility(View.GONE);
                         newEvent.setVisibility(View.GONE);
+                        newHomework.setVisibility(View.GONE);
                         homeLayout.setVisibility(View.VISIBLE);
                         CalendarView cv = (CalendarView) findViewById(R.id.fragment_organizer_home_NewEvent_Calendar);
                         cv.setDate(new Date().getTime(), false, true);
