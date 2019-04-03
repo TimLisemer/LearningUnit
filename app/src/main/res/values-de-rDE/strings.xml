@@ -97,4 +97,22 @@
     <string name="NoHourNameChosen">Keinen Stundennamen gewählt</string>
     <string name="EmptyField">Dieses feld darf nicht leer sein</string>
     <string name="NoTimetableCreated">Richte dir einen Stundenplan ein, um auf diese Stundenbezeichnungen zugreifen zu können.</string>
+    <string name="Finish">Fertigstellen</string>
+    <string name="Overview">Überblick</string>
+    <string name="Date">Datum</string>
+    <string name="InsertHomework">Hausaufgabe eintragen</string>
+    <string name="HomeworkOverview">Alle Hausaufgaben</string>
+    <string name="NoHomeworkEntered">Du hast noch keine Hausaufgaben eingetragen</string>
+    <string name="CreateNow">Jetzt erstellen!</string>
+    <string name="Done">Erledigt</string>
+    <string name="NotDone">Nicht Erledigt</string>
+    <string name="ExamOverview">Klausuren übersicht</string>
+    <string name="EnterNewExam">Neue Klausur eintragen</string>
+    <string name="NoteOverview">Notiz Übersicht</string>
+    <string name="EnterNewNote">Neue Notiz eintragen</string>
+    <string name="PictureOverview">Bilder überblick</string>
+    <string name="TakePicture">Bild aufnehmen</string>
+    <string name="Grades">Noten</string>
+    <string name="EnterNewGrade">Note eintragen</string>
+    <string name="GradeOverview">Notenübersicht</string>
 </resources>

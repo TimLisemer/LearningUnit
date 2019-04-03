@@ -1,5 +1,7 @@
 package learningunit.learningunit.Objects.Organizer;
 
+import java.util.ArrayList;
+
 import learningunit.learningunit.Objects.Timetable.Hour;
 
 public class Homework extends Event {

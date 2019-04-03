@@ -21,9 +21,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.Tracker;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import learningunit.learningunit.Objects.API.AnalyticsApplication;
@@ -79,7 +76,6 @@ public class Organizer extends AppCompatActivity {
         final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -96,11 +92,28 @@ public class Organizer extends AppCompatActivity {
                     navigation.getMenu().getItem(position).setChecked(true);
                     prevMenuItem = navigation.getMenu().getItem(position);
 
+                    final Button TopNew = (Button) findViewById(R.id.organizer_new);
+                    if(position == 0){
+                        TopNew.setVisibility(View.GONE);
+                    }else{
+                        TopNew.setVisibility(View.VISIBLE);
+                        TopNew.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mViewPager.setCurrentItem(0);
+                                TopNew.setVisibility(View.GONE);
+                            }
+                        });
+                    }
+
                     try{
                         ScrollView newEvent = (ScrollView) findViewById(R.id.fragment_organizer_home_NewEventLayout);
                         ConstraintLayout homeLayout = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_MainLayout);
                         ScrollView newHomework = (ScrollView) findViewById(R.id.fragment_organizer_home_NewHomeworkLayout);
                         ScrollView HourSelection = (ScrollView) findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView);
+                        ScrollView FinishHomework = (ScrollView) findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView);
+                        ConstraintLayout HomeworkOverview = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout);
+                        ConstraintLayout HomeworkSelection = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_HomeworkSelection);
 
                         try{
 
@@ -113,10 +126,12 @@ public class Organizer extends AppCompatActivity {
                             HomeFragmentMethods.HourChosen = false;
                             TextView hourinfo = (TextView) findViewById(R.id.fragment_organizer_home_NewHomework_HourInfo);
                             hourinfo.setText(getResources().getString(R.string.NoHourNameChosen));
-                        }catch (Exception e){
-                            Log.d("Exception", e.toString());
-                        }
+                        }catch (Exception e){ }
 
+                        Log.d("Jetzt", "Jetzt");
+                        HomeworkOverview.setVisibility(View.GONE);
+                        HomeworkSelection.setVisibility(View.GONE);
+                        FinishHomework.setVisibility(View.GONE);
                         HourSelection.setVisibility(View.GONE);
                         newEvent.setVisibility(View.GONE);
                         newHomework.setVisibility(View.GONE);
@@ -165,9 +180,9 @@ public class Organizer extends AppCompatActivity {
 
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
                 final View fragmentView = inflater.inflate(R.layout.fragment_organizer_home, container, false);
-
                 new HomeFragmentMethods(fragmentView, getActivity());
 
                 return fragmentView;

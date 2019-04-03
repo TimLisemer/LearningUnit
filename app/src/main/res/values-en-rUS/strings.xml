@@ -97,4 +97,22 @@
     <string name="NoHourNameChosen">No Hour name chosen</string>
     <string name="EmptyField">This field can not be empty</string>
     <string name="NoTimetableCreated">Create a Timetable, to access those Hour designations</string>
+    <string name="Finish">Finish</string>
+    <string name="Overview">Overview</string>
+    <string name="Date">Date</string>
+    <string name="InsertHomework">Insert Homework</string>
+    <string name="HomeworkOverview">Homework Overview</string>
+    <string name="NoHomeworkEntered">You haven`t entered any homework yet</string>
+    <string name="CreateNow">Create now!</string>
+    <string name="Done">Done</string>
+    <string name="NotDone">Not Done</string>
+    <string name="ExamOverview">Exam Overview</string>
+    <string name="EnterNewExam">Enter new Exam</string>
+    <string name="EnterNewNote">Enter new Note</string>
+    <string name="NoteOverview">Note Overview</string>
+    <string name="PictureOverview">Picture Overview</string>
+    <string name="TakePicture">Take a Picture</string>
+    <string name="Grades">Grades</string>
+    <string name="EnterNewGrade">Enter Grade</string>
+    <string name="GradeOverview">Grade Overview</string>
 </resources>

@@ -4,6 +4,8 @@ import android.graphics.drawable.ColorDrawable;
 
 import java.util.ArrayList;
 
+import learningunit.learningunit.Objects.Organizer.Event;
+
 public class Day {
 
     private ArrayList<Hour> hour = new ArrayList<Hour>();
@@ -22,6 +24,10 @@ public class Day {
         hour.add(h);
     }
 
+    public void addHour(Hour h){
+        hour.add(h);
+    }
+
     public int getHourCount(){
         return hour.size();
     }
@@ -32,6 +38,10 @@ public class Day {
 
     public ArrayList<Hour> getHourList(){
         return hour;
+    }
+
+    public void setHourList(ArrayList<Hour> hourlist){
+        this.hour = hourlist;
     }
 
 
