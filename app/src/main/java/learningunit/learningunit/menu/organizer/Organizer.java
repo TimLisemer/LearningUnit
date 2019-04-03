@@ -2,6 +2,7 @@ package learningunit.learningunit.menu.organizer;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,10 +16,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.Tracker;
+import java.util.Date;
+
 import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.Organizer.HomeFragmentMethods;
 import learningunit.learningunit.R;
 
 public class Organizer extends AppCompatActivity {
@@ -70,7 +76,6 @@ public class Organizer extends AppCompatActivity {
         final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -84,8 +89,58 @@ public class Organizer extends AppCompatActivity {
                 else
                     navigation.getMenu().getItem(0).setChecked(false);
 
-                navigation.getMenu().getItem(position).setChecked(true);
-                prevMenuItem = navigation.getMenu().getItem(position);
+                    navigation.getMenu().getItem(position).setChecked(true);
+                    prevMenuItem = navigation.getMenu().getItem(position);
+
+                    final Button TopNew = (Button) findViewById(R.id.organizer_new);
+                    if(position == 0){
+                        TopNew.setVisibility(View.GONE);
+                    }else{
+                        TopNew.setVisibility(View.VISIBLE);
+                        TopNew.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mViewPager.setCurrentItem(0);
+                                TopNew.setVisibility(View.GONE);
+                            }
+                        });
+                    }
+
+                    try{
+                        ScrollView newEvent = (ScrollView) findViewById(R.id.fragment_organizer_home_NewEventLayout);
+                        ConstraintLayout homeLayout = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_MainLayout);
+                        ScrollView newHomework = (ScrollView) findViewById(R.id.fragment_organizer_home_NewHomeworkLayout);
+                        ScrollView HourSelection = (ScrollView) findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView);
+                        ScrollView FinishHomework = (ScrollView) findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView);
+                        ConstraintLayout HomeworkOverview = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout);
+                        ConstraintLayout HomeworkSelection = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_HomeworkSelection);
+
+                        try{
+
+                            for(int i = 0; i < HomeFragmentMethods.downHour.length; i++){
+                                HourSelection.removeView(HomeFragmentMethods.downHour[i]);
+                            }
+                            for(int i = 0; i < HomeFragmentMethods.downHour1.length; i++){
+                                HourSelection.removeView(HomeFragmentMethods.downHour1[i]);
+                            }
+                            HomeFragmentMethods.HourChosen = false;
+                            TextView hourinfo = (TextView) findViewById(R.id.fragment_organizer_home_NewHomework_HourInfo);
+                            hourinfo.setText(getResources().getString(R.string.NoHourNameChosen));
+                        }catch (Exception e){ }
+
+                        Log.d("Jetzt", "Jetzt");
+                        HomeworkOverview.setVisibility(View.GONE);
+                        HomeworkSelection.setVisibility(View.GONE);
+                        FinishHomework.setVisibility(View.GONE);
+                        HourSelection.setVisibility(View.GONE);
+                        newEvent.setVisibility(View.GONE);
+                        newHomework.setVisibility(View.GONE);
+                        homeLayout.setVisibility(View.VISIBLE);
+                        CalendarView cv = (CalendarView) findViewById(R.id.fragment_organizer_home_NewEvent_Calendar);
+                        cv.setDate(new Date().getTime(), false, true);
+                    }catch (Exception e){
+                        throw new IllegalArgumentException(e);
+                    }
             }
 
             @Override
@@ -93,6 +148,9 @@ public class Organizer extends AppCompatActivity {
 
             }
         });
+
+
+        ///////////////////////////////////////////////////////////////////////
     }
 
 
@@ -121,23 +179,23 @@ public class Organizer extends AppCompatActivity {
 
 
         @Override
-        public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = null;
+        public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                rootView = inflater.inflate(R.layout.fragment_organizer_home, container, false);
+                final View fragmentView = inflater.inflate(R.layout.fragment_organizer_home, container, false);
+                new HomeFragmentMethods(fragmentView, getActivity());
+
+                return fragmentView;
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2){
-                rootView = inflater.inflate(R.layout.fragment_organizer_dashboard, container, false);
+                final View fragmentView = inflater.inflate(R.layout.fragment_organizer_dashboard, container, false);
+                return fragmentView;
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
-                rootView = inflater.inflate(R.layout.fragment_organizer_calendar, container, false);
+                final View fragmentView = inflater.inflate(R.layout.fragment_organizer_calendar, container, false);
+                return fragmentView;
+            }else{
+                return null;
             }
-
-            return rootView;
         }
-
-
-
-
-
     }
 
 
