@@ -294,13 +294,10 @@ public class Vokabeln extends AppCompatActivity {
             }
             for(VocabularyList list : d){
                 if(ManageData.InternetAvailable(context)){
-                    if (!(list.getName().contains("AllVoc_"))) {
                         Vokabeln.publiclist = false;
                         Vokabeln.sharedlist = null;
                         Vokabeln.sharedID = 0;
                         Vokabeln.sharedListID = 0;
-                        //ManageData.DownloadVocabularys(list.getName(), context);
-                    }
                 }
                 if(list.getVocabularylist().size() == -5){
                     c.add(list);
@@ -562,19 +559,19 @@ public class Vokabeln extends AppCompatActivity {
                         listiD = Integer.parseInt(sd);
                         showvocablist.setID(listiD);
 
-                    settings.setText("Einstellungen");
-                    settings.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            openSettings(listiD, showvocablist);
-                        }
-                    });
-                }catch(Exception e) {
+                        settings.setText("Einstellungen");
+                        settings.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                openSettings(listiD, showvocablist);
+                            }
+                        });
+                    }catch(Exception e) {
                         settings.setText("Einstellungen");
                     }
                 }
             }else{
-            listiD = showvocablist.getID();
+                listiD = showvocablist.getID();
                 settings.setText("Einstellungen");
                 settings.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -1556,6 +1553,7 @@ public class Vokabeln extends AppCompatActivity {
             for(VocabularyList list : VocabularyMethods.vocabularylists){
                 if(list.getName().equals(SharedList.get(1))){
                     sharedlist = null;
+                    publiclist = false;
                     list.setSource(true);
                     list.setShared(true);
                     showvocabularys(list.getName());
@@ -1696,7 +1694,7 @@ public class Vokabeln extends AppCompatActivity {
                             return true;
                         }else{
                             MainActivity.NoNetworkAlert(Vokabeln.this);
-                                return false;
+                            return false;
                         }
 
                     case R.id.vocabulary_open_export:

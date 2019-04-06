@@ -110,5 +110,23 @@ public class VocabularyMethods {
         ManageData.saveVocabularyLists();
     }
 
+    public static boolean ListConstainsVoc(VocabularyList list, Vocabulary voc){
+        boolean returner = false;
+
+        for(Vocabulary v : list.getVocabularylist()){
+            if(v.getTranslation().equals(voc.getTranslation())){
+                if(v.getOriginal().equals(voc.getOriginal())){
+                    if(v.getLanguageName2().equals(voc.getLanguageName2())){
+                        if(v.getLanguageName1().equals(voc.getLanguageName1())){
+                            returner = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return returner;
+    }
+
 
 }

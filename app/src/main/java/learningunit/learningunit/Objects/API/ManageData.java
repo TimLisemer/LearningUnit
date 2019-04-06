@@ -203,7 +203,7 @@ public class ManageData extends MainActivity{
                 }
 
             } catch (Exception e) {
-                Log.d("DownloadVocabularys", e.toString() + " ------------------------------------------------------------------");
+                throw new IllegalArgumentException(e);
             }
         }else{
             Log.d("DownloadVocabularys", "Kein Internet Verfügbar");
@@ -382,7 +382,7 @@ public class ManageData extends MainActivity{
                 }
 
             }catch (Exception e) {
-                Log.d("NewDownload", e + "");
+                throw new IllegalArgumentException(e);
             }
         }else{
             Log.d("NewDownloadVocLists", "Kein Internet Verfügbar");
@@ -473,10 +473,10 @@ public class ManageData extends MainActivity{
                 }
 
                 return true;
-                } catch (Exception e){
-                    Log.d("LoadTimetable", e + "");
-                    return false;
-                }
+            } catch (Exception e){
+                Log.d("LoadTimetable", e + "");
+                return false;
+            }
         }
     }
 

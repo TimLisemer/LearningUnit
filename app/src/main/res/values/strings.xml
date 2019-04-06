@@ -118,4 +118,5 @@
     <string name="NoExamEntered">Bislang keine Arbeit eingetragen</string>
     <string name="ExamAppointment">Klausurtermin</string>
     <string name="EnterGrade">Note eingeben</string>
+    <string name="NameExists">Name existiert berreits</string>
 </resources>
