@@ -51,8 +51,11 @@ public class HomeworkCustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         convertView = inflater.inflate(R.layout.organizer_homework_listview, null);
+        convertView.findViewById(R.id.organizer_Exam_ListView_RootLayout).setVisibility(View.GONE);
+        convertView.findViewById(R.id.organizer_homework_ListView_RootLayout).setVisibility(View.VISIBLE);
+
         final View cView = convertView;
         final Homework h = eventlist.get(position);
 
