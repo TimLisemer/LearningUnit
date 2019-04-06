@@ -106,8 +106,8 @@
     <string name="CreateNow">Jetzt erstellen!</string>
     <string name="Done">Erledigt</string>
     <string name="NotDone">Nicht Erledigt</string>
-    <string name="ExamOverview">Klausuren übersicht</string>
-    <string name="EnterNewExam">Neue Klausur eintragen</string>
+    <string name="ExamOverview">Arbeiten übersicht</string>
+    <string name="EnterNewExam">Neue Arbeit eintragen</string>
     <string name="EnterNewNote">Neue Notiz eintragen</string>
     <string name="NoteOverview">Notiz Übersicht</string>
     <string name="PictureOverview">Bilder überblick</string>
@@ -115,4 +115,7 @@
     <string name="Grades">Noten</string>
     <string name="EnterNewGrade">Note eintragen</string>
     <string name="GradeOverview">Notenübersicht</string>
+    <string name="NoExamEntered">Bislang keine Arbeit eingetragen</string>
+    <string name="ExamAppointment">Klausurtermin</string>
+    <string name="EnterGrade">Note eingeben</string>
 </resources>

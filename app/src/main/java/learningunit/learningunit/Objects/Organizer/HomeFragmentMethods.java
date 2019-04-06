@@ -1,6 +1,7 @@
 package learningunit.learningunit.Objects.Organizer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -23,9 +24,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import learningunit.learningunit.Objects.API.ManageData;
-import learningunit.learningunit.Objects.Timetable.CustomAdapter;
 import learningunit.learningunit.Objects.Timetable.Day;
 import learningunit.learningunit.Objects.Timetable.Hour;
 import learningunit.learningunit.Objects.Timetable.Week;
@@ -46,7 +47,59 @@ public class HomeFragmentMethods {
             throw new IllegalArgumentException("Invalid activity --> Null");
         }
         HomeworkClick(fragmentView, activity);
+        ExamClick(fragmentView, activity);
     }
+
+
+    private void ExamClick(final View fragmentView, final Activity activity){
+        MainActivity.hideKeyboard(activity);
+        Button exam = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_arbeiten);
+        exam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
+                final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+
+                Button overview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
+                Button newOne = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_CreateSelection);
+                overview.setText(activity.getResources().getString(R.string.ExamOverview));
+                newOne.setText(activity.getResources().getString(R.string.EnterNewExam));
+
+                newOne.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        NewEventExam(fragmentView, activity);
+                    }
+                });
+
+                Selection.setVisibility(View.VISIBLE);
+                MainLayout.setVisibility(View.GONE);
+
+                final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
+                TopBack.setText(activity.getResources().getString(R.string.Back));
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Selection.setVisibility(View.GONE);
+                        MainLayout.setVisibility(View.VISIBLE);
+                    }
+                });
+
+
+                Button ExamOverview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
+                ExamOverview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Overview(fragmentView, activity, 1);
+                    }
+                });
+
+
+            }
+        });
+    }
+
 
     private void HomeworkClick(final View fragmentView, final Activity activity){
         MainActivity.hideKeyboard(activity);
@@ -58,6 +111,11 @@ public class HomeFragmentMethods {
                 final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
                 Selection.setVisibility(View.VISIBLE);
                 MainLayout.setVisibility(View.GONE);
+
+                Button overview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
+                Button newOne = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_CreateSelection);
+                overview.setText(activity.getResources().getString(R.string.HomeworkOverview));
+                newOne.setText(activity.getResources().getString(R.string.EnterNewHomework));
 
                 final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
                 TopBack.setText(activity.getResources().getString(R.string.Back));
@@ -73,180 +131,21 @@ public class HomeFragmentMethods {
                 OverviewHomework.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final ConstraintLayout OverviewView = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout);
-                        OverviewView.setVisibility(View.VISIBLE);
-                        Selection.setVisibility(View.GONE);
-
-                        final TextView infoView = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_Overview_Info);
-                        final Button infoButton = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_Overview_CreateNow);
-                        if(FirstScreen.tinyDB.getString("Homework").equals("")){
-                            infoView.setVisibility(View.VISIBLE);
-                            infoButton.setVisibility(View.VISIBLE);
-                            infoButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout).setVisibility(View.VISIBLE);
-                                    OverviewView.setVisibility(View.GONE);
-                                    activity.findViewById(R.id.organizer_new).setVisibility(View.GONE);
-                                }
-                            });
-                        }else{
-                            infoView.setVisibility(View.GONE);
-                            infoButton.setVisibility(View.GONE);
-
-                            Gson gson = new Gson();
-                            ArrayList<Homework> eventlist;
-                            Type type = new TypeToken<ArrayList<Homework>>() {
-                            }.getType();
-                            String json = FirstScreen.tinyDB.getString("Homework");
-                            eventlist = gson.fromJson(json, type);
-
-                            ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
-                            HomeworkCustomAdapter customAdapter = new HomeworkCustomAdapter(activity, eventlist);
-                            listView.setAdapter(customAdapter);
-                        }
-
-
-                        final Button TopNew = (Button) activity.findViewById(R.id.organizer_new);
-                        TopBack.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Selection.setVisibility(View.VISIBLE);
-                                OverviewView.setVisibility(View.GONE);
-                                TopNew.setVisibility(View.GONE);
-                                TopBack.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Selection.setVisibility(View.GONE);
-                                        MainLayout.setVisibility(View.VISIBLE);
-                                        TopNew.setVisibility(View.GONE);
-                                    }
-                                });
-                            }
-                        });
-
-                        TopNew.setVisibility(View.VISIBLE);
-                        TopNew.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout).setVisibility(View.VISIBLE);
-                                OverviewView.setVisibility(View.GONE);
-                                TopNew.setVisibility(View.GONE);
-                            }
-                        });
+                        Overview(fragmentView, activity, 0);
                     }
                 });
 
-                Button CreateHomework = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_CreateSelection);
-                CreateHomework.setOnClickListener(new View.OnClickListener() {
+                newOne.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final ScrollView newEvent = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout);
-                        Selection.setVisibility(View.GONE);
-                        newEvent.setVisibility(View.VISIBLE);
-                        CalendarView cv = (CalendarView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_Calendar);
-                        cv.setDate(new Date().getTime(), false, true);
-                        final TextView error = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_ErrorDate);
-                        error.setVisibility(View.GONE);
-                        fyear = 0;
-
-                        final ConstraintLayout homeLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
-                        final ScrollView newHomework = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout);
-                        final ScrollView HourSelection = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView);
-                        final ScrollView FinishHomework = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView);
-
-                        TopBack.setText(activity.getResources().getString(R.string.Cancel));
-                        TopBack.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Selection.setVisibility(View.GONE);
-                                homeLayout.setVisibility(View.GONE);
-                                newHomework.setVisibility(View.GONE);
-                                HourSelection.setVisibility(View.GONE);
-                                FinishHomework.setVisibility(View.GONE);
-                                newEvent.setVisibility(View.GONE);
-                                MainLayout.setVisibility(View.VISIBLE);
-                                TopBack.setText(activity.getResources().getString(R.string.Back));
-                                TopBack.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Selection.setVisibility(View.VISIBLE);
-                                        newEvent.setVisibility(View.GONE);
-                                    }
-                                });
-                            }
-                        });
-
-                        Button newEventBack = (Button) fragmentView.findViewById(R.id.organizer_NewEventBack);
-                        newEventBack.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Selection.setVisibility(View.VISIBLE);
-                                newEvent.setVisibility(View.GONE);
-                                TopBack.setText(activity.getResources().getString(R.string.Back));
-                                TopBack.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Selection.setVisibility(View.GONE);
-                                        MainLayout.setVisibility(View.VISIBLE);
-                                    }
-                                });
-                            }
-                        });
+                        NewEventHomework(fragmentView, activity);
                     }
                 });
-            }
-        });
-
-        CalendarView cv = (CalendarView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_Calendar);
-        cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                fday = dayOfMonth;
-                fmonth = month + 1;
-                fyear = year;
-            }
-        });
-
-        final TextView error = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_ErrorDate);
-        Button newEventNext = (Button) fragmentView.findViewById(R.id.organizer_NewEventNext);
-        newEventNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.hideKeyboard(activity);
-                int rday, rmonth, ryear;
-                Date c = Calendar.getInstance().getTime();
-                rday = Integer.parseInt(new SimpleDateFormat("dd").format(c));
-                rmonth = Integer.parseInt(new SimpleDateFormat("MM").format(c));
-                ryear = Integer.parseInt(new SimpleDateFormat("yyyy").format(c));
-
-                Homework event = new Homework(fday, fmonth, fyear);
-
-                if(ryear == fyear){
-                    if(rmonth == fmonth){
-                        if(rday < fday){
-                            ContinueHomework(fragmentView, event, activity);
-                            error.setVisibility(View.GONE);
-                        }else{
-                            error.setVisibility(View.VISIBLE);
-                        }
-                    }else if(rmonth < fmonth){
-                        ContinueHomework(fragmentView, event, activity);
-                        error.setVisibility(View.GONE);
-                    }else{
-                        error.setVisibility(View.VISIBLE);
-                    }
-                }else if(ryear < fyear){
-                    ContinueHomework(fragmentView, event, activity);
-                    error.setVisibility(View.GONE);
-                }else{
-                    error.setVisibility(View.VISIBLE);
-                }
             }
         });
     }
 
-    private void ContinueHomework(final View fragmentView, Homework event, final Activity activity){
+    private void ContinueMethod(final View fragmentView, Homework home, Exam exam, final Activity activity, final int Case){ //Case = 0 --> Homework 1 --> Exam
 
         HourChosen = false;
         Selected = null;
@@ -263,105 +162,132 @@ public class HomeFragmentMethods {
             }
         }
 
-        if(FirstScreen.tinyDB.getString("WeekA").equals("")) {
-            Log.d("homework:", "Continue");
-        }else {
-            final ArrayList<Hour> hourList = new ArrayList<Hour>();
+        final ArrayList<Hour> hourList = new ArrayList<Hour>();
+        if(!(FirstScreen.tinyDB.getString("WeekA").equals(""))) {
+            Log.d("homework:", "Continue hund");
             Gson gson = new Gson();
             String json = FirstScreen.tinyDB.getString("WeekA");
-            Type type = new TypeToken<Week>() {}.getType();
+            Type type = new TypeToken<Week>() {
+            }.getType();
 
             Week weekA = gson.fromJson(json, type);
             weekA.getDayList().get(0).getHourList();
-            for(Day d : weekA.getDayList()){
-                for(Hour h : d.getHourList()){
+            for (Day d : weekA.getDayList()) {
+                for (Hour h : d.getHourList()) {
                     boolean multi = false;
-                    for(Hour hour : hourList){
-                        if(hour.getName().equals(h.getName()) && hour.getColorCode().equals(h.getColorCode())){
+                    for (Hour hour : hourList) {
+                        if (hour.getName().equals(h.getName()) && hour.getColorCode().equals(h.getColorCode())) {
                             multi = true;
                             break;
                         }
                     }
-                    if(!multi){
+                    if (!multi) {
                         hourList.add(h);
                     }
                 }
             }
 
-            if(!(FirstScreen.tinyDB.getString("WeekB").equals(""))) {
+            if (!(FirstScreen.tinyDB.getString("WeekB").equals(""))) {
                 json = FirstScreen.tinyDB.getString("WeekB");
                 Week weekB = gson.fromJson(json, type);
                 weekB.getDayList().get(0).getHourList();
-                for(Day d : weekB.getDayList()){
-                    for(Hour h : d.getHourList()){
+                for (Day d : weekB.getDayList()) {
+                    for (Hour h : d.getHourList()) {
                         boolean multi = false;
-                        for(Hour hour : hourList){
-                            if(hour.getName().equals(h.getName()) && hour.getColorCode().equals(h.getColorCode())){
+                        for (Hour hour : hourList) {
+                            if (hour.getName().equals(h.getName()) && hour.getColorCode().equals(h.getColorCode())) {
                                 multi = true;
                                 break;
                             }
                         }
-                        if(!multi){
+                        if (!multi) {
                             hourList.add(h);
                         }
                     }
                 }
             }
+        }
 
-            fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout).setVisibility(View.GONE);
-            fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
+        fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout).setVisibility(View.GONE);
+        fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
+        TextView heading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_Heading);
+        TextView titelheading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_Titel);
+        TextView descheading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_Info);
 
-            TextView DateShowcase = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_Date);
-            DateShowcase.setText(event.getDay() + "." + event.getMonth() + "." + event.getYear());
+        EditText edittitel = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_TitelInput);
+        EditText editdesc = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_DescriptionInput);
+        TextView DateShowcase = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_Date);
 
-            final EditText titel = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_TitelInput);
-            final EditText description = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_DescriptionInput);
-            titel.setText("");
-            description.setText("");
+        if(Case == 0){
+            heading.setText(activity.getResources().getString(R.string.EnterNewHomework));
+            titelheading.setText(activity.getResources().getString(R.string.Titel));
+            descheading.setText(activity.getResources().getString(R.string.Description));
+            edittitel.setHint(activity.getResources().getString(R.string.Titel));
+            editdesc.setHint(activity.getResources().getString(R.string.Description));
+            DateShowcase.setText(home.getDay() + "." + home.getMonth() + "." + home.getYear());
+        }else if(Case == 1){
+            heading.setText(activity.getResources().getString(R.string.EnterNewExam));
+            titelheading.setText(activity.getResources().getString(R.string.Titel));
+            descheading.setText(activity.getResources().getString(R.string.Description));
+            edittitel.setHint(activity.getResources().getString(R.string.Titel));
+            editdesc.setHint(activity.getResources().getString(R.string.Description));
+            DateShowcase.setText(exam.getDay() + "." + exam.getMonth() + "." + exam.getYear());
+        }
 
-            Button HourSelection = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_HourSelection);
-            Button Back = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_Back);
+        final EditText titel = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_TitelInput);
+        final EditText description = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_DescriptionInput);
+        titel.setText("");
+        description.setText("");
 
-            Back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    MainActivity.hideKeyboard(activity);
-                    fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout).setVisibility(View.VISIBLE);
-                    fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.GONE);
-                    Log.d("HA", "Back");
+        Button HourSelection = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_HourSelection);
+        Button Back = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_Back);
+
+        Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.hideKeyboard(activity);
+                fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.GONE);
+                if(Case == 0){
+                    NewEventHomework(fragmentView, activity);
+                }else if(Case == 1){
+                    NewEventExam(fragmentView, activity);
                 }
-            });
+            }
+        });
 
 
-            hourinfo.setError(null);
-            titel.setError(null);
-            description.setError(null);
+        hourinfo.setError(null);
+        titel.setError(null);
+        description.setError(null);
 
-            final Button Next = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_Next);
-            Next.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    MainActivity.hideKeyboard(activity);
-                    if(!HourChosen){
-                        hourinfo.setError(activity.getResources().getString(R.string.NoHourNameChosen));
-                    }else if(titel.getText().toString().trim().equals("")){
-                        titel.setError(activity.getResources().getString(R.string.EmptyField));
-                    }else if(description.getText().toString().trim().equals("")){
-                        description.setError(activity.getResources().getString(R.string.EmptyField));
-                    }else{
-                        Log.d("Da", "Da");
-                    }
+        final Button Next = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_Next);
+        Next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.hideKeyboard(activity);
+                if(!HourChosen){
+                    hourinfo.setError(activity.getResources().getString(R.string.NoHourNameChosen));
+                }else if(titel.getText().toString().trim().equals("")){
+                    titel.setError(activity.getResources().getString(R.string.EmptyField));
+                }else if(description.getText().toString().trim().equals("")){
+                    description.setError(activity.getResources().getString(R.string.EmptyField));
+                }else{
+                    Log.d("Da", "Da");
                 }
-            });
+            }
+        });
 
-            HourSelection(hourList, 0, fragmentView, activity, HourSelection, event);
+        if(Case == 0) {
+            HourSelection(hourList, Case, fragmentView, activity, HourSelection, home, null);
+        }else if(Case == 1){
+            HourSelection(hourList, Case, fragmentView, activity, HourSelection, null, exam);
+
+
         }
     }
 
 
-
-
-    private void HourSelection(final ArrayList<Hour> hourList, final int Case, final View fragmentView, final Activity activity, Button HourSelection, final Homework event){ //Case: 0 = Homework
+    private void HourSelection(final ArrayList<Hour> hourList, final int Case, final View fragmentView, final Activity activity, Button HourSelection, final Homework home, final Exam e){ //Case: 0 = Homework
         final TextView hourinfo = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_HourInfo);
         final ImageView hourimage = (ImageView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_HourSelection_ImageView);
         final EditText Custom = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_TextInput);
@@ -375,6 +301,9 @@ public class HomeFragmentMethods {
                 downHour1 = null;
 
                 if (Case == 0) {
+                    fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.GONE);
+                    fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.VISIBLE);
+                }else if(Case == 1){
                     fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.GONE);
                     fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.VISIBLE);
                 }
@@ -475,10 +404,7 @@ public class HomeFragmentMethods {
                                         layout.removeView(downHour1[i]);
                                     }
 
-                                    if (Case == 0) {
-                                        fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
-                                        fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.GONE);
-                                    }
+                                    fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.GONE);
                                     Selected = hourList.get(gh);
                                     HourChosen = true;
                                     hourinfo.setText(Selected.getName());
@@ -487,11 +413,14 @@ public class HomeFragmentMethods {
                                     ic.setColor(android.graphics.Color.parseColor(Selected.getColorCode()));
                                     hourimage.setBackground(ic);
                                     if(Case == 0){
+                                        fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
                                         if(Selected != null) {
-                                            FinishHomework(fragmentView, activity, event);
-                                            Log.d("KA", "NotNull");
-                                        }else{
-                                            Log.d("KA", "Null");
+                                            Finish(fragmentView, activity, home,null, Case );
+                                        }
+                                    }else if(Case == 1){
+                                        fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
+                                        if(Selected != null) {
+                                            Finish(fragmentView, activity,null, e, Case );
                                         }
                                     }
                                 }
@@ -555,6 +484,9 @@ public class HomeFragmentMethods {
                                     if (Case == 0) {
                                         fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
                                         fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.GONE);
+                                    }else if(Case == 1){
+                                        fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
+                                        fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.GONE);
                                     }
                                     Selected = hourList.get(gh);
                                     HourChosen = true;
@@ -564,11 +496,14 @@ public class HomeFragmentMethods {
                                     ic.setColor(android.graphics.Color.parseColor(Selected.getColorCode()));
                                     hourimage.setBackground(ic);
                                     if(Case == 0){
+                                        fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
                                         if(Selected != null) {
-                                            FinishHomework(fragmentView, activity, event);
-                                            Log.d("KA", "NotNull");
-                                        }else{
-                                            Log.d("KA", "Null");
+                                            Finish(fragmentView, activity, home,null, Case );
+                                        }
+                                    }else if(Case == 1){
+                                        fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
+                                        if(Selected != null) {
+                                            Finish(fragmentView, activity,null, e,Case );
                                         }
                                     }
                                 }
@@ -605,19 +540,28 @@ public class HomeFragmentMethods {
                     }
                 });
 
+                MainActivity.hideKeyboard(activity);
+
                 Next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         ConstraintLayout layout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_DOWN1);
-                        for (int i = 0; i < downHour.length; i++) {
-                            layout.removeView(downHour[i]);
+                        if(downHour != null) {
+                            for (int i = 0; i < downHour.length; i++) {
+                                layout.removeView(downHour[i]);
+                            }
                         }
-                        for (int i = 0; i < downHour1.length; i++) {
-                            layout.removeView(downHour1[i]);
+                        if(downHour1 != null) {
+                            for (int i = 0; i < downHour1.length; i++) {
+                                layout.removeView(downHour1[i]);
+                            }
                         }
 
                         if (Case == 0) {
+                            fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
+                            fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.GONE);
+                        }else if(Case == 1){
                             fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
                             fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.GONE);
                         }
@@ -633,11 +577,14 @@ public class HomeFragmentMethods {
                             ic.setColor(android.graphics.Color.parseColor(Selected.getColorCode()));
                             hourimage.setBackground(ic);
                             if(Case == 0){
+                                fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
                                 if(Selected != null) {
-                                    FinishHomework(fragmentView, activity, event);
-                                    Log.d("KA", "NotNull");
-                                }else{
-                                    Log.d("KA", "Null");
+                                    Finish(fragmentView, activity, home,null, Case );
+                                }
+                            }else if(Case == 1){
+                                fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
+                                if(Selected != null) {
+                                    Finish(fragmentView, activity, null, e, Case );
                                 }
                             }
                         }
@@ -659,6 +606,9 @@ public class HomeFragmentMethods {
                         if (Case == 0) {
                             fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
                             fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.GONE);
+                        }else if(Case == 1){
+                            fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
+                            fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.GONE);
                         }
                         Selected = hourList.get(0);
                         HourChosen = true;
@@ -668,11 +618,14 @@ public class HomeFragmentMethods {
                         ic.setColor(android.graphics.Color.parseColor(Selected.getColorCode()));
                         hourimage.setBackground(ic);
                         if(Case == 0){
+                            fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
                             if(Selected != null) {
-                                FinishHomework(fragmentView, activity, event);
-                                Log.d("KA", "NotNull");
-                            }else{
-                                Log.d("KA", "Null");
+                                Finish(fragmentView, activity, home,null, Case );
+                            }
+                        }else if(Case == 1){
+                            fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
+                            if(Selected != null) {
+                                Finish(fragmentView, activity,null, e,Case );
                             }
                         }
                     }
@@ -692,6 +645,9 @@ public class HomeFragmentMethods {
                         if (Case == 0) {
                             fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
                             fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.GONE);
+                        }else if(Case == 1){
+                            fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
+                            fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView).setVisibility(View.GONE);
                         }
                         Selected = hourList.get(1);
                         HourChosen = true;
@@ -701,11 +657,14 @@ public class HomeFragmentMethods {
                         ic.setColor(android.graphics.Color.parseColor(Selected.getColorCode()));
                         hourimage.setBackground(ic);
                         if(Case == 0){
+                            fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
                             if(Selected != null) {
-                                FinishHomework(fragmentView, activity, event);
-                                Log.d("KA", "NotNull");
-                            }else{
-                                Log.d("KA", "Null");
+                                Finish(fragmentView, activity, home,null, Case );
+                            }
+                        }else if(Case == 1){
+                            fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);
+                            if(Selected != null) {
+                                Finish(fragmentView, activity,null, e,Case );
                             }
                         }
                     }
@@ -716,7 +675,7 @@ public class HomeFragmentMethods {
     }
 
 
-    private void FinishHomework(final View fragmentView, final Activity activity, final Homework event){
+    private void Finish(final View fragmentView, final Activity activity, final Homework h, final Exam e, final int Case){
 
         final Button Next = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_Next);
         final EditText titel = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomework_TitelInput);
@@ -734,23 +693,36 @@ public class HomeFragmentMethods {
                 }else if(description.getText().toString().trim().equals("")){
                     description.setError(activity.getResources().getString(R.string.EmptyField));
                 }else{
-                    event.setHour(Selected);
-                    event.setTitle(titel.getText().toString().trim());
-                    event.setDescription(description.getText().toString().trim());
-                    fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.GONE);
-                    fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView).setVisibility(View.VISIBLE);
 
                     TextView Date = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_DateText);
                     TextView Hour = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_HourText);
                     TextView Titel = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_Titel);
                     TextView Description = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_Text);
+                    TextView OverviewHeading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_Heading);
                     ImageView colour = (ImageView) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_HourPic);
 
-                    Date.setText(event.getDay() + "." + event.getMonth() + "." + event.getYear());
+                    if(Case == 0) {
+                        h.setHour(Selected);
+                        h.setTitle(titel.getText().toString().trim());
+                        h.setDescription(description.getText().toString().trim());
+                        Titel.setText(h.getTitle());
+                        Description.setText(h.getDescription());
+                        Date.setText(h.getDay() + "." + h.getMonth() + "." + h.getYear());
+                        OverviewHeading.setText(activity.getResources().getString(R.string.HomeworkOverview));
+                    }else if(Case == 1){
+                        e.setHour(Selected);
+                        e.setTitle(titel.getText().toString().trim());
+                        e.setDescription(description.getText().toString().trim());
+                        Titel.setText(e.getTitle());
+                        Description.setText(e.getDescription());
+                        Date.setText(e.getDay() + "." + e.getMonth() + "." + e.getYear());
+                        OverviewHeading.setText(activity.getResources().getString(R.string.ExamOverview));
+                    }
+
+                    fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.GONE);
+                    fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView).setVisibility(View.VISIBLE);
                     Hour.setText(Selected.getName());
                     colour.setBackgroundColor(android.graphics.Color.parseColor(Selected.getColorCode()));
-                    Titel.setText(event.getTitle());
-                    Description.setText(event.getDescription());
 
                     Button back = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_Back);
                     Button finish = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_Finish);
@@ -766,72 +738,11 @@ public class HomeFragmentMethods {
                     finish.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView).setVisibility(View.GONE);
-                            fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout).setVisibility(View.VISIBLE);
-
-                            Selected.addEvent(event);
-
-                            Gson gson = new Gson();
-                            ArrayList<Homework> eventlist;
-                            String json1 = FirstScreen.tinyDB.getString("Homework");
-                            if(json1.equals("")){
-                                eventlist = new ArrayList<Homework>();
-                            }else {
-                                Type type = new TypeToken<ArrayList<Homework>>() {
-                                }.getType();
-                                eventlist = gson.fromJson(json1, type);
+                            if(Case == 0){
+                                FinishHomework(fragmentView, activity, h);
+                            }else if(Case == 1){
+                                FinishExam(fragmentView, activity, e);
                             }
-
-                            eventlist.add(event);
-                            FirstScreen.tinyDB.putString("Homework", gson.toJson(eventlist));
-
-                            if(FirstScreen.tinyDB.getString("WeekA").equals("")) {
-                                Log.d("homework:", "Continue");
-                            }else {
-                                final ArrayList<Hour> hourList = new ArrayList<Hour>();
-                                String json = FirstScreen.tinyDB.getString("WeekA");
-                                Type type = new TypeToken<Week>() {
-                                }.getType();
-
-                                Week weekA = gson.fromJson(json, type);
-                                Week NWeekA = new Week(weekA.getDayList().size());
-                                weekA.getDayList().get(0).getHourList();
-                                for (Day d : weekA.getDayList()) {
-                                    Day day = new Day(d.getName());
-                                    for (Hour h : d.getHourList()) {
-                                        if (h.getName().equals(Selected.getName()) && h.getColorCode().equals(h.getColorCode())) {
-                                            day.addHour(Selected);
-                                        } else {
-                                            day.addHour(h);
-                                        }
-                                    }
-                                    NWeekA.addDay(day);
-                                }
-
-                                FirstScreen.tinyDB.putString("WeekA", gson.toJson(NWeekA));
-
-                                if (!(FirstScreen.tinyDB.getString("WeekB").equals(""))) {
-                                    json = FirstScreen.tinyDB.getString("WeekB");
-                                    Week weekB = gson.fromJson(json, type);
-                                    Week NWeekB = new Week(weekB.getDayList().size());
-                                    weekB.getDayList().get(0).getHourList();
-                                    for (Day d : weekB.getDayList()) {
-                                        Day day = new Day(d.getName());
-                                        for (Hour h : d.getHourList()) {
-                                            if (h.getName().equals(Selected.getName()) && h.getColorCode().equals(h.getColorCode())) {
-                                                day.addHour(Selected);
-                                            } else {
-                                                day.addHour(h);
-                                            }
-                                        }
-                                        NWeekB.addDay(day);
-                                    }
-
-                                    FirstScreen.tinyDB.putString("WeekB", gson.toJson(NWeekB));
-
-                                }
-                            }
-                            HomeworkOverview(fragmentView, activity);
                         }
                     });
                 }
@@ -841,50 +752,231 @@ public class HomeFragmentMethods {
     }
 
 
+    private void FinishHomework(final View fragmentView, final Activity activity, Homework event){
+        fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView).setVisibility(View.GONE);
+        fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout).setVisibility(View.VISIBLE);
 
-    public void HomeworkOverview(final View fragmentView, final Activity activity){
-
-        ArrayList<Homework> eventlist;
+        Selected.addEvent(event);
 
         Gson gson = new Gson();
-        String json = FirstScreen.tinyDB.getString("Homework");
-        Type type = new TypeToken<ArrayList<Homework>>() {
-        }.getType();
+        ArrayList<Homework> eventlist;
+        String json1 = FirstScreen.tinyDB.getString("Homework");
+        if(json1.equals("")){
+            eventlist = new ArrayList<Homework>();
+        }else {
+            Type type = new TypeToken<ArrayList<Homework>>() {
+            }.getType();
+            eventlist = gson.fromJson(json1, type);
+        }
 
+        eventlist.add(event);
+        FirstScreen.tinyDB.putString("Homework", gson.toJson(eventlist));
+
+        if(FirstScreen.tinyDB.getString("WeekA").equals("")) {
+            Log.d("homework:", "Continue");
+        }else {
+            final ArrayList<Hour> hourList = new ArrayList<Hour>();
+            String json = FirstScreen.tinyDB.getString("WeekA");
+            Type type = new TypeToken<Week>() {
+            }.getType();
+
+            Week weekA = gson.fromJson(json, type);
+            Week NWeekA = new Week(weekA.getDayList().size());
+            weekA.getDayList().get(0).getHourList();
+            for (Day d : weekA.getDayList()) {
+                Day day = new Day(d.getName());
+                for (Hour h : d.getHourList()) {
+                    if (h.getName().equals(Selected.getName()) && h.getColorCode().equals(h.getColorCode())) {
+                        day.addHour(Selected);
+                    } else {
+                        day.addHour(h);
+                    }
+                }
+                NWeekA.addDay(day);
+            }
+
+            FirstScreen.tinyDB.putString("WeekA", gson.toJson(NWeekA));
+
+            if (!(FirstScreen.tinyDB.getString("WeekB").equals(""))) {
+                json = FirstScreen.tinyDB.getString("WeekB");
+                Week weekB = gson.fromJson(json, type);
+                Week NWeekB = new Week(weekB.getDayList().size());
+                weekB.getDayList().get(0).getHourList();
+                for (Day d : weekB.getDayList()) {
+                    Day day = new Day(d.getName());
+                    for (Hour h : d.getHourList()) {
+                        if (h.getName().equals(Selected.getName()) && h.getColorCode().equals(h.getColorCode())) {
+                            day.addHour(Selected);
+                        } else {
+                            day.addHour(h);
+                        }
+                    }
+                    NWeekB.addDay(day);
+                }
+
+                FirstScreen.tinyDB.putString("WeekB", gson.toJson(NWeekB));
+
+            }
+        }
+        Overview(fragmentView, activity, 0);
+    }
+
+
+    private void FinishExam(final View fragmentView, final Activity activity, Exam event){
+        fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView).setVisibility(View.GONE);
+        fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout).setVisibility(View.VISIBLE);
+
+        Selected.addEvent(event);
+
+        Gson gson = new Gson();
+        ArrayList<Exam> eventlist;
+        String json1 = FirstScreen.tinyDB.getString("Exam");
+        if(json1.equals("")){
+            eventlist = new ArrayList<Exam>();
+        }else {
+            Type type = new TypeToken<ArrayList<Exam>>() {
+            }.getType();
+            eventlist = gson.fromJson(json1, type);
+        }
+
+        eventlist.add(event);
+        FirstScreen.tinyDB.putString("Exam", gson.toJson(eventlist));
+
+        if(FirstScreen.tinyDB.getString("WeekA").equals("")) {
+            Log.d("Exam:", "Continue");
+        }else {
+            final ArrayList<Hour> hourList = new ArrayList<Hour>();
+            String json = FirstScreen.tinyDB.getString("WeekA");
+            Type type = new TypeToken<Week>() {
+            }.getType();
+
+            Week weekA = gson.fromJson(json, type);
+            Week NWeekA = new Week(weekA.getDayList().size());
+            weekA.getDayList().get(0).getHourList();
+            for (Day d : weekA.getDayList()) {
+                Day day = new Day(d.getName());
+                for (Hour h : d.getHourList()) {
+                    if (h.getName().equals(Selected.getName()) && h.getColorCode().equals(h.getColorCode())) {
+                        day.addHour(Selected);
+                    } else {
+                        day.addHour(h);
+                    }
+                }
+                NWeekA.addDay(day);
+            }
+
+            FirstScreen.tinyDB.putString("WeekA", gson.toJson(NWeekA));
+
+            if (!(FirstScreen.tinyDB.getString("WeekB").equals(""))) {
+                json = FirstScreen.tinyDB.getString("WeekB");
+                Week weekB = gson.fromJson(json, type);
+                Week NWeekB = new Week(weekB.getDayList().size());
+                weekB.getDayList().get(0).getHourList();
+                for (Day d : weekB.getDayList()) {
+                    Day day = new Day(d.getName());
+                    for (Hour h : d.getHourList()) {
+                        if (h.getName().equals(Selected.getName()) && h.getColorCode().equals(h.getColorCode())) {
+                            day.addHour(Selected);
+                        } else {
+                            day.addHour(h);
+                        }
+                    }
+                    NWeekB.addDay(day);
+                }
+
+                FirstScreen.tinyDB.putString("WeekB", gson.toJson(NWeekB));
+
+            }
+        }
+        Overview(fragmentView, activity, 1);
+    }
+
+
+
+    private void Overview(final View fragmentView, final Activity activity, final int Case){
+
+        Gson gson = new Gson();
+        Type type;
+        List eventlist;
+        String json;
+        if(Case == 0) {
+            json = FirstScreen.tinyDB.getString("Homework");
+            type = new TypeToken<ArrayList<Homework>>() {}.getType();
+        }else{
+            json = FirstScreen.tinyDB.getString("Exam");
+            type = new TypeToken<ArrayList<Exam>>() {}.getType();
+        }
         eventlist = gson.fromJson(json, type);
-
-
-
 
         final ConstraintLayout OverviewView = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout);
         final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
         OverviewView.setVisibility(View.VISIBLE);
         Selection.setVisibility(View.GONE);
-
+        final TextView OverviewHeading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListViewHeading);
         final TextView infoView = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_Overview_Info);
         final Button infoButton = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_Overview_CreateNow);
-        if(FirstScreen.tinyDB.getString("Homework").equals("")){
-            infoView.setVisibility(View.VISIBLE);
-            infoButton.setVisibility(View.VISIBLE);
-            infoButton.setOnClickListener(new View.OnClickListener() {
+        final Button TopNew = (Button) activity.findViewById(R.id.organizer_new);
+
+        if(Case == 0) {
+            OverviewHeading.setText(activity.getResources().getString(R.string.HomeworkOverview));
+            infoView.setText(activity.getResources().getString(R.string.NoHomeworkEntered));
+            infoButton.setText(activity.getResources().getString(R.string.CreateNow));
+
+            if (FirstScreen.tinyDB.getString("Homework").equals("")) {
+                infoView.setVisibility(View.VISIBLE);
+                infoButton.setVisibility(View.VISIBLE);
+                infoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        NewEventHomework(fragmentView, activity);
+                    }
+                });
+            } else {
+                infoView.setVisibility(View.GONE);
+                infoButton.setVisibility(View.GONE);
+
+                ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
+                HomeworkCustomAdapter customAdapter = new HomeworkCustomAdapter(activity, (ArrayList<Homework>) eventlist);
+                listView.setAdapter(customAdapter);
+            }
+            TopNew.setVisibility(View.VISIBLE);
+            TopNew.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout).setVisibility(View.VISIBLE);
-                    OverviewView.setVisibility(View.GONE);
-                    activity.findViewById(R.id.organizer_new).setVisibility(View.GONE);
+                    NewEventHomework(fragmentView, activity);
                 }
             });
-        }else{
-            infoView.setVisibility(View.GONE);
-            infoButton.setVisibility(View.GONE);
+        }else if(Case == 1){
+            OverviewHeading.setText(activity.getResources().getString(R.string.ExamOverview));
+            infoView.setText(activity.getResources().getString(R.string.NoExamEntered));
+            infoButton.setText(activity.getResources().getString(R.string.CreateNow));
 
-            ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
-            HomeworkCustomAdapter customAdapter = new HomeworkCustomAdapter(activity, eventlist);
-            listView.setAdapter(customAdapter);
+            if (FirstScreen.tinyDB.getString("Exam").equals("")) {
+                infoView.setVisibility(View.VISIBLE);
+                infoButton.setVisibility(View.VISIBLE);
+                infoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        NewEventExam(fragmentView, activity);
+                    }
+                });
+            } else {
+                infoView.setVisibility(View.GONE);
+                infoButton.setVisibility(View.GONE);
+
+                ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
+                ExamCustomAdapter customAdapter = new ExamCustomAdapter(activity,(ArrayList<Exam>) eventlist);
+                listView.setAdapter(customAdapter);
+            }
+            TopNew.setVisibility(View.VISIBLE);
+            TopNew.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NewEventExam(fragmentView, activity);
+                }
+            });
         }
 
-
-        final Button TopNew = (Button) activity.findViewById(R.id.organizer_new);
         final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
         final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
         TopBack.setOnClickListener(new View.OnClickListener() {
@@ -904,16 +996,238 @@ public class HomeFragmentMethods {
             }
         });
 
-        TopNew.setVisibility(View.VISIBLE);
-        TopNew.setOnClickListener(new View.OnClickListener() {
+
+    }
+
+
+
+
+
+    private void BasicNewEvent(View fragmentView, Activity activity){
+        final Button TopNew = (Button) activity.findViewById(R.id.organizer_new);
+        final ConstraintLayout OverviewView = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout);
+        fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection).setVisibility(View.GONE);
+        fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout).setVisibility(View.VISIBLE);
+        OverviewView.setVisibility(View.GONE);
+        TopNew.setVisibility(View.GONE);
+        CalendarView cv = (CalendarView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_Calendar);
+        cv.setDate(new Date().getTime(), false, true);
+        final TextView error = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_ErrorDate);
+        error.setVisibility(View.GONE);
+        fyear = 0;
+        Selected = null;
+    }
+
+    private void NewEventExam(final View fragmentView, final Activity activity){
+        BasicNewEvent(fragmentView, activity);
+        TextView newEventHeading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_Heading);
+        newEventHeading.setText(activity.getResources().getString(R.string.EnterNewExam));
+        TextView newEventSubHeading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_Date);
+        newEventSubHeading.setText(activity.getResources().getString(R.string.ExamAppointment));
+
+
+        final ConstraintLayout homeLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+        final ScrollView newHomework = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout);
+        final ScrollView HourSelection = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView);
+        final ScrollView FinishHomework = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView);
+        final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+        final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
+        final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
+        final ScrollView newEvent = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout);
+
+        TopBack.setText(activity.getResources().getString(R.string.Cancel));
+        TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout).setVisibility(View.VISIBLE);
-                OverviewView.setVisibility(View.GONE);
-                TopNew.setVisibility(View.GONE);
+                Selection.setVisibility(View.GONE);
+                homeLayout.setVisibility(View.GONE);
+                newHomework.setVisibility(View.GONE);
+                HourSelection.setVisibility(View.GONE);
+                FinishHomework.setVisibility(View.GONE);
+                newEvent.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
+                TopBack.setText(activity.getResources().getString(R.string.Back));
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
             }
         });
 
+        Button newEventBack = (Button) fragmentView.findViewById(R.id.organizer_NewEventBack);
+        newEventBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Selection.setVisibility(View.VISIBLE);
+                newEvent.setVisibility(View.GONE);
+                TopBack.setText(activity.getResources().getString(R.string.Back));
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Selection.setVisibility(View.GONE);
+                        MainLayout.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
+
+
+        CalendarView cv = (CalendarView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_Calendar);
+        cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                fday = dayOfMonth;
+                fmonth = month + 1;
+                fyear = year;
+            }
+        });
+
+        final TextView error = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_ErrorDate);
+        Button newEventNext = (Button) fragmentView.findViewById(R.id.organizer_NewEventNext);
+        newEventNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.hideKeyboard(activity);
+                Log.d("New", "NewEventExam");
+                int rday, rmonth, ryear;
+                Date c = Calendar.getInstance().getTime();
+                rday = Integer.parseInt(new SimpleDateFormat("dd").format(c));
+                rmonth = Integer.parseInt(new SimpleDateFormat("MM").format(c));
+                ryear = Integer.parseInt(new SimpleDateFormat("yyyy").format(c));
+
+                Exam exam = new Exam(fday, fmonth, fyear);
+
+                if(ryear == fyear){
+                    if(rmonth == fmonth){
+                        if(rday < fday){
+                            ContinueMethod(fragmentView, null, exam, activity, 1);
+                            error.setVisibility(View.GONE);
+                        }else{
+                            error.setVisibility(View.VISIBLE);
+                        }
+                    }else if(rmonth < fmonth){
+                        ContinueMethod(fragmentView, null, exam, activity, 1);
+                        error.setVisibility(View.GONE);
+                    }else{
+                        error.setVisibility(View.VISIBLE);
+                    }
+                }else if(ryear < fyear){
+                    ContinueMethod(fragmentView, null, exam, activity, 1);
+                    error.setVisibility(View.GONE);
+                }else{
+                    error.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+    }
+
+    private void NewEventHomework(final View fragmentView, final Activity activity){
+        BasicNewEvent(fragmentView, activity);
+        TextView newEventHeading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_Heading);
+        newEventHeading.setText(activity.getResources().getString(R.string.EnterNewHomework));
+        TextView newEventSubHeading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_Date);
+        newEventSubHeading.setText(activity.getResources().getString(R.string.DutyDate));
+
+        final ConstraintLayout homeLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+        final ScrollView newHomework = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout);
+        final ScrollView HourSelection = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView);
+        final ScrollView FinishHomework = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView);
+        final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+        final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
+        final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
+        final ScrollView newEvent = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout);
+
+        TopBack.setText(activity.getResources().getString(R.string.Cancel));
+        TopBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Selection.setVisibility(View.GONE);
+                homeLayout.setVisibility(View.GONE);
+                newHomework.setVisibility(View.GONE);
+                HourSelection.setVisibility(View.GONE);
+                FinishHomework.setVisibility(View.GONE);
+                newEvent.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
+                TopBack.setText(activity.getResources().getString(R.string.Back));
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+            }
+        });
+
+        Button newEventBack = (Button) fragmentView.findViewById(R.id.organizer_NewEventBack);
+        newEventBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Selection.setVisibility(View.VISIBLE);
+                newEvent.setVisibility(View.GONE);
+                TopBack.setText(activity.getResources().getString(R.string.Back));
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Selection.setVisibility(View.GONE);
+                        MainLayout.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
+
+
+        CalendarView cv = (CalendarView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_Calendar);
+        cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                fday = dayOfMonth;
+                fmonth = month + 1;
+                fyear = year;
+            }
+        });
+
+        final TextView error = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_ErrorDate);
+        Button newEventNext = (Button) fragmentView.findViewById(R.id.organizer_NewEventNext);
+        newEventNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.hideKeyboard(activity);
+                Log.d("New", "NewEventHA");
+                int rday, rmonth, ryear;
+                Date c = Calendar.getInstance().getTime();
+                rday = Integer.parseInt(new SimpleDateFormat("dd").format(c));
+                rmonth = Integer.parseInt(new SimpleDateFormat("MM").format(c));
+                ryear = Integer.parseInt(new SimpleDateFormat("yyyy").format(c));
+
+                Homework home = new Homework(fday, fmonth, fyear);
+
+                if(ryear == fyear){
+                    if(rmonth == fmonth){
+                        if(rday < fday){
+                            ContinueMethod(fragmentView, home, null, activity, 0);
+                            error.setVisibility(View.GONE);
+                        }else{
+                            error.setVisibility(View.VISIBLE);
+                        }
+                    }else if(rmonth < fmonth){
+                        ContinueMethod(fragmentView, home, null, activity, 0);
+                        error.setVisibility(View.GONE);
+                    }else{
+                        error.setVisibility(View.VISIBLE);
+                    }
+                }else if(ryear < fyear){
+                    ContinueMethod(fragmentView, home, null, activity, 0);
+                    error.setVisibility(View.GONE);
+                }else{
+                    error.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
     }
 
