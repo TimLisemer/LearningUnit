@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -24,8 +25,10 @@ import com.google.android.gms.analytics.Tracker;
 import java.util.Date;
 
 import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.Organizer.DashboardFragmentMethods;
 import learningunit.learningunit.Objects.Organizer.HomeFragmentMethods;
 import learningunit.learningunit.R;
+import learningunit.learningunit.menu.MainActivity;
 
 public class Organizer extends AppCompatActivity {
 
@@ -84,6 +87,7 @@ public class Organizer extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+                MainActivity.hideKeyboard(Organizer.this);
                 if (prevMenuItem != null)
                     prevMenuItem.setChecked(false);
                 else
@@ -96,6 +100,9 @@ public class Organizer extends AppCompatActivity {
                     if(position == 0){
                         TopNew.setVisibility(View.GONE);
                     }else{
+                        if(position == 1){
+                            new DashboardFragmentMethods(Organizer.this, (ListView) findViewById(R.id.organizer_dashboard_Homework_ListView), (ListView) findViewById(R.id.organizer_dashboard_Exam_ListView));
+                        }
                         TopNew.setVisibility(View.VISIBLE);
                         TopNew.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -138,9 +145,7 @@ public class Organizer extends AppCompatActivity {
                         homeLayout.setVisibility(View.VISIBLE);
                         CalendarView cv = (CalendarView) findViewById(R.id.fragment_organizer_home_NewEvent_Calendar);
                         cv.setDate(new Date().getTime(), false, true);
-                    }catch (Exception e){
-                        throw new IllegalArgumentException(e);
-                    }
+                    }catch (Exception e){}
             }
 
             @Override
@@ -188,6 +193,8 @@ public class Organizer extends AppCompatActivity {
                 return fragmentView;
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2){
                 final View fragmentView = inflater.inflate(R.layout.fragment_organizer_dashboard, container, false);
+                new DashboardFragmentMethods(getActivity(), fragmentView);
+
                 return fragmentView;
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
                 final View fragmentView = inflater.inflate(R.layout.fragment_organizer_calendar, container, false);

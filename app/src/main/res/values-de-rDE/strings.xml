@@ -115,4 +115,6 @@
     <string name="Grades">Noten</string>
     <string name="EnterNewGrade">Note eintragen</string>
     <string name="GradeOverview">Notenübersicht</string>
+    <string name="NoExamEntered">Bislang keine Arbeit eingetragen</string>
+    <string name="ExamAppointment">Klausurtermin</string>
 </resources>

@@ -115,4 +115,6 @@
     <string name="Grades">Grades</string>
     <string name="EnterNewGrade">Enter Grade</string>
     <string name="GradeOverview">Grade Overview</string>
+    <string name="NoExamEntered">No Exam entered</string>
+    <string name="ExamAppointment">Exam appointment</string>
 </resources>
