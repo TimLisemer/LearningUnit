@@ -119,4 +119,16 @@
     <string name="ExamAppointment">Klausurtermin</string>
     <string name="EnterGrade">Note eingeben</string>
     <string name="NameExists">Name existiert berreits</string>
+    <string name="DeleteVocabList">Vokabelliste löschen?</string>
+    <string name="DeleteVocabListConfirmation">Bist du sicher, dass du diese Vokabelliste löschen möchtest?</string>
+    <string name="Publish">Veröffentlichen</string>
+    <string name="PublishVocabList">Vokabelliste Veröffentlichen?</string>
+    <string name="ConfirmPublication">Mit deiner Freigabe bestätigst du, dass du keine Rechte Dritter verletzt.</string>
+    <string name="ConfirmUnPublication">Deine Vokabelliste verliert damit alle Follower und Bewertungen</string>
+    <string name="SetPrivate">Auf Privat stellen</string>
+    <string name="SetVocabularyListPrivate">Vokabelliste auf Privat stellen</string>
+    <string name="SetListPrivate">Liste auf Privat Stellen</string>
+    <string name="PublishList">Liste Veröffentlichen</string>
+    <string name="Follow">Folgen</string>
+    <string name="Followed">Gefolgt</string>
 </resources>

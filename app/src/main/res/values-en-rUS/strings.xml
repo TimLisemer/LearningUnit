@@ -119,4 +119,16 @@
     <string name="ExamAppointment">Exam appointment</string>
     <string name="EnterGrade">Enter Grade</string>
     <string name="NameExists">Name already exists</string>
+    <string name="DeleteVocabList">Delete Vocabulary List?</string>
+    <string name="DeleteVocabListConfirmation">"Are you sure you want to delete this vocabulary list? "</string>
+    <string name="ConfirmPublication">With your approval you confirm that you do not violate any rights of third parties.</string>
+    <string name="SetPrivate">Set Private</string>
+    <string name="PublishVocabList">Publish Vocabulary List</string>
+    <string name="Publish">Publish</string>
+    <string name="ConfirmUnPublication">Your vocabulary list loses all followers and ratings</string>
+    <string name="SetVocabularyListPrivate">Auf Privat stellen</string>
+    <string name="SetListPrivate">Set List Private</string>
+    <string name="PublishList">Publish Liste</string>
+    <string name="Follow">Follow</string>
+    <string name="Followed">Followed</string>
 </resources>
