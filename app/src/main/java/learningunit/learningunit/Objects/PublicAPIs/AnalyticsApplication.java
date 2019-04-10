@@ -1,10 +1,11 @@
-package learningunit.learningunit.Objects.API;
+package learningunit.learningunit.Objects.PublicAPIs;
 
 import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
+import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.R;
 
 /**

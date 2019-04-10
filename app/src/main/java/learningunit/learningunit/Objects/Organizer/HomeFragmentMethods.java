@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,14 +28,16 @@ import java.util.Date;
 import java.util.List;
 
 import learningunit.learningunit.Objects.API.ManageData;
+import learningunit.learningunit.Objects.API.OnBackPressedListener;
 import learningunit.learningunit.Objects.Timetable.Day;
 import learningunit.learningunit.Objects.Timetable.Hour;
 import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.R;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.MainActivity;
+import learningunit.learningunit.menu.organizer.Organizer;
 
-public class HomeFragmentMethods {
+public class HomeFragmentMethods extends AppCompatActivity {
 
     int fday, fmonth, fyear;
     Hour Selected;
@@ -42,13 +45,16 @@ public class HomeFragmentMethods {
     public static Button downHour[];
     public static Button downHour1[];
 
-    public HomeFragmentMethods(final View fragmentView, final Activity activity){
-        if(activity == null){
+    public HomeFragmentMethods(final View fragmentView, final Activity activity) {
+        if (activity == null) {
             throw new IllegalArgumentException("Invalid activity --> Null");
         }
+        new GradeMethods(fragmentView, activity);
         HomeworkClick(fragmentView, activity);
         ExamClick(fragmentView, activity);
     }
+
+
 
 
     private void ExamClick(final View fragmentView, final Activity activity){
@@ -83,6 +89,42 @@ public class HomeFragmentMethods {
                     public void onClick(View v) {
                         Selection.setVisibility(View.GONE);
                         MainLayout.setVisibility(View.VISIBLE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                    }
+                });
+
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Selection.setVisibility(View.GONE);
+                        MainLayout.setVisibility(View.VISIBLE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
                     }
                 });
 
@@ -124,6 +166,42 @@ public class HomeFragmentMethods {
                     public void onClick(View v) {
                         Selection.setVisibility(View.GONE);
                         MainLayout.setVisibility(View.VISIBLE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                    }
+                });
+
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Selection.setVisibility(View.GONE);
+                        MainLayout.setVisibility(View.VISIBLE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
                     }
                 });
 
@@ -991,6 +1069,95 @@ public class HomeFragmentMethods {
                         Selection.setVisibility(View.GONE);
                         MainLayout.setVisibility(View.VISIBLE);
                         TopNew.setVisibility(View.GONE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                    }
+                });
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Selection.setVisibility(View.GONE);
+                        MainLayout.setVisibility(View.VISIBLE);
+                        TopNew.setVisibility(View.GONE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+            @Override
+            public void doBack() {
+                Selection.setVisibility(View.VISIBLE);
+                OverviewView.setVisibility(View.GONE);
+                TopNew.setVisibility(View.GONE);
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Selection.setVisibility(View.GONE);
+                        MainLayout.setVisibility(View.VISIBLE);
+                        TopNew.setVisibility(View.GONE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                    }
+                });
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Selection.setVisibility(View.GONE);
+                        MainLayout.setVisibility(View.VISIBLE);
+                        TopNew.setVisibility(View.GONE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
                     }
                 });
             }
@@ -1026,7 +1193,6 @@ public class HomeFragmentMethods {
         newEventSubHeading.setText(activity.getResources().getString(R.string.ExamAppointment));
 
 
-        final ConstraintLayout homeLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
         final ScrollView newHomework = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout);
         final ScrollView HourSelection = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView);
         final ScrollView FinishHomework = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView);
@@ -1040,7 +1206,6 @@ public class HomeFragmentMethods {
             @Override
             public void onClick(View v) {
                 Selection.setVisibility(View.GONE);
-                homeLayout.setVisibility(View.GONE);
                 newHomework.setVisibility(View.GONE);
                 HourSelection.setVisibility(View.GONE);
                 FinishHomework.setVisibility(View.GONE);
@@ -1050,6 +1215,39 @@ public class HomeFragmentMethods {
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+            }
+        });
+
+        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+            @Override
+            public void doBack() {
+                Selection.setVisibility(View.GONE);
+                newHomework.setVisibility(View.GONE);
+                HourSelection.setVisibility(View.GONE);
+                FinishHomework.setVisibility(View.GONE);
+                newEvent.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
                         Intent intent = new Intent(activity, MainActivity.class);
                         activity.startActivity(intent);
                     }
@@ -1069,6 +1267,41 @@ public class HomeFragmentMethods {
                     public void onClick(View v) {
                         Selection.setVisibility(View.GONE);
                         MainLayout.setVisibility(View.VISIBLE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                    }
+                });
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Selection.setVisibility(View.GONE);
+                        MainLayout.setVisibility(View.VISIBLE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
                     }
                 });
             }
@@ -1132,7 +1365,6 @@ public class HomeFragmentMethods {
         TextView newEventSubHeading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEvent_Date);
         newEventSubHeading.setText(activity.getResources().getString(R.string.DutyDate));
 
-        final ConstraintLayout homeLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
         final ScrollView newHomework = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout);
         final ScrollView HourSelection = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView);
         final ScrollView FinishHomework = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView);
@@ -1146,13 +1378,45 @@ public class HomeFragmentMethods {
             @Override
             public void onClick(View v) {
                 Selection.setVisibility(View.GONE);
-                homeLayout.setVisibility(View.GONE);
                 newHomework.setVisibility(View.GONE);
                 HourSelection.setVisibility(View.GONE);
                 FinishHomework.setVisibility(View.GONE);
                 newEvent.setVisibility(View.GONE);
                 MainLayout.setVisibility(View.VISIBLE);
                 TopBack.setText(activity.getResources().getString(R.string.Back));
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+            }
+        });
+
+        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+            @Override
+            public void doBack() {
+                Selection.setVisibility(View.GONE);
+                newHomework.setVisibility(View.GONE);
+                HourSelection.setVisibility(View.GONE);
+                FinishHomework.setVisibility(View.GONE);
+                newEvent.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1175,6 +1439,41 @@ public class HomeFragmentMethods {
                     public void onClick(View v) {
                         Selection.setVisibility(View.GONE);
                         MainLayout.setVisibility(View.VISIBLE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                    }
+                });
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Selection.setVisibility(View.GONE);
+                        MainLayout.setVisibility(View.VISIBLE);
+                        TopBack.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                            @Override
+                            public void doBack() {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            }
+                        });
                     }
                 });
             }

@@ -1,17 +1,16 @@
 package learningunit.learningunit.Objects.API;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.Objects.Timetable.Day;
 import learningunit.learningunit.Objects.Timetable.Hour;
 import learningunit.learningunit.Objects.Timetable.HourList;
@@ -22,7 +21,6 @@ import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
-import learningunit.learningunit.menu.organizer.timetable.Timetable;
 
 public class ManageData extends MainActivity{
 
@@ -157,9 +155,9 @@ public class ManageData extends MainActivity{
                 RequestHandler requestHandler = new RequestHandler();
                 Gson gson = new Gson();
                 Type type = new TypeToken<ArrayList<ArrayList<String>>>() {}.getType();
-                //Log.d("Download", "----------------------------------------------------------------------------------------------");
-                //Log.d("Download", "Downloading Vocabularys for VocabularyList: " + Name);
-                //Log.d("Download", "------------------------------------------------------------------------------------------------------");
+                Log.d("Download", "----------------------------------------------------------------------------------------------");
+                Log.d("Download", "Downloading Vocabularys for VocabularyList: " + Name + "---------------------------------------");
+                Log.d("Download", "------------------------------------------------------------------------------------------------------");
                 VocabularyList vocabularyList;
                 if(Vokabeln.publiclist == false) {
                     vocabularyList = VocabularyMethods.getVocabularyList0(Name);
@@ -202,9 +200,7 @@ public class ManageData extends MainActivity{
                     }
                 }
 
-            } catch (Exception e) {
-                throw new IllegalArgumentException(e);
-            }
+            } catch (Exception e) { }
         }else{
             Log.d("DownloadVocabularys", "Kein Internet Verfügbar");
         }
@@ -381,9 +377,7 @@ public class ManageData extends MainActivity{
                     o++;
                 }
 
-            }catch (Exception e) {
-                throw new IllegalArgumentException(e);
-            }
+            }catch (Exception e) { }
         }else{
             Log.d("NewDownloadVocLists", "Kein Internet Verfügbar");
         }

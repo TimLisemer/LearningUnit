@@ -66,6 +66,7 @@ public class PublicListCustomAdapter extends BaseAdapter {
         languageView2.setText(SharedList.get(3));
         countView.setText(SharedList.get(5) + " Vokabeln");
         creatorView.setText("Ersteller: " + SharedList.get(4));
+        idView.setText("ID: " + SharedList.get(0));
 
         nameView.setSelected(true);
         languageView1.setSelected(true);

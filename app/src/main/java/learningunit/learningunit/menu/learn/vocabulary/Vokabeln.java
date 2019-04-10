@@ -7,12 +7,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
-import android.support.constraint.Guideline;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,7 +29,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,12 +39,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
-import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.PublicListCustomAdapter;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
-import learningunit.learningunit.Objects.API.RequestHandler;
+import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
@@ -326,7 +323,7 @@ public class Vokabeln extends AppCompatActivity {
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
-                    params.setMargins(8, 90, 8, 8);
+                    params.setMargins(0, 90, 0, 8);
 
                     downyourLists[i].setText(yourlistsString.get(i));
                     downyourLists[i].setId(i);
@@ -383,7 +380,7 @@ public class Vokabeln extends AppCompatActivity {
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
-                    params.setMargins(8, 90, 8, 8);
+                    params.setMargins(0, 90, 0, 8);
                     downfollowedLists[i].setText(followedlistsString.get(i));
                     downfollowedLists[i].setId(i + offset);
                     downfollowedLists[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -462,7 +459,7 @@ public class Vokabeln extends AppCompatActivity {
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
-                    params.setMargins(8, 90, 8, 8);
+                    params.setMargins(0, 90, 0, 8);
                     downallLists[i].setText(languageslistsString.get(i).replace("AllVoc_", ""));
                     downallLists[i].setId(i + offset);
                     downallLists[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -1666,11 +1663,11 @@ public class Vokabeln extends AppCompatActivity {
         switch (requestCode){
             case 1002: {
                 if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(this, "Zugriff gestattet!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.AccesGranted), Toast.LENGTH_SHORT).show();
                     WriteCsvVocList writelist = new WriteCsvVocList();
                     writelist.WriteFile(exportlist, Vokabeln.this);
                 }else{
-                    Toast.makeText(this, "Zugriff verwehrt!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.AccessDenied), Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }

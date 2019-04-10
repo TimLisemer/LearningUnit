@@ -1,6 +1,5 @@
 package learningunit.learningunit.Objects.Timetable;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,11 +14,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import learningunit.learningunit.Objects.API.ManageData;
-import learningunit.learningunit.Objects.API.RequestHandler;
+import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.R;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.MainActivity;
-import learningunit.learningunit.menu.organizer.timetable.Timetable;
 import learningunit.learningunit.menu.organizer.timetable.TimetableShowcase;
 
 public class HourList {

@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nbsp.materialfilepicker.MaterialFilePicker;
 import com.nbsp.materialfilepicker.ui.FilePickerActivity;
@@ -26,7 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.regex.Pattern;
 
-import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.ReadCsvVocList;

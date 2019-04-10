@@ -27,7 +27,7 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 
-import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.Timetable.Day;
 import learningunit.learningunit.Objects.Timetable.Hour;

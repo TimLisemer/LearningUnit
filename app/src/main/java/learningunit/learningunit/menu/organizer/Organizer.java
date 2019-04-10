@@ -25,13 +25,14 @@ import android.widget.TextView;
 import com.google.android.gms.analytics.Tracker;
 import java.util.Date;
 
-import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.API.OnBackPressedListener;
+import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.Objects.Organizer.DashboardFragmentMethods;
 import learningunit.learningunit.Objects.Organizer.HomeFragmentMethods;
 import learningunit.learningunit.R;
 import learningunit.learningunit.menu.MainActivity;
 
-public class Organizer extends AppCompatActivity {
+public class Organizer extends AppCompatActivity{
 
     private TextView mTextMessage;
     private Organizer.SectionsPagerAdapter mSectionsPagerAdapter;
@@ -59,12 +60,52 @@ public class Organizer extends AppCompatActivity {
         }
     };
 
+    protected static OnBackPressedListener onBackPressedListener;
+
+    public static void setOnBackPressedListener(OnBackPressedListener onBackPressedListeners) {
+        onBackPressedListener = onBackPressedListeners;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (onBackPressedListener != null) {
+            Log.d("sasaasa", "NotNull 1");
+            onBackPressedListener.doBack();
+        } else {
+            Log.d("sasaasa", "Null 1");
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        this.onBackPressedListener = null;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organizer);
+
+        Button TopBack = (Button) findViewById(R.id.organizer_back);
+        TopBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Organizer.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        setOnBackPressedListener(new OnBackPressedListener() {
+            @Override
+            public void doBack() {
+                Intent intent = new Intent(Organizer.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,15 +120,6 @@ public class Organizer extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        Button TopBack = (Button) findViewById(R.id.organizer_back);
-        TopBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Organizer.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -122,40 +154,63 @@ public class Organizer extends AppCompatActivity {
                             }
                         });
                     }
+                    
+                    Button TopBack = (Button) findViewById(R.id.organizer_back);
+                    TopBack.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Organizer.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+
+                setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Intent intent = new Intent(Organizer.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                ConstraintLayout homeLayout = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_MainLayout);
+                homeLayout.setVisibility(View.VISIBLE);
+
+                try{
+                    findViewById(R.id.fragment_organizer_home_GradeSelection).setVisibility(View.GONE);
+                    findViewById(R.id.fragment_organizer_home_GradeSubSelection).setVisibility(View.GONE);
+                }catch (Exception e){}
+
+                try{
+                    ScrollView newEvent = (ScrollView) findViewById(R.id.fragment_organizer_home_NewEventLayout);
+                    ScrollView newHomework = (ScrollView) findViewById(R.id.fragment_organizer_home_NewHomeworkLayout);
+                    ScrollView HourSelection = (ScrollView) findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView);
+                    ScrollView FinishHomework = (ScrollView) findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView);
+                    ConstraintLayout HomeworkOverview = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout);
+                    ConstraintLayout HomeworkSelection = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_HomeworkSelection);
 
                     try{
-                        ScrollView newEvent = (ScrollView) findViewById(R.id.fragment_organizer_home_NewEventLayout);
-                        ConstraintLayout homeLayout = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_MainLayout);
-                        ScrollView newHomework = (ScrollView) findViewById(R.id.fragment_organizer_home_NewHomeworkLayout);
-                        ScrollView HourSelection = (ScrollView) findViewById(R.id.fragment_organizer_home_SubjectSelection_ScrollView);
-                        ScrollView FinishHomework = (ScrollView) findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView);
-                        ConstraintLayout HomeworkOverview = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout);
-                        ConstraintLayout HomeworkSelection = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_HomeworkSelection);
 
-                        try{
+                        for(int i = 0; i < HomeFragmentMethods.downHour.length; i++){
+                            HourSelection.removeView(HomeFragmentMethods.downHour[i]);
+                        }
+                        for(int i = 0; i < HomeFragmentMethods.downHour1.length; i++){
+                            HourSelection.removeView(HomeFragmentMethods.downHour1[i]);
+                        }
+                        HomeFragmentMethods.HourChosen = false;
+                        TextView hourinfo = (TextView) findViewById(R.id.fragment_organizer_home_NewHomework_HourInfo);
+                        hourinfo.setText(getResources().getString(R.string.NoHourNameChosen));
+                    }catch (Exception e){ }
 
-                            for(int i = 0; i < HomeFragmentMethods.downHour.length; i++){
-                                HourSelection.removeView(HomeFragmentMethods.downHour[i]);
-                            }
-                            for(int i = 0; i < HomeFragmentMethods.downHour1.length; i++){
-                                HourSelection.removeView(HomeFragmentMethods.downHour1[i]);
-                            }
-                            HomeFragmentMethods.HourChosen = false;
-                            TextView hourinfo = (TextView) findViewById(R.id.fragment_organizer_home_NewHomework_HourInfo);
-                            hourinfo.setText(getResources().getString(R.string.NoHourNameChosen));
-                        }catch (Exception e){ }
-
-                        Log.d("Jetzt", "Jetzt");
-                        HomeworkOverview.setVisibility(View.GONE);
-                        HomeworkSelection.setVisibility(View.GONE);
-                        FinishHomework.setVisibility(View.GONE);
-                        HourSelection.setVisibility(View.GONE);
-                        newEvent.setVisibility(View.GONE);
-                        newHomework.setVisibility(View.GONE);
-                        homeLayout.setVisibility(View.VISIBLE);
-                        CalendarView cv = (CalendarView) findViewById(R.id.fragment_organizer_home_NewEvent_Calendar);
-                        cv.setDate(new Date().getTime(), false, true);
-                    }catch (Exception e){}
+                    Log.d("Jetzt", "Jetzt");
+                    HomeworkOverview.setVisibility(View.GONE);
+                    HomeworkSelection.setVisibility(View.GONE);
+                    FinishHomework.setVisibility(View.GONE);
+                    HourSelection.setVisibility(View.GONE);
+                    newEvent.setVisibility(View.GONE);
+                    newHomework.setVisibility(View.GONE);
+                    CalendarView cv = (CalendarView) findViewById(R.id.fragment_organizer_home_NewEvent_Calendar);
+                    cv.setDate(new Date().getTime(), false, true);
+                }catch (Exception e){}
             }
 
             @Override

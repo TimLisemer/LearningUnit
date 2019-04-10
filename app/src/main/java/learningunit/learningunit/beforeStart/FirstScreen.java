@@ -16,7 +16,6 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,12 +24,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.Objects.Timetable.HourList;
 import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
-import learningunit.learningunit.Objects.API.RequestHandler;
+import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
 import learningunit.learningunit.R;
 import learningunit.learningunit.Objects.PublicAPIs.TinyDB;

@@ -22,7 +22,7 @@ import android.util.DisplayMetrics;
 
 import com.google.android.gms.analytics.Tracker;
 
-import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
 import learningunit.learningunit.menu.organizer.Organizer;

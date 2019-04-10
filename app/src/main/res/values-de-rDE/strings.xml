@@ -131,4 +131,9 @@
     <string name="PublishList">Liste Veröffentlichen</string>
     <string name="Followed">Gefolgt</string>
     <string name="Follow">Folgen</string>
+    <string name="AccesGranted">Zugriff gestattet!</string>
+    <string name="AccessDenied">Zugriff Verweigert!</string>
+    <string name="Certificate">Zeugnis</string>
+    <string name="Presentation">Präsentation</string>
+    <string name="Rest">Rest</string>
 </resources>
