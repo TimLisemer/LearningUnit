@@ -52,6 +52,14 @@ public class HomeFragmentMethods extends AppCompatActivity {
         new GradeMethods(fragmentView, activity);
         HomeworkClick(fragmentView, activity);
         ExamClick(fragmentView, activity);
+
+        Button Opt1 = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Gradefragment_organizer_home_GradeSubSelection_Opt1);
+        Opt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Overview(fragmentView, activity, 2);
+            }
+        });
     }
 
 
@@ -980,9 +988,12 @@ public class HomeFragmentMethods extends AppCompatActivity {
         if(Case == 0) {
             json = FirstScreen.tinyDB.getString("Homework");
             type = new TypeToken<ArrayList<Homework>>() {}.getType();
-        }else{
+        }else if(Case == 1){
             json = FirstScreen.tinyDB.getString("Exam");
             type = new TypeToken<ArrayList<Exam>>() {}.getType();
+        }else{
+            json = FirstScreen.tinyDB.getString("Certificates");
+            type = new TypeToken<ArrayList<Certificate>>() {}.getType();
         }
         eventlist = gson.fromJson(json, type);
 
@@ -1014,7 +1025,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 infoButton.setVisibility(View.GONE);
 
                 ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
-                HomeworkCustomAdapter customAdapter = new HomeworkCustomAdapter(activity, (ArrayList<Homework>) eventlist);
+                HomeCustomAdapter customAdapter = new HomeCustomAdapter(activity, (ArrayList<Homework>) eventlist);
                 listView.setAdapter(customAdapter);
             }
             TopNew.setVisibility(View.VISIBLE);
@@ -1043,7 +1054,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 infoButton.setVisibility(View.GONE);
 
                 ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
-                ExamCustomAdapter customAdapter = new ExamCustomAdapter(activity,(ArrayList<Exam>) eventlist);
+                HomeCustomAdapter customAdapter = new HomeCustomAdapter((ArrayList<Exam>) eventlist, activity);
                 listView.setAdapter(customAdapter);
             }
             TopNew.setVisibility(View.VISIBLE);
@@ -1053,6 +1064,40 @@ public class HomeFragmentMethods extends AppCompatActivity {
                     NewEventExam(fragmentView, activity);
                 }
             });
+        }else if(Case == 2){
+            final ConstraintLayout Gradesub = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_GradeSubSelection);
+            Gradesub.setVisibility(View.GONE);
+            OverviewHeading.setText(activity.getResources().getString(R.string.CertificatesOverview));
+            infoView.setText(activity.getResources().getString(R.string.NoCertificateEntered));
+            infoButton.setText(activity.getResources().getString(R.string.CreateNow));
+
+            if (FirstScreen.tinyDB.getString("Certificates").equals("")) {
+                infoView.setVisibility(View.VISIBLE);
+                infoButton.setVisibility(View.VISIBLE);
+                infoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ScrollView newCert = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_EnterNewCertificateScrollView);
+                        newCert.setVisibility(View.GONE);
+                        Gradesub.setVisibility(View.VISIBLE);
+                    }
+                });
+            } else {
+                infoView.setVisibility(View.GONE);
+                infoButton.setVisibility(View.GONE);
+
+                ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
+                HomeCustomAdapter customAdapter = new HomeCustomAdapter(activity, (ArrayList<Certificate>) eventlist, 1);
+                listView.setAdapter(customAdapter);
+
+                for(int l = 0; l < eventlist.size(); l++){
+                    Certificate c = (Certificate) eventlist.get(l);
+                    Log.d("s", c.getTitle() + "saaaaaa");
+                }
+
+                Log.d("s", "Durch");
+            }
+            TopNew.setVisibility(View.GONE);
         }
 
         final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);

@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -178,6 +179,11 @@ public class Organizer extends AppCompatActivity{
                 try{
                     findViewById(R.id.fragment_organizer_home_GradeSelection).setVisibility(View.GONE);
                     findViewById(R.id.fragment_organizer_home_GradeSubSelection).setVisibility(View.GONE);
+                    findViewById(R.id.fragment_organizer_home_EnterNewCertificateScrollView).setVisibility(View.GONE);
+                    EditText edit1 = (EditText) findViewById(R.id.fragment_organizer_home_EnterNewCertificate_edit1);
+                    EditText edit2 = (EditText) findViewById(R.id.fragment_organizer_home_EnterNewCertificate_edit2);
+                    edit1.setText("");
+                    edit2.setText("");
                 }catch (Exception e){}
 
                 try{

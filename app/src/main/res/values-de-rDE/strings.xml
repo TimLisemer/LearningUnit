@@ -134,6 +134,8 @@
     <string name="AccesGranted">Zugriff gestattet!</string>
     <string name="AccessDenied">Zugriff Verweigert!</string>
     <string name="Certificate">Zeugnis</string>
-    <string name="Presentation">Präsentation</string>
+    <string name="Presentations">Präsentationen</string>
     <string name="Rest">Rest</string>
+    <string name="CertificatesOverview">Zeugnis Übersicht</string>
+    <string name="NoCertificateEntered">Kein Zeugnis erstellt</string>
 </resources>

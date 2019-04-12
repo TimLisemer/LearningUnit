@@ -1,9 +1,7 @@
 package learningunit.learningunit.Objects.Organizer;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 
@@ -45,17 +43,15 @@ public class DashboardFragmentMethods {
 
         if(homeworkList.size() > 0){
             ListView homeworkview = (ListView) fragmentView.findViewById(R.id.organizer_dashboard_Homework_ListView);
-            homeworkview.setAdapter(new HomeworkCustomAdapter(activity, homeworkList));
+            homeworkview.setAdapter(new HomeCustomAdapter(activity, homeworkList));
         }
 
         if(examlist.size() > 0){
             ListView examview = (ListView) fragmentView.findViewById(R.id.organizer_dashboard_Exam_ListView);
-            examview.setAdapter(new ExamCustomAdapter(activity, examlist));
+            examview.setAdapter(new HomeCustomAdapter(examlist, activity));
             for(Exam exam : examlist){
                 Log.d("Exam", exam.getDescription());
             }
-        }else{
-            Log.d("Hund", "HAHAUDUOSDOSUowueiaiwasiwduwqwq");
         }
 
 
@@ -99,11 +95,11 @@ public class DashboardFragmentMethods {
         }
 
         if(homeworkList.size() > 0){
-            homeworkview.setAdapter(new HomeworkCustomAdapter(activity, homeworkList));
+            homeworkview.setAdapter(new HomeCustomAdapter(activity, homeworkList));
         }
 
         if(examlist.size() > 0){
-            examview.setAdapter(new ExamCustomAdapter(activity, examlist));
+            examview.setAdapter(new HomeCustomAdapter(examlist, activity));
         }
 
 
