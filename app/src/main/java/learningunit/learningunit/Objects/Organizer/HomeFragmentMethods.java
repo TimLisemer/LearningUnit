@@ -346,7 +346,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
         final ArrayList<Hour> hourList = new ArrayList<Hour>();
         if(!(FirstScreen.tinyDB.getString("WeekA").equals(""))) {
-            Log.d("homework:", "Continue hund");
             Gson gson = new Gson();
             String json = FirstScreen.tinyDB.getString("WeekA");
             Type type = new TypeToken<Week>() {
@@ -463,7 +462,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 }else if(description.getText().toString().trim().equals("")){
                     description.setError(activity.getResources().getString(R.string.EmptyField));
                 }else{
-                    Log.d("Da", "Da");
+
                 }
             }
         });
@@ -1020,7 +1019,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
         FirstScreen.tinyDB.putString("Presentation", gson.toJson(eventlist));
 
         if(FirstScreen.tinyDB.getString("WeekA").equals("")) {
-            Log.d("Presentation:", "Continue");
+
         }else {
             final ArrayList<Hour> hourList = new ArrayList<Hour>();
             String json = FirstScreen.tinyDB.getString("WeekA");
@@ -1090,7 +1089,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
         FirstScreen.tinyDB.putString("Homework", gson.toJson(eventlist));
 
         if(FirstScreen.tinyDB.getString("WeekA").equals("")) {
-            Log.d("homework:", "Continue");
+
         }else {
             final ArrayList<Hour> hourList = new ArrayList<Hour>();
             String json = FirstScreen.tinyDB.getString("WeekA");
@@ -1160,7 +1159,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
         FirstScreen.tinyDB.putString("Exam", gson.toJson(eventlist));
 
         if(FirstScreen.tinyDB.getString("WeekA").equals("")) {
-            Log.d("Exam:", "Continue");
+
         }else {
             final ArrayList<Hour> hourList = new ArrayList<Hour>();
             String json = FirstScreen.tinyDB.getString("WeekA");
@@ -1326,10 +1325,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
                 for(int l = 0; l < eventlist.size(); l++){
                     Certificate c = (Certificate) eventlist.get(l);
-                    Log.d("s", c.getTitle() + "saaaaaa");
                 }
-
-                Log.d("s", "Durch");
             }
         }else if(Case == 3){
 
@@ -1362,10 +1358,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
                     }
                 });
                 TopNew.setVisibility(View.GONE);
-                Log.d("HAHAHA", "HUNDHUNDHUNDDUHUND");
-
-        }else{
-            Log.d("HAHAHA", "DUHUND");
         }
 
         final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
@@ -1635,7 +1627,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MainActivity.hideKeyboard(activity);
-                Log.d("New", "NewEventExam");
                 int rday, rmonth, ryear;
                 Date c = Calendar.getInstance().getTime();
                 rday = Integer.parseInt(new SimpleDateFormat("dd").format(c));
@@ -1816,7 +1807,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MainActivity.hideKeyboard(activity);
-                Log.d("New", "NewEventPresentation");
                 int rday, rmonth, ryear;
                 Date c = Calendar.getInstance().getTime();
                 rday = Integer.parseInt(new SimpleDateFormat("dd").format(c));
@@ -2007,7 +1997,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MainActivity.hideKeyboard(activity);
-                Log.d("New", "NewEventHA");
                 int rday, rmonth, ryear;
                 Date c = Calendar.getInstance().getTime();
                 rday = Integer.parseInt(new SimpleDateFormat("dd").format(c));

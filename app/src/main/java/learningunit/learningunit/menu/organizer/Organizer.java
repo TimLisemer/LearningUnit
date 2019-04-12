@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,13 +25,24 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.Tracker;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import learningunit.learningunit.Objects.API.OnBackPressedListener;
+import learningunit.learningunit.Objects.Organizer.Exam;
+import learningunit.learningunit.Objects.Organizer.HomeCustomAdapter;
+import learningunit.learningunit.Objects.Organizer.Homework;
+import learningunit.learningunit.Objects.Organizer.Presentation;
 import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.Objects.Organizer.DashboardFragmentMethods;
 import learningunit.learningunit.Objects.Organizer.HomeFragmentMethods;
 import learningunit.learningunit.R;
+import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.MainActivity;
 
 public class Organizer extends AppCompatActivity{
@@ -144,7 +156,7 @@ public class Organizer extends AppCompatActivity{
                         TopNew.setVisibility(View.GONE);
                     }else{
                         if(position == 1){
-                            new DashboardFragmentMethods(Organizer.this, (ListView) findViewById(R.id.organizer_dashboard_Homework_ListView), (ListView) findViewById(R.id.organizer_dashboard_Exam_ListView));
+                            new DashboardFragmentMethods(Organizer.this, (ListView) findViewById(R.id.organizer_dashboard__ListView));
                         }
                         TopNew.setVisibility(View.VISIBLE);
                         TopNew.setOnClickListener(new View.OnClickListener() {
@@ -173,8 +185,10 @@ public class Organizer extends AppCompatActivity{
                     }
                 });
 
-                ConstraintLayout homeLayout = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_MainLayout);
-                homeLayout.setVisibility(View.VISIBLE);
+                try {
+                    ConstraintLayout homeLayout = (ConstraintLayout) findViewById(R.id.fragment_organizer_home_MainLayout);
+                    homeLayout.setVisibility(View.VISIBLE);
+                }catch (Exception e){}
 
                 try{
                     findViewById(R.id.fragment_organizer_home_GradeSelection).setVisibility(View.GONE);
@@ -264,11 +278,46 @@ public class Organizer extends AppCompatActivity{
                 return fragmentView;
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2){
                 final View fragmentView = inflater.inflate(R.layout.fragment_organizer_dashboard, container, false);
-                new DashboardFragmentMethods(getActivity(), fragmentView);
+                new DashboardFragmentMethods(getActivity(), (ListView) fragmentView.findViewById(R.id.organizer_dashboard__ListView));
 
                 return fragmentView;
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
                 final View fragmentView = inflater.inflate(R.layout.fragment_organizer_calendar, container, false);
+
+                Gson gson = new Gson();
+                ArrayList<Homework> eventlist;
+                String json = FirstScreen.tinyDB.getString("Homework");
+                if(json.equals("")){
+                    eventlist = null;
+                }else {
+                    Type type = new TypeToken<ArrayList<Homework>>() {
+                    }.getType();
+                    eventlist = gson.fromJson(json, type);
+                }
+
+                ArrayList<Exam> examlist;
+                String json1 = FirstScreen.tinyDB.getString("Exam");
+                if(json1.equals("")){
+                    examlist = null;
+                }else {
+                    Type type = new TypeToken<ArrayList<Exam>>() {
+                    }.getType();
+                    examlist = gson.fromJson(json1, type);
+                }
+
+                ArrayList<Presentation> prelist;
+                String json2 = FirstScreen.tinyDB.getString("Presentation");
+                if(json2.equals("")){
+                    prelist = null;
+                }else {
+                    Type type = new TypeToken<ArrayList<Presentation>>() {
+                    }.getType();
+                    prelist = gson.fromJson(json2, type);
+                }
+
+                ListView nextEvent = (ListView) fragmentView.findViewById(R.id.fragment_organizer_calender_ListView);
+                nextEvent.setAdapter(new HomeCustomAdapter(examlist, eventlist, prelist, getActivity()));
+
                 return fragmentView;
             }else{
                 return null;

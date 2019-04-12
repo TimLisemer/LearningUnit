@@ -17,7 +17,7 @@ import learningunit.learningunit.beforeStart.FirstScreen;
 public class DashboardFragmentMethods {
 
 
-    public DashboardFragmentMethods(Activity activity, View fragmentView){
+    public DashboardFragmentMethods(Activity activity, ListView DashboardView){
 
         Gson gson = new Gson();
 
@@ -41,19 +41,17 @@ public class DashboardFragmentMethods {
             examlist = gson.fromJson(json1, type);
         }
 
-        if(homeworkList.size() > 0){
-            ListView homeworkview = (ListView) fragmentView.findViewById(R.id.organizer_dashboard_Homework_ListView);
-            homeworkview.setAdapter(new HomeCustomAdapter(activity, homeworkList));
+        ArrayList<Presentation> prelist = new ArrayList<Presentation>();
+        String json2 = FirstScreen.tinyDB.getString("Presentation");
+        if(json2.equals("")){
+            prelist = new ArrayList<Presentation>();
+        }else {
+            Type type = new TypeToken<ArrayList<Presentation>>() {
+            }.getType();
+            prelist = gson.fromJson(json2, type);
         }
 
-        if(examlist.size() > 0){
-            ListView examview = (ListView) fragmentView.findViewById(R.id.organizer_dashboard_Exam_ListView);
-            examview.setAdapter(new HomeCustomAdapter(examlist, activity));
-            for(Exam exam : examlist){
-                Log.d("Exam", exam.getDescription());
-            }
-        }
-
+        DashboardView.setAdapter(new HomeCustomAdapter(examlist, homeworkList, prelist, activity, 88));
 
     }
 

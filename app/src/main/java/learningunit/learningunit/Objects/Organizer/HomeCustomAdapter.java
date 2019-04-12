@@ -18,11 +18,12 @@ public class HomeCustomAdapter extends BaseAdapter {
     ArrayList<Homework> eventlist = new ArrayList<Homework>();
     ArrayList<Exam> examlist = new ArrayList<Exam>();
     ArrayList<Presentation> prelist = new ArrayList<Presentation>();
+    ArrayList<Event> clist = new ArrayList<Event>();
     ArrayList<Certificate> certlist = new ArrayList<Certificate>();
     private LayoutInflater inflater;
     private Activity activity;
     private boolean out = false;
-    private int j;
+    private int j, g;
 
 
     public HomeCustomAdapter(Activity activity, ArrayList<Homework> eventlist){
@@ -36,6 +37,7 @@ public class HomeCustomAdapter extends BaseAdapter {
             this.eventlist.add((Homework) e);
         }
         this.j = 0;
+        this.g = 2;
         this.examlist = null;
         this.prelist = null;
         certlist = null;
@@ -53,6 +55,8 @@ public class HomeCustomAdapter extends BaseAdapter {
         for(Event e : elist){
             this.examlist.add((Exam) e);
         }
+
+        this.g = 2;
         this.j = 1;
         this.eventlist = null;
         this.prelist = null;
@@ -61,16 +65,18 @@ public class HomeCustomAdapter extends BaseAdapter {
         this.activity = activity;
     }
 
-    public HomeCustomAdapter( ArrayList<Presentation> examlist, Activity activity, int oof){
+    public HomeCustomAdapter( ArrayList<Presentation> prelist, Activity activity, int oof){
 
         ArrayList<Event> elist = new ArrayList<Event>();
-        for(Presentation h : examlist){
+        for(Presentation h : prelist){
             elist.add((Event) h);
         }
         elist = EventMethods.SortEventList(elist);
         for(Event e : elist){
             this.prelist.add((Presentation) e);
         }
+
+        this.g = 2;
         this.j = 3;
         this.eventlist = null;
         this.examlist = null;
@@ -79,7 +85,62 @@ public class HomeCustomAdapter extends BaseAdapter {
         this.activity = activity;
     }
 
+    public HomeCustomAdapter(ArrayList<Exam> examlist, ArrayList<Homework> eventlist, ArrayList<Presentation> prelist, Activity activity, int jahiii){
+        ArrayList<Event> exlist = new ArrayList<Event>();
+        for(Exam exam : examlist){
+            exlist.add((Event) exam);
+        }
+        exlist = EventMethods.SortEventList(exlist);
+        ArrayList<Event> elist = new ArrayList<Event>();
+        for(Homework event : eventlist){
+            elist.add((Event) event);
+        }
+        elist = EventMethods.SortEventList(elist);
+        ArrayList<Event> plist = new ArrayList<Event>();
+        for(Presentation pre : prelist){
+            plist.add((Event) pre);
+        }
+        plist = EventMethods.SortEventList(plist);
+        for(Event e : exlist){
+            this.examlist.add((Exam) e);
+        }
+        for(Event e : elist){
+            this.eventlist.add((Homework) e);
+        }
+        for(Event e : plist){
+            this.prelist.add((Presentation) e);
+        }
+
+        this.g = 1;
+        this.inflater = (LayoutInflater.from(activity));
+        this.activity = activity;
+    }
+
+    public HomeCustomAdapter(ArrayList<Exam> examlist, ArrayList<Homework> eventlist, ArrayList<Presentation> prelist, Activity activity){
+        ArrayList<Event> clist = new ArrayList<Event>();
+        for(Exam exam : examlist){
+            clist.add((Event) exam);
+        }
+
+        for(Homework event : eventlist){
+            clist.add((Event) event);
+        }
+
+        for(Presentation pre : prelist){
+            clist.add((Event) pre);
+        }
+        this.clist = EventMethods.SortEventList(clist);
+
+        this.g = 0;
+        this.eventlist = null;
+        this.examlist = null;
+        this.prelist = null;
+        this.inflater = (LayoutInflater.from(activity));
+        this.activity = activity;
+    }
+
     public HomeCustomAdapter(Activity activity, ArrayList<Certificate> certlist, int oof){
+        this.g = 2;
         this.examlist = null;
         this.eventlist = null;
         this.prelist = null;
@@ -92,7 +153,11 @@ public class HomeCustomAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         int returner;
-        if(eventlist != null){
+        if(g == 0){
+            returner = 1;
+        }else if(eventlist != null && examlist != null && prelist != null && g == 1) {
+            returner = eventlist.size() + examlist.size() + prelist.size();
+        }else if(eventlist != null){
             returner =  eventlist.size();
         }else if(examlist != null) {
             returner = examlist.size();
@@ -103,6 +168,7 @@ public class HomeCustomAdapter extends BaseAdapter {
         }else{
             returner = 0;
         }
+
         return returner;
     }
 
@@ -117,9 +183,53 @@ public class HomeCustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, final ViewGroup parent) {
-        if(j == 0) {
-            convertView = inflater.inflate(R.layout.organizer_homework_listview, null);
+    public View getView(int position, View convertView, final ViewGroup parent) {
+        convertView = inflater.inflate(R.layout.organizer_homework_listview, null);
+        int oposition = position;
+        TextView EventHeading = (TextView) convertView.findViewById(R.id.organizer_homework_ListView_EventHeading);
+        if(g == 0){
+            EventHeading.setVisibility(View.VISIBLE);
+            if(clist.get(1) instanceof Homework){
+                j = 0;
+                EventHeading.setText(activity.getResources().getString(R.string.Homework));
+                this.eventlist = new ArrayList<Homework>();
+                this.eventlist.add((Homework) clist.get(1));
+            }else if(clist.get(1) instanceof Exam){
+                EventHeading.setText(activity.getResources().getString(R.string.Exam));
+                j = 1;
+                this.examlist = new ArrayList<Exam>();
+                this.examlist.add((Exam) clist.get(1));
+            }else if(clist.get(1) instanceof Presentation){
+                EventHeading.setText(activity.getResources().getString(R.string.Presentations));
+                j = 3;
+                this.prelist = new ArrayList<Presentation>();
+                this.prelist.add((Presentation) clist.get(1));
+            }else{
+                throw new IllegalArgumentException("HomeCustomAdapter");
+            }
+        }else if(g == 1){
+            if(position < this.eventlist.size()){
+                j = 0;
+            }else if(position >= this.eventlist.size() && position - this.eventlist.size() < this.examlist.size()){
+                j = 1;
+                position = position - this.eventlist.size();
+            }else if(position >= this.eventlist.size() && position - this.eventlist.size() >= this.examlist.size() && position - this.eventlist.size() - this.examlist.size() < this.prelist.size()){
+                j = 3;
+                position = position - this.eventlist.size() - this.examlist.size();
+            }
+        }
+
+        if (j == 0) {
+            if(g > 1){
+                EventHeading.setVisibility(View.GONE);
+            }else if(g == 1){
+                if(position == 0){
+                    EventHeading.setVisibility(View.VISIBLE);
+                    EventHeading.setText(activity.getResources().getString(R.string.Homework));
+                }else{
+                    EventHeading.setVisibility(View.GONE);
+                }
+            }
             convertView.findViewById(R.id.organizer_Exam_ListView_RootLayout).setVisibility(View.GONE);
             convertView.findViewById(R.id.organizer_homework_Certificate_RootLayout).setVisibility(View.GONE);
             convertView.findViewById(R.id.organizer_homework_ListView_RootLayout).setVisibility(View.VISIBLE);
@@ -175,8 +285,17 @@ public class HomeCustomAdapter extends BaseAdapter {
                     }
                 }
             });
-        }else if(j == 1){
-            convertView = inflater.inflate(R.layout.organizer_homework_listview, null);
+        } else if (j == 1) {
+            if(g > 1){
+                EventHeading.setVisibility(View.GONE);
+            }else if(g == 1){
+                if(position == 0){
+                    EventHeading.setVisibility(View.VISIBLE);
+                    EventHeading.setText(activity.getResources().getString(R.string.Exam));
+                }else{
+                    EventHeading.setVisibility(View.GONE);
+                }
+            }
             final View cView = convertView;
             final Exam h = examlist.get(position);
             convertView.findViewById(R.id.organizer_Exam_ListView_RootLayout).setVisibility(View.VISIBLE);
@@ -206,14 +325,16 @@ public class HomeCustomAdapter extends BaseAdapter {
                         TextView Description = (TextView) cView.findViewById(R.id.organizer_exam_ListView_DescriptionText);
                         Description.setText(h.getDescription());
                         out = true;
-                    }else {
+                    } else {
                         out = false;
                         cView.findViewById(R.id.organizer_exam_ListView_SecondLayout).setVisibility(View.GONE);
                     }
                 }
             });
         } else if (j == 2) {
-            convertView = inflater.inflate(R.layout.organizer_homework_listview, null);
+            if(g > 1){
+                EventHeading.setVisibility(View.GONE);
+            }
             convertView.findViewById(R.id.organizer_Exam_ListView_RootLayout).setVisibility(View.GONE);
             convertView.findViewById(R.id.organizer_homework_Certificate_RootLayout).setVisibility(View.VISIBLE);
             convertView.findViewById(R.id.organizer_homework_ListView_RootLayout).setVisibility(View.GONE);
@@ -223,8 +344,17 @@ public class HomeCustomAdapter extends BaseAdapter {
             TextView Description = (TextView) convertView.findViewById(R.id.organizer_Certificate_ListView_DescriptionText);
             Description.setText(certlist.get(position).getDescription());
 
-        }else if(j == 3){
-            convertView = inflater.inflate(R.layout.organizer_homework_listview, null);
+        } else if (j == 3) {
+            if(g > 1){
+                EventHeading.setVisibility(View.GONE);
+            }else if(g == 1){
+                if(position == 0){
+                    EventHeading.setVisibility(View.VISIBLE);
+                    EventHeading.setText(activity.getResources().getString(R.string.Presentations));
+                }else{
+                    EventHeading.setVisibility(View.GONE);
+                }
+            }
             final View cView = convertView;
             final Presentation h = prelist.get(position);
             convertView.findViewById(R.id.organizer_Exam_ListView_RootLayout).setVisibility(View.VISIBLE);
@@ -254,7 +384,7 @@ public class HomeCustomAdapter extends BaseAdapter {
                         TextView Description = (TextView) cView.findViewById(R.id.organizer_exam_ListView_DescriptionText);
                         Description.setText(h.getDescription());
                         out = true;
-                    }else {
+                    } else {
                         out = false;
                         cView.findViewById(R.id.organizer_exam_ListView_SecondLayout).setVisibility(View.GONE);
                     }
@@ -262,7 +392,7 @@ public class HomeCustomAdapter extends BaseAdapter {
             });
 
         }
-
+        position = oposition;
         return convertView;
     }
 }
