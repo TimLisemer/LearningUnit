@@ -138,4 +138,7 @@
     <string name="Rest">Rest</string>
     <string name="CertificatesOverview">Zeugnis Übersicht</string>
     <string name="NoCertificateEntered">Kein Zeugnis erstellt</string>
+    <string name="PresentationOverview">Alle Präsentationen</string>
+    <string name="CreateNewPresentation">Neue Präsentation erstellen</string>
+    <string name="NoPresentationEntered">Noch keine Präsentation eingetragen</string>
 </resources>

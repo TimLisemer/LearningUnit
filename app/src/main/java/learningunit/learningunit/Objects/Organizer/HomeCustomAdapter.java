@@ -17,6 +17,7 @@ public class HomeCustomAdapter extends BaseAdapter {
 
     ArrayList<Homework> eventlist = new ArrayList<Homework>();
     ArrayList<Exam> examlist = new ArrayList<Exam>();
+    ArrayList<Presentation> prelist = new ArrayList<Presentation>();
     ArrayList<Certificate> certlist = new ArrayList<Certificate>();
     private LayoutInflater inflater;
     private Activity activity;
@@ -36,6 +37,7 @@ public class HomeCustomAdapter extends BaseAdapter {
         }
         this.j = 0;
         this.examlist = null;
+        this.prelist = null;
         certlist = null;
         this.inflater = (LayoutInflater.from(activity));
         this.activity = activity;
@@ -53,7 +55,26 @@ public class HomeCustomAdapter extends BaseAdapter {
         }
         this.j = 1;
         this.eventlist = null;
-        certlist = null;
+        this.prelist = null;
+        this.certlist = null;
+        this.inflater = (LayoutInflater.from(activity));
+        this.activity = activity;
+    }
+
+    public HomeCustomAdapter( ArrayList<Presentation> examlist, Activity activity, int oof){
+
+        ArrayList<Event> elist = new ArrayList<Event>();
+        for(Presentation h : examlist){
+            elist.add((Event) h);
+        }
+        elist = EventMethods.SortEventList(elist);
+        for(Event e : elist){
+            this.prelist.add((Presentation) e);
+        }
+        this.j = 3;
+        this.eventlist = null;
+        this.examlist = null;
+        this.certlist = null;
         this.inflater = (LayoutInflater.from(activity));
         this.activity = activity;
     }
@@ -61,6 +82,7 @@ public class HomeCustomAdapter extends BaseAdapter {
     public HomeCustomAdapter(Activity activity, ArrayList<Certificate> certlist, int oof){
         this.examlist = null;
         this.eventlist = null;
+        this.prelist = null;
         this.certlist = certlist;
         this.j = 2;
         this.inflater = (LayoutInflater.from(activity));
@@ -76,6 +98,8 @@ public class HomeCustomAdapter extends BaseAdapter {
             returner = examlist.size();
         }else if (certlist != null){
             returner = certlist.size();
+        }else if (prelist != null){
+            returner = prelist.size();
         }else{
             returner = 0;
         }
@@ -198,6 +222,45 @@ public class HomeCustomAdapter extends BaseAdapter {
             titel.setText(certlist.get(position).getTitle());
             TextView Description = (TextView) convertView.findViewById(R.id.organizer_Certificate_ListView_DescriptionText);
             Description.setText(certlist.get(position).getDescription());
+
+        }else if(j == 3){
+            convertView = inflater.inflate(R.layout.organizer_homework_listview, null);
+            final View cView = convertView;
+            final Presentation h = prelist.get(position);
+            convertView.findViewById(R.id.organizer_Exam_ListView_RootLayout).setVisibility(View.VISIBLE);
+            convertView.findViewById(R.id.organizer_homework_ListView_RootLayout).setVisibility(View.GONE);
+            convertView.findViewById(R.id.organizer_homework_Certificate_RootLayout).setVisibility(View.GONE);
+
+            TextView title = (TextView) convertView.findViewById(R.id.organizer_exam_ListView_Title);
+            title.setText(h.getTitle());
+
+            TextView Date = (TextView) convertView.findViewById(R.id.organizer_exam_ListView_Date);
+            Date.setText(h.getDay() + "." + h.getMonth() + "." + h.getYear());
+
+            ImageView image = (ImageView) convertView.findViewById(R.id.organizer_exam_ListView_ImageView);
+            image.setBackgroundColor(android.graphics.Color.parseColor(h.getHour().getColorCode()));
+
+            convertView.findViewById(R.id.organizer_exam_ListView_SecondLayout).setVisibility(View.GONE);
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (out == false) {
+                        cView.findViewById(R.id.organizer_exam_ListView_SecondLayout).setVisibility(View.VISIBLE);
+
+                        TextView Hour = (TextView) cView.findViewById(R.id.organizer_exam_ListView_HourName);
+                        Hour.setText(h.getHour().getName());
+
+                        TextView Description = (TextView) cView.findViewById(R.id.organizer_exam_ListView_DescriptionText);
+                        Description.setText(h.getDescription());
+                        out = true;
+                    }else {
+                        out = false;
+                        cView.findViewById(R.id.organizer_exam_ListView_SecondLayout).setVisibility(View.GONE);
+                    }
+                }
+            });
+
         }
 
         return convertView;
