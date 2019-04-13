@@ -134,11 +134,12 @@
     <string name="AccesGranted">Acces Granted!</string>
     <string name="AccessDenied">Access Denied!</string>
     <string name="Certificate">Certificate</string>
-    <string name="Presentations">Presentations</string>
+    <string name="Presentations">Presentation</string>
     <string name="Rest">Rest</string>
     <string name="CertificatesOverview">Certificates Overview</string>
     <string name="NoCertificateEntered">No certfificate entered</string>
     <string name="PresentationOverview">Presentation Overview</string>
     <string name="CreateNewPresentation">Enter new Presentation</string>
     <string name="NoPresentationEntered">No Presentation entered</string>
+    <string name="NoRecentEvents">No recent Events</string>
 </resources>

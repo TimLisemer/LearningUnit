@@ -3,7 +3,9 @@ package learningunit.learningunit.Objects.Organizer;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,11 +15,12 @@ import java.util.ArrayList;
 
 import learningunit.learningunit.R;
 import learningunit.learningunit.beforeStart.FirstScreen;
+import learningunit.learningunit.menu.organizer.Organizer;
 
 public class DashboardFragmentMethods {
 
 
-    public DashboardFragmentMethods(Activity activity, ListView DashboardView){
+    public DashboardFragmentMethods(Activity activity, ListView DashboardView, TextView info, Button create){
 
         Gson gson = new Gson();
 
@@ -51,8 +54,22 @@ public class DashboardFragmentMethods {
             prelist = gson.fromJson(json2, type);
         }
 
-        DashboardView.setAdapter(new HomeCustomAdapter(examlist, homeworkList, prelist, activity, 88));
-
+        if(examlist.size() > 0 || homeworkList.size() > 0 || prelist.size() > 0) {
+            DashboardView.setVisibility(View.VISIBLE);
+            info.setVisibility(View.GONE);
+            create.setVisibility(View.GONE);
+            DashboardView.setAdapter(new HomeCustomAdapter(examlist, homeworkList, prelist, activity, 88));
+        }else{
+            info.setVisibility(View.VISIBLE);
+            create.setVisibility(View.VISIBLE);
+            DashboardView.setVisibility(View.VISIBLE);
+            create.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Organizer.mViewPager.setCurrentItem(0);
+                }
+            });
+        }
     }
 
 

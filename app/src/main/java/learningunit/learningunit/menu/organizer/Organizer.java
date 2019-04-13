@@ -49,7 +49,7 @@ public class Organizer extends AppCompatActivity{
 
     private TextView mTextMessage;
     private Organizer.SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
+    public static ViewPager mViewPager;
     private Tracker mTracker;
     private MenuItem prevMenuItem;
 
@@ -156,7 +156,7 @@ public class Organizer extends AppCompatActivity{
                         TopNew.setVisibility(View.GONE);
                     }else{
                         if(position == 1){
-                            new DashboardFragmentMethods(Organizer.this, (ListView) findViewById(R.id.organizer_dashboard__ListView));
+                            new DashboardFragmentMethods(Organizer.this, (ListView) findViewById(R.id.organizer_dashboard__ListView), (TextView) findViewById(R.id.organizer_dashboard_info), (Button) findViewById(R.id.organizer_dashboard_create));
                         }
                         TopNew.setVisibility(View.VISIBLE);
                         TopNew.setOnClickListener(new View.OnClickListener() {
@@ -278,7 +278,7 @@ public class Organizer extends AppCompatActivity{
                 return fragmentView;
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2){
                 final View fragmentView = inflater.inflate(R.layout.fragment_organizer_dashboard, container, false);
-                new DashboardFragmentMethods(getActivity(), (ListView) fragmentView.findViewById(R.id.organizer_dashboard__ListView));
+                new DashboardFragmentMethods(getActivity(), (ListView) fragmentView.findViewById(R.id.organizer_dashboard__ListView), (TextView) fragmentView.findViewById(R.id.organizer_dashboard_info), (Button) fragmentView.findViewById(R.id.organizer_dashboard_create));
 
                 return fragmentView;
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
@@ -288,7 +288,7 @@ public class Organizer extends AppCompatActivity{
                 ArrayList<Homework> eventlist;
                 String json = FirstScreen.tinyDB.getString("Homework");
                 if(json.equals("")){
-                    eventlist = null;
+                    eventlist = new ArrayList<Homework>();
                 }else {
                     Type type = new TypeToken<ArrayList<Homework>>() {
                     }.getType();
@@ -298,7 +298,7 @@ public class Organizer extends AppCompatActivity{
                 ArrayList<Exam> examlist;
                 String json1 = FirstScreen.tinyDB.getString("Exam");
                 if(json1.equals("")){
-                    examlist = null;
+                    examlist = new ArrayList<Exam>();
                 }else {
                     Type type = new TypeToken<ArrayList<Exam>>() {
                     }.getType();
@@ -308,7 +308,7 @@ public class Organizer extends AppCompatActivity{
                 ArrayList<Presentation> prelist;
                 String json2 = FirstScreen.tinyDB.getString("Presentation");
                 if(json2.equals("")){
-                    prelist = null;
+                    prelist = new ArrayList<Presentation>();
                 }else {
                     Type type = new TypeToken<ArrayList<Presentation>>() {
                     }.getType();
@@ -316,7 +316,22 @@ public class Organizer extends AppCompatActivity{
                 }
 
                 ListView nextEvent = (ListView) fragmentView.findViewById(R.id.fragment_organizer_calender_ListView);
-                nextEvent.setAdapter(new HomeCustomAdapter(examlist, eventlist, prelist, getActivity()));
+                if(examlist.size() > 0 || prelist.size() > 0 || eventlist.size() > 0) {
+                    nextEvent.setVisibility(View.VISIBLE);
+                    fragmentView.findViewById(R.id.organizer_calender_info).setVisibility(View.GONE);
+                    fragmentView.findViewById(R.id.organizer_calender_create).setVisibility(View.GONE);
+                    nextEvent.setAdapter(new HomeCustomAdapter(examlist, eventlist, prelist, getActivity()));
+                }else{
+                    nextEvent.setVisibility(View.GONE);
+                    fragmentView.findViewById(R.id.organizer_calender_info).setVisibility(View.VISIBLE);
+                    Button create = (Button) fragmentView.findViewById(R.id.organizer_calender_create);
+                    create.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mViewPager.setCurrentItem(0);
+                        }
+                    });
+                }
 
                 return fragmentView;
             }else{

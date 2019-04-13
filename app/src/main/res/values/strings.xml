@@ -141,4 +141,5 @@
     <string name="PresentationOverview">Alle Präsentationen</string>
     <string name="CreateNewPresentation">Neue Präsentation erstellen</string>
     <string name="NoPresentationEntered">Noch keine Präsentation eingetragen</string>
+    <string name="NoRecentEvents">Keine aktuellen termine</string>
 </resources>

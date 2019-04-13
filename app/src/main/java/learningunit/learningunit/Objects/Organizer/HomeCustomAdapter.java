@@ -1,17 +1,26 @@
 package learningunit.learningunit.Objects.Organizer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import learningunit.learningunit.R;
+import learningunit.learningunit.beforeStart.FirstScreen;
+import learningunit.learningunit.menu.MainActivity;
 
 public class HomeCustomAdapter extends BaseAdapter {
 
@@ -87,28 +96,34 @@ public class HomeCustomAdapter extends BaseAdapter {
 
     public HomeCustomAdapter(ArrayList<Exam> examlist, ArrayList<Homework> eventlist, ArrayList<Presentation> prelist, Activity activity, int jahiii){
         ArrayList<Event> exlist = new ArrayList<Event>();
-        for(Exam exam : examlist){
-            exlist.add((Event) exam);
+        if(examlist.size() > 0) {
+            for (Exam exam : examlist) {
+                exlist.add((Event) exam);
+            }
+            exlist = EventMethods.SortEventList(exlist);
+            for(Event e : exlist){
+                this.examlist.add((Exam) e);
+            }
         }
-        exlist = EventMethods.SortEventList(exlist);
         ArrayList<Event> elist = new ArrayList<Event>();
-        for(Homework event : eventlist){
-            elist.add((Event) event);
+        if(eventlist.size() > 0) {
+            for (Homework event : eventlist) {
+                elist.add((Event) event);
+            }
+            elist = EventMethods.SortEventList(elist);
+            for(Event e : elist){
+                this.eventlist.add((Homework) e);
+            }
         }
-        elist = EventMethods.SortEventList(elist);
         ArrayList<Event> plist = new ArrayList<Event>();
-        for(Presentation pre : prelist){
-            plist.add((Event) pre);
-        }
-        plist = EventMethods.SortEventList(plist);
-        for(Event e : exlist){
-            this.examlist.add((Exam) e);
-        }
-        for(Event e : elist){
-            this.eventlist.add((Homework) e);
-        }
-        for(Event e : plist){
-            this.prelist.add((Presentation) e);
+        if(prelist.size() > 0) {
+            for (Presentation pre : prelist) {
+                plist.add((Event) pre);
+            }
+            plist = EventMethods.SortEventList(plist);
+            for(Event e : plist){
+                this.prelist.add((Presentation) e);
+            }
         }
 
         this.g = 1;
@@ -118,16 +133,20 @@ public class HomeCustomAdapter extends BaseAdapter {
 
     public HomeCustomAdapter(ArrayList<Exam> examlist, ArrayList<Homework> eventlist, ArrayList<Presentation> prelist, Activity activity){
         ArrayList<Event> clist = new ArrayList<Event>();
-        for(Exam exam : examlist){
-            clist.add((Event) exam);
+        if(examlist.size() > 0) {
+            for (Exam exam : examlist) {
+                clist.add((Event) exam);
+            }
         }
-
-        for(Homework event : eventlist){
-            clist.add((Event) event);
+        if(eventlist.size() > 0) {
+            for (Homework event : eventlist) {
+                clist.add((Event) event);
+            }
         }
-
-        for(Presentation pre : prelist){
-            clist.add((Event) pre);
+        if(prelist.size() > 0) {
+            for (Presentation pre : prelist) {
+                clist.add((Event) pre);
+            }
         }
         this.clist = EventMethods.SortEventList(clist);
 
@@ -189,21 +208,21 @@ public class HomeCustomAdapter extends BaseAdapter {
         TextView EventHeading = (TextView) convertView.findViewById(R.id.organizer_homework_ListView_EventHeading);
         if(g == 0){
             EventHeading.setVisibility(View.VISIBLE);
-            if(clist.get(1) instanceof Homework){
+            if(clist.get(0) instanceof Homework){
                 j = 0;
                 EventHeading.setText(activity.getResources().getString(R.string.Homework));
                 this.eventlist = new ArrayList<Homework>();
-                this.eventlist.add((Homework) clist.get(1));
-            }else if(clist.get(1) instanceof Exam){
+                this.eventlist.add((Homework) clist.get(0));
+            }else if(clist.get(0) instanceof Exam){
                 EventHeading.setText(activity.getResources().getString(R.string.Exam));
                 j = 1;
                 this.examlist = new ArrayList<Exam>();
-                this.examlist.add((Exam) clist.get(1));
-            }else if(clist.get(1) instanceof Presentation){
+                this.examlist.add((Exam) clist.get(0));
+            }else if(clist.get(0) instanceof Presentation){
                 EventHeading.setText(activity.getResources().getString(R.string.Presentations));
                 j = 3;
                 this.prelist = new ArrayList<Presentation>();
-                this.prelist.add((Presentation) clist.get(1));
+                this.prelist.add((Presentation) clist.get(0));
             }else{
                 throw new IllegalArgumentException("HomeCustomAdapter");
             }
@@ -313,6 +332,8 @@ public class HomeCustomAdapter extends BaseAdapter {
 
             convertView.findViewById(R.id.organizer_exam_ListView_SecondLayout).setVisibility(View.GONE);
 
+            final int pos = position;
+
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -324,6 +345,15 @@ public class HomeCustomAdapter extends BaseAdapter {
 
                         TextView Description = (TextView) cView.findViewById(R.id.organizer_exam_ListView_DescriptionText);
                         Description.setText(h.getDescription());
+
+                        Button enter = (Button) cView.findViewById(R.id.organizer_exam_ListView_EnterGrade);
+                        enter.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                enterGrade((Event) h, pos, examlist, null, activity);
+                            }
+                        });
+
                         out = true;
                     } else {
                         out = false;
@@ -372,6 +402,8 @@ public class HomeCustomAdapter extends BaseAdapter {
 
             convertView.findViewById(R.id.organizer_exam_ListView_SecondLayout).setVisibility(View.GONE);
 
+            final int pos = position;
+
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -383,6 +415,16 @@ public class HomeCustomAdapter extends BaseAdapter {
 
                         TextView Description = (TextView) cView.findViewById(R.id.organizer_exam_ListView_DescriptionText);
                         Description.setText(h.getDescription());
+
+                        Button enter = (Button) cView.findViewById(R.id.organizer_exam_ListView_EnterGrade);
+                        enter.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                enterGrade((Event) h, pos, null, prelist, activity);
+                            }
+                        });
+
+
                         out = true;
                     } else {
                         out = false;
@@ -395,4 +437,105 @@ public class HomeCustomAdapter extends BaseAdapter {
         position = oposition;
         return convertView;
     }
+
+
+
+    public static void enterGrade(final Event event, final int pos, final ArrayList<Exam> ex, final ArrayList<Presentation> pr, Activity activity){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setCancelable(true);
+        builder.setTitle(activity.getResources().getString(R.string.TimetableID));
+        builder.setMessage(activity.getResources().getString(R.string.TimetableEnterID));
+
+        final LinearLayout editLayout = new LinearLayout(activity);
+        final EditText editNumber = new EditText(activity);
+        editNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
+        MainActivity.showKeyboard(activity);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        params.setMargins(48, 8, 48, 8);
+        editLayout.addView(editNumber, params);
+        builder.setView(editLayout);
+        MainActivity.showKeyboard(activity);
+
+        builder.setNegativeButton(activity.getResources().getString(R.string.Back), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+
+        builder.setPositiveButton(activity.getResources().getString(R.string.Ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(editNumber.getText().toString().equals("")){
+                    dialog.cancel();
+                }else {
+                    Gson gson = new Gson();
+                    if(event instanceof Exam){
+                        ((Exam) event).setGrade(Integer.parseInt(editNumber.getText().toString()));
+                        ex.remove(pos);
+                        ex.add((Exam) event);
+                        FirstScreen.tinyDB.putString("Exam", gson.toJson(ex));
+                    }else if(event instanceof Presentation){
+                        ((Presentation) event).setGrade(Integer.parseInt(editNumber.getText().toString()));
+                        pr.remove(pos);
+                        pr.add((Presentation) event);
+                        FirstScreen.tinyDB.putString("Presentation", gson.toJson(pr));
+                    }
+                    dialog.cancel();
+                }
+            }
+        });
+
+
+        MainActivity.showKeyboard(activity);
+        builder.show();
+        MainActivity.showKeyboard(activity);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
