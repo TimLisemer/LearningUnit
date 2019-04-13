@@ -1,6 +1,7 @@
 package learningunit.learningunit.menu.organizer;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -24,8 +25,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -293,17 +296,30 @@ public class Organizer extends AppCompatActivity{
                 final CompactCalendarView compact = (CompactCalendarView) fragmentView.findViewById(R.id.organizer_calender_calendar);
                 final TextView MonthInfo = (TextView) fragmentView.findViewById(R.id.organizer_calender_dateinfo);
                 final SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MM - yyyy", Locale.getDefault());
+                final SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 Calendar ca = Calendar.getInstance();
                 date = ca.getTime();
+                compact.setCurrentSelectedDayBackgroundColor(android.graphics.Color.parseColor("#E57373"));
                 MonthInfo.setText(dateFormatMonth.format(date));
                 compact.setListener(new CompactCalendarView.CompactCalendarViewListener() {
                     @Override
                     public void onDayClick(Date dateClicked) {
-
+                        List<Event> events = compact.getEvents(dateClicked);
+                        if(events.size() == 0){
+                            compact.setCurrentSelectedDayBackgroundColor(android.graphics.Color.parseColor("#E57373"));
+                        }else if(events.size() == 1){
+                            Toast.makeText(getActivity(), events.get(0).getData().toString(), Toast.LENGTH_SHORT).show();
+                            compact.setCurrentSelectedDayBackgroundColor(events.get(0).getColor());
+                        }else{
+                            Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.MultileEvents), Toast.LENGTH_SHORT).show();
+                            compact.setCurrentSelectedDayBackgroundColor(android.graphics.Color.parseColor("#E57373"));
+                            compact.setCurrentSelectedDayBackgroundColor(events.get(0).getColor());
+                        }
                     }
 
                     @Override
                     public void onMonthScroll(Date firstDayOfNewMonth) {
+                        compact.setCurrentSelectedDayBackgroundColor(android.graphics.Color.parseColor("#E57373"));
                         MonthInfo.setText(dateFormatMonth.format(firstDayOfNewMonth));
                         date = firstDayOfNewMonth;
                     }
@@ -313,6 +329,7 @@ public class Organizer extends AppCompatActivity{
                     @Override
                     public void onClick(View v) {
                         DateTime dt = new DateTime(date);
+                        compact.setCurrentSelectedDayBackgroundColor(android.graphics.Color.parseColor("#E57373"));
                         try {
                             date = dateFormatMonth.parse(dt.getMonthOfYear() - 1 + " - " + dt.getYear());
                             compact.setCurrentDate(date);
@@ -326,6 +343,7 @@ public class Organizer extends AppCompatActivity{
                     @Override
                     public void onClick(View v) {
                         DateTime dt = new DateTime(date);
+                        compact.setCurrentSelectedDayBackgroundColor(android.graphics.Color.parseColor("#E57373"));
                         try {
                             date = dateFormatMonth.parse(dt.getMonthOfYear() + 1 + " - " + dt.getYear());
                             compact.setCurrentDate(date);
@@ -343,6 +361,14 @@ public class Organizer extends AppCompatActivity{
                     Type type = new TypeToken<ArrayList<Homework>>() {
                     }.getType();
                     eventlist = gson.fromJson(json, type);
+
+                    for(Homework ha : eventlist){
+                        try {
+                            Date d = spf.parse(ha.getDay() + "/" + ha.getMonth() + "/" + ha.getYear());
+                            Event event = new Event(android.graphics.Color.parseColor(ha.getHour().getColorCode()), d.getTime(),getResources().getString(R.string.Homework) + ": " +  ha.getTitle());
+                            compact.addEvent(event);
+                        }catch (Exception e){}
+                    }
                 }
 
                 ArrayList<Exam> examlist;
@@ -353,6 +379,14 @@ public class Organizer extends AppCompatActivity{
                     Type type = new TypeToken<ArrayList<Exam>>() {
                     }.getType();
                     examlist = gson.fromJson(json1, type);
+
+                    for(Exam ex : examlist){
+                        try {
+                            Date d = spf.parse(ex.getDay() + "/" + ex.getMonth() + "/" + ex.getYear());
+                            Event event = new Event(android.graphics.Color.parseColor(ex.getHour().getColorCode()), d.getTime(),getResources().getString(R.string.Exam) + ": " +  ex.getTitle());
+                            compact.addEvent(event);
+                        }catch (Exception e){}
+                    }
                 }
 
                 ArrayList<Presentation> prelist;
@@ -363,6 +397,14 @@ public class Organizer extends AppCompatActivity{
                     Type type = new TypeToken<ArrayList<Presentation>>() {
                     }.getType();
                     prelist = gson.fromJson(json2, type);
+
+                    for(Presentation pr : prelist){
+                        try {
+                            Date d = spf.parse(pr.getDay() + "/" + pr.getMonth() + "/" + pr.getYear());
+                            Event event = new Event(android.graphics.Color.parseColor(pr.getHour().getColorCode()), d.getTime(), getResources().getString(R.string.Presentations) + ": " + pr.getTitle());
+                            compact.addEvent(event);
+                        }catch (Exception e){}
+                    }
                 }
 
                 ListView nextEvent = (ListView) fragmentView.findViewById(R.id.fragment_organizer_calender_ListView);

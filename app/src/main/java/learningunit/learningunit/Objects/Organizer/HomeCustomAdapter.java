@@ -443,12 +443,13 @@ public class HomeCustomAdapter extends BaseAdapter {
     public static void enterGrade(final Event event, final int pos, final ArrayList<Exam> ex, final ArrayList<Presentation> pr, Activity activity){
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setCancelable(true);
-        builder.setTitle(activity.getResources().getString(R.string.TimetableID));
+        builder.setTitle(activity.getResources().getString(R.string.EnterGrade));
         builder.setMessage(activity.getResources().getString(R.string.TimetableEnterID));
 
         final LinearLayout editLayout = new LinearLayout(activity);
         final EditText editNumber = new EditText(activity);
         editNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
+        editNumber.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         MainActivity.showKeyboard(activity);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);

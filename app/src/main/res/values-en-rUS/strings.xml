@@ -142,4 +142,5 @@
     <string name="CreateNewPresentation">Enter new Presentation</string>
     <string name="NoPresentationEntered">No Presentation entered</string>
     <string name="NoRecentEvents">No recent Events</string>
+    <string name="MultileEvents">Multile Events</string>
 </resources>
