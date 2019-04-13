@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +31,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
-import learningunit.learningunit.Objects.API.AnalyticsApplication;
+import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.Timetable.CustomAdapter;
 import learningunit.learningunit.Objects.Timetable.HourList;

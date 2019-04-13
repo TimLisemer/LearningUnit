@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout7"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
@@ -257,7 +258,8 @@
             app:layout_constraintStart_toStartOf="@+id/guideline8"
             app:layout_constraintTop_toTopOf="@+id/guideline11" />
 
-    </android.support.constraint.ConstraintLayout><![CDATA[
+    </android.support.constraint.ConstraintLayout>
+    <![CDATA[
 
     />
 
@@ -462,13 +464,14 @@
         android:id="@+id/main_learnLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/main_Ad"
+        app:layout_constraintBottom_toBottomOf="@+id/main_mainLayout0"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline7"
@@ -482,7 +485,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.24" />
+            app:layout_constraintGuide_percent="0.15" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline49"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.475" />
 
         <Button
             android:id="@+id/main_learn_placeholder2"
@@ -497,7 +507,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toTopOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="@+id/guideline49"
             app:layout_constraintVertical_bias="0.61" />
 
         <Button
@@ -505,15 +515,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:text="Placeholder"
-            app:layout_constraintBottom_toTopOf="@+id/guideline6"
+            app:layout_constraintBottom_toTopOf="@+id/guideline49"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toBottomOf="@+id/main_learn_back" />
+            app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
         <Button
             android:id="@+id/main_learn_placeholder1"
@@ -528,7 +538,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline7"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="@+id/guideline49"
             app:layout_constraintVertical_bias="0.61" />
 
         <Button
@@ -536,15 +546,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:text="@string/Vocabularys"
-            app:layout_constraintBottom_toTopOf="@+id/guideline6"
+            app:layout_constraintBottom_toTopOf="@+id/guideline49"
             app:layout_constraintEnd_toStartOf="@+id/guideline7"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_learn_back" />
+            app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
         <Button
             android:id="@+id/main_learn_back"
@@ -555,6 +565,7 @@
             android:text="Zurück"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

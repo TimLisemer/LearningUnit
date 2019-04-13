@@ -7,6 +7,317 @@
     android:layout_height="match_parent">
 
 
+    <ScrollView
+        android:id="@+id/fragment_organizer_home_EnterNewCertificateScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/fragment_organizer_home_EnterNewCertificate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/fragment_organizer_home_EnterNewCertificate_Guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/fragment_organizer_home_EnterNewCertificate_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="TextView"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.050000012" />
+
+            <TextView
+                android:id="@+id/fragment_organizer_home_EnterNewCertificate_sub1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/Titel"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_organizer_home_EnterNewCertificate_heading"
+                app:layout_constraintVertical_bias="0.100000024" />
+
+            <EditText
+                android:id="@+id/fragment_organizer_home_EnterNewCertificate_edit1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                android:ems="10"
+                android:hint="@string/Titel"
+                android:inputType="textPersonName"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_organizer_home_EnterNewCertificate_sub1"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/fragment_organizer_home_EnterNewCertificate_sub2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/Description"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.506"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_organizer_home_EnterNewCertificate_edit1"
+                app:layout_constraintVertical_bias="0.25" />
+
+            <EditText
+                android:id="@+id/fragment_organizer_home_EnterNewCertificate_edit2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                android:ems="10"
+                android:hint="@string/Description"
+                android:inputType="textPersonName"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_organizer_home_EnterNewCertificate_sub2"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:id="@+id/fragment_organizer_home_EnterNewCertificate_back"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/Back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/fragment_organizer_home_EnterNewCertificate_Guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_organizer_home_EnterNewCertificate_edit2"
+                app:layout_constraintVertical_bias="0.7" />
+
+            <Button
+                android:id="@+id/fragment_organizer_home_EnterNewCertificate_finish"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/Next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/fragment_organizer_home_EnterNewCertificate_Guideline"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_organizer_home_EnterNewCertificate_edit2"
+                app:layout_constraintVertical_bias="0.7" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/fragment_organizer_home_GradeSubSelection"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/fragment_organizer_home_Gradefragment_organizer_home_GradeSubSelection_Opt1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Button"
+            app:layout_constraintBottom_toTopOf="@+id/guideline57"
+            app:layout_constraintEnd_toStartOf="@+id/guideline59"
+            app:layout_constraintStart_toStartOf="@+id/guideline58"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
+
+        <Button
+            android:id="@+id/fragment_organizer_home_Gradefragment_organizer_home_GradeSubSelection_Opt2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline59"
+            app:layout_constraintStart_toStartOf="@+id/guideline58"
+            app:layout_constraintTop_toTopOf="@+id/guideline57"
+            app:layout_constraintVertical_bias="0.39999998" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline59"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline58"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline57"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/fragment_organizer_home_GradeSelection"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/fragment_organizer_home_Grade_Certificate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/Certificate"
+            app:layout_constraintBottom_toTopOf="@+id/guideline53"
+            app:layout_constraintEnd_toStartOf="@+id/guideline50"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="@+id/guideline51"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/fragment_organizer_home_Grade_Exam"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/Exam"
+            app:layout_constraintBottom_toTopOf="@+id/guideline54"
+            app:layout_constraintEnd_toStartOf="@+id/guideline50"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="@+id/guideline51"
+            app:layout_constraintTop_toTopOf="@+id/guideline53" />
+
+        <Button
+            android:id="@+id/fragment_organizer_home_Grade_Presentation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/Presentations"
+            app:layout_constraintBottom_toTopOf="@+id/guideline55"
+            app:layout_constraintEnd_toStartOf="@+id/guideline50"
+            app:layout_constraintStart_toStartOf="@+id/guideline51"
+            app:layout_constraintTop_toTopOf="@+id/guideline54" />
+
+        <Button
+            android:id="@+id/fragment_organizer_home_Grade_Rest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/Rest"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline50"
+            app:layout_constraintHorizontal_bias="0.376"
+            app:layout_constraintStart_toStartOf="@+id/guideline51"
+            app:layout_constraintTop_toTopOf="@+id/guideline55" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline54"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline53"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline51"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
+    </android.support.constraint.ConstraintLayout>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/fragment_organizer_home_MainLayout"
         android:layout_width="match_parent"
@@ -18,6 +329,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="0dp"
         tools:layout_conversion_absoluteWidth="0dp">
+
+        <Button
+            android:id="@+id/fragment_organizer_home_Presentation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/Presentations"
+            app:layout_constraintBottom_toTopOf="@+id/guideline32"
+            app:layout_constraintEnd_toStartOf="@+id/guideline34"
+            app:layout_constraintStart_toStartOf="@+id/guideline33"
+            app:layout_constraintTop_toTopOf="@+id/guideline29"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
 
         <Button
             android:id="@+id/fragment_organizer_home_hausaufgaben"
@@ -53,7 +378,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline34"
             app:layout_constraintStart_toStartOf="@+id/guideline33"
-            app:layout_constraintTop_toTopOf="@+id/guideline30"
+            app:layout_constraintTop_toTopOf="@+id/guideline52"
             tools:layout_conversion_absoluteHeight="0dp"
             tools:layout_conversion_absoluteWidth="0dp" />
 
@@ -61,11 +386,15 @@
             android:id="@+id/fragment_organizer_home_Bilder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/Pictures"
-            app:layout_constraintBottom_toTopOf="@+id/guideline30"
+            app:layout_constraintBottom_toTopOf="@+id/guideline52"
             app:layout_constraintEnd_toStartOf="@+id/guideline34"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline33"
-            app:layout_constraintTop_toTopOf="@+id/guideline32"
+            app:layout_constraintTop_toTopOf="@+id/guideline30"
+            app:layout_constraintVertical_bias="0.527"
             tools:layout_conversion_absoluteHeight="0dp"
             tools:layout_conversion_absoluteWidth="0dp" />
 
@@ -76,10 +405,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/Grades"
-            app:layout_constraintBottom_toTopOf="@+id/guideline32"
+            app:layout_constraintBottom_toTopOf="@+id/guideline30"
             app:layout_constraintEnd_toStartOf="@+id/guideline34"
             app:layout_constraintStart_toStartOf="@+id/guideline33"
-            app:layout_constraintTop_toTopOf="@+id/guideline29"
+            app:layout_constraintTop_toTopOf="@+id/guideline32"
             tools:layout_conversion_absoluteHeight="0dp"
             tools:layout_conversion_absoluteWidth="0dp" />
 
@@ -88,44 +417,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2"
+            app:layout_constraintGuide_percent="0.1666"
             tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+            tools:layout_conversion_absoluteWidth="0dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline29"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.4"
+            app:layout_constraintGuide_percent="0.33333"
             tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+            tools:layout_conversion_absoluteWidth="0dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.6"
+            app:layout_constraintGuide_percent="0.5"
             tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+            tools:layout_conversion_absoluteWidth="0dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.8"
+            app:layout_constraintGuide_percent="0.666666"
             tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline52"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.83333333" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline33"
@@ -251,7 +579,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_organizer_home_Homework_Overview_ListViewHeading" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_organizer_home_Homework_Overview_ListViewHeading"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/fragment_organizer_home_Homework_Overview_Info"
