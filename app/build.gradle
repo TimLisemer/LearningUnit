@@ -31,4 +31,5 @@ dependencies {
     implementation files('libs/joda-time-2.10.1.jar')
     implementation 'com.nbsp:library:1.8'
     implementation 'com.google.android.gms:play-services-analytics:16.0.7'
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 }

@@ -20,18 +20,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.joda.time.DateTime;
+
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import learningunit.learningunit.Objects.API.OnBackPressedListener;
 import learningunit.learningunit.Objects.Organizer.Exam;
@@ -266,7 +274,7 @@ public class Organizer extends AppCompatActivity{
             return fragment;
         }
 
-
+        Date date;
 
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -279,10 +287,52 @@ public class Organizer extends AppCompatActivity{
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 2){
                 final View fragmentView = inflater.inflate(R.layout.fragment_organizer_dashboard, container, false);
                 new DashboardFragmentMethods(getActivity(), (ListView) fragmentView.findViewById(R.id.organizer_dashboard__ListView), (TextView) fragmentView.findViewById(R.id.organizer_dashboard_info), (Button) fragmentView.findViewById(R.id.organizer_dashboard_create));
-
                 return fragmentView;
             }else if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
                 final View fragmentView = inflater.inflate(R.layout.fragment_organizer_calendar, container, false);
+                final CompactCalendarView compact = (CompactCalendarView) fragmentView.findViewById(R.id.organizer_calender_calendar);
+                final TextView MonthInfo = (TextView) fragmentView.findViewById(R.id.organizer_calender_dateinfo);
+                final SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MM - yyyy", Locale.getDefault());
+                Calendar ca = Calendar.getInstance();
+                date = ca.getTime();
+                MonthInfo.setText(dateFormatMonth.format(date));
+                compact.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+                    @Override
+                    public void onDayClick(Date dateClicked) {
+
+                    }
+
+                    @Override
+                    public void onMonthScroll(Date firstDayOfNewMonth) {
+                        MonthInfo.setText(dateFormatMonth.format(firstDayOfNewMonth));
+                        date = firstDayOfNewMonth;
+                    }
+                });
+                ImageView previous = (ImageView) fragmentView.findViewById(R.id.organizer_calender_previous);
+                previous.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DateTime dt = new DateTime(date);
+                        try {
+                            date = dateFormatMonth.parse(dt.getMonthOfYear() - 1 + " - " + dt.getYear());
+                            compact.setCurrentDate(date);
+                            MonthInfo.setText(dateFormatMonth.format(date));
+                        }catch (Exception e){}
+                    }
+                });
+
+                ImageView next = (ImageView) fragmentView.findViewById(R.id.organizer_calender_next);
+                next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DateTime dt = new DateTime(date);
+                        try {
+                            date = dateFormatMonth.parse(dt.getMonthOfYear() + 1 + " - " + dt.getYear());
+                            compact.setCurrentDate(date);
+                            MonthInfo.setText(dateFormatMonth.format(date));
+                        }catch (Exception e){}
+                    }
+                });
 
                 Gson gson = new Gson();
                 ArrayList<Homework> eventlist;
