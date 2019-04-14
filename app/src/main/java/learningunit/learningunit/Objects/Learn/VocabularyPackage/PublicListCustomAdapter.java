@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
+
 import java.util.ArrayList;
 import learningunit.learningunit.R;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
@@ -16,11 +19,13 @@ public class PublicListCustomAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private ArrayList<ArrayList<String>> SharedLists;
     private Activity activity;
+    private PublisherInterstitialAd TrainingInterstitialAd;
 
-    public PublicListCustomAdapter(Activity activity, ArrayList<ArrayList<String>> SharedList){
+    public PublicListCustomAdapter(Activity activity, ArrayList<ArrayList<String>> SharedList, PublisherInterstitialAd TrainingInterstitialAd){
         SharedLists = SharedList;
         this.inflater = (LayoutInflater.from(activity));
         this.activity = activity;
+        this.TrainingInterstitialAd = TrainingInterstitialAd;
     }
 
     @Override
@@ -46,7 +51,7 @@ public class PublicListCustomAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Vokabeln.openSharedList(SharedList, activity);
+                Vokabeln.openSharedList(SharedList, activity, TrainingInterstitialAd);
                 Log.d("AAA", "BBBBB");
             }
         });

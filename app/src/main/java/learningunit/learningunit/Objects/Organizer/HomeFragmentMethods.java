@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -17,6 +18,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherAdView;
+import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -49,9 +55,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
     public static Button downHour1[];
 
     public HomeFragmentMethods(final View fragmentView, final Activity activity) {
-        if (activity == null) {
-            throw new IllegalArgumentException("Invalid activity --> Null");
-        }
         start(fragmentView, activity);
         if(startCondition == 1) {
             HomeworkClick(fragmentView, activity);
@@ -114,6 +117,9 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 Overview(fragmentView, activity, 3, true);
             }
         });
+
+        Button Notes = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Notizen);
+
     }
 
 
