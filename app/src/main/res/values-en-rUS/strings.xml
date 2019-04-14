@@ -143,4 +143,5 @@
     <string name="NoPresentationEntered">No Presentation entered</string>
     <string name="NoRecentEvents">No recent Events</string>
     <string name="MultipleEvents">Multiple Events</string>
+    <string name="Grade">"Grade: "</string>
 </resources>

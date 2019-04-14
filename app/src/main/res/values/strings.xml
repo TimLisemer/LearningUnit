@@ -112,7 +112,7 @@
     <string name="NoteOverview">Notiz Übersicht</string>
     <string name="PictureOverview">Bilder überblick</string>
     <string name="TakePicture">Bild aufnehmen</string>
-    <string name="Grades">Noten</string>
+    <string name="Grades">Note</string>
     <string name="EnterNewGrade">Note eintragen</string>
     <string name="GradeOverview">Notenübersicht</string>
     <string name="NoExamEntered">Bislang keine Arbeit eingetragen</string>
@@ -143,4 +143,5 @@
     <string name="NoPresentationEntered">Noch keine Präsentation eingetragen</string>
     <string name="NoRecentEvents">Keine aktuellen termine</string>
     <string name="MultipleEvents">Mehrere Termine</string>
+    <string name="Grade">Note:</string>
 </resources>

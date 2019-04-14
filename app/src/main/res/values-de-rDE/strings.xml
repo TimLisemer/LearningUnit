@@ -143,4 +143,5 @@
     <string name="NoPresentationEntered">Noch keine Präsentation eingetragen</string>
     <string name="NoRecentEvents">Keine aktuellen termine</string>
     <string name="MultipleEvents">Mehrere Termine</string>
+    <string name="Grade">Note:</string>
 </resources>

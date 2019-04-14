@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import learningunit.learningunit.R;
@@ -24,6 +27,9 @@ import learningunit.learningunit.menu.MainActivity;
 
 public class HomeCustomAdapter extends BaseAdapter {
 
+    ArrayList<Homework> CompleteHA = new ArrayList<Homework>();
+    ArrayList<Exam> CompleteEX = new ArrayList<Exam>();
+    ArrayList<Presentation> CompletePR = new ArrayList<Presentation>();
     ArrayList<Homework> eventlist = new ArrayList<Homework>();
     ArrayList<Exam> examlist = new ArrayList<Exam>();
     ArrayList<Presentation> prelist = new ArrayList<Presentation>();
@@ -203,6 +209,35 @@ public class HomeCustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, final ViewGroup parent) {
+
+        Gson gson = new Gson();
+        String json = FirstScreen.tinyDB.getString("Homework");
+        if(json.equals("")){
+            CompleteHA = new ArrayList<Homework>();
+        }else {
+            Type type = new TypeToken<ArrayList<Homework>>() {
+            }.getType();
+            CompleteHA = gson.fromJson(json, type);
+        }
+
+        String json1 = FirstScreen.tinyDB.getString("Exam");
+        if(json1.equals("")){
+            CompleteEX = new ArrayList<Exam>();
+        }else {
+            Type type = new TypeToken<ArrayList<Exam>>() {
+            }.getType();
+            CompleteEX = gson.fromJson(json1, type);
+        }
+
+        String json2 = FirstScreen.tinyDB.getString("Presentation");
+        if(json2.equals("")){
+            CompletePR = new ArrayList<Presentation>();
+        }else {
+            Type type = new TypeToken<ArrayList<Presentation>>() {
+            }.getType();
+            CompletePR = gson.fromJson(json2, type);
+        }
+
         convertView = inflater.inflate(R.layout.organizer_homework_listview, null);
         int oposition = position;
         TextView EventHeading = (TextView) convertView.findViewById(R.id.organizer_homework_ListView_EventHeading);
@@ -281,22 +316,27 @@ public class HomeCustomAdapter extends BaseAdapter {
 
                         final Button done = (Button) cView.findViewById(R.id.organizer_homework_ListView_Done);
                         if (h.getDone()) {
-                            done.setText(activity.getResources().getString(R.string.NotDone));
-                        } else {
                             done.setText(activity.getResources().getString(R.string.Done));
+                        } else {
+                            done.setText(activity.getResources().getString(R.string.NotDone));
                         }
                         done.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (h.getDone()) {
-                                    done.setText(activity.getResources().getString(R.string.Done));
+                                    done.setText(activity.getResources().getString(R.string.NotDone));
                                     h.setDone(false);
                                 } else {
-                                    done.setText(activity.getResources().getString(R.string.NotDone));
+                                    done.setText(activity.getResources().getString(R.string.Done));
                                     h.setDone(true);
                                 }
                                 Gson gson = new Gson();
-                                FirstScreen.tinyDB.putString("Homework", gson.toJson(eventlist));
+                                for(Homework ha : CompleteHA){
+                                    if(ha.getTitle().equals(h.getTitle()) && ha.getDescription().equals(h.getDescription()) && ha.getYear() == h.getYear() && ha.getMonth() == h.getMonth() && ha.getDay() == h.getDay()){
+                                        ha.setDone(h.getDone());
+                                    }
+                                }
+                                FirstScreen.tinyDB.putString("Homework", gson.toJson(CompleteHA));
                             }
                         });
                         out = true;
@@ -348,11 +388,16 @@ public class HomeCustomAdapter extends BaseAdapter {
                         TextView Description = (TextView) cView.findViewById(R.id.organizer_exam_ListView_DescriptionText);
                         Description.setText(h.getDescription());
 
-                        Button enter = (Button) cView.findViewById(R.id.organizer_exam_ListView_EnterGrade);
+                        final Button enter = (Button) cView.findViewById(R.id.organizer_exam_ListView_EnterGrade);
+                        if(h.getGrade() != 0) {
+                            enter.setText(activity.getResources().getString(R.string.Grade) + h.getGrade());
+                        }else{
+                            enter.setText(activity.getResources().getString(R.string.EnterGrade));
+                        }
                         enter.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                enterGrade((Event) h, pos, examlist, null, activity);
+                                enterGrade((Event) h, pos, examlist, null, activity, enter);
                             }
                         });
 
@@ -418,11 +463,16 @@ public class HomeCustomAdapter extends BaseAdapter {
                         TextView Description = (TextView) cView.findViewById(R.id.organizer_exam_ListView_DescriptionText);
                         Description.setText(h.getDescription());
 
-                        Button enter = (Button) cView.findViewById(R.id.organizer_exam_ListView_EnterGrade);
+                        final Button enter = (Button) cView.findViewById(R.id.organizer_exam_ListView_EnterGrade);
+                        if(h.getGrade() != 0) {
+                            enter.setText(activity.getResources().getString(R.string.Grade) + h.getGrade());
+                        }else{
+                            enter.setText(activity.getResources().getString(R.string.EnterGrade));
+                        }
                         enter.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                enterGrade((Event) h, pos, null, prelist, activity);
+                                enterGrade((Event) h, pos, null, prelist, activity, enter);
                             }
                         });
 
@@ -442,7 +492,28 @@ public class HomeCustomAdapter extends BaseAdapter {
 
 
 
-    public static void enterGrade(final Event event, final int pos, final ArrayList<Exam> ex, final ArrayList<Presentation> pr, Activity activity){
+    public static void enterGrade(final Event event, final int pos, final ArrayList<Exam> ex, final ArrayList<Presentation> pr, final Activity activity, final Button enter){
+        Gson gson = new Gson();
+        final ArrayList<Exam> CompleteEX;
+        String json1 = FirstScreen.tinyDB.getString("Exam");
+        if(json1.equals("")){
+            CompleteEX = new ArrayList<Exam>();
+        }else {
+            Type type = new TypeToken<ArrayList<Exam>>() {
+            }.getType();
+            CompleteEX = gson.fromJson(json1, type);
+        }
+
+        final ArrayList<Presentation> CompletePR;
+        String json2 = FirstScreen.tinyDB.getString("Presentation");
+        if(json2.equals("")){
+            CompletePR = new ArrayList<Presentation>();
+        }else {
+            Type type = new TypeToken<ArrayList<Presentation>>() {
+            }.getType();
+            CompletePR = gson.fromJson(json2, type);
+        }
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setCancelable(true);
         builder.setTitle(activity.getResources().getString(R.string.EnterGrade));
@@ -479,13 +550,44 @@ public class HomeCustomAdapter extends BaseAdapter {
                         ((Exam) event).setGrade(Integer.parseInt(editNumber.getText().toString()));
                         ex.remove(pos);
                         ex.add((Exam) event);
-                        FirstScreen.tinyDB.putString("Exam", gson.toJson(ex));
+                        Exam exam = (Exam) event;
+                        for(Exam e : CompleteEX){
+                            if(exam.getTitle().equals(e.getTitle()) && exam.getDescription().equals(e.getDescription()) && exam.getYear() == e.getYear() && exam.getMonth() == e.getMonth() && exam.getDay() == e.getDay()){
+                               e.setGrade(exam.getGrade());
+                            }
+                        }
+                        FirstScreen.tinyDB.putString("Exam", gson.toJson(CompleteEX));
                     }else if(event instanceof Presentation){
                         ((Presentation) event).setGrade(Integer.parseInt(editNumber.getText().toString()));
                         pr.remove(pos);
                         pr.add((Presentation) event);
-                        FirstScreen.tinyDB.putString("Presentation", gson.toJson(pr));
+                        Presentation presentation = (Presentation) event;
+                        for(Presentation pe : CompletePR){
+                            if(presentation.getTitle().equals(pe.getTitle()) && presentation.getDescription().equals(pe.getDescription()) && presentation.getYear() == pe.getYear() && presentation.getMonth() == pe.getMonth() && presentation.getDay() == pe.getDay()){
+                                pe.setGrade(presentation.getGrade());
+                            }
+                        }
+                        FirstScreen.tinyDB.putString("Presentation", gson.toJson(CompletePR));
                     }
+
+                    try {
+                        Exam e = (Exam) event;
+                        if (e.getGrade() != 0) {
+                            enter.setText(activity.getResources().getString(R.string.Grade) + e.getGrade());
+                        } else {
+                            enter.setText(activity.getResources().getString(R.string.EnterGrade));
+                        }
+                    }catch (Exception e){ }
+
+                    try {
+                        Presentation p = (Presentation) event;
+                        if ((p.getGrade() != 0)) {
+                            enter.setText(activity.getResources().getString(R.string.Grade) + p.getGrade());
+                        } else {
+                            enter.setText(activity.getResources().getString(R.string.EnterGrade));
+                        }
+                    }catch (Exception e){ }
+
                     dialog.cancel();
                 }
             }
