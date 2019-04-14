@@ -345,7 +345,7 @@ public class TimetableShowcase extends AppCompatActivity {
                 }
 
                 ListView simpleList = (ListView) rootView.findViewById(R.id.timetable_showcaseListView);
-                CustomAdapter customAdapter = new CustomAdapter(inflater.getContext(), DayHourList, DayHourColor);
+                CustomAdapter customAdapter = new CustomAdapter(inflater.getContext(), DayHourList, DayHourColor, getActivity());
                 simpleList.setAdapter(customAdapter);
 
             }else{
@@ -368,7 +368,7 @@ public class TimetableShowcase extends AppCompatActivity {
                 }
 
                 ListView simpleList = (ListView) rootView.findViewById(R.id.timetable_showcaseListView);
-                CustomAdapter customAdapter = new CustomAdapter(inflater.getContext(), HourList, ColorCodes);
+                CustomAdapter customAdapter = new CustomAdapter(inflater.getContext(), HourList, ColorCodes, getActivity());
                 simpleList.setAdapter(customAdapter);
             }
 

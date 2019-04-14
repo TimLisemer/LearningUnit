@@ -1,7 +1,6 @@
 package learningunit.learningunit.menu.organizer;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -15,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -40,7 +38,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -311,7 +308,7 @@ public class Organizer extends AppCompatActivity{
                             Toast.makeText(getActivity(), events.get(0).getData().toString(), Toast.LENGTH_SHORT).show();
                             compact.setCurrentSelectedDayBackgroundColor(events.get(0).getColor());
                         }else{
-                            Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.MultileEvents), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.MultipleEvents), Toast.LENGTH_SHORT).show();
                             compact.setCurrentSelectedDayBackgroundColor(android.graphics.Color.parseColor("#E57373"));
                             compact.setCurrentSelectedDayBackgroundColor(events.get(0).getColor());
                         }

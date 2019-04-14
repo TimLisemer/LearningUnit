@@ -295,6 +295,8 @@ public class HomeCustomAdapter extends BaseAdapter {
                                     done.setText(activity.getResources().getString(R.string.NotDone));
                                     h.setDone(true);
                                 }
+                                Gson gson = new Gson();
+                                FirstScreen.tinyDB.putString("Homework", gson.toJson(eventlist));
                             }
                         });
                         out = true;

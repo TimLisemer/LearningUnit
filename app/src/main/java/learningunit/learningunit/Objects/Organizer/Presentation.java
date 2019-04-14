@@ -12,11 +12,7 @@ public class Presentation extends Event {
     }
 
     public void setGrade(int grade){
-        if(grade >= 0 && grade <= 15){
-            this.grade = grade;
-        }else{
-            throw new IllegalArgumentException("Invalid grade number --> Only 0-15 --> Entered: " + grade);
-        }
+        this.grade = grade;
     }
 
     public int getGrade(){
