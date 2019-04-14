@@ -217,7 +217,7 @@
         android:id="@+id/fragment_organizer_home_GradeSelection"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -262,46 +262,24 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/Presentations"
-            app:layout_constraintBottom_toTopOf="@+id/guideline55"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline50"
             app:layout_constraintStart_toStartOf="@+id/guideline51"
             app:layout_constraintTop_toTopOf="@+id/guideline54" />
-
-        <Button
-            android:id="@+id/fragment_organizer_home_Grade_Rest"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/Rest"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline50"
-            app:layout_constraintHorizontal_bias="0.376"
-            app:layout_constraintStart_toStartOf="@+id/guideline51"
-            app:layout_constraintTop_toTopOf="@+id/guideline55" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline55"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.75" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline54"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="0.66666" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline53"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25" />
+            app:layout_constraintGuide_percent="0.333" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline51"
@@ -322,7 +300,7 @@
         android:id="@+id/fragment_organizer_home_MainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
