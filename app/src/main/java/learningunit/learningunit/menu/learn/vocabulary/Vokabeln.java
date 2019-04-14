@@ -30,8 +30,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherAdView;
 import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
@@ -72,7 +74,6 @@ public class Vokabeln extends AppCompatActivity {
     private static Button downyourLists[];
     private static Button downfollowedLists[];
     private static Context context;
-    private PublisherInterstitialAd VocabularyTrainingInterstitialAd;
 
     //Lernbereich
 
@@ -89,6 +90,8 @@ public class Vokabeln extends AppCompatActivity {
     //Shared
     private static Button shared, shared_back;
     //Shared
+    private PublisherAdView VocabularyTrainer_AdView;
+    private static PublisherInterstitialAd VocabularyTrainingInterstitialAd;
 
     private Tracker mTracker;
     @Override
@@ -97,19 +100,26 @@ public class Vokabeln extends AppCompatActivity {
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_vocabulary);
 
-        MobileAds.initialize(Vokabeln.this, "ca-app-pub-2182452775939631~7797227952");
+        MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
+
+        VocabularyTrainer_AdView = (PublisherAdView) findViewById(R.id.VocabularyTrainer_AdView);
+        VocabularyTrainer_AdView.setAdSizes(AdSize.FULL_BANNER);
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build();
+        VocabularyTrainer_AdView.loadAd(adRequest);
+
         VocabularyTrainingInterstitialAd = new PublisherInterstitialAd(Vokabeln.this);
         VocabularyTrainingInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
-        setContentView(R.layout.activity_vocabulary);
+
         context = getApplicationContext();
         //Shared
         shared = (Button) findViewById(R.id.vocabulary_shared);
         shared.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sharedClick(Vokabeln.this, VocabularyTrainingInterstitialAd);
+                sharedClick(Vokabeln.this);
             }
         });
         shared_back = (Button) findViewById(R.id.vocabulary_ShareBack);
@@ -249,7 +259,7 @@ public class Vokabeln extends AppCompatActivity {
 
         error = (TextView) findViewById(R.id.vocabulary_error);
 
-        ShowLists(Vokabeln.this, VocabularyTrainingInterstitialAd);
+        ShowLists(Vokabeln.this);
     }
 
     @Override
@@ -264,7 +274,7 @@ public class Vokabeln extends AppCompatActivity {
         MainActivity.onAppShutdown(context);
     }
 
-    public void ShowLists(final Activity act, final PublisherInterstitialAd TrainingInterstitialAd){
+    public void ShowLists(final Activity act){
         if(ManageData.InternetAvailable(context)) {
             VocabularyMethods.vocabularylists.clear();
             FirstScreen.tinyDB.remove("VocLists");
@@ -348,7 +358,7 @@ public class Vokabeln extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             try{
-                                showvocabularys(s, act, TrainingInterstitialAd);
+                                showvocabularys(s, act);
                             }catch (Exception e){}
                         }
                     });
@@ -358,7 +368,7 @@ public class Vokabeln extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try{
-                            showvocabularys(s, act, TrainingInterstitialAd);
+                            showvocabularys(s, act);
                         }catch (Exception e){}
                     }
                 });
@@ -415,7 +425,7 @@ public class Vokabeln extends AppCompatActivity {
                             }
                             if(list.getVocabularylist().size() > 0) {
                                 try {
-                                    showvocabularys(list.getName(), act, TrainingInterstitialAd);
+                                    showvocabularys(list.getName(), act);
                                 }catch (Exception e){}
                             }
                         }
@@ -437,7 +447,7 @@ public class Vokabeln extends AppCompatActivity {
                         direction = false;
                         if(list.getVocabularylist().size() > 0) {
                             try {
-                                showvocabularys(list.getName(), act, TrainingInterstitialAd);
+                                showvocabularys(list.getName(), act);
                             }catch (Exception e){ }
                         }
                     }
@@ -483,7 +493,7 @@ public class Vokabeln extends AppCompatActivity {
                         public void onClick(View v) {
                             try {
 
-                                showvocabularys(s, act, TrainingInterstitialAd);
+                                showvocabularys(s, act);
                             }catch (Exception e){ Log.d("ALL", e.toString());}
                         }
                     });
@@ -493,7 +503,7 @@ public class Vokabeln extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try {
-                            showvocabularys(s, act, TrainingInterstitialAd);
+                            showvocabularys(s, act);
                         }catch (Exception e){}
                     }
                 });
@@ -519,7 +529,7 @@ public class Vokabeln extends AppCompatActivity {
     //Buttton OnClick Methoden
 
 
-    private static void showvocabularys(final String ListName, final Activity act, final PublisherInterstitialAd TrainingInterstitialAd){
+    private static void showvocabularys(final String ListName, final Activity act){
         final int listiD;
         final VocabularyList showvocablist;
         final VocabularyList vocabularyList;
@@ -535,7 +545,7 @@ public class Vokabeln extends AppCompatActivity {
             train.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    start_train(showvocablist, act, TrainingInterstitialAd);
+                    start_train(showvocablist, act);
                 }
             });
 
@@ -594,7 +604,7 @@ public class Vokabeln extends AppCompatActivity {
             train.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    start_train(showvocablist, act, TrainingInterstitialAd);
+                    start_train(showvocablist, act);
                 }
             });
             bottom.setVisibility(View.VISIBLE);
@@ -828,13 +838,9 @@ public class Vokabeln extends AppCompatActivity {
     }
 
 
-    private static void start_train(final VocabularyList trainlist, final Activity act, final PublisherInterstitialAd TrainingInterstitialAd) {
-        Log.d("JAHI", "JAHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHI---------------------------------------------------------------------");
-        try {
-            TrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
-        }catch (Exception e){
-            throw new IllegalArgumentException(e);
-        }
+    private static void start_train(final VocabularyList trainlist, final Activity act) {
+        VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
+
         final ArrayList<Vocabulary> level0 = new ArrayList<Vocabulary>();
         final ArrayList<Vocabulary> level1 = new ArrayList<Vocabulary>();
         final ArrayList<Vocabulary> level2 = new ArrayList<Vocabulary>();
@@ -862,11 +868,11 @@ public class Vokabeln extends AppCompatActivity {
             level0.add(trainlist.getVocabularylist().get(i));
         }
 
-        open_train(trainlist, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+        open_train(trainlist, level0, level1, level2, level3, level4, act);
 
     }
 
-    public static void open_train(final VocabularyList trainlist, final ArrayList<Vocabulary> level0, final ArrayList<Vocabulary> level1, final ArrayList<Vocabulary> level2, final ArrayList<Vocabulary> level3, final ArrayList<Vocabulary> level4, final Activity act, final PublisherInterstitialAd TrainingInterstitialAd){
+    public static void open_train(final VocabularyList trainlist, final ArrayList<Vocabulary> level0, final ArrayList<Vocabulary> level1, final ArrayList<Vocabulary> level2, final ArrayList<Vocabulary> level3, final ArrayList<Vocabulary> level4, final Activity act){
         String s = learn_translation.getText().toString();
         learn_level0Score.setText(level0.size() + "");
         learn_level1Score.setText(level1.size() + "");
@@ -930,13 +936,13 @@ public class Vokabeln extends AppCompatActivity {
                     learn_right.setVisibility(View.VISIBLE);
                     learn_wrong.setVisibility(View.VISIBLE);
                     if(level0.contains(voc)) {
-                        open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act);
                     }else if(level1.contains(voc)) {
-                        open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act);
                     }else if(level2.contains(voc)) {
-                        open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act);
                     }else if(level3.contains(voc)) {
-                        open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act);
                     }
                 }
             });
@@ -946,13 +952,13 @@ public class Vokabeln extends AppCompatActivity {
                 public void onClick(View view){
 
                     if (level0.contains(voc)) {
-                        open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act);
                     } else if (level1.contains(voc)) {
-                        open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act);
                     } else if (level2.contains(voc)) {
-                        open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act);
                     } else if (level3.contains(voc)) {
-                        open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act);
                     }
                 }
             });
@@ -977,13 +983,13 @@ public class Vokabeln extends AppCompatActivity {
                     learn_wrong.setVisibility(View.VISIBLE);
 
                     if(level0.contains(voc)) {
-                        open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act);
                     }else if(level1.contains(voc)) {
-                        open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act);
                     }else if(level2.contains(voc)) {
-                        open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act);
                     }else if(level3.contains(voc)) {
-                        open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act);
                     }
                 }
             });
@@ -994,13 +1000,13 @@ public class Vokabeln extends AppCompatActivity {
                 public void onClick(View view) {
 
                     if(level0.contains(voc)) {
-                        open_learn_enter(trainlist, false, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_enter(trainlist, false, level0, level1, level2, level3, level4, act);
                     }else if(level1.contains(voc)) {
-                        open_learn_enter(trainlist,false, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_enter(trainlist,false, level0, level1, level2, level3, level4, act);
                     }else if(level2.contains(voc)) {
-                        open_learn_enter(trainlist,false, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_enter(trainlist,false, level0, level1, level2, level3, level4, act);
                     }else if(level3.contains(voc)) {
-                        open_learn_enter(trainlist,false, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_learn_enter(trainlist,false, level0, level1, level2, level3, level4, act);
                     }
                 }
 
@@ -1008,7 +1014,7 @@ public class Vokabeln extends AppCompatActivity {
         }
     }
 
-    private static void open_learn_enter(final VocabularyList showvocablist, boolean gerade, ArrayList<Vocabulary> level0, ArrayList<Vocabulary> level1, ArrayList<Vocabulary> level2, ArrayList<Vocabulary> level3, ArrayList<Vocabulary> level4, final Activity act, final PublisherInterstitialAd TrainingInterstitialAd){
+    private static void open_learn_enter(final VocabularyList showvocablist, boolean gerade, ArrayList<Vocabulary> level0, ArrayList<Vocabulary> level1, ArrayList<Vocabulary> level2, ArrayList<Vocabulary> level3, ArrayList<Vocabulary> level4, final Activity act){
 
         MainActivity.hideKeyboard(act);
         vocabularylist =  showvocablist.getVocabularylist();
@@ -1021,7 +1027,7 @@ public class Vokabeln extends AppCompatActivity {
             if(!(learn_translation.getText().toString().equalsIgnoreCase(voc.getOriginal()))) {
 
                 if(level4.size() == vocabularylist.size()){
-                    openfinish(act, TrainingInterstitialAd);
+                    openfinish(act);
                 }else {
 
                     if(level1.contains(voc)){
@@ -1035,7 +1041,7 @@ public class Vokabeln extends AppCompatActivity {
                         level3.remove(voc);
                     }
 
-                    open_train(showvocablist, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                    open_train(showvocablist, level0, level1, level2, level3, level4, act);
                 }
             }else{
 
@@ -1055,9 +1061,9 @@ public class Vokabeln extends AppCompatActivity {
 
 
                 if(level4.size() == vocabularylist.size()){
-                    openfinish(act, TrainingInterstitialAd);
+                    openfinish(act);
                 }else {
-                    open_train(showvocablist, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                    open_train(showvocablist, level0, level1, level2, level3, level4, act);
                 }
             }
 
@@ -1071,7 +1077,7 @@ public class Vokabeln extends AppCompatActivity {
             if(!(learn_translation.getText().toString().equalsIgnoreCase(voc.getTranslation()))) {
 
                 if(level4.size() == vocabularylist.size()){
-                    openfinish(act, TrainingInterstitialAd);
+                    openfinish(act);
                 }else {
 
                     if(level1.contains(voc)){
@@ -1085,7 +1091,7 @@ public class Vokabeln extends AppCompatActivity {
                         level3.remove(voc);
                     }
 
-                    open_train(showvocablist, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                    open_train(showvocablist, level0, level1, level2, level3, level4, act);
                 }
             }else{
 
@@ -1104,9 +1110,9 @@ public class Vokabeln extends AppCompatActivity {
                 }
 
                 if(level4.size() == vocabularylist.size()){
-                    openfinish(act, TrainingInterstitialAd);
+                    openfinish(act);
                 }else {
-                    open_train(showvocablist, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                    open_train(showvocablist, level0, level1, level2, level3, level4, act);
                 }
             }
 
@@ -1117,22 +1123,22 @@ public class Vokabeln extends AppCompatActivity {
     }
 
 
-    private static void openfinish(final Activity act, final PublisherInterstitialAd TrainingInterstitialAd){
+    private static void openfinish(final Activity act){
         learn_level0Score.setText("0");
         learn_level1Score.setText("0");
         learn_level2Score.setText("0");
         learn_level3Score.setText("0");
         learn_level4Score.setText("0");
         learn_translation.setText(null);
-        TrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
-        TrainingInterstitialAd.setAdListener(new AdListener(){
+        VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
+        VocabularyTrainingInterstitialAd.setAdListener(new AdListener(){
             @Override
             public void onAdClosed() {
-                TrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
+                VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
             }
         });
-        if (TrainingInterstitialAd.isLoaded()) {
-            TrainingInterstitialAd.show();
+        if (VocabularyTrainingInterstitialAd.isLoaded()) {
+            VocabularyTrainingInterstitialAd.show();
         } else {
             Log.d("TAG", "The VocabularyTrainingInterstitialAd wasn't loaded yet.");
         }
@@ -1148,7 +1154,7 @@ public class Vokabeln extends AppCompatActivity {
 
 
 
-    private static void open_learn_showtranslation(final VocabularyList showvocablist, final boolean gerade, final ArrayList<Vocabulary> level0, final ArrayList<Vocabulary> level1, final ArrayList<Vocabulary> level2, final ArrayList<Vocabulary> level3, final ArrayList<Vocabulary> level4, final Activity act, final PublisherInterstitialAd TrainingInterstitialAd){
+    private static void open_learn_showtranslation(final VocabularyList showvocablist, final boolean gerade, final ArrayList<Vocabulary> level0, final ArrayList<Vocabulary> level1, final ArrayList<Vocabulary> level2, final ArrayList<Vocabulary> level3, final ArrayList<Vocabulary> level4, final Activity act){
 
         MainActivity.hideKeyboard(act);
         vocabularylist =  showvocablist.getVocabularylist();
@@ -1174,7 +1180,7 @@ public class Vokabeln extends AppCompatActivity {
                     learn_vocabularys.setText(voc.getOriginal() + " - " + voc.getTranslation());
 
                     if(level4.size() == vocabularylist.size()){
-                        openfinish(act, TrainingInterstitialAd);
+                        openfinish(act);
                     }else {
 
                         if(level1.contains(voc)){
@@ -1188,7 +1194,7 @@ public class Vokabeln extends AppCompatActivity {
                             level3.remove(voc);
                         }
 
-                        open_train(showvocablist, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_train(showvocablist, level0, level1, level2, level3, level4, act);
                     }
 
                 }else{
@@ -1199,7 +1205,7 @@ public class Vokabeln extends AppCompatActivity {
                     learn_vocabularys.setText(voc.getTranslation() + " - " + voc.getOriginal());
 
                     if(level4.size() == vocabularylist.size()){
-                        openfinish(act, TrainingInterstitialAd);
+                        openfinish(act);
                     }else {
 
                         if(level1.contains(voc)){
@@ -1212,7 +1218,7 @@ public class Vokabeln extends AppCompatActivity {
                             level2.add(voc);
                             level3.remove(voc);
                         }
-                        open_train(showvocablist, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_train(showvocablist, level0, level1, level2, level3, level4, act);
                     }
 
                 }
@@ -1256,9 +1262,9 @@ public class Vokabeln extends AppCompatActivity {
 
 
                     if(level4.size() == vocabularylist.size()){
-                        openfinish(act, TrainingInterstitialAd);
+                        openfinish(act);
                     }else {
-                        open_train(showvocablist, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_train(showvocablist, level0, level1, level2, level3, level4, act);
                     }
 
                 }else{
@@ -1282,9 +1288,9 @@ public class Vokabeln extends AppCompatActivity {
                     }
 
                     if(level4.size() == vocabularylist.size()){
-                        openfinish(act, TrainingInterstitialAd);
+                        openfinish(act);
                     }else {
-                        open_train(showvocablist, level0, level1, level2, level3, level4, act, TrainingInterstitialAd);
+                        open_train(showvocablist, level0, level1, level2, level3, level4, act);
                     }
 
                 }
@@ -1357,7 +1363,7 @@ public class Vokabeln extends AppCompatActivity {
     public static int sharedID, sharedListID;
 
 
-    private static void sharedClick(final Activity act, final PublisherInterstitialAd TrainingInterstitialAd){
+    private static void sharedClick(final Activity act){
         if(ManageData.OfflineAccount == 1){
             AlertDialog.Builder builder = new AlertDialog.Builder(act);
             builder.setCancelable(true);
@@ -1381,7 +1387,7 @@ public class Vokabeln extends AppCompatActivity {
             builder.show();
         }else {
             if(ManageData.InternetAvailable(context) == true) {
-                openShared(act, TrainingInterstitialAd);
+                openShared(act);
                 act.findViewById(R.id.vocabulary_buttonView).setVisibility(View.VISIBLE);
             }else{
                 AlertDialog.Builder builder = new AlertDialog.Builder(act);
@@ -1397,7 +1403,7 @@ public class Vokabeln extends AppCompatActivity {
                 builder.setPositiveButton(act.getResources().getString(R.string.TryAgain), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        sharedClick(act, TrainingInterstitialAd);
+                        sharedClick(act);
                     }
                 });
                 builder.show();
@@ -1406,7 +1412,7 @@ public class Vokabeln extends AppCompatActivity {
     }
 
 
-    private static void openShared(Activity act, PublisherInterstitialAd TrainingInterstitialAd){
+    private static void openShared(Activity act){
         act.findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.VISIBLE);
         act.findViewById(R.id.vocabulary_scrollView).setVisibility(View.GONE);
 
@@ -1421,11 +1427,11 @@ public class Vokabeln extends AppCompatActivity {
         ArrayList<ArrayList<String>> SharedLists = gson.fromJson(json, type);
 
         ListView shareListView = (ListView) act.findViewById(R.id.vocabulary_ShareListView);
-        shareListView.setAdapter(new PublicListCustomAdapter(act, SharedLists, TrainingInterstitialAd));
+        shareListView.setAdapter(new PublicListCustomAdapter(act, SharedLists));
 
     }
 
-    public static void openSharedList(ArrayList<String> SharedList, Activity act, final PublisherInterstitialAd TrainingInterstitialAd){
+    public static void openSharedList(ArrayList<String> SharedList, Activity act){
         publiclist = true;
         publicback = true;
         act.findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.GONE);
@@ -1436,7 +1442,7 @@ public class Vokabeln extends AppCompatActivity {
                     publiclist = false;
                     list.setSource(true);
                     list.setShared(true);
-                    showvocabularys(list.getName(), act, TrainingInterstitialAd);
+                    showvocabularys(list.getName(), act);
                     break;
                 }
             }
@@ -1450,7 +1456,7 @@ public class Vokabeln extends AppCompatActivity {
             publiclist = true;
             Vokabeln.sharedlist = list;
             ManageData.DownloadVocabularys(list.getName(), act);
-            showvocabularys(list.getName(), act, TrainingInterstitialAd);
+            showvocabularys(list.getName(), act);
             Vokabeln.publiclist = false;
             Vokabeln.sharedlist = null;
         }

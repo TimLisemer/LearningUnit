@@ -588,6 +588,22 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
+            <com.google.android.gms.ads.doubleclick.PublisherAdView
+                android:id="@+id/VocabularyTrainer_AdView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="visible"
+                app:adSize="FULL_BANNER"
+                app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_vocabularys"
+                app:layout_constraintVertical_bias="1.0">
+            </com.google.android.gms.ads.doubleclick.PublisherAdView>
+
             <TextView
                 android:id="@+id/vocabulary_learn_language1"
                 android:layout_width="0dp"
@@ -597,6 +613,8 @@
                 android:layout_marginEnd="8dp"
                 android:text="Sprache"
                 android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -628,6 +646,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="Vokabel"
                 android:textAlignment="center"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -748,6 +767,8 @@
                 android:layout_marginEnd="8dp"
                 android:text="Sprache"
                 android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_level2count" />
@@ -785,30 +806,35 @@
 
             <Button
                 android:id="@+id/vocabulary_learn_right"
-                android:layout_width="176dp"
-                android:layout_height="48dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Ich lag falsch"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/guideline55"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_inputlayout" />
 
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
             <Button
                 android:id="@+id/vocabulary_learn_wrong"
-                android:layout_width="176dp"
-                android:layout_height="48dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Ich lag richtig"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline55"
                 app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_inputlayout" />
 
             <Button
@@ -820,6 +846,7 @@
                 android:layout_marginEnd="8dp"
                 android:enabled="false"
                 android:text="Eingabe"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.357"
                 app:layout_constraintStart_toStartOf="parent"
@@ -834,6 +861,8 @@
                 android:layout_marginEnd="8dp"
                 android:text="Sprache - Sprache"
                 android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_showTranslation" />
@@ -857,6 +886,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="Original - Übersetzung"
                 android:textAlignment="center"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_languages" />

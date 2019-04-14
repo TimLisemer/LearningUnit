@@ -19,13 +19,11 @@ public class PublicListCustomAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private ArrayList<ArrayList<String>> SharedLists;
     private Activity activity;
-    private PublisherInterstitialAd TrainingInterstitialAd;
 
-    public PublicListCustomAdapter(Activity activity, ArrayList<ArrayList<String>> SharedList, PublisherInterstitialAd TrainingInterstitialAd){
+    public PublicListCustomAdapter(Activity activity, ArrayList<ArrayList<String>> SharedList){
         SharedLists = SharedList;
         this.inflater = (LayoutInflater.from(activity));
         this.activity = activity;
-        this.TrainingInterstitialAd = TrainingInterstitialAd;
     }
 
     @Override
@@ -51,7 +49,7 @@ public class PublicListCustomAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Vokabeln.openSharedList(SharedList, activity, TrainingInterstitialAd);
+                Vokabeln.openSharedList(SharedList, activity);
                 Log.d("AAA", "BBBBB");
             }
         });
