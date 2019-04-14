@@ -36,11 +36,11 @@ public class CustomAdapter extends BaseAdapter {
     private Context context;
     private String HourList[];
     private String ColorCodes[];
-    String DayHourList[][];
-    String DayHourColor[][];
+    private String DayHourList[][];
+    private String DayHourColor[][];
     private boolean zero;
     private LayoutInflater inflter;
-    Activity activity;
+    private Activity activity;
 
     public CustomAdapter(Context applicationContext, String[] HourList, String[] ColorCodes, Activity activity) {
         this.context = applicationContext;
@@ -338,7 +338,7 @@ public class CustomAdapter extends BaseAdapter {
                 Guideline guideline5 = (Guideline) view.findViewById(R.id.timetable_showcaseListViewGuideline5);
                 guideline5.setGuidelinePercent(0.8f);
 
-            }else if(DayHourList.length == 5){
+            }else if(DayHourList.length == 6){
 
                 view.findViewById(R.id.timetable_showcaseListViewView).setVisibility(View.GONE);
                 view.findViewById(R.id.owcaseListViewButton).setVisibility(View.GONE);
