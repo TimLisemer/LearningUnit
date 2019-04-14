@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.joda.time.DateTime;
+
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1234,6 +1237,10 @@ public class HomeFragmentMethods extends AppCompatActivity {
             type = new TypeToken<ArrayList<Presentation>>() {}.getType();
         }
         eventlist = gson.fromJson(json, type);
+        Calendar ca = Calendar.getInstance();
+        Date d = ca.getTime();
+        DateTime dateTime = new DateTime(d);
+        Event currentTimeEvent = new Event(dateTime.getDayOfMonth(), dateTime.getMonthOfYear(), dateTime.getYear());
 
         final ConstraintLayout OverviewView = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout);
         final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
@@ -1263,8 +1270,17 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 infoView.setVisibility(View.GONE);
                 infoButton.setVisibility(View.GONE);
 
+                ArrayList<Homework> halist = new ArrayList<Homework>();
+                if(eventlist.size() > 0) {
+                    for (Homework ha : (ArrayList<Homework>) eventlist) {
+                        if(EventMethods.isYounger((Event) ha, currentTimeEvent)){
+                            halist.add(ha);
+                        }
+                    }
+                }
+
                 ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
-                HomeCustomAdapter customAdapter = new HomeCustomAdapter(activity, (ArrayList<Homework>) eventlist);
+                HomeCustomAdapter customAdapter = new HomeCustomAdapter(activity, halist);
                 listView.setAdapter(customAdapter);
             }
             TopNew.setVisibility(View.VISIBLE);
@@ -1293,8 +1309,17 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 infoView.setVisibility(View.GONE);
                 infoButton.setVisibility(View.GONE);
 
+                ArrayList<Exam> exlist = new ArrayList<Exam>();
+                if(eventlist.size() > 0) {
+                    for (Exam exam : (ArrayList<Exam>) eventlist) {
+                        if(EventMethods.isYounger((Event) exam, currentTimeEvent)){
+                            exlist.add(exam);
+                        }
+                    }
+                }
+
                 ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
-                HomeCustomAdapter customAdapter = new HomeCustomAdapter((ArrayList<Exam>) eventlist, activity);
+                HomeCustomAdapter customAdapter = new HomeCustomAdapter(exlist, activity);
                 listView.setAdapter(customAdapter);
             }
             TopNew.setVisibility(View.VISIBLE);
@@ -1354,8 +1379,17 @@ public class HomeFragmentMethods extends AppCompatActivity {
                     infoView.setVisibility(View.GONE);
                     infoButton.setVisibility(View.GONE);
 
+                    ArrayList<Presentation> prlist = new ArrayList<Presentation>();
+                    if(eventlist.size() > 0) {
+                        for (Presentation pa : (ArrayList<Presentation>) eventlist) {
+                            if(EventMethods.isYounger((Event) pa, currentTimeEvent)){
+                                prlist.add(pa);
+                            }
+                        }
+                    }
+
                     ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
-                    HomeCustomAdapter customAdapter = new HomeCustomAdapter((ArrayList<Presentation>) eventlist, activity, 88);
+                    HomeCustomAdapter customAdapter = new HomeCustomAdapter(prlist, activity, 88);
                     listView.setAdapter(customAdapter);
                 }
                 TopNew.setVisibility(View.VISIBLE);
@@ -1370,6 +1404,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
         final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
         final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+        TopBack.setText(activity.getResources().getString(R.string.Back));
         TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
