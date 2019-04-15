@@ -75,7 +75,7 @@ public class TimetableShowcase extends AppCompatActivity {
 
         MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
         TimetableShowcaseAdView = (PublisherAdView) findViewById(R.id.TimetableShowcaseAdView);
-        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build();
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
         TimetableShowcaseAdView.loadAd(adRequest);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

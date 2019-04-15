@@ -31,7 +31,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherAdView;
@@ -106,7 +105,7 @@ public class Vokabeln extends AppCompatActivity {
 
         MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
         VocabularyTrainer_AdView = (PublisherAdView) findViewById(R.id.VocabularyTrainer_AdView);
-        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build();
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
         VocabularyTrainer_AdView.loadAd(adRequest);
 
         VocabularyTrainingInterstitialAd = new PublisherInterstitialAd(Vokabeln.this);
@@ -416,7 +415,7 @@ public class Vokabeln extends AppCompatActivity {
                             list.setShared(true);
                             sharedListID = list.getID();
                             sharedID = list.getCreatorID();
-                            ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sharedListID + " zu erreichen.");
+                            ShareInfo.setText(act.getResources().getString(R.string.PublicVocabIDInfo1) + sharedListID + act.getResources().getString(R.string.PublicVocabIDInfo2));
                             direction = false;
                             if(ManageData.InternetAvailable(context)){
                                 ManageData.DownloadVocabularys(s, context);
@@ -438,7 +437,7 @@ public class Vokabeln extends AppCompatActivity {
                         publiclist = true;
                         sharedListID = list.getID();
                         sharedID = list.getCreatorID();
-                        ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + sharedListID + " zu erreichen.");
+                        ShareInfo.setText(act.getResources().getString(R.string.PublicVocabIDInfo1) + sharedListID + act.getResources().getString(R.string.PublicVocabIDInfo2));
                         if(ManageData.InternetAvailable(context)){
                             ManageData.DownloadVocabularys(s, context);
                         }
@@ -560,7 +559,7 @@ public class Vokabeln extends AppCompatActivity {
                         listiD = Integer.parseInt(sd);
                         showvocablist.setID(listiD);
 
-                        settings.setText("Einstellungen");
+                        settings.setText(act.getResources().getString(R.string.Settings));
                         settings.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -573,7 +572,7 @@ public class Vokabeln extends AppCompatActivity {
                 }
             }else{
                 listiD = showvocablist.getID();
-                settings.setText("Einstellungen");
+                settings.setText(act.getResources().getString(R.string.Settings));
                 settings.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -616,14 +615,14 @@ public class Vokabeln extends AppCompatActivity {
 
                 final int followStatus = Integer.parseInt(a);
                 if (followStatus == 0) {
-                    follow.setText("Folgen");
+                    follow.setText(act.getResources().getString(R.string.Follow));
                 } else {
-                    follow.setText("Gefolgt");
+                    follow.setText(act.getResources().getString(R.string.Followed));
                 }
             }else{
                 follow.setText("OFFLINE");
             }
-            settings.setText("Liste Melden");
+            settings.setText(act.getResources().getString(R.string.ReportList));
             settings.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -636,12 +635,12 @@ public class Vokabeln extends AppCompatActivity {
                     openFollow(showvocablist, follow, act);
                 }
             });
-            rate.setText("Bewerten");
+            rate.setText(act.getResources().getString(R.string.Rate));
         }
 
         try{
             if(showvocablist.getShared() == true){
-                ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + showvocablist.getID() + " zu erreichen.");
+                ShareInfo.setText(act.getResources().getString(R.string.PublicVocabIDInfo1) + showvocablist.getID() + act.getResources().getString(R.string.PublicVocabIDInfo2));
                 ShareInfo.setVisibility(View.VISIBLE);
             }else{
                 ShareInfo.setVisibility(View.GONE);
@@ -655,7 +654,7 @@ public class Vokabeln extends AppCompatActivity {
 
         if(showvocablist.size() < 5){
             error.setVisibility(View.VISIBLE);
-            error.setText("Es müssen mindestens 5 Vokabeln in der Vokabelliste vorhanden sein, um die Übung zu starten");
+            error.setText(act.getResources().getString(R.string.TrainingCondition));
             train.setEnabled(false);
         }else{
             error.setVisibility(View.GONE);
@@ -766,7 +765,7 @@ public class Vokabeln extends AppCompatActivity {
 
     public void open_back(){
         if(layout00.getVisibility() == View.VISIBLE){
-            all.setText("Alle Vokabeln");
+            all.setText(getResources().getString(R.string.AllVocabularys));
             layout00.setVisibility(View.GONE);
             if(yourlistsString.size() > 0){
                 layout.setVisibility(View.VISIBLE);
@@ -837,7 +836,7 @@ public class Vokabeln extends AppCompatActivity {
 
 
     private static void start_train(final VocabularyList trainlist, final Activity act) {
-        VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
+        VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().build());
 
         InputMethodManager imm = (InputMethodManager) act.getSystemService(Activity.INPUT_METHOD_SERVICE);
         View view = act.getCurrentFocus();
@@ -861,7 +860,7 @@ public class Vokabeln extends AppCompatActivity {
         final ArrayList<Vocabulary> level4 = new ArrayList<Vocabulary>();
 
         learn_languages.setText(trainlist.getLanguageName1()+ " - " + trainlist.getLanguageName2());
-        learn_vocabularys.setText("Original - Übersetzung");
+        learn_vocabularys.setText(act.getResources().getString(R.string.Original) + " - " + act.getResources().getString(R.string.Translation));
 
         act.findViewById(R.id.vocabulary_scrollView5).setVisibility(View.VISIBLE);
         act.findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
@@ -1326,7 +1325,7 @@ public class Vokabeln extends AppCompatActivity {
         ManageData.DownloadFollowedVocabularyLists(context, true);
         ManageData.NewDownloadVocabularyLists(context, true);
         if(layout00.getVisibility() == View.GONE){
-            all.setText("Alle Listen");
+            all.setText(getResources().getString(R.string.AllLists));
             layout00.setVisibility(View.VISIBLE);
             if(layout.getVisibility() == View.VISIBLE){
                 layout.setVisibility(View.GONE);
@@ -1335,7 +1334,7 @@ public class Vokabeln extends AppCompatActivity {
                 layout0.setVisibility(View.GONE);
             }
         }else{
-            all.setText("Alle Vokabeln");
+            all.setText(getResources().getString(R.string.AllVocabularys));
             layout00.setVisibility(View.GONE);
             if(yourlistsString.size() > 0){
                 layout.setVisibility(View.VISIBLE);
@@ -1585,7 +1584,7 @@ public class Vokabeln extends AppCompatActivity {
                                         openShare(vocID, list, act);
                                     }
                                 });
-                                builder.setTitle(act.getResources().getString(R.string.SetVocabularyListPrivate));
+                                builder.setTitle(act.getResources().getString(R.string.SetVocabularyListPrivaSte));
                                 builder.setMessage(act.getResources().getString(R.string.ConfirmUnPublication));
                             }
                             builder.show();
@@ -1709,7 +1708,7 @@ public class Vokabeln extends AppCompatActivity {
 
             if (list.getShared() == false) {
                 requestHandler.sendGetRequest(MainActivity.URL_changesShared + vocID + "&State=1");
-                ShareInfo.setText("Diese Öffentliche Vokabelliste ist unter der ID: " + vocID + " zu erreichen.");
+                ShareInfo.setText(act.getResources().getString(R.string.PublicVocabIDInfo1) + vocID + act.getResources().getString(R.string.PublicVocabIDInfo2));
                 ShareInfo.setVisibility(View.VISIBLE);
                 list.setShared(true);
                 VocabularyMethods.saveVocabularyList(list);
@@ -1724,7 +1723,7 @@ public class Vokabeln extends AppCompatActivity {
                 act.startActivity(intent);
             }
         }else{
-            ShareInfo.setText("Internet nicht Verfügbar");
+            ShareInfo.setText(act.getResources().getString(R.string.NoNetworkConnection));
             ShareInfo.setVisibility(View.VISIBLE);
         }
     }

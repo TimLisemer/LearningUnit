@@ -126,7 +126,7 @@
     <string name="SetPrivate">Auf Privat stellen</string>
     <string name="ConfirmPublication">Mit deiner Freigabe bestätigst du, dass du keine Rechte Dritter verletzt.</string>
     <string name="ConfirmUnPublication">Deine Vokabelliste verliert damit alle Follower und Bewertungen</string>
-    <string name="SetVocabularyListPrivate">Vokabelliste auf Privat stellen</string>
+    <string name="SetVocabularyListPrivaSte">Vokabelliste auf Privat stellen</string>
     <string name="SetListPrivate">Liste auf Privat Stellen</string>
     <string name="PublishList">Liste Veröffentlichen</string>
     <string name="Followed">Gefolgt</string>
@@ -144,4 +144,17 @@
     <string name="NoRecentEvents">Keine aktuellen termine</string>
     <string name="MultipleEvents">Mehrere Termine</string>
     <string name="Grade">Note:</string>
+    <string name="AllVocabularys">Alle Vokbeln</string>
+    <string name="Original">Original</string>
+    <string name="Translation">Übersetzung</string>
+    <string name="AllLists">Alle Listen</string>
+    <string name="PublicVocabIDInfo1">"Diese Öffentliche Vokabelliste ist unter der ID: "</string>
+    <string name="ReportList">Liste Melden</string>
+    <string name="Rate">Bewerten</string>
+    <string name="TrainingCondition">Es müssen mindestens 5 Vokabeln in der Vokabelliste vorhanden sein, um die Übung zu starten</string>
+    <string name="PublicVocabIDInfo2">" zu erreichen"</string>
+    <string name="PublicLists">Öffentliche Listen</string>
+    <string name="ImportList">Liste Importieren</string>
+    <string name="NewList">Neue Liste</string>
+    <string name="NoListCreatedYet">Es wurde noch keine Vokabelliste erstellt</string>
 </resources>

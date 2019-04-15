@@ -126,8 +126,8 @@
     <string name="PublishVocabList">Publish Vocabulary List</string>
     <string name="Publish">Publish</string>
     <string name="ConfirmUnPublication">Your vocabulary list loses all followers and ratings</string>
-    <string name="SetVocabularyListPrivate">Auf Privat stellen</string>
-    <string name="SetListPrivate">Set List Private</string>
+    <string name="SetVocabularyListPrivaSte">Auf Privat stellen</string>
+    <string name="SetListPrivate">Make List Private</string>
     <string name="PublishList">Publish Liste</string>
     <string name="Follow">Follow</string>
     <string name="Followed">Followed</string>
@@ -144,4 +144,17 @@
     <string name="NoRecentEvents">No recent Events</string>
     <string name="MultipleEvents">Multiple Events</string>
     <string name="Grade">"Grade: "</string>
+    <string name="AllVocabularys">All Vocabularys</string>
+    <string name="Original">Original</string>
+    <string name="Translation">Translation</string>
+    <string name="AllLists">All Lists</string>
+    <string name="PublicVocabIDInfo1">"This Public Vocabulary List is available under the ID: "</string>
+    <string name="ReportList">Report List</string>
+    <string name="Rate">Rate</string>
+    <string name="TrainingCondition">There must be at least 5 words in the vocabulary list to start the exercise</string>
+    <string name="PublicVocabIDInfo2">" "</string>
+    <string name="PublicLists">Public Lists</string>
+    <string name="ImportList">Import List</string>
+    <string name="NewList">New List</string>
+    <string name="NoListCreatedYet">No vocabulary list has been created yet</string>
 </resources>

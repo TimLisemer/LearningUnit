@@ -6,8 +6,8 @@ android {
         applicationId "learningunit.learningunit"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 9
-        versionName "0.3"
+        versionCode 10
+        versionName "0.3.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
