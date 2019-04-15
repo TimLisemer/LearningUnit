@@ -1,6 +1,8 @@
 package learningunit.learningunit.Objects.Timetable;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.constraint.ConstraintLayout;
@@ -15,32 +17,46 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
+import learningunit.learningunit.Objects.Organizer.Event;
+import learningunit.learningunit.Objects.Organizer.Exam;
+import learningunit.learningunit.Objects.Organizer.HomeFragmentMethods;
+import learningunit.learningunit.Objects.Organizer.Homework;
+import learningunit.learningunit.Objects.Organizer.Presentation;
 import learningunit.learningunit.R;
+import learningunit.learningunit.beforeStart.FirstScreen;
+import learningunit.learningunit.menu.organizer.Organizer;
 
 public class CustomAdapter extends BaseAdapter {
     private Context context;
     private String HourList[];
     private String ColorCodes[];
-    String DayHourList[][];
-    String DayHourColor[][];
+    private String DayHourList[][];
+    private String DayHourColor[][];
     private boolean zero;
     private LayoutInflater inflter;
+    private Activity activity;
 
-    public CustomAdapter(Context applicationContext, String[] HourList, String[] ColorCodes) {
+    public CustomAdapter(Context applicationContext, String[] HourList, String[] ColorCodes, Activity activity) {
         this.context = applicationContext;
         this.HourList = HourList;
         this.ColorCodes = ColorCodes;
         this.zero = false;
-
+        this.activity = activity;
         this.inflter = (LayoutInflater.from(applicationContext));
     }
 
-    public CustomAdapter(Context applicationContext, String DayHourList[][], String DayHourColor[][]) {
+    public CustomAdapter(Context applicationContext, String DayHourList[][], String DayHourColor[][], Activity activity) {
         this.context = applicationContext;
         this.DayHourList = DayHourList;
         this.DayHourColor = DayHourColor;
         this.zero = true;
-
+        this.activity = activity;
         this.HourList = DayHourList[0];
         this.ColorCodes = DayHourColor[0];
 
@@ -64,7 +80,7 @@ public class CustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.timetable_showcase_listview, null);
         final View view1 = view;
 
@@ -77,10 +93,116 @@ public class CustomAdapter extends BaseAdapter {
             view1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    TextView homeworkinfo = (TextView) view1.findViewById(R.id.timetable_showcaseListViewText1);
+
+                    Gson gson = new Gson();
+                    ArrayList<Homework> eventlist;
+                    String json = FirstScreen.tinyDB.getString("Homework");
+                    if(json.equals("")){
+                        eventlist = new ArrayList<Homework>();
+                    }else {
+                        Type type = new TypeToken<ArrayList<Homework>>() {
+                        }.getType();
+                        eventlist = gson.fromJson(json, type);
+                    }
+
+                    ArrayList<Exam> examlist;
+                    String json1 = FirstScreen.tinyDB.getString("Exam");
+                    if(json1.equals("")){
+                        examlist = new ArrayList<Exam>();
+                    }else {
+                        Type type = new TypeToken<ArrayList<Exam>>() {
+                        }.getType();
+                        examlist = gson.fromJson(json1, type);
+                    }
+
+                    ArrayList<Presentation> prelist;
+                    String json2= FirstScreen.tinyDB.getString("Presentation");
+                    if(json1.equals("")){
+                        prelist = new ArrayList<Presentation>();
+                    }else {
+                        Type type = new TypeToken<ArrayList<Presentation>>() {
+                        }.getType();
+                        prelist = gson.fromJson(json2, type);
+                    }
+
+                    Button img = (Button) view1.findViewById(R.id.timetable_showcaseListViewEdit);
+
+                    String hinfotext = activity.getResources().getString(R.string.NoHomeWork);
+                    int eventcount = 0; int hacount = 0; int examcount = 0; int precount = 0;
+                    for(Homework h : eventlist){
+                        if(h.getHour().getColorCode().equals(ColorCodes[i]) && h.getHour().getName().equals(HourList[i])){
+                            eventcount ++;
+                            hacount ++;
+                            hinfotext = eventcount + " " + activity.getResources().getString(R.string.Homework);
+                            HomeFragmentMethods.startCondition = 1;
+                            img.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(activity, Organizer.class);
+                                    activity.startActivity(intent);
+                                }
+                            });
+                        }
+                    }
+                    for(Exam h : examlist){
+                        if(h.getHour().getColorCode().equals(ColorCodes[i]) && h.getHour().getName().equals(HourList[i])){
+                            eventcount ++;
+                            examcount ++;
+                            if(hacount == 0){
+                                hinfotext = eventcount + " " + activity.getResources().getString(R.string.Exam);
+                                HomeFragmentMethods.startCondition = 2;
+                            }else{
+                                hinfotext = activity.getResources().getString(R.string.MultipleEvents);
+                                HomeFragmentMethods.startCondition = 0;
+                            }
+                            img.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(activity, Organizer.class);
+                                    activity.startActivity(intent);
+                                }
+                            });
+                        }
+                    }
+                    for(Presentation h : prelist){
+                        if(h.getHour().getColorCode().equals(ColorCodes[i]) && h.getHour().getName().equals(HourList[i])){
+                            eventcount ++;
+                            precount ++;
+                            if(hacount == 0 && examcount == 0){
+                                hinfotext = eventcount + " " + activity.getResources().getString(R.string.Presentations);
+                                HomeFragmentMethods.startCondition = 3;
+                            }else{
+                                hinfotext = activity.getResources().getString(R.string.MultipleEvents);
+                                HomeFragmentMethods.startCondition = 0;
+                            }
+                            img.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(activity, Organizer.class);
+                                    activity.startActivity(intent);
+                                }
+                            });
+                        }
+                    }
+
+                    if(eventcount == 0){
+                        HomeFragmentMethods.startCondition = 0;
+                        homeworkinfo = (TextView) view1.findViewById(R.id.timetable_showcaseListViewText1);
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(activity, Organizer.class);
+                                activity.startActivity(intent);
+                            }
+                        });
+                    }
+
                     view1.performHapticFeedback(1);
                     if(view1.findViewById(R.id.timetable_showcaseListViewText1).getVisibility() == View.GONE) {
                         view1.findViewById(R.id.timetable_showcaseListViewEdit).setVisibility(View.VISIBLE);
-                        view1.findViewById(R.id.timetable_showcaseListViewText1).setVisibility(View.VISIBLE);
+                        homeworkinfo.setVisibility(View.VISIBLE);
+                        homeworkinfo.setText(hinfotext);
                         ConstraintSet set = new ConstraintSet();
                         ConstraintLayout layout = (ConstraintLayout) view1.findViewById(R.id.constraintLayoutListView);
                         set.clone(layout);
@@ -89,7 +211,7 @@ public class CustomAdapter extends BaseAdapter {
                         set.applyTo(layout);
                     }else{
                         view1.findViewById(R.id.timetable_showcaseListViewEdit).setVisibility(View.GONE);
-                        view1.findViewById(R.id.timetable_showcaseListViewText1).setVisibility(View.GONE);
+                        homeworkinfo.setVisibility(View.GONE);
                         ConstraintSet set = new ConstraintSet();
                         ConstraintLayout layout = (ConstraintLayout) view1.findViewById(R.id.constraintLayoutListView);
                         set.clone(layout);
@@ -216,7 +338,7 @@ public class CustomAdapter extends BaseAdapter {
                 Guideline guideline5 = (Guideline) view.findViewById(R.id.timetable_showcaseListViewGuideline5);
                 guideline5.setGuidelinePercent(0.8f);
 
-            }else if(DayHourList.length == 5){
+            }else if(DayHourList.length == 6){
 
                 view.findViewById(R.id.timetable_showcaseListViewView).setVisibility(View.GONE);
                 view.findViewById(R.id.owcaseListViewButton).setVisibility(View.GONE);

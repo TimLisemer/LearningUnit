@@ -15,7 +15,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/main_Ad"
+        app:layout_constraintBottom_toTopOf="@+id/MainActivity_AdView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -105,21 +105,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/main_Ad"
-        style="@style/Fynnx_Buttons"
+    <com.google.android.gms.ads.doubleclick.PublisherAdView
+        android:id="@+id/MainActivity_AdView"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:background="@mipmap/button"
-        android:fontFamily="@font/hammersmith_one"
-        android:text="AD"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:visibility="visible"
+        app:adSize="SMART_BANNER"
+        app:adUnitId="ca-app-pub-2182452775939631/6751260660"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent">
+    </com.google.android.gms.ads.doubleclick.PublisherAdView>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/main_settingsLayout"
@@ -127,7 +124,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/main_Ad"
+        app:layout_constraintBottom_toTopOf="@+id/MainActivity_AdView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -272,7 +269,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/main_Ad"
+        app:layout_constraintBottom_toTopOf="@+id/MainActivity_AdView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

@@ -18,8 +18,16 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherAdView;
+import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.joda.time.DateTime;
+
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,6 +47,7 @@ import learningunit.learningunit.menu.organizer.Organizer;
 
 public class HomeFragmentMethods extends AppCompatActivity {
 
+    public static int startCondition = 0; //0 = normal 1 = home 2 = exam 3 = pres
     int fday, fmonth, fyear;
     Hour Selected;
     public static Boolean HourChosen = false;
@@ -46,110 +55,148 @@ public class HomeFragmentMethods extends AppCompatActivity {
     public static Button downHour1[];
 
     public HomeFragmentMethods(final View fragmentView, final Activity activity) {
-        if (activity == null) {
-            throw new IllegalArgumentException("Invalid activity --> Null");
+        start(fragmentView, activity);
+        if(startCondition == 1) {
+            HomeworkClick(fragmentView, activity);
+        }else if(startCondition == 2) {
+            ExamClick(fragmentView, activity);
+        }else if(startCondition == 3) {
+            PresentationClick(fragmentView, activity);
         }
-        new GradeMethods(fragmentView, activity);
-        HomeworkClick(fragmentView, activity);
-        ExamClick(fragmentView, activity);
-        PresentationClick(fragmentView, activity);
 
         Button Opt1 = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Gradefragment_organizer_home_GradeSubSelection_Opt1);
         Opt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Overview(fragmentView, activity, 2);
+                Overview(fragmentView, activity, 2, false);
             }
         });
     }
 
 
 
-
-
-
-
-    private void PresentationClick(final View fragmentView, final Activity activity){
+    private void start(final View fragmentView, final Activity activity){
         MainActivity.hideKeyboard(activity);
+        GradeClick(fragmentView, activity);
         Button pre = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Presentation);
         pre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PresentationClick(fragmentView, activity);
+            }
+        });
 
-                final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
-                final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+        Button exam = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_arbeiten);
+        exam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExamClick(fragmentView, activity);
+            }
+        });
 
-                Button overview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
-                Button newOne = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_CreateSelection);
-                overview.setText(activity.getResources().getString(R.string.PresentationOverview));
-                newOne.setText(activity.getResources().getString(R.string.CreateNewPresentation));
+        Button homework = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_hausaufgaben);
+        homework.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeworkClick(fragmentView, activity);
+            }
+        });
 
-                newOne.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        NewEventPresentation(fragmentView, activity);
-                    }
-                });
+        Button GradeExam = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Grade_Exam);
+        GradeExam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Overview(fragmentView, activity, 1, true);
+            }
+        });
 
-                Selection.setVisibility(View.VISIBLE);
-                MainLayout.setVisibility(View.GONE);
+        Button GradePresentation = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Grade_Presentation);
+        GradePresentation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Overview(fragmentView, activity, 3, true);
+            }
+        });
 
-                final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
-                TopBack.setText(activity.getResources().getString(R.string.Back));
+        Button Notes = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Notizen);
+
+    }
+
+
+
+    private void PresentationClick(final View fragmentView, final Activity activity){
+        startCondition = 0;
+        MainActivity.hideKeyboard(activity);
+        final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
+        final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+
+        Button overview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
+        Button newOne = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_CreateSelection);
+        overview.setText(activity.getResources().getString(R.string.PresentationOverview));
+        newOne.setText(activity.getResources().getString(R.string.CreateNewPresentation));
+
+        newOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewEventPresentation(fragmentView, activity);
+            }
+        });
+
+        Selection.setVisibility(View.VISIBLE);
+        MainLayout.setVisibility(View.GONE);
+
+        final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
+        TopBack.setText(activity.getResources().getString(R.string.Back));
+        TopBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Selection.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Selection.setVisibility(View.GONE);
-                        MainLayout.setVisibility(View.VISIBLE);
-                        TopBack.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
-                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
-                            @Override
-                            public void doBack() {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
                     }
                 });
-
                 Organizer.setOnBackPressedListener(new OnBackPressedListener() {
                     @Override
                     public void doBack() {
-                        Selection.setVisibility(View.GONE);
-                        MainLayout.setVisibility(View.VISIBLE);
-                        TopBack.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
-                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
-                            @Override
-                            public void doBack() {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
                     }
                 });
+            }
+        });
 
-
-                Button ExamOverview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
-                ExamOverview.setOnClickListener(new View.OnClickListener() {
+        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+            @Override
+            public void doBack() {
+                Selection.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
+                TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Overview(fragmentView, activity, 3);
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
                     }
                 });
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+            }
+        });
 
 
+        Button ExamOverview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
+        ExamOverview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Overview(fragmentView, activity, 3, false);
             }
         });
     }
@@ -162,167 +209,155 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
 
     private void ExamClick(final View fragmentView, final Activity activity){
+        startCondition = 0;
         MainActivity.hideKeyboard(activity);
-        Button exam = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_arbeiten);
-        exam.setOnClickListener(new View.OnClickListener() {
+        final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
+        final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+
+        Button overview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
+        Button newOne = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_CreateSelection);
+        overview.setText(activity.getResources().getString(R.string.ExamOverview));
+        newOne.setText(activity.getResources().getString(R.string.EnterNewExam));
+
+        newOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NewEventExam(fragmentView, activity);
+            }
+        });
 
-                final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
-                final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+        Selection.setVisibility(View.VISIBLE);
+        MainLayout.setVisibility(View.GONE);
 
-                Button overview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
-                Button newOne = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_CreateSelection);
-                overview.setText(activity.getResources().getString(R.string.ExamOverview));
-                newOne.setText(activity.getResources().getString(R.string.EnterNewExam));
-
-                newOne.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        NewEventExam(fragmentView, activity);
-                    }
-                });
-
-                Selection.setVisibility(View.VISIBLE);
-                MainLayout.setVisibility(View.GONE);
-
-                final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
-                TopBack.setText(activity.getResources().getString(R.string.Back));
+        final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
+        TopBack.setText(activity.getResources().getString(R.string.Back));
+        TopBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Selection.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Selection.setVisibility(View.GONE);
-                        MainLayout.setVisibility(View.VISIBLE);
-                        TopBack.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
-                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
-                            @Override
-                            public void doBack() {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
                     }
                 });
-
                 Organizer.setOnBackPressedListener(new OnBackPressedListener() {
                     @Override
                     public void doBack() {
-                        Selection.setVisibility(View.GONE);
-                        MainLayout.setVisibility(View.VISIBLE);
-                        TopBack.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
-                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
-                            @Override
-                            public void doBack() {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
                     }
                 });
-
-
-                Button ExamOverview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
-                ExamOverview.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Overview(fragmentView, activity, 1);
-                    }
-                });
-
-
             }
         });
+
+        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+            @Override
+            public void doBack() {
+                Selection.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+            }
+        });
+
+
+        Button ExamOverview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
+        ExamOverview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Overview(fragmentView, activity, 1, false);
+            }
+        });
+
     }
 
 
     private void HomeworkClick(final View fragmentView, final Activity activity){
+        startCondition = 0;
         MainActivity.hideKeyboard(activity);
-        Button homework = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_hausaufgaben);
-        homework.setOnClickListener(new View.OnClickListener() {
+        final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
+        final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+        Selection.setVisibility(View.VISIBLE);
+        MainLayout.setVisibility(View.GONE);
+
+        Button overview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
+        Button newOne = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_CreateSelection);
+        overview.setText(activity.getResources().getString(R.string.HomeworkOverview));
+        newOne.setText(activity.getResources().getString(R.string.EnterNewHomework));
+
+        final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
+        TopBack.setText(activity.getResources().getString(R.string.Back));
+        TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
-                final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
-                Selection.setVisibility(View.VISIBLE);
-                MainLayout.setVisibility(View.GONE);
-
-                Button overview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
-                Button newOne = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_CreateSelection);
-                overview.setText(activity.getResources().getString(R.string.HomeworkOverview));
-                newOne.setText(activity.getResources().getString(R.string.EnterNewHomework));
-
-                final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
-                TopBack.setText(activity.getResources().getString(R.string.Back));
+                Selection.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Selection.setVisibility(View.GONE);
-                        MainLayout.setVisibility(View.VISIBLE);
-                        TopBack.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
-                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
-                            @Override
-                            public void doBack() {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
                     }
                 });
-
                 Organizer.setOnBackPressedListener(new OnBackPressedListener() {
                     @Override
                     public void doBack() {
-                        Selection.setVisibility(View.GONE);
-                        MainLayout.setVisibility(View.VISIBLE);
-                        TopBack.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
-                        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
-                            @Override
-                            public void doBack() {
-                                Intent intent = new Intent(activity, MainActivity.class);
-                                activity.startActivity(intent);
-                            }
-                        });
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
                     }
                 });
+            }
+        });
 
-                Button OverviewHomework = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
-                OverviewHomework.setOnClickListener(new View.OnClickListener() {
+        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+            @Override
+            public void doBack() {
+                Selection.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
+                TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Overview(fragmentView, activity, 0);
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
                     }
                 });
-
-                newOne.setOnClickListener(new View.OnClickListener() {
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
                     @Override
-                    public void onClick(View v) {
-                        NewEventHomework(fragmentView, activity);
+                    public void doBack() {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
                     }
                 });
+            }
+        });
+
+        Button OverviewHomework = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
+        OverviewHomework.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Overview(fragmentView, activity, 0, false);
+            }
+        });
+
+        newOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewEventHomework(fragmentView, activity);
             }
         });
     }
@@ -1002,8 +1037,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
         fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView).setVisibility(View.GONE);
         fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout).setVisibility(View.VISIBLE);
 
-        Selected.addEvent(event);
-
         Gson gson = new Gson();
         ArrayList<Presentation> eventlist;
         String json1 = FirstScreen.tinyDB.getString("Presentation");
@@ -1064,15 +1097,13 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
             }
         }
-        Overview(fragmentView, activity, 3);
+        Overview(fragmentView, activity, 3, false);
     }
 
 
     private void FinishHomework(final View fragmentView, final Activity activity, Homework event){
         fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView).setVisibility(View.GONE);
         fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout).setVisibility(View.VISIBLE);
-
-        Selected.addEvent(event);
 
         Gson gson = new Gson();
         ArrayList<Homework> eventlist;
@@ -1134,16 +1165,14 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
             }
         }
-        Overview(fragmentView, activity, 0);
+        Overview(fragmentView, activity, 0, false);
     }
 
 
     private void FinishExam(final View fragmentView, final Activity activity, Exam event){
         fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView).setVisibility(View.GONE);
         fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout).setVisibility(View.VISIBLE);
-
-        Selected.addEvent(event);
-
+        
         Gson gson = new Gson();
         ArrayList<Exam> eventlist;
         String json1 = FirstScreen.tinyDB.getString("Exam");
@@ -1204,12 +1233,12 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
             }
         }
-        Overview(fragmentView, activity, 1);
+        Overview(fragmentView, activity, 1, false);
     }
 
 
 
-    private void Overview(final View fragmentView, final Activity activity, final int Case) {
+    private void Overview(final View fragmentView, final Activity activity, final int Case, final boolean Grade) {
 
         Gson gson = new Gson();
         Type type;
@@ -1229,11 +1258,17 @@ public class HomeFragmentMethods extends AppCompatActivity {
             type = new TypeToken<ArrayList<Presentation>>() {}.getType();
         }
         eventlist = gson.fromJson(json, type);
+        Calendar ca = Calendar.getInstance();
+        Date d = ca.getTime();
+        DateTime dateTime = new DateTime(d);
+        Event currentTimeEvent = new Event(dateTime.getDayOfMonth(), dateTime.getMonthOfYear(), dateTime.getYear());
 
         final ConstraintLayout OverviewView = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout);
         final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
+        final ConstraintLayout GradeSelection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_GradeSelection);
         OverviewView.setVisibility(View.VISIBLE);
         Selection.setVisibility(View.GONE);
+        GradeSelection.setVisibility(View.GONE);
         final TextView OverviewHeading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListViewHeading);
         final TextView infoView = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_Overview_Info);
         final Button infoButton = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_Overview_CreateNow);
@@ -1250,15 +1285,28 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 infoButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        OverviewView.setVisibility(View.GONE);
                         NewEventHomework(fragmentView, activity);
                     }
                 });
             } else {
                 infoView.setVisibility(View.GONE);
                 infoButton.setVisibility(View.GONE);
-
                 ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
-                HomeCustomAdapter customAdapter = new HomeCustomAdapter(activity, (ArrayList<Homework>) eventlist);
+                HomeCustomAdapter customAdapter;
+                if(Grade == false) {
+                    ArrayList<Homework> halist = new ArrayList<Homework>();
+                    if (eventlist.size() > 0) {
+                        for (Homework ha : (ArrayList<Homework>) eventlist) {
+                            if (EventMethods.isYounger((Event) ha, currentTimeEvent)) {
+                                halist.add(ha);
+                            }
+                        }
+                    }
+                    customAdapter = new HomeCustomAdapter(activity, halist);
+                }else{
+                    customAdapter = new HomeCustomAdapter(activity, (ArrayList<Homework>) eventlist);
+                }
                 listView.setAdapter(customAdapter);
             }
             TopNew.setVisibility(View.VISIBLE);
@@ -1279,15 +1327,28 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 infoButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        OverviewView.setVisibility(View.GONE);
                         NewEventExam(fragmentView, activity);
                     }
                 });
             } else {
                 infoView.setVisibility(View.GONE);
                 infoButton.setVisibility(View.GONE);
-
                 ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
-                HomeCustomAdapter customAdapter = new HomeCustomAdapter((ArrayList<Exam>) eventlist, activity);
+                HomeCustomAdapter customAdapter;
+                if(Grade == false){
+                    ArrayList<Exam> exlist = new ArrayList<Exam>();
+                    if(eventlist.size() > 0) {
+                        for (Exam exam : (ArrayList<Exam>) eventlist) {
+                            if(EventMethods.isYounger((Event) exam, currentTimeEvent)){
+                                exlist.add(exam);
+                            }
+                        }
+                    }
+                    customAdapter = new HomeCustomAdapter(exlist, activity);
+                }else{
+                    customAdapter = new HomeCustomAdapter((ArrayList<Exam>) eventlist, activity);
+                }
                 listView.setAdapter(customAdapter);
             }
             TopNew.setVisibility(View.VISIBLE);
@@ -1310,6 +1371,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 infoButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        OverviewView.setVisibility(View.GONE);
                         ScrollView newCert = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_EnterNewCertificateScrollView);
                         newCert.setVisibility(View.GONE);
                         Gradesub.setVisibility(View.VISIBLE);
@@ -1345,9 +1407,21 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 } else {
                     infoView.setVisibility(View.GONE);
                     infoButton.setVisibility(View.GONE);
-
                     ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
-                    HomeCustomAdapter customAdapter = new HomeCustomAdapter((ArrayList<Presentation>) eventlist, activity, 88);
+                    HomeCustomAdapter customAdapter;
+                    if(Grade == false) {
+                        ArrayList<Presentation> prlist = new ArrayList<Presentation>();
+                        if (eventlist.size() > 0) {
+                            for (Presentation pa : (ArrayList<Presentation>) eventlist) {
+                                if (EventMethods.isYounger((Event) pa, currentTimeEvent)) {
+                                    prlist.add(pa);
+                                }
+                            }
+                        }
+                        customAdapter = new HomeCustomAdapter(prlist, activity, 88);
+                    }else{
+                        customAdapter = new HomeCustomAdapter((ArrayList<Presentation>) eventlist, activity, 88);
+                    }
                     listView.setAdapter(customAdapter);
                 }
                 TopNew.setVisibility(View.VISIBLE);
@@ -1362,16 +1436,25 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
         final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
         final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+        TopBack.setText(activity.getResources().getString(R.string.Back));
         TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Selection.setVisibility(View.VISIBLE);
+                if(!Grade) {
+                    Selection.setVisibility(View.VISIBLE);
+                }else{
+                    GradeSelection.setVisibility(View.VISIBLE);
+                }
                 OverviewView.setVisibility(View.GONE);
                 TopNew.setVisibility(View.GONE);
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Selection.setVisibility(View.GONE);
+                        if(!Grade) {
+                            Selection.setVisibility(View.GONE);
+                        }else{
+                            GradeSelection.setVisibility(View.GONE);
+                        }
                         MainLayout.setVisibility(View.VISIBLE);
                         TopNew.setVisibility(View.GONE);
                         TopBack.setOnClickListener(new View.OnClickListener() {
@@ -1393,7 +1476,11 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 Organizer.setOnBackPressedListener(new OnBackPressedListener() {
                     @Override
                     public void doBack() {
-                        Selection.setVisibility(View.GONE);
+                        if(!Grade) {
+                            Selection.setVisibility(View.GONE);
+                        }else{
+                            GradeSelection.setVisibility(View.GONE);
+                        }
                         MainLayout.setVisibility(View.VISIBLE);
                         TopNew.setVisibility(View.GONE);
                         TopBack.setOnClickListener(new View.OnClickListener() {
@@ -1418,13 +1505,21 @@ public class HomeFragmentMethods extends AppCompatActivity {
         Organizer.setOnBackPressedListener(new OnBackPressedListener() {
             @Override
             public void doBack() {
-                Selection.setVisibility(View.VISIBLE);
+                if(!Grade) {
+                    Selection.setVisibility(View.VISIBLE);
+                }else{
+                    GradeSelection.setVisibility(View.VISIBLE);
+                }
                 OverviewView.setVisibility(View.GONE);
                 TopNew.setVisibility(View.GONE);
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Selection.setVisibility(View.GONE);
+                        if(!Grade) {
+                            Selection.setVisibility(View.GONE);
+                        }else{
+                            GradeSelection.setVisibility(View.GONE);
+                        }
                         MainLayout.setVisibility(View.VISIBLE);
                         TopNew.setVisibility(View.GONE);
                         TopBack.setOnClickListener(new View.OnClickListener() {
@@ -1446,7 +1541,11 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 Organizer.setOnBackPressedListener(new OnBackPressedListener() {
                     @Override
                     public void doBack() {
-                        Selection.setVisibility(View.GONE);
+                        if(!Grade) {
+                            Selection.setVisibility(View.GONE);
+                        }else{
+                            GradeSelection.setVisibility(View.GONE);
+                        }
                         MainLayout.setVisibility(View.VISIBLE);
                         TopNew.setVisibility(View.GONE);
                         TopBack.setOnClickListener(new View.OnClickListener() {
@@ -2029,6 +2128,208 @@ public class HomeFragmentMethods extends AppCompatActivity {
         });
 
     }
+
+
+    private int Gradeback = 0;
+
+    private void GradeBackMethod(View fragmentView, Activity activity){
+        ConstraintLayout root = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+        ConstraintLayout Graderoot = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_GradeSelection);
+        ConstraintLayout Gradesub = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_GradeSubSelection);
+
+        if(Gradeback == 0){
+            Intent intent = new Intent(activity, MainActivity.class);
+            activity.startActivity(intent);
+        }else if(Gradeback == 1){
+            root.setVisibility(View.VISIBLE);
+            Graderoot.setVisibility(View.GONE);
+            Gradeback = 0;
+        }else if(Gradeback == 2) {
+            Graderoot.setVisibility(View.VISIBLE);
+            Gradesub.setVisibility(View.GONE);
+            fragmentView.findViewById(R.id.fragment_organizer_home_EnterNewCertificateScrollView).setVisibility(View.GONE);
+            EditText edit1 = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_EnterNewCertificate_edit1);
+            EditText edit2 = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_EnterNewCertificate_edit2);
+            edit1.setText("");
+            edit2.setText("");
+            Gradeback = 1;
+        }
+    }
+
+
+    public void GradeClick(final View fragmentView, final Activity activity){
+        final Button Grade = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Grade);
+        Grade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        GradeBackMethod(fragmentView, activity);
+                    }
+                });
+
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        GradeBackMethod(fragmentView, activity);
+                    }
+                });
+
+
+
+                ConstraintLayout root = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+                final ConstraintLayout Graderoot = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_GradeSelection);
+                root.setVisibility(View.GONE);
+                Graderoot.setVisibility(View.VISIBLE);
+                Gradeback = 1;
+
+                Button cert = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Grade_Certificate);
+                cert.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final ConstraintLayout Gradesub = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_GradeSubSelection);
+                        Graderoot.setVisibility(View.GONE);
+                        Gradesub.setVisibility(View.VISIBLE);
+                        Button Opt1 = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Gradefragment_organizer_home_GradeSubSelection_Opt1);
+                        Button Opt2 = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Gradefragment_organizer_home_GradeSubSelection_Opt2);
+                        Opt2.setText(activity.getResources().getString(R.string.New) + " " + activity.getResources().getString(R.string.Certificate));
+                        Opt1.setText(activity.getResources().getString(R.string.Certificate) + " " + activity.getResources().getString(R.string.Overview));
+                        Gradeback = 2;
+
+                        Opt2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                final ScrollView newCert = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_EnterNewCertificateScrollView);
+                                final EditText edit1 = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_EnterNewCertificate_edit1);
+                                final EditText edit2 = (EditText) fragmentView.findViewById(R.id.fragment_organizer_home_EnterNewCertificate_edit2);
+                                TextView newCertHeading = (TextView) fragmentView.findViewById(R.id.fragment_organizer_home_EnterNewCertificate_heading);
+                                newCert.setVisibility(View.VISIBLE);
+                                Gradesub.setVisibility(View.GONE);
+                                newCertHeading.setText(activity.getResources().getString(R.string.Certificate) + " " + activity.getResources().getString(R.string.Overview));
+
+                                Button finish = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_EnterNewCertificate_finish);
+                                finish.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if(edit1.getText().toString().trim().equals("")){
+                                            edit1.setError(activity.getResources().getString(R.string.EmptyField));
+                                        }else if(edit2.getText().toString().trim().equals("")){
+                                            edit2.setError(activity.getResources().getString(R.string.EmptyField));
+                                        }else{
+                                            Certificate cert = new Certificate(edit1.getText().toString(), edit2.getText().toString());
+                                            newCert.setVisibility(View.GONE);
+                                            Gradesub.setVisibility(View.VISIBLE);
+
+                                            Gson gson = new Gson();
+                                            String json1 = FirstScreen.tinyDB.getString("Certificates");
+                                            ArrayList<Certificate> certlist = new ArrayList<Certificate>();
+                                            if(json1.equals("")){
+                                                certlist = new ArrayList<Certificate>();
+                                            }else {
+                                                Type type = new TypeToken<ArrayList<Certificate>>() {
+                                                }.getType();
+                                                certlist = gson.fromJson(json1, type);
+                                            }
+
+                                            certlist.add(cert);
+                                            FirstScreen.tinyDB.putString("Certificates", gson.toJson(certlist));
+                                        }
+                                    }
+                                });
+
+                                Button back = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_EnterNewCertificate_back);
+                                back.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        edit1.setText("");
+                                        edit2.setText("");
+                                        newCert.setVisibility(View.GONE);
+                                        Gradesub.setVisibility(View.VISIBLE);
+                                    }
+                                });
+
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

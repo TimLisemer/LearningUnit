@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
+
 import java.util.ArrayList;
 import learningunit.learningunit.R;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;

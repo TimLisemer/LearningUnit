@@ -10,7 +10,6 @@ public class Hour {
     private String colorCode;
     private transient boolean keep = false;
     private transient int HourID;
-    private transient ArrayList<Event> EventList = new ArrayList<Event>();
 
     public Hour(String name, String ColorCode){
         this.name = name;
@@ -49,14 +48,4 @@ public class Hour {
         HourID = hourID;
     }
 
-    public ArrayList<Event> getEventList() {
-        return EventList;
-    }
-
-    public void addEvent(Event e){
-        if(EventList == null){
-            EventList = new ArrayList<Event>();
-        }
-        EventList.add(e);
-    }
 }

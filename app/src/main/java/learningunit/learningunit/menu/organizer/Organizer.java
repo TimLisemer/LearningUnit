@@ -1,7 +1,6 @@
 package learningunit.learningunit.menu.organizer;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -15,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -40,11 +38,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
 import learningunit.learningunit.Objects.API.OnBackPressedListener;
+import learningunit.learningunit.Objects.Organizer.EventMethods;
 import learningunit.learningunit.Objects.Organizer.Exam;
 import learningunit.learningunit.Objects.Organizer.HomeCustomAdapter;
 import learningunit.learningunit.Objects.Organizer.Homework;
@@ -311,7 +309,7 @@ public class Organizer extends AppCompatActivity{
                             Toast.makeText(getActivity(), events.get(0).getData().toString(), Toast.LENGTH_SHORT).show();
                             compact.setCurrentSelectedDayBackgroundColor(events.get(0).getColor());
                         }else{
-                            Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.MultileEvents), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.MultipleEvents), Toast.LENGTH_SHORT).show();
                             compact.setCurrentSelectedDayBackgroundColor(android.graphics.Color.parseColor("#E57373"));
                             compact.setCurrentSelectedDayBackgroundColor(events.get(0).getColor());
                         }
@@ -407,12 +405,41 @@ public class Organizer extends AppCompatActivity{
                     }
                 }
 
+                Date d = ca.getTime();
+                DateTime dateTime = new DateTime(d);
+                learningunit.learningunit.Objects.Organizer.Event currentTimeEvent = new learningunit.learningunit.Objects.Organizer.Event(dateTime.getDayOfMonth(), dateTime.getMonthOfYear(), dateTime.getYear());
+                ArrayList<Exam> exlist = new ArrayList<Exam>();
+                if(examlist.size() > 0) {
+                    for (Exam exam : examlist) {
+                        if(EventMethods.isYounger((learningunit.learningunit.Objects.Organizer.Event) exam, currentTimeEvent)){
+                            exlist.add(exam);
+                        }
+                    }
+                }
+                ArrayList<Presentation> plist = new ArrayList<Presentation>();
+                if(prelist.size() > 0) {
+                    for (Presentation presentation : prelist) {
+                        if(EventMethods.isYounger((learningunit.learningunit.Objects.Organizer.Event) presentation, currentTimeEvent)){
+                            plist.add(presentation);
+                        }
+                    }
+                }
+                ArrayList<Homework> hlist = new ArrayList<Homework>();
+                if(eventlist.size() > 0) {
+                    for (Homework ha : eventlist) {
+                        if(EventMethods.isYounger((learningunit.learningunit.Objects.Organizer.Event) ha, currentTimeEvent)){
+                            hlist.add(ha);
+                        }
+                    }
+                }
+
+
                 ListView nextEvent = (ListView) fragmentView.findViewById(R.id.fragment_organizer_calender_ListView);
-                if(examlist.size() > 0 || prelist.size() > 0 || eventlist.size() > 0) {
+                if(exlist.size() > 0 || plist.size() > 0 || hlist.size() > 0) {
                     nextEvent.setVisibility(View.VISIBLE);
                     fragmentView.findViewById(R.id.organizer_calender_info).setVisibility(View.GONE);
                     fragmentView.findViewById(R.id.organizer_calender_create).setVisibility(View.GONE);
-                    nextEvent.setAdapter(new HomeCustomAdapter(examlist, eventlist, prelist, getActivity()));
+                    nextEvent.setAdapter(new HomeCustomAdapter(exlist, hlist, plist, getActivity()));
                 }else{
                     nextEvent.setVisibility(View.GONE);
                     fragmentView.findViewById(R.id.organizer_calender_info).setVisibility(View.VISIBLE);

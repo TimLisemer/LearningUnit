@@ -14,12 +14,19 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.Locale;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherAdView;
 import com.google.android.gms.analytics.Tracker;
 
 import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
@@ -72,10 +79,21 @@ public class MainActivity extends AppCompatActivity {
     Thread thread;
 
     private Tracker mTracker;
+    private PublisherAdView MainAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Obtain the shared Tracker instance.
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
+        MainAdView = (PublisherAdView) findViewById(R.id.MainActivity_AdView);
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+        MainAdView.loadAd(adRequest);
+        MainAdView.setAdSizes(AdSize.SMART_BANNER);
+
+
+
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
         MainActivity.hideKeyboard(this);
@@ -87,8 +105,6 @@ public class MainActivity extends AppCompatActivity {
         }else if(ManageData.OfflineAccount == 2){
             ManageData.loadOnlineAccount();
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         //Initialisieren der Knöpfe und rufen der OnClick methode
 
@@ -485,6 +501,19 @@ public class MainActivity extends AppCompatActivity {
             view = new View(activity);
         }
         imm.showSoftInput(view, 0);
+    }
+
+    public static boolean isKeyboardOpen(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
     public static boolean InternetAvailable(Context ctx) {
