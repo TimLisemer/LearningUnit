@@ -629,7 +629,6 @@
                 android:text="@string/Translation"
                 android:textAlignment="center"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/vocabulary_learn_inputlayout"
                 app:layout_constraintEnd_toEndOf="parent"
