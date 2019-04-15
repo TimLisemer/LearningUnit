@@ -203,4 +203,21 @@
     <string name="PublishFormList">Formelliste Veröffentlichen?</string>
     <string name="DeleteFormList">Formelliste löschen?</string>
     <string name="DeleteFormListConfirmation">Bist du sicher, dass du diese Formelliste löschen möchtest?</string>
+    <string name="SearchFormularList">Formelliste suchen</string>
+    <string name="PublicFormularLists">Öffentliche Formellisten</string>
+    <string name="RecommendedFormLists">Empfohlene Formellisten</string>
+    <string name="FollowedFormLists">Gefolgte Formellisten</string>
+    <string name="YourFormularLists">Deine Formellisten</string>
+    <string name="AllFormulars">Alle Formeln</string>
+    <string name="NameOfFormularList">Name der Formelliste</string>
+    <string name="FormLang1">Titel</string>
+    <string name="FormLang2">Formel</string>
+    <string name="NextFormular">Nächste Formel</string>
+    <string name="FinishFormular">Formelliste Fertigstellen</string>
+    <string name="CreateFormListCancelInfo">Alle soeben eingegebenen Formeln gehen dadurch Verloren</string>
+    <string name="CreateFormularListFinishInfo">Alle soeben eingegebenen Formeln werden gespeichert</string>
+    <string name="FormListImportHeading">Formelliste aus CSV Datei Importieren</string>
+    <string name="OneFormPerLine">Eine Formel pro Zeile</string>
+    <string name="Max1kForms">Maximal 1000 Formeln</string>
+    <string name="NoFormListCreatedYet">Es wurde noch kein Formelliste erstellt</string>
 </resources>
