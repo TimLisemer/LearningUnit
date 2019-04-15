@@ -14,9 +14,11 @@
         android:roundIcon="@mipmap/mylogo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".menu.learn.formular.CreateFormList"></activity>
+        <activity android:name=".menu.learn.formular.Formeln" />
         <activity
             android:name=".menu.organizer.Organizer"
-            android:label="@string/title_activity_organizer"></activity>
+            android:label="@string/title_activity_organizer" />
         <activity android:name=".menu.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,6 +36,7 @@
         <activity android:name=".menu.organizer.timetable.Timetable" />
         <activity android:name=".menu.learn.vocabulary.Vokabeln" />
         <activity android:name=".menu.learn.vocabulary.CreateVocList" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2182452775939631~7797227952" />

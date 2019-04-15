@@ -195,4 +195,12 @@
     <string name="Max1kVocabs">Maximal 1000 Vokabeln</string>
     <string name="DeleteList">Liste Löschen</string>
     <string name="ExportAsCsv">Als CSV Exportieren</string>
+    <string name="Formulars">Formeln</string>
+    <string name="Allformulas">Alle Formeln</string>
+    <string name="PublicFormInfo">Du musst einen Account verwenden, um auf Öffentliche Formelliste zugreifen zu können.</string>
+    <string name="SetFormularListPrivate">Formelliste auf Privat stellen</string>
+    <string name="PublicFormIDInfo1">Diese Öffentliche Formelliste ist unter der ID:</string>
+    <string name="PublishFormList">Formelliste Veröffentlichen?</string>
+    <string name="DeleteFormList">Formelliste löschen?</string>
+    <string name="DeleteFormListConfirmation">Bist du sicher, dass du diese Formelliste löschen möchtest?</string>
 </resources>

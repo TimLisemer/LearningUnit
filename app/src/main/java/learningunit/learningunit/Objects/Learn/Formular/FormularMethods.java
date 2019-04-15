@@ -3,6 +3,8 @@ package learningunit.learningunit.Objects.Learn.Formular;
 import java.util.ArrayList;
 import java.util.List;
 
+import learningunit.learningunit.Objects.API.ManageData;
+
 public class FormularMethods {
 
     public static List<FormularList> formularLists;
@@ -103,17 +105,17 @@ public class FormularMethods {
             FormularMethods.formularLists.add(forList);
         }
 
-        //ManageData.saveVocabularyLists();
+        ManageData.saveFormularLists();
     }
 
-    public static boolean ListConstainsForm(FormularList list, Formular voc){
+    public static boolean ListConstainsForm(FormularList list, Formular form){
         boolean returner = false;
 
         for(Formular v : list.getFormularlist()){
-            if(v.getTranslation().equals(voc.getTranslation())){
-                if(v.getOriginal().equals(voc.getOriginal())){
-                    if(v.getLanguageName2().equals(voc.getLanguageName2())){
-                        if(v.getLanguageName1().equals(voc.getLanguageName1())){
+            if(v.getTranslation().equals(form.getTranslation())){
+                if(v.getOriginal().equals(form.getOriginal())){
+                    if(v.getLanguageName2().equals(form.getLanguageName2())){
+                        if(v.getLanguageName1().equals(form.getLanguageName1())){
                             returner = true;
                         }
                     }

@@ -242,14 +242,14 @@
             app:layout_constraintTop_toTopOf="@+id/guideline11" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/main_support"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:text="Placeholder"
+            android:text="Support"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline8"
@@ -471,11 +471,18 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.Guideline
+            android:id="@+id/guideline56"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <android.support.constraint.Guideline
             android:id="@+id/guideline7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="0.2" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline6"
@@ -492,65 +499,31 @@
             app:layout_constraintGuide_percent="0.475" />
 
         <Button
-            android:id="@+id/main_learn_placeholder2"
+            android:id="@+id/main_learn_formular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Placeholder"
+            android:text="@string/Formulars"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toStartOf="@+id/guideline56"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toTopOf="@+id/guideline49"
-            app:layout_constraintVertical_bias="0.61" />
-
-        <Button
-            android:id="@+id/main_learn_placeholder"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="Placeholder"
-            app:layout_constraintBottom_toTopOf="@+id/guideline49"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toTopOf="@+id/guideline6" />
-
-        <Button
-            android:id="@+id/main_learn_placeholder1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="Placeholder"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline7"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline49"
-            app:layout_constraintVertical_bias="0.61" />
+            app:layout_constraintTop_toTopOf="@+id/guideline49" />
 
         <Button
             android:id="@+id/main_learn_vocabulary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/Vocabularys"
             app:layout_constraintBottom_toTopOf="@+id/guideline49"
-            app:layout_constraintEnd_toStartOf="@+id/guideline7"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline56"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
         <Button

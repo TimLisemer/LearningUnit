@@ -27,7 +27,6 @@ public class FormularList {
         this.id = ID;
         this.CreatorID = CreatorID;
         this.Shared = Shared;
-
     }
 
     public void addFormular(Formular form){

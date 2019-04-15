@@ -195,4 +195,12 @@
     <string name="Max1kVocabs">Max. 1000 Vocabularys</string>
     <string name="DeleteList">Delete List</string>
     <string name="ExportAsCsv">Export as CSV</string>
+    <string name="Formulars">Formular</string>
+    <string name="Allformulas">Alle formulas</string>
+    <string name="PublicFormInfo">An account is needed, to access public formularlists.</string>
+    <string name="SetFormularListPrivate">Make this Formularlist Private</string>
+    <string name="PublicFormIDInfo1">"This public formular list can be reached under the ID: "</string>
+    <string name="PublishFormList">Publish Formularlist?</string>
+    <string name="DeleteFormList">Delete Formularlist?</string>
+    <string name="DeleteFormListConfirmation">"Are you sure you want to delete this Formular list? "</string>
 </resources>

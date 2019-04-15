@@ -7,8 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -27,10 +29,15 @@ import android.util.DisplayMetrics;
 
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherAdView;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdCallback;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.analytics.Tracker;
 
 import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.beforeStart.FirstScreen;
+import learningunit.learningunit.menu.learn.formular.Formeln;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
 import learningunit.learningunit.menu.organizer.Organizer;
 import learningunit.learningunit.menu.organizer.timetable.Timetable;
@@ -52,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_GetAccounts = ROOT_URL + "GetAccounts";
     public static final String URL_UpdateAccount = ROOT_URL + "UpdateAccount";
     public static final String URL_DeleteAccount = ROOT_URL + "DeleteAccount&id=";
+
     public static final String URL_DeleteVocList = ROOT_URL + "DeleteVocList&id=";
     public static final String URL_CreateVocList = ROOT_URL + "CreateVocList";
     public static final String URL_NewCreateVocList = ROOT_URL + "NewGetVocabLists&id=";
@@ -65,6 +73,26 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_getFollow = ROOT_URL + "getFollow&VocID=";
     public static final String URL_Follow = ROOT_URL + "Follow";
     public static final String URL_FollowedLists = ROOT_URL + "GetFollowedVocabLists&id=";
+
+
+
+    public static final String URL_DeleteFormList = ROOT_URL + "DeleteFormList&id=";
+    public static final String URL_CreateFormList = ROOT_URL + "CreateFormList";
+    public static final String URL_NewCreateFormList = ROOT_URL + "NewCreateFormList&id=";
+    public static final String URL_CreateFormular = ROOT_URL + "CreateFormular";
+    public static final String URL_GetFormLists = ROOT_URL + "GetFormLists&id=";
+    public static final String URL_GetFormulars = ROOT_URL + "GetFormulars&id=";
+    public static final String URL_GetFormularSharedLists = ROOT_URL + "GetFormularSharedLists";
+    public static final String URL_FormListAvailable = ROOT_URL + "FormListAvailable";
+    public static final String URL_GetSharedForm = ROOT_URL + "GetSharedForm&id=";
+    public static final String URL_changesSharedForm = ROOT_URL + "changesSharedForm &id=";
+    public static final String URL_getFollowForm = ROOT_URL + "getFollowForm&VocID=";
+    public static final String URL_FollowForm = ROOT_URL + "FollowForm";
+    public static final String URL_FollowedFormLists = ROOT_URL + "GetFollowedFormLists&id=";
+
+
+
+
     public static final String URL_insertWeek= ROOT_URL + "insertWeek";
     public static final String URL_getWeekbyUser= ROOT_URL + "getWeekbyUser&id=";
     public static final String URL_getWeekbyId= ROOT_URL + "getWeekbyId&id=";
@@ -80,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Tracker mTracker;
     private PublisherAdView MainAdView;
+    private RewardedAd rewardedAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +116,44 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
+        rewardedAd = createAndLoadRewardedAd();
         MainAdView = (PublisherAdView) findViewById(R.id.MainActivity_AdView);
         PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
         MainAdView.loadAd(adRequest);
         MainAdView.setAdSizes(AdSize.SMART_BANNER);
 
+        Button support = (Button) findViewById(R.id.main_support);
+        support.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (rewardedAd.isLoaded()) {
+                    RewardedAdCallback adCallback = new RewardedAdCallback() {
+                        @Override
+                        public void onRewardedAdOpened() {
+                            // Ad opened.
+                        }
 
+                        @Override
+                        public void onRewardedAdClosed() {
+                            rewardedAd = createAndLoadRewardedAd();
+                        }
+
+                        @Override
+                        public void onUserEarnedReward(@NonNull RewardItem reward) {
+                            // User earned reward.
+                        }
+
+                        @Override
+                        public void onRewardedAdFailedToShow(int errorCode) {
+                            // Ad failed to display
+                        }
+                    };
+                    rewardedAd.show(MainActivity.this, adCallback);
+                } else {
+                    Log.d("TAG", "The rewarded ad wasn't loaded yet.");
+                }
+            }
+        });
 
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
@@ -121,6 +182,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openLearnback();
+            }
+        });
+
+        Button formular = (Button) findViewById(R.id.main_learn_formular);
+        formular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open_formular();
             }
         });
 
@@ -288,51 +357,50 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+    }
 
-        /*
-        thread = new Thread() {
+    public RewardedAd createAndLoadRewardedAd() {
+        RewardedAd rewardedAd = new RewardedAd(this,
+                "ca-app-pub-2182452775939631/5070637044");
+        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
+            @Override
+            public void onRewardedAdLoaded() {
+                Log.d("RewardedAD", "AD Loaded");
+            }
 
             @Override
-            public void run() {
-                try {
-                    do{
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                NewsFeed.startTime();
-                            }
-                        });
-                        Thread.sleep(1000);
-                    }
-                    while (!thread.isInterrupted());
-                } catch (InterruptedException e) {
-                }
+            public void onRewardedAdFailedToLoad(int errorCode) {
+                Log.d("RewardedAD", "Failed to Load Ad");
             }
         };
-
-        thread.start();
-        */
-        /*
-        if(FirstScreen.tinyDB != null) {
-            String language = FirstScreen.tinyDB.getString("appLanguage");
-            if (!(language.matches(""))) {
-                String languageToLoad = FirstScreen.tinyDB.getString("en-US");// your language
-                Locale locale = new Locale(languageToLoad);
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
-                this.setContentView(R.layout.activity_main);
-            }else{
-                Log.d("Language", "Matches..............................");
-            }
-        }else{
-            Log.d("Language", "Null..............................");
-        }
-
-        */
+        rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
+        return rewardedAd;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Buttton OnClick Methoden
     public void open_logout(){
@@ -348,6 +416,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void open_vocabulary(){
         Intent intent = new Intent(this, Vokabeln.class);
+        startActivity(intent);
+    }
+
+    public void open_formular(){
+        Intent intent = new Intent(this, Formeln.class);
         startActivity(intent);
     }
 
