@@ -1322,10 +1322,12 @@ public class Vokabeln extends AppCompatActivity {
 
 
     public void openALL(){
+        Button create = (Button) findViewById(R.id.vocabulary_create);
         ManageData.DownloadFollowedVocabularyLists(context, true);
         ManageData.NewDownloadVocabularyLists(context, true);
         if(layout00.getVisibility() == View.GONE){
             all.setText(getResources().getString(R.string.AllLists));
+            create.setVisibility(View.VISIBLE);
             layout00.setVisibility(View.VISIBLE);
             if(layout.getVisibility() == View.VISIBLE){
                 layout.setVisibility(View.GONE);
@@ -1335,6 +1337,7 @@ public class Vokabeln extends AppCompatActivity {
             }
         }else{
             all.setText(getResources().getString(R.string.AllVocabularys));
+            create.setVisibility(View.GONE);
             layout00.setVisibility(View.GONE);
             if(yourlistsString.size() > 0){
                 layout.setVisibility(View.VISIBLE);

@@ -8,10 +8,12 @@
         android:icon="@drawable/learningunit_publish"
         android:title="Liste Veröffentlichen"
         app:showAsAction="never" />
-    <item android:id="@+id/vocabulary_open_delete"
-        android:title="Liste Löschen"
+    <item
+        android:id="@+id/vocabulary_open_delete"
+        android:title="@string/DeleteList"
         app:showAsAction="never" />
-    <item android:id="@+id/vocabulary_open_export"
-        android:title="Als CSV Exportieren"
+    <item
+        android:id="@+id/vocabulary_open_export"
+        android:title="@string/ExportAsCsv"
         app:showAsAction="never" />
 </menu>
