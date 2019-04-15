@@ -107,12 +107,12 @@
 
     <com.google.android.gms.ads.doubleclick.PublisherAdView
         android:id="@+id/MainActivity_AdView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:visibility="visible"
-        app:adSize="FULL_BANNER"
-        app:adUnitId="ca-app-pub-2182452775939631/9775566172"
+        app:adSize="SMART_BANNER"
+        app:adUnitId="ca-app-pub-2182452775939631/6751260660"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -101,19 +102,16 @@ public class Vokabeln extends AppCompatActivity {
         mTracker = application.getDefaultTracker();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vocabulary);
+        context = getApplicationContext();
 
         MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
-
         VocabularyTrainer_AdView = (PublisherAdView) findViewById(R.id.VocabularyTrainer_AdView);
-        VocabularyTrainer_AdView.setAdSizes(AdSize.FULL_BANNER);
         PublisherAdRequest adRequest = new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build();
         VocabularyTrainer_AdView.loadAd(adRequest);
 
         VocabularyTrainingInterstitialAd = new PublisherInterstitialAd(Vokabeln.this);
-        VocabularyTrainingInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        VocabularyTrainingInterstitialAd.setAdUnitId("ca-app-pub-2182452775939631/1259616050");
 
-
-        context = getApplicationContext();
         //Shared
         shared = (Button) findViewById(R.id.vocabulary_shared);
         shared.setOnClickListener(new View.OnClickListener() {
@@ -840,6 +838,21 @@ public class Vokabeln extends AppCompatActivity {
 
     private static void start_train(final VocabularyList trainlist, final Activity act) {
         VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
+
+        InputMethodManager imm = (InputMethodManager) act.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = act.getCurrentFocus();
+        try {
+            view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    if (view == null) {
+                        act.findViewById(R.id.VocabularyTrainer_AdView).setVisibility(View.VISIBLE);
+                    }else{
+                        act.findViewById(R.id.VocabularyTrainer_AdView).setVisibility(View.GONE);
+                    }
+                }
+            });
+        }catch (Exception e){}
 
         final ArrayList<Vocabulary> level0 = new ArrayList<Vocabulary>();
         final ArrayList<Vocabulary> level1 = new ArrayList<Vocabulary>();

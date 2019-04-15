@@ -25,6 +25,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherAdView;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -58,6 +61,7 @@ public class TimetableShowcase extends AppCompatActivity {
     private static boolean currentWeekShowcase, fabBool;
 
     private Tracker mTracker;
+    private PublisherAdView TimetableShowcaseAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +69,14 @@ public class TimetableShowcase extends AppCompatActivity {
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
         super.onCreate(savedInstanceState);
-
         currentWeekShowcase = HourList.currentWeekShowcase;
         HourList.currentWeekShowcase = false;
-
         setContentView(R.layout.activity_timetable_showcase);
+
+        MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
+        TimetableShowcaseAdView = (PublisherAdView) findViewById(R.id.TimetableShowcaseAdView);
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build();
+        TimetableShowcaseAdView.loadAd(adRequest);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -127,10 +134,10 @@ public class TimetableShowcase extends AppCompatActivity {
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                                FirstScreen.tinyDB.remove("WeekA");
-                                FirstScreen.tinyDB.remove("WeekB");
-                                Intent intent = new Intent(TimetableShowcase.this, Timetable.class);
-                                startActivity(intent);
+                        FirstScreen.tinyDB.remove("WeekA");
+                        FirstScreen.tinyDB.remove("WeekB");
+                        Intent intent = new Intent(TimetableShowcase.this, Timetable.class);
+                        startActivity(intent);
                     }
                 });
 

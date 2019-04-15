@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         MainAdView = (PublisherAdView) findViewById(R.id.MainActivity_AdView);
         PublisherAdRequest adRequest = new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build();
         MainAdView.loadAd(adRequest);
+        MainAdView.setAdSizes(AdSize.SMART_BANNER);
 
 
 
@@ -500,6 +501,19 @@ public class MainActivity extends AppCompatActivity {
             view = new View(activity);
         }
         imm.showSoftInput(view, 0);
+    }
+
+    public static boolean isKeyboardOpen(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
     public static boolean InternetAvailable(Context ctx) {
