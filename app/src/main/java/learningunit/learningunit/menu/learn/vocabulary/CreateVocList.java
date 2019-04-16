@@ -64,13 +64,15 @@ public class CreateVocList extends AppCompatActivity{
     @Override
     public void onPause() {
         super.onPause();
-        MainActivity.onAppPause(context);
+        ManageData.uploadDelayedVocabularyLists(this);
+        ManageData.saveVocabularyLists();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        MainActivity.onAppShutdown(context);
+        ManageData.uploadDelayedVocabularyLists(this);
+        ManageData.saveVocabularyLists();
     }
 
     private Tracker mTracker;

@@ -115,45 +115,50 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
-        rewardedAd = createAndLoadRewardedAd();
         MainAdView = (PublisherAdView) findViewById(R.id.MainActivity_AdView);
-        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
-        MainAdView.loadAd(adRequest);
-        MainAdView.setAdSizes(AdSize.SMART_BANNER);
+        if(ManageData.hasPremium()) {
+            MainAdView.setVisibility(View.VISIBLE);
+            MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
+            rewardedAd = createAndLoadRewardedAd();
+            PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+            MainAdView.loadAd(adRequest);
+            MainAdView.setAdSizes(AdSize.SMART_BANNER);
 
-        Button support = (Button) findViewById(R.id.main_support);
-        support.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (rewardedAd.isLoaded()) {
-                    RewardedAdCallback adCallback = new RewardedAdCallback() {
-                        @Override
-                        public void onRewardedAdOpened() {
-                            // Ad opened.
-                        }
+            Button support = (Button) findViewById(R.id.main_support);
+            support.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (rewardedAd.isLoaded()) {
+                        RewardedAdCallback adCallback = new RewardedAdCallback() {
+                            @Override
+                            public void onRewardedAdOpened() {
+                                // Ad opened.
+                            }
 
-                        @Override
-                        public void onRewardedAdClosed() {
-                            rewardedAd = createAndLoadRewardedAd();
-                        }
+                            @Override
+                            public void onRewardedAdClosed() {
+                                rewardedAd = createAndLoadRewardedAd();
+                            }
 
-                        @Override
-                        public void onUserEarnedReward(@NonNull RewardItem reward) {
-                            // User earned reward.
-                        }
+                            @Override
+                            public void onUserEarnedReward(@NonNull RewardItem reward) {
+                                // User earned reward.
+                            }
 
-                        @Override
-                        public void onRewardedAdFailedToShow(int errorCode) {
-                            // Ad failed to display
-                        }
-                    };
-                    rewardedAd.show(MainActivity.this, adCallback);
-                } else {
-                    Log.d("TAG", "The rewarded ad wasn't loaded yet.");
+                            @Override
+                            public void onRewardedAdFailedToShow(int errorCode) {
+                                // Ad failed to display
+                            }
+                        };
+                        rewardedAd.show(MainActivity.this, adCallback);
+                    } else {
+                        Log.d("TAG", "The rewarded ad wasn't loaded yet.");
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            MainAdView.setVisibility(View.GONE);
+        }
 
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
@@ -190,6 +195,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 open_formular();
+            }
+        });
+
+        Button delete = (Button)findViewById(R.id.main_settingsDeleteAccount);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open_premium();
             }
         });
 
@@ -409,6 +422,18 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void open_premium(){
+        if(ManageData.OfflineAccount == 2) {
+            if(ManageData.hasPremium()) {
+                ManageData.setPremium(false);
+            }else{
+                ManageData.setPremium(true);
+            }
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
     public void open_forum(){
         //Intent intent = new Intent(this, FirstScreen.class);
         //startActivity(intent);
@@ -576,19 +601,6 @@ public class MainActivity extends AppCompatActivity {
         imm.showSoftInput(view, 0);
     }
 
-    public static boolean isKeyboardOpen(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = activity.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            return false;
-        }else{
-            return true;
-        }
-
-    }
-
     public static boolean InternetAvailable(Context ctx) {
         if(ManageData.OfflineAccount == 2) {
             ConnectivityManager connectivityManager = (ConnectivityManager) ctx
@@ -606,14 +618,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
-    }
-    public static void onAppPause(Context ctx){
-        ManageData.uploadDelayedVocabularyLists(ctx);
-        ManageData.saveVocabularyLists();
-    }
-    public static void onAppShutdown(Context ctx){
-        ManageData.uploadDelayedVocabularyLists(ctx);
-        ManageData.saveVocabularyLists();
     }
 
     public static void NoNetworkAlert(Context ctx) {

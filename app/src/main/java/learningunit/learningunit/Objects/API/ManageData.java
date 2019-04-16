@@ -30,12 +30,31 @@ public class ManageData extends MainActivity{
 
     public static LinkedHashMap<String, String> Account;
     public static int OfflineAccount = 0; //0 ==> NoAccount; 1 ==> Offline; 2 ==> Online
+    protected static boolean Premium = false;
 
     public static int getUserID(){
         if(OfflineAccount == 0 || OfflineAccount == 1) {
             return 0;
         }else{
             return Integer.parseInt(Account.get("id"));
+        }
+    }
+
+    public static boolean hasPremium(){
+        boolean returner;
+        if(OfflineAccount == 2) {
+            returner = Premium;
+        }else{
+            returner = false;
+        }
+        return returner;
+    }
+
+    public static void setPremium(Boolean P){
+        if(OfflineAccount == 2){
+            Premium = P;
+        }else {
+            Premium = false;
         }
     }
 

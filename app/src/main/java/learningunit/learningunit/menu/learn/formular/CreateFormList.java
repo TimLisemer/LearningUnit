@@ -64,13 +64,15 @@ public class CreateFormList extends AppCompatActivity{
     @Override
     public void onPause() {
         super.onPause();
-        MainActivity.onAppPause(context);
+        ManageData.uploadDelayedFormularLists(this);
+        ManageData.saveFormularLists();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        MainActivity.onAppShutdown(context);
+        ManageData.uploadDelayedFormularLists(this);
+        ManageData.saveFormularLists();
     }
 
     private Tracker mTracker;

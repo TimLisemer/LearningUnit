@@ -73,10 +73,15 @@ public class TimetableShowcase extends AppCompatActivity {
         HourList.currentWeekShowcase = false;
         setContentView(R.layout.activity_timetable_showcase);
 
-        MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
         TimetableShowcaseAdView = (PublisherAdView) findViewById(R.id.TimetableShowcaseAdView);
-        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
-        TimetableShowcaseAdView.loadAd(adRequest);
+        if(ManageData.hasPremium()) {
+            TimetableShowcaseAdView.setVisibility(View.VISIBLE);
+            MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
+            PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+            TimetableShowcaseAdView.loadAd(adRequest);
+        }else{
+            TimetableShowcaseAdView.setVisibility(View.GONE);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -279,13 +279,15 @@ public class Formeln extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        MainActivity.onAppPause(context);
+        ManageData.uploadDelayedFormularLists(this);
+        ManageData.saveFormularLists();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        MainActivity.onAppShutdown(context);
+        ManageData.uploadDelayedFormularLists(this);
+        ManageData.saveFormularLists();
     }
 
     public void ShowLists(final Activity act){
@@ -570,7 +572,7 @@ public class Formeln extends AppCompatActivity {
                         params.put("id", ManageData.getUserID() + "");
                         params.put("Titel", showformlist.getName());
                         RequestHandler requestHandler = new RequestHandler();
-                        String sd = requestHandler.sendPostRequest(MainActivity.URL_ListAvailable, params);
+                        String sd = requestHandler.sendPostRequest(MainActivity.URL_FormListAvailable, params);
                         sd = sd.substring(1, sd.length() - 1);
                         sd = sd.replaceAll("^\"|\"$", "");
                         listiD = Integer.parseInt(sd);
@@ -624,7 +626,7 @@ public class Formeln extends AppCompatActivity {
             bottom.setVisibility(View.VISIBLE);
             if(MainActivity.InternetAvailable(context)) {
                 RequestHandler requestHandler = new RequestHandler();
-                String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + showformlist.getID() + "&UserID=" + ManageData.getUserID());
+                String json = requestHandler.sendGetRequest(MainActivity.URL_getFollowForm + showformlist.getID() + "&UserID=" + ManageData.getUserID());
                 Gson gson = new Gson();
                 Type type = new TypeToken<String>() {
                 }.getType();
@@ -1462,7 +1464,7 @@ public class Formeln extends AppCompatActivity {
         RequestHandler requestHandler = new RequestHandler();
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<ArrayList<String>>>() {}.getType();
-        String json = requestHandler.sendGetRequest(MainActivity.URL_GetSharedLists);
+        String json = requestHandler.sendGetRequest(MainActivity.URL_GetFormularSharedLists);
         ArrayList<ArrayList<String>> SharedLists = gson.fromJson(json, type);
 
         ListView shareListView = (ListView) act.findViewById(R.id.formular_ShareListView);
@@ -1522,7 +1524,7 @@ public class Formeln extends AppCompatActivity {
     private static void openFollow(FormularList flist, Button follow, Activity act){
         if(MainActivity.InternetAvailable(context)) {
             RequestHandler requestHandler = new RequestHandler();
-            String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + flist.getID() + "&UserID=" + ManageData.getUserID());
+            String json = requestHandler.sendGetRequest(MainActivity.URL_getFollowForm + flist.getID() + "&UserID=" + ManageData.getUserID());
             Gson gson = new Gson();
             Type type = new TypeToken<String>() {
             }.getType();
@@ -1563,7 +1565,7 @@ public class Formeln extends AppCompatActivity {
                     }
 
                 }
-                requestHandler.sendPostRequest(MainActivity.URL_Follow, params);
+                requestHandler.sendPostRequest(MainActivity.URL_FollowForm, params);
             }
         }else{
             follow.setText("OFFLINE");
@@ -1720,7 +1722,7 @@ public class Formeln extends AppCompatActivity {
             RequestHandler requestHandler = new RequestHandler();
             list.setID(formID);
 
-            String json = requestHandler.sendGetRequest(MainActivity.URL_GetShared + formID);
+            String json = requestHandler.sendGetRequest(MainActivity.URL_changesSharedForm + formID);
             Gson gson = new Gson();
             Type type = new TypeToken<String>() {
             }.getType();
@@ -1734,7 +1736,7 @@ public class Formeln extends AppCompatActivity {
             }
 
             if (list.getShared() == false) {
-                requestHandler.sendGetRequest(MainActivity.URL_changesShared + formID + "&State=1");
+                requestHandler.sendGetRequest(MainActivity.URL_changesSharedForm + formID + "&State=1");
                 ShareInfo.setText(act.getResources().getString(R.string.PublicFormIDInfo1) + formID + act.getResources().getString(R.string.PublicVocabIDInfo2));
                 ShareInfo.setVisibility(View.VISIBLE);
                 list.setShared(true);
@@ -1742,7 +1744,7 @@ public class Formeln extends AppCompatActivity {
                 Intent intent = new Intent(act, Formeln.class);
                 act.startActivity(intent);
             } else {
-                requestHandler.sendGetRequest(MainActivity.URL_changesShared + formID + "&State=0");
+                requestHandler.sendGetRequest(MainActivity.URL_changesSharedForm + formID + "&State=0");
                 ShareInfo.setVisibility(View.GONE);
                 list.setShared(true);
                 FormularMethods.saveFormularList(list);

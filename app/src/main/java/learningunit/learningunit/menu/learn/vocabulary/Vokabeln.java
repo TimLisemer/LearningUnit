@@ -107,13 +107,18 @@ public class Vokabeln extends AppCompatActivity {
         setContentView(R.layout.activity_vocabulary);
         context = getApplicationContext();
 
-        MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
         VocabularyTrainer_AdView = (PublisherAdView) findViewById(R.id.VocabularyTrainer_AdView);
-        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
-        VocabularyTrainer_AdView.loadAd(adRequest);
+        if(ManageData.hasPremium()) {
+            VocabularyTrainer_AdView.setVisibility(View.VISIBLE);
+            MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
+            PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+            VocabularyTrainer_AdView.loadAd(adRequest);
 
-        VocabularyTrainingInterstitialAd = new PublisherInterstitialAd(Vokabeln.this);
-        VocabularyTrainingInterstitialAd.setAdUnitId("ca-app-pub-2182452775939631/1259616050");
+            VocabularyTrainingInterstitialAd = new PublisherInterstitialAd(Vokabeln.this);
+            VocabularyTrainingInterstitialAd.setAdUnitId("ca-app-pub-2182452775939631/1259616050");
+        }else{
+            VocabularyTrainer_AdView.setVisibility(View.GONE);
+        }
 
         KeyboardVisibilityEvent.setEventListener(this, new KeyboardVisibilityEventListener() {
             @Override
@@ -281,13 +286,15 @@ public class Vokabeln extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        MainActivity.onAppPause(context);
+        ManageData.uploadDelayedVocabularyLists(this);
+        ManageData.saveVocabularyLists();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        MainActivity.onAppShutdown(context);
+        ManageData.uploadDelayedVocabularyLists(this);
+        ManageData.saveVocabularyLists();
     }
 
     public void ShowLists(final Activity act){
@@ -855,22 +862,24 @@ public class Vokabeln extends AppCompatActivity {
 
 
     private static void start_train(final VocabularyList trainlist, final Activity act) {
-        VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().build());
-
-        InputMethodManager imm = (InputMethodManager) act.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View view = act.getCurrentFocus();
-        try {
-            view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View view, boolean b) {
-                    if (view == null) {
-                        act.findViewById(R.id.VocabularyTrainer_AdView).setVisibility(View.VISIBLE);
-                    }else{
-                        act.findViewById(R.id.VocabularyTrainer_AdView).setVisibility(View.GONE);
+        if(ManageData.hasPremium()) {
+            VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().build());
+            InputMethodManager imm = (InputMethodManager) act.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            View view = act.getCurrentFocus();
+            try {
+                view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+                        if (view == null) {
+                            act.findViewById(R.id.VocabularyTrainer_AdView).setVisibility(View.VISIBLE);
+                        } else {
+                            act.findViewById(R.id.VocabularyTrainer_AdView).setVisibility(View.GONE);
+                        }
                     }
-                }
-            });
-        }catch (Exception e){}
+                });
+            } catch (Exception e) {
+            }
+        }
 
         final ArrayList<Vocabulary> level0 = new ArrayList<Vocabulary>();
         final ArrayList<Vocabulary> level1 = new ArrayList<Vocabulary>();
@@ -1164,17 +1173,19 @@ public class Vokabeln extends AppCompatActivity {
         learn_level3Score.setText("0");
         learn_level4Score.setText("0");
         learn_translation.setText(null);
-        VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
-        VocabularyTrainingInterstitialAd.setAdListener(new AdListener(){
-            @Override
-            public void onAdClosed() {
-                VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
+        if(ManageData.hasPremium()) {
+            VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
+            VocabularyTrainingInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
+                }
+            });
+            if (VocabularyTrainingInterstitialAd.isLoaded()) {
+                VocabularyTrainingInterstitialAd.show();
+            } else {
+                Log.d("TAG", "The VocabularyTrainingInterstitialAd wasn't loaded yet.");
             }
-        });
-        if (VocabularyTrainingInterstitialAd.isLoaded()) {
-            VocabularyTrainingInterstitialAd.show();
-        } else {
-            Log.d("TAG", "The VocabularyTrainingInterstitialAd wasn't loaded yet.");
         }
         act.findViewById(R.id.vocabulary_scrollView5).setVisibility(View.INVISIBLE);
         act.findViewById(R.id.vocabulary_scrollview1).setVisibility(View.VISIBLE);
