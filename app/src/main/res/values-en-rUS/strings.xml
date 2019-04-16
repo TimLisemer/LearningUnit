@@ -220,4 +220,5 @@
     <string name="OneFormPerLine">One Formular per Line</string>
     <string name="Max1kForms">Max 1000 Formulas</string>
     <string name="NoFormListCreatedYet">No Formularlist has been created yet</string>
+    <string name="Enter">Enter</string>
 </resources>

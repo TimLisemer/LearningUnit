@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,9 @@ import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -101,13 +105,28 @@ public class Formeln extends AppCompatActivity {
         setContentView(R.layout.activity_formeln);
         context = getApplicationContext();
 
-        MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
+        MobileAds.initialize(this, "ca-app-pub-2182452775939631/4813763974");
         FormularTrainer_AdView = (PublisherAdView) findViewById(R.id.FormularTrainer_AdView);
         PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
         FormularTrainer_AdView.loadAd(adRequest);
 
         FormularTrainingInterstitialAd = new PublisherInterstitialAd(Formeln.this);
         FormularTrainingInterstitialAd.setAdUnitId("ca-app-pub-2182452775939631/1259616050");
+
+        KeyboardVisibilityEvent.setEventListener(this, new KeyboardVisibilityEventListener() {
+            @Override
+            public void onVisibilityChanged(boolean isOpen) {
+                try {
+                    ScrollView fiftyOne = (ScrollView) findViewById(R.id.formular_scrollView51);
+                    if (isOpen) {
+                        FormularTrainer_AdView.setVisibility(View.GONE);
+                        fiftyOne.setScrollY(50);
+                    } else {
+                        FormularTrainer_AdView.setVisibility(View.VISIBLE);
+                    }
+                }catch (Exception e){}
+            }
+        });
 
         //Shared
         shared = (Button) findViewById(R.id.formular_shared);
@@ -1029,12 +1048,19 @@ public class Formeln extends AppCompatActivity {
         MainActivity.hideKeyboard(act);
         formularlist =  showformlist.getFormularlist();
 
-        if(gerade == false) {
+        String learntrans = learn_translation.getText().toString().trim();
+        learntrans.replace(" ","");
+        String ori = form.getOriginal();
+        ori.replace(" ","");
+        String transi = form.getTranslation();
+        transi.replace(" ","");
+
+        if(gerade) {
             learn_languages.setText(form.getLanguageName1() + " - " + form.getLanguageName2());
             learn_formulars.setText(form.getOriginal() + " - " + form.getTranslation());
 
 
-            if(!(learn_translation.getText().toString().equalsIgnoreCase(form.getOriginal()))) {
+            if(!(learntrans.replaceAll("\\s+","").equalsIgnoreCase(transi.replaceAll("\\s+","")))) {
 
                 if(level4.size() == formularlist.size()){
                     openfinish(act);
@@ -1084,7 +1110,7 @@ public class Formeln extends AppCompatActivity {
             learn_formulars.setText(form.getTranslation() + " - " + form.getOriginal());
 
 
-            if(!(learn_translation.getText().toString().equalsIgnoreCase(form.getTranslation()))) {
+            if(!(learntrans.replaceAll("\\s+","").equalsIgnoreCase(ori.replaceAll("\\s+","")))) {
 
                 if(level4.size() == formularlist.size()){
                     openfinish(act);

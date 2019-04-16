@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,9 @@ import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -110,6 +114,21 @@ public class Vokabeln extends AppCompatActivity {
 
         VocabularyTrainingInterstitialAd = new PublisherInterstitialAd(Vokabeln.this);
         VocabularyTrainingInterstitialAd.setAdUnitId("ca-app-pub-2182452775939631/1259616050");
+
+        KeyboardVisibilityEvent.setEventListener(this, new KeyboardVisibilityEventListener() {
+            @Override
+            public void onVisibilityChanged(boolean isOpen) {
+                try {
+                    ScrollView fiftyOne = (ScrollView) findViewById(R.id.vocabulary_scrollView51);
+                    if (isOpen) {
+                        VocabularyTrainer_AdView.setVisibility(View.GONE);
+                        fiftyOne.setScrollY(50);
+                    } else {
+                        VocabularyTrainer_AdView.setVisibility(View.VISIBLE);
+                    }
+                }catch (Exception e){}
+            }
+        });
 
         //Shared
         shared = (Button) findViewById(R.id.vocabulary_shared);
@@ -884,6 +903,8 @@ public class Vokabeln extends AppCompatActivity {
 
     }
 
+
+
     public static void open_train(final VocabularyList trainlist, final ArrayList<Vocabulary> level0, final ArrayList<Vocabulary> level1, final ArrayList<Vocabulary> level2, final ArrayList<Vocabulary> level3, final ArrayList<Vocabulary> level4, final Activity act){
         String s = learn_translation.getText().toString();
         learn_level0Score.setText(level0.size() + "");
@@ -893,7 +914,6 @@ public class Vokabeln extends AppCompatActivity {
         learn_level4Score.setText(level4.size() + "");
         voc = null;
         lastvocabulary = 0;
-
 
         while(true){
             int d = new Random().nextInt(trainlist.size());
@@ -1031,13 +1051,19 @@ public class Vokabeln extends AppCompatActivity {
         MainActivity.hideKeyboard(act);
         vocabularylist =  showvocablist.getVocabularylist();
 
-        if(gerade == false) {
+        String learntrans = learn_translation.getText().toString().trim();
+        learntrans.replace(" ","");
+        String ori = voc.getOriginal();
+        ori.replace(" ","");
+        String transi = voc.getTranslation();
+        transi.replace(" ","");
+
+        if(gerade) {
+
             learn_languages.setText(voc.getLanguageName1() + " - " + voc.getLanguageName2());
             learn_vocabularys.setText(voc.getOriginal() + " - " + voc.getTranslation());
 
-
-            if(!(learn_translation.getText().toString().equalsIgnoreCase(voc.getOriginal()))) {
-
+            if(!(learntrans.replaceAll("\\s+","").equalsIgnoreCase(transi.replaceAll("\\s+","")))) {
                 if(level4.size() == vocabularylist.size()){
                     openfinish(act);
                 }else {
@@ -1056,7 +1082,6 @@ public class Vokabeln extends AppCompatActivity {
                     open_train(showvocablist, level0, level1, level2, level3, level4, act);
                 }
             }else{
-
                 if(level0.contains(voc)){
                     level0.remove(voc);
                     level1.add(voc);
@@ -1081,13 +1106,11 @@ public class Vokabeln extends AppCompatActivity {
 
         }else {
 
-
             learn_languages.setText(voc.getLanguageName2() + " - " + voc.getLanguageName1());
             learn_vocabularys.setText(voc.getTranslation() + " - " + voc.getOriginal());
 
 
-            if(!(learn_translation.getText().toString().equalsIgnoreCase(voc.getTranslation()))) {
-
+            if(!(learntrans.replaceAll("\\s+","").equalsIgnoreCase(ori.replaceAll("\\s+","")))) {
                 if(level4.size() == vocabularylist.size()){
                     openfinish(act);
                 }else {
@@ -1106,7 +1129,6 @@ public class Vokabeln extends AppCompatActivity {
                     open_train(showvocablist, level0, level1, level2, level3, level4, act);
                 }
             }else{
-
                 if(level0.contains(voc)){
                     level0.remove(voc);
                     level1.add(voc);
@@ -1211,7 +1233,7 @@ public class Vokabeln extends AppCompatActivity {
 
                 }else{
 
-                    //learn_masterTranslation.setText(vocabularylist.get(lastvocabulary).getOriginal());
+                    learn_masterTranslation.setText(vocabularylist.get(lastvocabulary).getOriginal());
 
                     learn_languages.setText(voc.getLanguageName2() + " - " + voc.getLanguageName1());
                     learn_vocabularys.setText(voc.getTranslation() + " - " + voc.getOriginal());
@@ -1281,7 +1303,6 @@ public class Vokabeln extends AppCompatActivity {
 
                 }else{
 
-                    learn_masterTranslation.setText(voc.getOriginal());
                     learn_languages.setText(voc.getLanguageName2() + " - " + voc.getLanguageName1());
                     learn_vocabularys.setText(voc.getTranslation() + " - " + voc.getOriginal());
 

@@ -13,7 +13,7 @@
         android:id="@+id/formular_scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -568,331 +568,6 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/formular_scrollView5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/formular_constraintlayout2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-            <com.google.android.gms.ads.doubleclick.PublisherAdView
-                android:id="@+id/FormularTrainer_AdView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
-                app:adSize="SMART_BANNER"
-                app:adUnitId="ca-app-pub-2182452775939631/6751260660"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_formulars"
-                app:layout_constraintVertical_bias="1.0"></com.google.android.gms.ads.doubleclick.PublisherAdView>
-
-            <TextView
-                android:id="@+id/formular_learn_language1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/Language"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_original" />
-
-            <TextView
-                android:id="@+id/formular_learn_masterTranslation"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/Translation"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/formular_learn_inputlayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/formular_learn_inputlayout" />
-
-            <TextView
-                android:id="@+id/formular_learn_original"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="Vokabel"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_language" />
-
-            <TextView
-                android:id="@+id/formular_learn_level4count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="0"
-                app:layout_constraintEnd_toEndOf="@+id/formular_learn_level4"
-                app:layout_constraintStart_toStartOf="@+id/formular_learn_level4"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_level4" />
-
-            <TextView
-                android:id="@+id/formular_learn_level3count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="0"
-                app:layout_constraintEnd_toEndOf="@+id/formular_learn_level3"
-                app:layout_constraintStart_toStartOf="@+id/formular_learn_level3"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_level3" />
-
-            <TextView
-                android:id="@+id/formular_learn_level2count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="0"
-                app:layout_constraintEnd_toEndOf="@+id/formular_learn_level2"
-                app:layout_constraintStart_toStartOf="@+id/formular_learn_level2"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_level2" />
-
-            <TextView
-                android:id="@+id/formular_learn_level1count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="0"
-                app:layout_constraintEnd_toEndOf="@+id/formular_learn_level1"
-                app:layout_constraintStart_toStartOf="@+id/formular_learn_level1"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_level1" />
-
-            <TextView
-                android:id="@+id/formular_learn_level0count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="0"
-                app:layout_constraintEnd_toEndOf="@+id/formular_learn_level0"
-                app:layout_constraintStart_toStartOf="@+id/formular_learn_level0"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_level0" />
-
-            <TextView
-                android:id="@+id/formular_learn_level0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/Unskilled"
-                app:layout_constraintEnd_toStartOf="@+id/formular_learn_level1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
-
-            <TextView
-                android:id="@+id/formular_learn_level1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:text="Level 1"
-                app:layout_constraintEnd_toStartOf="@+id/formular_learn_level2"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
-
-            <TextView
-                android:id="@+id/formular_learn_level2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:text="Level 2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
-
-            <TextView
-                android:id="@+id/formular_learn_level3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:text="Level 3"
-                app:layout_constraintStart_toEndOf="@+id/formular_learn_level2"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
-
-            <TextView
-                android:id="@+id/formular_learn_level4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/Learned"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/formular_learn_level3"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
-
-            <TextView
-                android:id="@+id/formular_learn_language"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/Language"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_level2count" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/formular_learn_inputlayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_language1">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/formular_learn_editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/Translation"
-                    android:textAlignment="center" />
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/formular_learn_showTranslation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/ShowTranslation"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_right" />
-
-            <Button
-                android:id="@+id/formular_learn_right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/IWasWrong"
-                android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@+id/guideline55"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline55"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
-
-            <Button
-                android:id="@+id/formular_learn_wrong"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/IWasRight"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline55"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
-
-            <Button
-                android:id="@+id/formular_learn_enter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:enabled="false"
-                android:text="@string/ShowTranslation"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.357"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
-
-            <TextView
-                android:id="@+id/formular_learn_languages"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/LanguageLanguage"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_showTranslation" />
-
-            <Button
-                android:id="@+id/formular_learn_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/Back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/formular_learn_formulars"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/OriginalTranslation"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/formular_learn_languages" />
-
-        </android.support.constraint.ConstraintLayout>
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
         android:id="@+id/formular_ShareMainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -1074,6 +749,349 @@
 
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/formular_scrollView5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.978">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:id="@+id/formular_scrollView51"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/FormularTrainer_AdView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/formular_constraintlayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <TextView
+                        android:id="@+id/formular_learn_language1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/Language"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_original" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_masterTranslation"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/Translation"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/formular_learn_inputlayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/formular_learn_inputlayout" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_original"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Vokabel"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_language" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_level4count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="0"
+                        app:layout_constraintEnd_toEndOf="@+id/formular_learn_level4"
+                        app:layout_constraintStart_toStartOf="@+id/formular_learn_level4"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level4" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_level3count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="0"
+                        app:layout_constraintEnd_toEndOf="@+id/formular_learn_level3"
+                        app:layout_constraintStart_toStartOf="@+id/formular_learn_level3"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level3" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_level2count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="0"
+                        app:layout_constraintEnd_toEndOf="@+id/formular_learn_level2"
+                        app:layout_constraintStart_toStartOf="@+id/formular_learn_level2"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level2" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_level1count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="0"
+                        app:layout_constraintEnd_toEndOf="@+id/formular_learn_level1"
+                        app:layout_constraintStart_toStartOf="@+id/formular_learn_level1"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level1" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_level0count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="0"
+                        app:layout_constraintEnd_toEndOf="@+id/formular_learn_level0"
+                        app:layout_constraintStart_toStartOf="@+id/formular_learn_level0"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level0" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_level0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/Unskilled"
+                        app:layout_constraintEnd_toStartOf="@+id/formular_learn_level1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_level1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="24dp"
+                        android:text="Level 1"
+                        app:layout_constraintEnd_toStartOf="@+id/formular_learn_level2"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_level2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:text="Level 2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_level3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Level 3"
+                        app:layout_constraintStart_toEndOf="@+id/formular_learn_level2"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_level4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/Learned"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/formular_learn_level3"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_language"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/Language"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level2count" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/formular_learn_inputlayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_language1">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/formular_learn_editText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/Translation"
+                            android:textAlignment="center" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/formular_learn_showTranslation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/ShowTranslation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_right" />
+
+                    <Button
+                        android:id="@+id/formular_learn_right"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/IWasWrong"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline55"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
+
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guideline55"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
+
+                    <Button
+                        android:id="@+id/formular_learn_wrong"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/IWasRight"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/guideline55"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
+
+                    <Button
+                        android:id="@+id/formular_learn_enter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:enabled="false"
+                        android:text="@string/ShowTranslation"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.357"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_languages"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/LanguageLanguage"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_showTranslation" />
+
+                    <Button
+                        android:id="@+id/formular_learn_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/Back"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/formular_learn_formulars"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/OriginalTranslation"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_languages" />
+
+                </android.support.constraint.ConstraintLayout>
+            </ScrollView>
+
+            <com.google.android.gms.ads.doubleclick.PublisherAdView
+                android:id="@+id/FormularTrainer_AdView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:adSize="SMART_BANNER"
+                app:adUnitId="ca-app-pub-2182452775939631/5234589897"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            </com.google.android.gms.ads.doubleclick.PublisherAdView>
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
 

@@ -220,4 +220,5 @@
     <string name="OneFormPerLine">Eine Formel pro Zeile</string>
     <string name="Max1kForms">Maximal 1000 Formeln</string>
     <string name="NoFormListCreatedYet">Es wurde noch kein Formelliste erstellt</string>
+    <string name="Enter">Eingabe</string>
 </resources>
