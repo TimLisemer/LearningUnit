@@ -221,4 +221,13 @@
     <string name="Max1kForms">Max 1000 Formulas</string>
     <string name="NoFormListCreatedYet">No Formularlist has been created yet</string>
     <string name="Enter">Enter</string>
+    <string name="Account">Account</string>
+    <string name="RemoveAds">Remove ads</string>
+    <string name="PremiumSubHeading">Please enter the advertising ID of another user, to remove all ads for him, as well as for you</string>
+    <string name="AdID">Advertisement ID</string>
+    <string name="AdIDNotFound">This Advertisement ID could not be found</string>
+    <string name="AdIDAEntered">This Advertisement ID has already been redeemed</string>
+    <string name="AdButtonSettings">Advertisement Settings</string>
+    <string name="AdButtonRemove">Remove Advertisements</string>
+    <string name="OwnAdID">You can not redeem your own Advertisement ID</string>
 </resources>

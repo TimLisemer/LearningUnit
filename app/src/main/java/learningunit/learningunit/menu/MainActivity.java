@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -21,6 +22,8 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.content.res.Configuration;
@@ -34,8 +37,15 @@ import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdCallback;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.analytics.Tracker;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
+
+import learningunit.learningunit.Objects.MainMethods.MainMethods;
 import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
+import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.learn.formular.Formeln;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
@@ -49,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static Context context;
 
-    public int backLocation = 0; // 0 = Main Menu; 1 = Lernen; 2 = Einstellungen, 3 = Sprachauswahl;
+    public static int backLocation = 0; // 0 = Main Menu; 1 = Lernen; 2 = Einstellungen, 3 = Sprachauswahl;
 
     //Datenbank
     private static final String ROOT_URL = "https://learningunit.de/MySQL/v1/Api.php?apicall=";
@@ -59,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_GetAccounts = ROOT_URL + "GetAccounts";
     public static final String URL_UpdateAccount = ROOT_URL + "UpdateAccount";
     public static final String URL_DeleteAccount = ROOT_URL + "DeleteAccount&id=";
-
+    public static final String URL_InsertPremium = ROOT_URL + "InsertPremium&id=";
+    public static final String URL_GetPremium = ROOT_URL + "Premium&id=";
     public static final String URL_DeleteVocList = ROOT_URL + "DeleteVocList&id=";
     public static final String URL_CreateVocList = ROOT_URL + "CreateVocList";
     public static final String URL_NewCreateVocList = ROOT_URL + "NewGetVocabLists&id=";
@@ -116,7 +127,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MainAdView = (PublisherAdView) findViewById(R.id.MainActivity_AdView);
-        if(ManageData.hasPremium()) {
+
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+        MainActivity.hideKeyboard(this);
+        if(ManageData.OfflineAccount == 0){
+            Intent intent = new Intent(this, FirstScreen.class);
+            startActivity(intent);
+        }else if(ManageData.OfflineAccount == 1){
+            ManageData.loadOfflineAccount();
+        }else if(ManageData.OfflineAccount == 2){
+            ManageData.loadOnlineAccount();
+            loadPremium();
+        }
+
+
+        if(!(ManageData.hasPremium())) {
+            KeyboardVisibilityEvent.setEventListener(this, new KeyboardVisibilityEventListener() {
+                @Override
+                public void onVisibilityChanged(boolean isOpen) {
+                    try {
+                        ScrollView scrollpremium = (ScrollView) findViewById(R.id.main_premiumScrollView);
+                        Button continuepremium = (Button) findViewById(R.id.main_premiumContinue);
+                        if (isOpen) {
+                            MainAdView.setVisibility(View.GONE);
+                            scrollpremium.setScrollY(continuepremium.getHeight() + 20 + 32);
+                        } else {
+                            MainAdView.setVisibility(View.VISIBLE);
+                        }
+                    }catch (Exception e){}
+                }
+            });
             MainAdView.setVisibility(View.VISIBLE);
             MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
             rewardedAd = createAndLoadRewardedAd();
@@ -160,18 +201,6 @@ public class MainActivity extends AppCompatActivity {
             MainAdView.setVisibility(View.GONE);
         }
 
-        AnalyticsApplication application = (AnalyticsApplication) getApplication();
-        mTracker = application.getDefaultTracker();
-        MainActivity.hideKeyboard(this);
-        if(ManageData.OfflineAccount == 0){
-            Intent intent = new Intent(this, FirstScreen.class);
-            startActivity(intent);
-        }else if(ManageData.OfflineAccount == 1){
-            ManageData.loadOfflineAccount();
-        }else if(ManageData.OfflineAccount == 2){
-            ManageData.loadOnlineAccount();
-        }
-
         //Initialisieren der Knöpfe und rufen der OnClick methode
 
         dellOfflineData = (Button) findViewById(R.id.main_settingsDeleteOfflineData);
@@ -198,11 +227,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button delete = (Button)findViewById(R.id.main_settingsDeleteAccount);
-        delete.setOnClickListener(new View.OnClickListener() {
+        Button accountBack = (Button)findViewById(R.id.main_accountBack);
+        accountBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                open_premium();
+                findViewById(R.id.main_accountLayout).setVisibility(View.GONE);
+                findViewById(R.id.main_settingsLayout).setVisibility(View.VISIBLE);
             }
         });
 
@@ -211,6 +241,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openSettingsBack();
+            }
+        });
+
+        Button account = (Button)findViewById(R.id.main_settingsAccount);
+        account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backLocation = 4;
+                findViewById(R.id.main_accountLayout).setVisibility(View.VISIBLE);
+                findViewById(R.id.main_settingsLayout).setVisibility(View.GONE);
+                if(ManageData.hasPremium()){
+                    settingsBack.setText(getResources().getString(R.string.AdButtonSettings));
+                }else{
+                    settingsBack.setText(getResources().getString(R.string.AdButtonRemove));
+                    MainMethods.open_RemoveAds(MainActivity.this);
+                }
             }
         });
 
@@ -394,7 +440,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+    public void loadPremium() {
+        if (ManageData.InternetAvailable(MainActivity.this)){
+            RequestHandler requestHandler = new RequestHandler();
+            String pre = requestHandler.sendGetRequest(MainActivity.URL_GetPremium + ManageData.getUserID());
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<Integer>>() {
+            }.getType();
+            ArrayList<Integer> i = gson.fromJson(pre, type);
+            ManageData.Account.put("SharedID", i.get(1) + "");
+            if (i.get(0) == 1) {
+                ManageData.setPremium(true);
+            } else {
+                ManageData.setPremium(false);
+            }
+        }
+    }
 
 
 
@@ -420,18 +481,6 @@ public class MainActivity extends AppCompatActivity {
         ManageData.RemoveOfflineData();
         Intent intent = new Intent(this, FirstScreen.class);
         startActivity(intent);
-    }
-
-    public void open_premium(){
-        if(ManageData.OfflineAccount == 2) {
-            if(ManageData.hasPremium()) {
-                ManageData.setPremium(false);
-            }else{
-                ManageData.setPremium(true);
-            }
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
     }
 
     public void open_forum(){
@@ -575,6 +624,12 @@ public class MainActivity extends AppCompatActivity {
             openSettingsBack();
         }else if (backLocation == 3) {
             open_languageBack();
+        }else if(backLocation == 4){
+            findViewById(R.id.main_accountLayout).setVisibility(View.GONE);
+            findViewById(R.id.main_settingsLayout).setVisibility(View.VISIBLE);
+        }else if(backLocation == 5){
+            findViewById(R.id.main_accountLayout).setVisibility(View.VISIBLE);
+            findViewById(R.id.main_premiumLayout).setVisibility(View.GONE);
         }
     }
 

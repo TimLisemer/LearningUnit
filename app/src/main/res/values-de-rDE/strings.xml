@@ -221,4 +221,13 @@
     <string name="Max1kForms">Maximal 1000 Formeln</string>
     <string name="NoFormListCreatedYet">Es wurde noch kein Formelliste erstellt</string>
     <string name="Enter">Eingabe</string>
+    <string name="Account">Account</string>
+    <string name="RemoveAds">Werbung entfernen</string>
+    <string name="PremiumSubHeading">Bitte gebe die Werbe ID eines anderen Nutzers ein, um sowohl für ihn, als auch für dich sämtliche Werbung zu entfernen</string>
+    <string name="AdID">Werbe ID</string>
+    <string name="AdIDNotFound">Diese Werbe ID konnte nicht gefunden werden</string>
+    <string name="AdIDAEntered">Diese Werbe ID wurde bereits eingelöst</string>
+    <string name="AdButtonSettings">Werbe Einstellungen</string>
+    <string name="AdButtonRemove">Werbung entfernen</string>
+    <string name="OwnAdID">Du darfst nicht deine eigene Werbe ID einlösen</string>
 </resources>

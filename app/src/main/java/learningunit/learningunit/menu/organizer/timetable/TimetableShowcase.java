@@ -74,7 +74,7 @@ public class TimetableShowcase extends AppCompatActivity {
         setContentView(R.layout.activity_timetable_showcase);
 
         TimetableShowcaseAdView = (PublisherAdView) findViewById(R.id.TimetableShowcaseAdView);
-        if(ManageData.hasPremium()) {
+        if(!(ManageData.hasPremium())) {
             TimetableShowcaseAdView.setVisibility(View.VISIBLE);
             MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
             PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();

@@ -40,6 +40,14 @@ public class ManageData extends MainActivity{
         }
     }
 
+    public static int getUserAdID(){
+        if(OfflineAccount == 0 || OfflineAccount == 1) {
+            return 0;
+        }else{
+            return Integer.parseInt(Account.get("SharedID"));
+        }
+    }
+
     public static boolean hasPremium(){
         boolean returner;
         if(OfflineAccount == 2) {

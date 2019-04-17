@@ -108,7 +108,7 @@ public class Vokabeln extends AppCompatActivity {
         context = getApplicationContext();
 
         VocabularyTrainer_AdView = (PublisherAdView) findViewById(R.id.VocabularyTrainer_AdView);
-        if(ManageData.hasPremium()) {
+        if(!(ManageData.hasPremium())) {
             VocabularyTrainer_AdView.setVisibility(View.VISIBLE);
             MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
             PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
@@ -127,7 +127,7 @@ public class Vokabeln extends AppCompatActivity {
                     ScrollView fiftyOne = (ScrollView) findViewById(R.id.vocabulary_scrollView51);
                     if (isOpen) {
                         VocabularyTrainer_AdView.setVisibility(View.GONE);
-                        fiftyOne.setScrollY(50);
+                        fiftyOne.setScrollY(learn_enter.getHeight() + 10);
                     } else {
                         VocabularyTrainer_AdView.setVisibility(View.VISIBLE);
                     }
@@ -862,7 +862,7 @@ public class Vokabeln extends AppCompatActivity {
 
 
     private static void start_train(final VocabularyList trainlist, final Activity act) {
-        if(ManageData.hasPremium()) {
+        if(!(ManageData.hasPremium())) {
             VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().build());
             InputMethodManager imm = (InputMethodManager) act.getSystemService(Activity.INPUT_METHOD_SERVICE);
             View view = act.getCurrentFocus();
@@ -1173,7 +1173,7 @@ public class Vokabeln extends AppCompatActivity {
         learn_level3Score.setText("0");
         learn_level4Score.setText("0");
         learn_translation.setText(null);
-        if(ManageData.hasPremium()) {
+        if(!(ManageData.hasPremium())) {
             VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
             VocabularyTrainingInterstitialAd.setAdListener(new AdListener() {
                 @Override
