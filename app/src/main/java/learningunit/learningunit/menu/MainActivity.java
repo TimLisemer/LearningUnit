@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button account = (Button)findViewById(R.id.main_settingsAccount);
+        final Button account = (Button)findViewById(R.id.main_settingsAccount);
         account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -252,9 +252,8 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.main_accountLayout).setVisibility(View.VISIBLE);
                 findViewById(R.id.main_settingsLayout).setVisibility(View.GONE);
                 if(ManageData.hasPremium()){
-                    settingsBack.setText(getResources().getString(R.string.AdButtonSettings));
+                    MainMethods.open_AdSettings(MainActivity.this);
                 }else{
-                    settingsBack.setText(getResources().getString(R.string.AdButtonRemove));
                     MainMethods.open_RemoveAds(MainActivity.this);
                 }
             }
@@ -630,6 +629,9 @@ public class MainActivity extends AppCompatActivity {
         }else if(backLocation == 5){
             findViewById(R.id.main_accountLayout).setVisibility(View.VISIBLE);
             findViewById(R.id.main_premiumLayout).setVisibility(View.GONE);
+        }else if(backLocation == 6){
+            findViewById(R.id.main_accountLayout).setVisibility(View.VISIBLE);
+            findViewById(R.id.main_premiumSettingsLayout).setVisibility(View.GONE);
         }
     }
 

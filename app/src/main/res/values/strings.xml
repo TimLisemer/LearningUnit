@@ -230,4 +230,7 @@
     <string name="AdButtonSettings">Werbe Einstellungen</string>
     <string name="AdButtonRemove">Werbung entfernen</string>
     <string name="OwnAdID">Du darfst nicht deine eigene Werbe ID einlösen</string>
+    <string name="YourAdID">Deine Werbe ID:</string>
+    <string name="Status">Status</string>
+    <string name="NoAds">Sämtliche Werbung entfernt</string>
 </resources>

@@ -230,4 +230,7 @@
     <string name="AdButtonSettings">Advertisement Settings</string>
     <string name="AdButtonRemove">Remove Advertisements</string>
     <string name="OwnAdID">You can not redeem your own Advertisement ID</string>
+    <string name="YourAdID">Your Advertisement ID:</string>
+    <string name="Status">Status</string>
+    <string name="NoAds">All advertising removed</string>
 </resources>

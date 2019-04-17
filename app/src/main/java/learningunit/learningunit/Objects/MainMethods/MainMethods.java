@@ -20,14 +20,55 @@ import learningunit.learningunit.menu.MainActivity;
 
 public class MainMethods {
 
+
+
+
+
+    public static void open_AdSettings(final Activity activity) {
+        Button AdSettings = (Button) activity.findViewById(R.id.main_accountPremium);
+        AdSettings.setText(activity.getResources().getString(R.string.AdButtonSettings));
+        AdSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.backLocation = 6;
+                activity.findViewById(R.id.main_accountLayout).setVisibility(View.GONE);
+                activity.findViewById(R.id.main_premiumSettingsLayout).setVisibility(View.VISIBLE);
+
+                TextView AdIDView = (TextView) activity.findViewById(R.id.main_premiumIDTextView2);
+                AdIDView.setText(ManageData.getUserAdID() + "");
+
+                Button Back = (Button) activity.findViewById(R.id.main_premiumSettingsBack);
+                Back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        activity.findViewById(R.id.main_accountLayout).setVisibility(View.VISIBLE);
+                        activity.findViewById(R.id.main_premiumSettingsLayout).setVisibility(View.GONE);
+                    }
+                });
+
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
     public static void open_RemoveAds(final Activity activity){
         Button RemoveAds = (Button) activity.findViewById(R.id.main_accountPremium);
+        RemoveAds.setText(activity.getResources().getString(R.string.AdButtonRemove));
         RemoveAds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 activity.findViewById(R.id.main_accountLayout).setVisibility(View.GONE);
                 activity.findViewById(R.id.main_premiumLayout).setVisibility(View.VISIBLE);
                 final TextView error = (TextView) activity.findViewById(R.id.main_premiumError);
+                TextView idview = (TextView) activity.findViewById(R.id.main_premiumIDTextView);
+                idview.setText(ManageData.getUserAdID() + "");
                 error.setVisibility(View.GONE);
                 MainActivity.backLocation = 5;
                 Button premiumBack = (Button) activity.findViewById(R.id.main_premiumBack);
