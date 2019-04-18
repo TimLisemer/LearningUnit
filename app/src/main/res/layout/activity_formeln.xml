@@ -2,15 +2,15 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vocabulary_mainlayout"
+    android:id="@+id/formular_mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorPrimaryDark"
     android:backgroundTintMode="screen"
-    tools:context="learningunit.learningunit.menu.learn.vocabulary.Vokabeln">
+    tools:context=".menu.learn.formular.Formeln">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/vocabulary_scrollView"
+        android:id="@+id/formular_scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="visible"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/vocabulary_layout2"
+            android:id="@+id/formular_layout2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="visible"
@@ -34,7 +34,7 @@
             app:layout_constraintVertical_bias="0.0">
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/vocabulary_vocabulary1"
+                android:id="@+id/formular_formular1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -42,59 +42,59 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/vocabulary_nolists"
+                    android:id="@+id/formular_nolists"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/NoListCreatedYet"
+                    android:text="@string/NoFormListCreatedYet"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_all" />
+                    app:layout_constraintTop_toBottomOf="@+id/formular_all" />
 
                 <Button
-                    android:id="@+id/vocabulary_all"
+                    android:id="@+id/formular_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/AllVocabularys"
+                    android:text="@string/AllFormulars"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/vocabulary_create"
+                    android:id="@+id/formular_create"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/NewList"
-                    app:layout_constraintEnd_toEndOf="@+id/vocabulary_vocabulary1"
+                    app:layout_constraintEnd_toEndOf="@+id/formular_formular1"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/vocabulary_all"
+                    app:layout_constraintStart_toEndOf="@+id/formular_all"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/vocabulary_back"
+                    android:id="@+id/formular_back"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/Back"
-                    app:layout_constraintEnd_toStartOf="@+id/vocabulary_all"
+                    app:layout_constraintEnd_toStartOf="@+id/formular_all"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/vocabulary_nolistsButton"
+                    android:id="@+id/formular_nolistsButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -105,27 +105,27 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_nolists" />
+                    app:layout_constraintTop_toBottomOf="@+id/formular_nolists" />
 
             </android.support.constraint.ConstraintLayout>
 
             <ScrollView
-                android:id="@+id/vocabulary_buttonView"
+                android:id="@+id/formular_buttonView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vocabulary_vocabulary1"
+                app:layout_constraintTop_toBottomOf="@+id/formular_formular1"
                 app:layout_constraintVertical_bias="0.0">
 
                 <android.support.constraint.ConstraintLayout
-                    android:id="@+id/vocabulary_scrollview41"
+                    android:id="@+id/formular_scrollview41"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/vocabulary_scrollview400"
+                        android:id="@+id/formular_scrollview400"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -135,28 +135,28 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/vocabulary_guideline300"
+                            android:id="@+id/formular_guideline300"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.8" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/vocabulary_guideline400"
+                            android:id="@+id/formular_guideline400"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.2" />
 
                         <TextView
-                            android:id="@+id/vocabulary_allLists"
+                            android:id="@+id/formular_allLists"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/poppins"
-                            android:text="@string/AllVocabularys"
+                            android:text="@string/AllFormulars"
                             android:textAlignment="center"
                             android:textSize="18sp"
                             android:textStyle="bold"
@@ -165,19 +165,19 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <Button
-                            android:id="@+id/vocabulary_allBase"
+                            android:id="@+id/formular_allBase"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="Button"
-                            app:layout_constraintEnd_toStartOf="@+id/vocabulary_guideline300"
-                            app:layout_constraintStart_toStartOf="@+id/vocabulary_guideline400"
-                            app:layout_constraintTop_toBottomOf="@+id/vocabulary_allLists" />
+                            app:layout_constraintEnd_toStartOf="@+id/formular_guideline300"
+                            app:layout_constraintStart_toStartOf="@+id/formular_guideline400"
+                            app:layout_constraintTop_toBottomOf="@+id/formular_allLists" />
 
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/vocabulary_scrollview4"
+                        android:id="@+id/formular_scrollview4"
                         android:layout_width="411dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -187,28 +187,28 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/vocabulary_guideline3"
+                            android:id="@+id/formular_guideline3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.8" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/vocabulary_guideline4"
+                            android:id="@+id/formular_guideline4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.2" />
 
                         <TextView
-                            android:id="@+id/vocabulary_yourLists"
+                            android:id="@+id/formular_yourLists"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/poppins"
-                            android:text="@string/YourVocabularyList"
+                            android:text="@string/YourFormularLists"
                             android:textAlignment="center"
                             android:textSize="18sp"
                             android:textStyle="bold"
@@ -217,19 +217,19 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <Button
-                            android:id="@+id/vocabulary_yourBase"
+                            android:id="@+id/formular_yourBase"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="Button"
-                            app:layout_constraintEnd_toStartOf="@+id/vocabulary_guideline3"
-                            app:layout_constraintStart_toStartOf="@+id/vocabulary_guideline4"
-                            app:layout_constraintTop_toBottomOf="@+id/vocabulary_yourLists" />
+                            app:layout_constraintEnd_toStartOf="@+id/formular_guideline3"
+                            app:layout_constraintStart_toStartOf="@+id/formular_guideline4"
+                            app:layout_constraintTop_toBottomOf="@+id/formular_yourLists" />
 
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/vocabulary_scrollview40"
+                        android:id="@+id/formular_scrollview40"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
@@ -238,31 +238,31 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_scrollview4">
+                        app:layout_constraintTop_toBottomOf="@+id/formular_scrollview4">
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/vocabulary_guideline30"
+                            android:id="@+id/formular_guideline30"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.2" />
 
                         <android.support.constraint.Guideline
-                            android:id="@+id/vocabulary_guideline40"
+                            android:id="@+id/formular_guideline40"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.8" />
 
                         <TextView
-                            android:id="@+id/vocabulary_followedLists"
+                            android:id="@+id/formular_followedLists"
                             android:layout_width="217dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/poppins"
-                            android:text="@string/FollowedVocabLists"
+                            android:text="@string/FollowedFormLists"
                             android:textAlignment="center"
                             android:textSize="18sp"
                             android:textStyle="bold"
@@ -272,15 +272,15 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <Button
-                            android:id="@+id/vocabulary_followBase"
+                            android:id="@+id/formular_followBase"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="Button"
                             android:visibility="visible"
-                            app:layout_constraintEnd_toStartOf="@+id/vocabulary_guideline40"
-                            app:layout_constraintStart_toStartOf="@+id/vocabulary_guideline30"
-                            app:layout_constraintTop_toBottomOf="@+id/vocabulary_followedLists" />
+                            app:layout_constraintEnd_toStartOf="@+id/formular_guideline40"
+                            app:layout_constraintStart_toStartOf="@+id/formular_guideline30"
+                            app:layout_constraintTop_toBottomOf="@+id/formular_followedLists" />
                     </android.support.constraint.ConstraintLayout>
 
                 </android.support.constraint.ConstraintLayout>
@@ -302,7 +302,7 @@
                     app:layout_constraintGuide_percent="0.5" />
 
                 <Button
-                    android:id="@+id/vocabulary_import"
+                    android:id="@+id/formular_import"
                     android:layout_width="174dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -315,7 +315,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/vocabulary_shared"
+                    android:id="@+id/formular_shared"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -333,7 +333,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/vocabulary_scrollview1"
+        android:id="@+id/formular_scrollview1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
@@ -344,20 +344,20 @@
 
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/vocabulary_showvocabularyheady"
+            android:id="@+id/formular_showformularheady"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.constraint.Guideline
-                android:id="@+id/vocabulary_guideline0"
+                android:id="@+id/formular_guideline0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5" />
 
             <Button
-                android:id="@+id/vocabulary_edit"
+                android:id="@+id/formular_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -365,11 +365,11 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/Settings"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/vocabulary_train"
+                app:layout_constraintStart_toEndOf="@+id/formular_train"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/vocabulary_train"
+                android:id="@+id/formular_train"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -381,19 +381,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/vocabulary_back1"
+                android:id="@+id/formular_back1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/Back"
-                app:layout_constraintEnd_toStartOf="@+id/vocabulary_train"
+                app:layout_constraintEnd_toStartOf="@+id/formular_train"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/vocabulary_error"
+                android:id="@+id/formular_error"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -404,10 +404,10 @@
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vocabulary_shareInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/formular_shareInfo" />
 
             <TextView
-                android:id="@+id/vocabulary_language1"
+                android:id="@+id/formular_language1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -420,11 +420,11 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/vocabulary_guideline0"
-                app:layout_constraintTop_toBottomOf="@+id/vocabulary_error" />
+                app:layout_constraintStart_toStartOf="@+id/formular_guideline0"
+                app:layout_constraintTop_toBottomOf="@+id/formular_error" />
 
             <TextView
-                android:id="@+id/vocabulary_language"
+                android:id="@+id/formular_language"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -436,12 +436,12 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/vocabulary_guideline0"
+                app:layout_constraintEnd_toStartOf="@+id/formular_guideline0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vocabulary_error" />
+                app:layout_constraintTop_toBottomOf="@+id/formular_error" />
 
             <TextView
-                android:id="@+id/vocabulary_shareInfo"
+                android:id="@+id/formular_shareInfo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -451,48 +451,48 @@
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vocabulary_train" />
+                app:layout_constraintTop_toBottomOf="@+id/formular_train" />
 
         </android.support.constraint.ConstraintLayout>
 
         <ScrollView
-            android:id="@+id/vocabulary_scrollview2"
+            android:id="@+id/formular_scrollview2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/vocabulary_showvocabularybottom"
+            app:layout_constraintBottom_toTopOf="@+id/formular_showformularbottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vocabulary_showvocabularyheady">
+            app:layout_constraintTop_toBottomOf="@+id/formular_showformularheady">
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/vocabulary_constraintlayout1"
+                android:id="@+id/formular_constraintlayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <android.support.constraint.Guideline
-                    android:id="@+id/vocabulary_guideline02"
+                    android:id="@+id/formular_guideline02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="1.0" />
 
                 <android.support.constraint.Guideline
-                    android:id="@+id/vocabulary_guideline01"
+                    android:id="@+id/formular_guideline01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.0" />
 
                 <android.support.constraint.Guideline
-                    android:id="@+id/vocabulary_guideline"
+                    android:id="@+id/formular_guideline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.5" />
 
                 <TextView
-                    android:id="@+id/vocabulary_translation"
+                    android:id="@+id/formular_translation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -501,11 +501,11 @@
                     android:textAlignment="center"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/vocabulary_guideline"
+                    app:layout_constraintStart_toStartOf="@+id/formular_guideline"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/vocabulary_original"
+                    android:id="@+id/formular_original"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -514,14 +514,14 @@
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="18sp"
-                    app:layout_constraintEnd_toStartOf="@+id/vocabulary_guideline"
+                    app:layout_constraintEnd_toStartOf="@+id/formular_guideline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/vocabulary_showvocabularybottom"
+            android:id="@+id/formular_showformularbottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible"
@@ -530,7 +530,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <Button
-                android:id="@+id/vocabulary_follow"
+                android:id="@+id/formular_follow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -544,7 +544,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/vocabulary_rate"
+                android:id="@+id/formular_rate"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_marginStart="32dp"
@@ -568,7 +568,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/vocabulary_ShareMainView"
+        android:id="@+id/formular_ShareMainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
@@ -578,7 +578,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/vocabulary_ShareScollView0"
+            android:id="@+id/formular_ShareScollView0"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:visibility="visible"
@@ -588,7 +588,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/vocabulary_FirstShareView"
+                android:id="@+id/formular_FirstShareView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -596,28 +596,28 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <Button
-                    android:id="@+id/vocabulary_ShareSearch"
+                    android:id="@+id/formular_ShareSearch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/SearchVocabularyList"
+                    android:text="@string/SearchFormularList"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/vocabulary_ShareGuideline0"
-                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_ShareEditView"
+                    app:layout_constraintStart_toStartOf="@+id/formular_ShareGuideline0"
+                    app:layout_constraintTop_toBottomOf="@+id/formular_ShareEditView"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/vocabulary_ShareHeadline"
+                    android:id="@+id/formular_ShareHeadline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/PublicVocabLists"
+                    android:text="@string/PublicFormularLists"
                     android:textAlignment="center"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -626,17 +626,17 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/vocabulary_ShareEditView"
+                    android:id="@+id/formular_ShareEditView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_ShareHeadline">
+                    app:layout_constraintTop_toBottomOf="@+id/formular_ShareHeadline">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/vocabulary_ShareGetList"
+                        android:id="@+id/formular_ShareGetList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/SearchConditions"
@@ -646,7 +646,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
-                    android:id="@+id/vocabulary_ShareBack"
+                    android:id="@+id/formular_ShareBack"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
@@ -655,12 +655,12 @@
                     android:layout_marginBottom="8dp"
                     android:text="@string/Back"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/vocabulary_ShareGuideline0"
+                    app:layout_constraintEnd_toStartOf="@+id/formular_ShareGuideline0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_ShareEditView" />
+                    app:layout_constraintTop_toBottomOf="@+id/formular_ShareEditView" />
 
                 <android.support.constraint.Guideline
-                    android:id="@+id/vocabulary_ShareGuideline0"
+                    android:id="@+id/formular_ShareGuideline0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -669,23 +669,23 @@
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/vocabulary_SecondShareView"
+                android:id="@+id/formular_SecondShareView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vocabulary_FirstShareView"
+                app:layout_constraintTop_toBottomOf="@+id/formular_FirstShareView"
                 app:layout_constraintVertical_bias="0.0">
 
                 <TextView
-                    android:id="@+id/vocabulary_ShareRecommended"
+                    android:id="@+id/formular_ShareRecommended"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/RecommendedVocabList"
+                    android:text="@string/RecommendedFormLists"
                     android:textAlignment="center"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -694,7 +694,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ListView
-                    android:id="@+id/vocabulary_ShareListView"
+                    android:id="@+id/formular_ShareListView"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="8dp"
@@ -702,46 +702,46 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_ShareRecommended" />
+                    app:layout_constraintTop_toBottomOf="@+id/formular_ShareRecommended" />
 
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
 
         <ScrollView
-            android:id="@+id/vocabulary_ShareScrollView1"
+            android:id="@+id/formular_ShareScrollView1"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vocabulary_ShareScollView0">
+            app:layout_constraintTop_toBottomOf="@+id/formular_ShareScollView0">
 
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/vocabulary_ShareScrollMainLayout"
+                android:id="@+id/formular_ShareScrollMainLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:weightSum="2">
 
                 <android.support.constraint.Guideline
-                    android:id="@+id/vocabulary_ShareGuideline3"
+                    android:id="@+id/formular_ShareGuideline3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.5" />
 
                 <android.support.constraint.Guideline
-                    android:id="@+id/vocabulary_ShareGuideline4"
+                    android:id="@+id/formular_ShareGuideline4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.96" />
 
                 <android.support.constraint.Guideline
-                    android:id="@+id/vocabulary_ShareGuideline2"
+                    android:id="@+id/formular_ShareGuideline2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -753,38 +753,35 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/vocabulary_scrollView5"
+        android:id="@+id/formular_scrollView5"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.934"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.978">
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/VocabularyTrainer_AdView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ScrollView
-                android:id="@+id/vocabulary_scrollView51"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/formular_scrollView51"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/FormularTrainer_AdView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <android.support.constraint.ConstraintLayout
-                    android:id="@+id/vocabulary_constraintlayout2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/formular_constraintlayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -793,7 +790,7 @@
                     app:layout_constraintVertical_bias="0.0">
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_language1"
+                        android:id="@+id/formular_learn_language1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -806,10 +803,10 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_original" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_original" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_masterTranslation"
+                        android:id="@+id/formular_learn_masterTranslation"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="8dp"
@@ -819,13 +816,13 @@
                         android:textAlignment="center"
                         android:textSize="18sp"
                         android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="@+id/vocabulary_learn_inputlayout"
+                        app:layout_constraintBottom_toBottomOf="@+id/formular_learn_inputlayout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/vocabulary_learn_inputlayout" />
+                        app:layout_constraintTop_toTopOf="@+id/formular_learn_inputlayout" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_original"
+                        android:id="@+id/formular_learn_original"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -837,82 +834,82 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_language" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_language" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_level4count"
+                        android:id="@+id/formular_learn_level4count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="0"
-                        app:layout_constraintEnd_toEndOf="@+id/vocabulary_learn_level4"
-                        app:layout_constraintStart_toStartOf="@+id/vocabulary_learn_level4"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_level4" />
+                        app:layout_constraintEnd_toEndOf="@+id/formular_learn_level4"
+                        app:layout_constraintStart_toStartOf="@+id/formular_learn_level4"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level4" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_level3count"
+                        android:id="@+id/formular_learn_level3count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="0"
-                        app:layout_constraintEnd_toEndOf="@+id/vocabulary_learn_level3"
-                        app:layout_constraintStart_toStartOf="@+id/vocabulary_learn_level3"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_level3" />
+                        app:layout_constraintEnd_toEndOf="@+id/formular_learn_level3"
+                        app:layout_constraintStart_toStartOf="@+id/formular_learn_level3"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level3" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_level2count"
+                        android:id="@+id/formular_learn_level2count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="0"
-                        app:layout_constraintEnd_toEndOf="@+id/vocabulary_learn_level2"
-                        app:layout_constraintStart_toStartOf="@+id/vocabulary_learn_level2"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_level2" />
+                        app:layout_constraintEnd_toEndOf="@+id/formular_learn_level2"
+                        app:layout_constraintStart_toStartOf="@+id/formular_learn_level2"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level2" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_level1count"
+                        android:id="@+id/formular_learn_level1count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="0"
-                        app:layout_constraintEnd_toEndOf="@+id/vocabulary_learn_level1"
-                        app:layout_constraintStart_toStartOf="@+id/vocabulary_learn_level1"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_level1" />
+                        app:layout_constraintEnd_toEndOf="@+id/formular_learn_level1"
+                        app:layout_constraintStart_toStartOf="@+id/formular_learn_level1"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level1" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_level0count"
+                        android:id="@+id/formular_learn_level0count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="0"
-                        app:layout_constraintEnd_toEndOf="@+id/vocabulary_learn_level0"
-                        app:layout_constraintStart_toStartOf="@+id/vocabulary_learn_level0"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_level0" />
+                        app:layout_constraintEnd_toEndOf="@+id/formular_learn_level0"
+                        app:layout_constraintStart_toStartOf="@+id/formular_learn_level0"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level0" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_level0"
+                        android:id="@+id/formular_learn_level0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:text="@string/Unskilled"
-                        app:layout_constraintEnd_toStartOf="@+id/vocabulary_learn_level1"
+                        app:layout_constraintEnd_toStartOf="@+id/formular_learn_level1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_back" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_level1"
+                        android:id="@+id/formular_learn_level1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="24dp"
                         android:text="Level 1"
-                        app:layout_constraintEnd_toStartOf="@+id/vocabulary_learn_level2"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_back" />
+                        app:layout_constraintEnd_toStartOf="@+id/formular_learn_level2"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_level2"
+                        android:id="@+id/formular_learn_level2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
@@ -921,20 +918,20 @@
                         android:text="Level 2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_back" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_level3"
+                        android:id="@+id/formular_learn_level3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="16dp"
                         android:text="Level 3"
-                        app:layout_constraintStart_toEndOf="@+id/vocabulary_learn_level2"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_back" />
+                        app:layout_constraintStart_toEndOf="@+id/formular_learn_level2"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_level4"
+                        android:id="@+id/formular_learn_level4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -942,11 +939,11 @@
                         android:layout_marginEnd="16dp"
                         android:text="@string/Learned"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/vocabulary_learn_level3"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_back" />
+                        app:layout_constraintStart_toEndOf="@+id/formular_learn_level3"
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_language"
+                        android:id="@+id/formular_learn_language"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -958,10 +955,10 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_level2count" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_level2count" />
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/vocabulary_learn_inputlayout"
+                        android:id="@+id/formular_learn_inputlayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -969,10 +966,10 @@
                         android:layout_marginEnd="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_language1">
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_language1">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/vocabulary_learn_editText"
+                            android:id="@+id/formular_learn_editText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/Translation"
@@ -980,7 +977,7 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <Button
-                        android:id="@+id/vocabulary_learn_showTranslation"
+                        android:id="@+id/formular_learn_showTranslation"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -989,10 +986,10 @@
                         android:text="@string/ShowTranslation"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_right" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_right" />
 
                     <Button
-                        android:id="@+id/vocabulary_learn_right"
+                        android:id="@+id/formular_learn_right"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -1002,7 +999,7 @@
                         android:visibility="gone"
                         app:layout_constraintEnd_toStartOf="@+id/guideline55"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_inputlayout" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
 
                     <android.support.constraint.Guideline
                         android:id="@+id/guideline55"
@@ -1012,7 +1009,7 @@
                         app:layout_constraintGuide_percent="0.5" />
 
                     <Button
-                        android:id="@+id/vocabulary_learn_wrong"
+                        android:id="@+id/formular_learn_wrong"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -1022,25 +1019,25 @@
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline55"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_inputlayout" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
 
                     <Button
-                        android:id="@+id/vocabulary_learn_enter"
+                        android:id="@+id/formular_learn_enter"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
                         android:enabled="false"
-                        android:text="@string/Enter"
+                        android:text="@string/ShowTranslation"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.357"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_inputlayout" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_languages"
+                        android:id="@+id/formular_learn_languages"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -1052,10 +1049,10 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_showTranslation" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_showTranslation" />
 
                     <Button
-                        android:id="@+id/vocabulary_learn_back"
+                        android:id="@+id/formular_learn_back"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -1065,41 +1062,36 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/vocabulary_learn_vocabularys"
+                        android:id="@+id/formular_learn_formulars"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="24dp"
                         android:text="@string/OriginalTranslation"
                         android:textAlignment="center"
                         android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_languages" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_languages" />
 
                 </android.support.constraint.ConstraintLayout>
             </ScrollView>
+
+            <com.google.android.gms.ads.doubleclick.PublisherAdView
+                android:id="@+id/FormularTrainer_AdView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:adSize="SMART_BANNER"
+                app:adUnitId="ca-app-pub-2182452775939631/5234589897"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            </com.google.android.gms.ads.doubleclick.PublisherAdView>
+
         </android.support.constraint.ConstraintLayout>
-
-        <com.google.android.gms.ads.doubleclick.PublisherAdView
-            android:id="@+id/VocabularyTrainer_AdView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="visible"
-            app:adSize="SMART_BANNER"
-            app:adUnitId="ca-app-pub-2182452775939631/6751260660"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
-
-        </com.google.android.gms.ads.doubleclick.PublisherAdView>
 
     </android.support.constraint.ConstraintLayout>
 

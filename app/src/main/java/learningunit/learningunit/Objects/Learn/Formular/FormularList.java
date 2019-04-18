@@ -1,20 +1,16 @@
-package learningunit.learningunit.Objects.Learn.VocabularyPackage;
-
-import android.util.Log;
+package learningunit.learningunit.Objects.Learn.Formular;
 
 import java.util.ArrayList;
 
-import learningunit.learningunit.Objects.API.ManageData;
+public class FormularList {
 
-public class VocabularyList {
-
-    private ArrayList<Vocabulary> vocabularylist =  new ArrayList<Vocabulary>();
+    private ArrayList<Formular> formularList =  new ArrayList<Formular>();
     private String name, LanguageName1, LanguageName2;
     private boolean source, followed, Shared;
     private int id;
     private int CreatorID;
 
-    public VocabularyList(String LanguageName1, String LanguageName2, String name, boolean source, boolean followed) {
+    public FormularList(String LanguageName1, String LanguageName2, String name, boolean source, boolean followed) {
         this.source = source;
         this.LanguageName1 = LanguageName1;
         this.LanguageName2 = LanguageName2;
@@ -22,7 +18,7 @@ public class VocabularyList {
         this.followed = followed;
     }
 
-    public VocabularyList(String LanguageName1, String LanguageName2, String name, boolean source, boolean followed, int ID, int CreatorID, boolean Shared) {
+    public FormularList(String LanguageName1, String LanguageName2, String name, boolean source, boolean followed, int ID, int CreatorID, boolean Shared) {
         this.source = source;
         this.LanguageName1 = LanguageName1;
         this.LanguageName2 = LanguageName2;
@@ -31,18 +27,17 @@ public class VocabularyList {
         this.id = ID;
         this.CreatorID = CreatorID;
         this.Shared = Shared;
+    }
+
+    public void addFormular(Formular form){
+        formularList.add(form);
 
     }
 
-    public void addVocabulary(Vocabulary voc){
-        vocabularylist.add(voc);
-
-    }
-
-    public boolean ContainsVocabulary(Vocabulary voc){
+    public boolean ContainsFormular(Formular form){
         boolean falser = false;
-        for (Vocabulary main : this.vocabularylist){
-            if(main.getOriginal().equalsIgnoreCase(voc.getOriginal()) && main.getTranslation().equalsIgnoreCase(voc.getTranslation())){
+        for (Formular main : this.formularList){
+            if(main.getOriginal().equalsIgnoreCase(form.getOriginal()) && main.getTranslation().equalsIgnoreCase(form.getTranslation())){
                 falser = true;
                 break;
             }
@@ -51,11 +46,11 @@ public class VocabularyList {
     }
 
     public int size(){
-        return vocabularylist.size();
+        return formularList.size();
     }
 
-    public ArrayList<Vocabulary> getVocabularylist() {
-        return this.vocabularylist;
+    public ArrayList<Formular> getFormularlist() {
+        return this.formularList;
     }
 
     public void setID(int ID){
@@ -87,7 +82,6 @@ public class VocabularyList {
     }
 
     public void setName(String name) {
-        Log.d("VocabularyList", "Changed name of List " + this.name + " to " + name);
         this.name = name;
     }
 
@@ -120,18 +114,4 @@ public class VocabularyList {
         return LanguageName2;
     }
 
-    @Override
-    public String toString() {
-        return "VocabularyList{" +
-                "vocabularylist=" + vocabularylist +
-                ", name='" + name + '\'' +
-                ", LanguageName1='" + LanguageName1 + '\'' +
-                ", LanguageName2='" + LanguageName2 + '\'' +
-                ", source=" + source +
-                ", followed=" + followed +
-                ", Shared=" + Shared +
-                ", id=" + id +
-                ", CreatorID=" + CreatorID +
-                '}';
-    }
 }

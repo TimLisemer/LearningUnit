@@ -1,4 +1,4 @@
-package learningunit.learningunit.menu.learn.vocabulary;
+package learningunit.learningunit.menu.learn.formular;
 
 import android.Manifest;
 import android.app.Activity;
@@ -49,27 +49,25 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
+import learningunit.learningunit.Objects.API.ManageData;
+import learningunit.learningunit.Objects.Learn.Formular.Formular;
+import learningunit.learningunit.Objects.Learn.Formular.FormularList;
+import learningunit.learningunit.Objects.Learn.Formular.FormularMethods;
+import learningunit.learningunit.Objects.Learn.Formular.WriteCsvFormList;
 import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
-import learningunit.learningunit.Objects.Learn.VocabularyPackage.PublicListCustomAdapter;
+import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
+import learningunit.learningunit.R;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.MainActivity;
-import learningunit.learningunit.Objects.API.ManageData;
-import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
-import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
-import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
-import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
-import learningunit.learningunit.Objects.Learn.VocabularyPackage.WriteCsvVocList;
-import learningunit.learningunit.R;
 
-
-public class Vokabeln extends AppCompatActivity {
+public class Formeln extends AppCompatActivity {
 
     private static Button back, back1, create, train, all, follow, rate, settings, yourBase, followbase, allBase, nolistButton, importList;
     private static TextView lang1, lang2, original, translation, error, nolist;
     private static ConstraintLayout layout, layout0, layout00, layout1, bottom;
     private static ConstraintSet constraintSet, constraintSeto, constraintSett;
     private static boolean direction = true;
-    private static ArrayList<Vocabulary> vocabularylist;
+    private static ArrayList<Formular> formularlist;
     private static ArrayList<String> yourlistsString = new ArrayList<String>();
     private static ArrayList<String> followedlistsString = new ArrayList<String>();
     private static ArrayList<String> languageslistsString = new ArrayList<String>();
@@ -84,7 +82,7 @@ public class Vokabeln extends AppCompatActivity {
     private static Button learn_back, learn_enter, learn_showtranslation, learn_right, learn_wrong;
 
     private static TextView learn_level0Score, learn_level1Score, learn_level2Score, learn_level3Score, learn_level4Score,
-            learn_language, learn_original, learn_language1, learn_languages, learn_vocabularys, learn_masterTranslation;
+            learn_language, learn_original, learn_language1, learn_languages, learn_formulars, learn_masterTranslation;
 
     private static EditText learn_translation;
     private static TextInputLayout learn_input;
@@ -94,8 +92,8 @@ public class Vokabeln extends AppCompatActivity {
     //Shared
     private static Button shared, shared_back;
     //Shared
-    private PublisherAdView VocabularyTrainer_AdView;
-    private static PublisherInterstitialAd VocabularyTrainingInterstitialAd;
+    private PublisherAdView FormularTrainer_AdView;
+    private static PublisherInterstitialAd FormularTrainingInterstitialAd;
 
     private Tracker mTracker;
     @Override
@@ -104,46 +102,41 @@ public class Vokabeln extends AppCompatActivity {
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vocabulary);
+        setContentView(R.layout.activity_formeln);
         context = getApplicationContext();
 
-        VocabularyTrainer_AdView = (PublisherAdView) findViewById(R.id.VocabularyTrainer_AdView);
-        if(!(ManageData.hasPremium())) {
-            VocabularyTrainer_AdView.setVisibility(View.VISIBLE);
-            MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
-            PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
-            VocabularyTrainer_AdView.loadAd(adRequest);
+        MobileAds.initialize(this, "ca-app-pub-2182452775939631/4813763974");
+        FormularTrainer_AdView = (PublisherAdView) findViewById(R.id.FormularTrainer_AdView);
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+        FormularTrainer_AdView.loadAd(adRequest);
 
-            VocabularyTrainingInterstitialAd = new PublisherInterstitialAd(Vokabeln.this);
-            VocabularyTrainingInterstitialAd.setAdUnitId("ca-app-pub-2182452775939631/1259616050");
-        }else{
-            VocabularyTrainer_AdView.setVisibility(View.GONE);
-        }
+        FormularTrainingInterstitialAd = new PublisherInterstitialAd(Formeln.this);
+        FormularTrainingInterstitialAd.setAdUnitId("ca-app-pub-2182452775939631/1259616050");
 
         KeyboardVisibilityEvent.setEventListener(this, new KeyboardVisibilityEventListener() {
             @Override
             public void onVisibilityChanged(boolean isOpen) {
                 try {
-                    ScrollView fiftyOne = (ScrollView) findViewById(R.id.vocabulary_scrollView51);
+                    ScrollView fiftyOne = (ScrollView) findViewById(R.id.formular_scrollView51);
                     if (isOpen) {
-                        VocabularyTrainer_AdView.setVisibility(View.GONE);
-                        fiftyOne.setScrollY(learn_enter.getHeight() + 10);
+                        FormularTrainer_AdView.setVisibility(View.GONE);
+                        fiftyOne.setScrollY(50);
                     } else {
-                        VocabularyTrainer_AdView.setVisibility(View.VISIBLE);
+                        FormularTrainer_AdView.setVisibility(View.VISIBLE);
                     }
                 }catch (Exception e){}
             }
         });
 
         //Shared
-        shared = (Button) findViewById(R.id.vocabulary_shared);
+        shared = (Button) findViewById(R.id.formular_shared);
         shared.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sharedClick(Vokabeln.this);
+                sharedClick(Formeln.this);
             }
         });
-        shared_back = (Button) findViewById(R.id.vocabulary_ShareBack);
+        shared_back = (Button) findViewById(R.id.formular_ShareBack);
         shared_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,16 +144,16 @@ public class Vokabeln extends AppCompatActivity {
             }
         });
 
-        ShareGetList = (EditText) findViewById(R.id.vocabulary_ShareGetList);
-        ShareLayout = (ConstraintLayout) findViewById(R.id.vocabulary_ShareScrollMainLayout);
-        ShareInfo = (TextView) findViewById(R.id.vocabulary_shareInfo);
+        ShareGetList = (EditText) findViewById(R.id.formular_ShareGetList);
+        ShareLayout = (ConstraintLayout) findViewById(R.id.formular_ShareScrollMainLayout);
+        ShareInfo = (TextView) findViewById(R.id.formular_shareInfo);
 
         //Shared
 
 
         //Lernbereich
 
-        learn_back = (Button) findViewById(R.id.vocabulary_learn_back);
+        learn_back = (Button) findViewById(R.id.formular_learn_back);
         learn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,28 +161,28 @@ public class Vokabeln extends AppCompatActivity {
             }
         });
 
-        learn_enter = (Button) findViewById(R.id.vocabulary_learn_enter);
+        learn_enter = (Button) findViewById(R.id.formular_learn_enter);
 
-        learn_showtranslation = (Button) findViewById(R.id.vocabulary_learn_showTranslation);
-        learn_right = (Button) findViewById(R.id.vocabulary_learn_right);
-        learn_wrong = (Button) findViewById(R.id.vocabulary_learn_wrong);
+        learn_showtranslation = (Button) findViewById(R.id.formular_learn_showTranslation);
+        learn_right = (Button) findViewById(R.id.formular_learn_right);
+        learn_wrong = (Button) findViewById(R.id.formular_learn_wrong);
 
-        learn_level0Score = (TextView) findViewById(R.id.vocabulary_learn_level0count);
-        learn_level1Score = (TextView) findViewById(R.id.vocabulary_learn_level1count);
-        learn_level2Score = (TextView) findViewById(R.id.vocabulary_learn_level2count);
-        learn_level3Score = (TextView) findViewById(R.id.vocabulary_learn_level3count);
-        learn_level4Score = (TextView) findViewById(R.id.vocabulary_learn_level4count);
+        learn_level0Score = (TextView) findViewById(R.id.formular_learn_level0count);
+        learn_level1Score = (TextView) findViewById(R.id.formular_learn_level1count);
+        learn_level2Score = (TextView) findViewById(R.id.formular_learn_level2count);
+        learn_level3Score = (TextView) findViewById(R.id.formular_learn_level3count);
+        learn_level4Score = (TextView) findViewById(R.id.formular_learn_level4count);
 
-        learn_language = (TextView) findViewById(R.id.vocabulary_learn_language);
-        learn_original = (TextView) findViewById(R.id.vocabulary_learn_original);
-        learn_language1 = (TextView) findViewById(R.id.vocabulary_learn_language1);
-        learn_languages = (TextView) findViewById(R.id.vocabulary_learn_languages);
-        learn_vocabularys = (TextView) findViewById(R.id.vocabulary_learn_vocabularys);
+        learn_language = (TextView) findViewById(R.id.formular_learn_language);
+        learn_original = (TextView) findViewById(R.id.formular_learn_original);
+        learn_language1 = (TextView) findViewById(R.id.formular_learn_language1);
+        learn_languages = (TextView) findViewById(R.id.formular_learn_languages);
+        learn_formulars = (TextView) findViewById(R.id.formular_learn_formulars);
 
-        learn_masterTranslation = (TextView) findViewById(R.id.vocabulary_learn_masterTranslation);
+        learn_masterTranslation = (TextView) findViewById(R.id.formular_learn_masterTranslation);
 
-        learn_input = (TextInputLayout) findViewById(R.id.vocabulary_learn_inputlayout);
-        learn_translation = (EditText) findViewById(R.id.vocabulary_learn_editText);
+        learn_input = (TextInputLayout) findViewById(R.id.formular_learn_inputlayout);
+        learn_translation = (EditText) findViewById(R.id.formular_learn_editText);
 
         learn_translation.addTextChangedListener(new TextWatcher() {
             @Override
@@ -211,30 +204,30 @@ public class Vokabeln extends AppCompatActivity {
 
         //Lernbereich
 
-        layout = (ConstraintLayout) findViewById(R.id.vocabulary_scrollview4);
-        layout0 = (ConstraintLayout) findViewById(R.id.vocabulary_scrollview40);
-        layout00 = (ConstraintLayout) findViewById(R.id.vocabulary_scrollview400);
-        layout1 = (ConstraintLayout) findViewById(R.id.vocabulary_constraintlayout1);
+        layout = (ConstraintLayout) findViewById(R.id.formular_scrollview4);
+        layout0 = (ConstraintLayout) findViewById(R.id.formular_scrollview40);
+        layout00 = (ConstraintLayout) findViewById(R.id.formular_scrollview400);
+        layout1 = (ConstraintLayout) findViewById(R.id.formular_constraintlayout1);
 
-        ManageData.loadVocabularyLists(context);
+        ManageData.loadFormularLists(context);
 
         //Initialisieren der Knöpfe und rufen der OnClick methode
-        nolistButton = (Button) findViewById(R.id.vocabulary_nolistsButton);
-        followbase = (Button) findViewById(R.id.vocabulary_followBase);
-        yourBase = (Button) findViewById(R.id.vocabulary_yourBase);
-        allBase = (Button) findViewById(R.id.vocabulary_allBase);
-        followbase = (Button) findViewById(R.id.vocabulary_followBase);
-        bottom = (ConstraintLayout) findViewById(R.id.vocabulary_showvocabularybottom);
-        settings = (Button) findViewById(R.id.vocabulary_edit);
-        rate = (Button) findViewById(R.id.vocabulary_rate);
-        follow = (Button) findViewById(R.id.vocabulary_follow);
-        nolist = (TextView) findViewById(R.id.vocabulary_nolists);
-        lang1 = (TextView) findViewById(R.id.vocabulary_language);
-        lang2 = (TextView) findViewById(R.id.vocabulary_language1);
-        original = (TextView) findViewById(R.id.vocabulary_original);
-        translation = (TextView) findViewById(R.id.vocabulary_translation);
+        nolistButton = (Button) findViewById(R.id.formular_nolistsButton);
+        followbase = (Button) findViewById(R.id.formular_followBase);
+        yourBase = (Button) findViewById(R.id.formular_yourBase);
+        allBase = (Button) findViewById(R.id.formular_allBase);
+        followbase = (Button) findViewById(R.id.formular_followBase);
+        bottom = (ConstraintLayout) findViewById(R.id.formular_showformularbottom);
+        settings = (Button) findViewById(R.id.formular_edit);
+        rate = (Button) findViewById(R.id.formular_rate);
+        follow = (Button) findViewById(R.id.formular_follow);
+        nolist = (TextView) findViewById(R.id.formular_nolists);
+        lang1 = (TextView) findViewById(R.id.formular_language);
+        lang2 = (TextView) findViewById(R.id.formular_language1);
+        original = (TextView) findViewById(R.id.formular_original);
+        translation = (TextView) findViewById(R.id.formular_translation);
 
-        importList = (Button) findViewById(R.id.vocabulary_import);
+        importList = (Button) findViewById(R.id.formular_import);
         importList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -242,7 +235,7 @@ public class Vokabeln extends AppCompatActivity {
             }
         });
 
-        nolistButton = (Button) findViewById(R.id.vocabulary_nolistsButton);
+        nolistButton = (Button) findViewById(R.id.formular_nolistsButton);
         nolistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,9 +243,9 @@ public class Vokabeln extends AppCompatActivity {
             }
         });
 
-        all = (Button) findViewById(R.id.vocabulary_all);
+        all = (Button) findViewById(R.id.formular_all);
 
-        back1 = (Button) findViewById(R.id.vocabulary_back1);
+        back1 = (Button) findViewById(R.id.formular_back1);
         back1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -260,9 +253,9 @@ public class Vokabeln extends AppCompatActivity {
             }
         });
 
-        train = (Button) findViewById(R.id.vocabulary_train);
+        train = (Button) findViewById(R.id.formular_train);
 
-        back = (Button) findViewById(R.id.vocabulary_back);
+        back = (Button) findViewById(R.id.formular_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -270,7 +263,7 @@ public class Vokabeln extends AppCompatActivity {
             }
         });
 
-        create = (Button) findViewById(R.id.vocabulary_create);
+        create = (Button) findViewById(R.id.formular_create);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -278,34 +271,34 @@ public class Vokabeln extends AppCompatActivity {
             }
         });
 
-        error = (TextView) findViewById(R.id.vocabulary_error);
+        error = (TextView) findViewById(R.id.formular_error);
 
-        ShowLists(Vokabeln.this);
+        ShowLists(Formeln.this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        ManageData.uploadDelayedVocabularyLists(this);
-        ManageData.saveVocabularyLists();
+        ManageData.uploadDelayedFormularLists(this);
+        ManageData.saveFormularLists();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        ManageData.uploadDelayedVocabularyLists(this);
-        ManageData.saveVocabularyLists();
+        ManageData.uploadDelayedFormularLists(this);
+        ManageData.saveFormularLists();
     }
 
     public void ShowLists(final Activity act){
         if(ManageData.InternetAvailable(context)) {
-            VocabularyMethods.vocabularylists.clear();
-            FirstScreen.tinyDB.remove("VocLists");
-            ManageData.saveVocabularyLists();
-            ManageData.NewDownloadVocabularyLists(context, true);
-            ManageData.DownloadFollowedVocabularyLists(context, true);
+            FormularMethods.formularLists.clear();
+            FirstScreen.tinyDB.remove("FormLists");
+            ManageData.saveFormularLists();
+            ManageData.NewDownloadFormularLists(context, true);
+            ManageData.DownloadFollowedFormularLists(context, true);
         }
-        if(VocabularyMethods.vocabularylists.size() > 0) {
+        if(FormularMethods.formularLists.size() > 0) {
             nolist.setVisibility(View.GONE);
             nolistButton.setVisibility(View.GONE);
 
@@ -314,22 +307,22 @@ public class Vokabeln extends AppCompatActivity {
             languageslistsString.clear();
 
             boolean yourfirst = true, followedfirst = true, allfirst = true;
-            List<VocabularyList> c = new ArrayList<VocabularyList>();
-            List<VocabularyList> d =  new ArrayList<VocabularyList>();
-            for (VocabularyList e : VocabularyMethods.vocabularylists){
+            List<FormularList> c = new ArrayList<FormularList>();
+            List<FormularList> d =  new ArrayList<FormularList>();
+            for (FormularList e : FormularMethods.formularLists){
                 d .add(e);
             }
-            for(VocabularyList list : d){
+            for(FormularList list : d){
                 if(ManageData.InternetAvailable(context)){
-                    Vokabeln.publiclist = false;
-                    Vokabeln.sharedlist = null;
-                    Vokabeln.sharedID = 0;
-                    Vokabeln.sharedListID = 0;
+                    Formeln.publiclist = false;
+                    Formeln.sharedlist = null;
+                    Formeln.sharedID = 0;
+                    Formeln.sharedListID = 0;
                 }
-                if(list.getVocabularylist().size() == -5){
+                if(list.getFormularlist().size() == -5){
                     c.add(list);
                 }else {
-                    if (list.getName().contains("AllVoc_")) {
+                    if (list.getName().contains("AllForm_")) {
                         languageslistsString.add(list.getName());
                     } else {
                         if (list.getFollowed() == false) {
@@ -341,15 +334,15 @@ public class Vokabeln extends AppCompatActivity {
                     }
                 }
             }
-            for(VocabularyList remover : c){
-                VocabularyMethods.vocabularylists.remove(c);
+            for(FormularList remover : c){
+                FormularMethods.formularLists.remove(c);
             }
             if(yourlistsString.size() > 0) {
                 layout.setVisibility(View.VISIBLE);
                 yourBase.setText(yourlistsString.get(0));
                 downyourLists = new Button[yourlistsString.size()];
                 for (int i = 1; i < yourlistsString.size(); i++) {
-                    downyourLists[i] = new Button(Vokabeln.this);
+                    downyourLists[i] = new Button(Formeln.this);
 
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
@@ -366,13 +359,13 @@ public class Vokabeln extends AppCompatActivity {
 
                     if (yourfirst) {
                         constraintSet.connect(i, ConstraintSet.TOP, yourBase.getId(), ConstraintSet.BOTTOM);
-                        constraintSet.connect(i, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline3).getId(), ConstraintSet.LEFT);
-                        constraintSet.connect(i, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline4).getId(), ConstraintSet.RIGHT);
+                        constraintSet.connect(i, ConstraintSet.RIGHT, findViewById(R.id.formular_guideline3).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i, ConstraintSet.LEFT, findViewById(R.id.formular_guideline4).getId(), ConstraintSet.RIGHT);
                         yourfirst = false;
                     } else {
                         constraintSet.connect(i, ConstraintSet.TOP, i - 1, ConstraintSet.BOTTOM);
-                        constraintSet.connect(i, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline3).getId(), ConstraintSet.LEFT);
-                        constraintSet.connect(i, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline4).getId(), ConstraintSet.RIGHT);
+                        constraintSet.connect(i, ConstraintSet.RIGHT, findViewById(R.id.formular_guideline3).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i, ConstraintSet.LEFT, findViewById(R.id.formular_guideline4).getId(), ConstraintSet.RIGHT);
                     }
                     constraintSet.applyTo(layout);
                     final String s = yourlistsString.get(i);
@@ -381,7 +374,7 @@ public class Vokabeln extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             try{
-                                showvocabularys(s, act);
+                                showformulars(s, act);
                             }catch (Exception e){}
                         }
                     });
@@ -391,7 +384,7 @@ public class Vokabeln extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try{
-                            showvocabularys(s, act);
+                            showformulars(s, act);
                         }catch (Exception e){}
                     }
                 });
@@ -406,7 +399,7 @@ public class Vokabeln extends AppCompatActivity {
                 int offset = yourlistsString.size();
                 downfollowedLists = new Button[followedlistsString.size()];
                 for (int i = 1; i < followedlistsString.size(); i++) {
-                    downfollowedLists[i] = new Button(Vokabeln.this);
+                    downfollowedLists[i] = new Button(Formeln.this);
 
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
@@ -421,34 +414,34 @@ public class Vokabeln extends AppCompatActivity {
                     constraintSet.clone(layout0);
                     if(followedfirst){
                         constraintSet.connect(i + offset, ConstraintSet.TOP, followbase.getId(), ConstraintSet.BOTTOM);
-                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline40).getId(), ConstraintSet.LEFT);
-                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline30).getId(), ConstraintSet.RIGHT);
+                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.formular_guideline40).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.formular_guideline30).getId(), ConstraintSet.RIGHT);
                         followedfirst = false;
                     }else{
                         constraintSet.connect(i + offset, ConstraintSet.TOP, i - 1 + offset, ConstraintSet.BOTTOM);
-                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline40).getId(), ConstraintSet.LEFT);
-                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline30).getId(), ConstraintSet.RIGHT);
+                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.formular_guideline40).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.formular_guideline30).getId(), ConstraintSet.RIGHT);
                     }
                     constraintSet.applyTo(layout0);
                     final String s = followedlistsString.get(i);
                     downfollowedLists[i].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            VocabularyList list = VocabularyMethods.getVocabularyList0(s);
+                            FormularList list = FormularMethods.getFormularList0(s);
                             sharedlist = list;
                             publiclist = true;
                             list.setSource(true);
                             list.setShared(true);
                             sharedListID = list.getID();
                             sharedID = list.getCreatorID();
-                            ShareInfo.setText(act.getResources().getString(R.string.PublicVocabIDInfo1) + sharedListID + act.getResources().getString(R.string.PublicVocabIDInfo2));
+                            ShareInfo.setText(act.getResources().getString(R.string.PublicFormIDInfo1) + sharedListID + act.getResources().getString(R.string.PublicVocabIDInfo2));
                             direction = false;
                             if(ManageData.InternetAvailable(context)){
-                                ManageData.DownloadVocabularys(s, context);
+                                ManageData.DownloadFormulars(s, context);
                             }
-                            if(list.getVocabularylist().size() > 0) {
+                            if(list.getFormularlist().size() > 0) {
                                 try {
-                                    showvocabularys(list.getName(), act);
+                                    showformulars(list.getName(), act);
                                 }catch (Exception e){}
                             }
                         }
@@ -458,19 +451,19 @@ public class Vokabeln extends AppCompatActivity {
                 followbase.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        VocabularyList list = VocabularyMethods.getVocabularyList0(s);
+                        FormularList list = FormularMethods.getFormularList0(s);
                         sharedlist = list;
                         publiclist = true;
                         sharedListID = list.getID();
                         sharedID = list.getCreatorID();
-                        ShareInfo.setText(act.getResources().getString(R.string.PublicVocabIDInfo1) + sharedListID + act.getResources().getString(R.string.PublicVocabIDInfo2));
+                        ShareInfo.setText(act.getResources().getString(R.string.PublicFormIDInfo1) + sharedListID + act.getResources().getString(R.string.PublicVocabIDInfo2));
                         if(ManageData.InternetAvailable(context)){
-                            ManageData.DownloadVocabularys(s, context);
+                            ManageData.DownloadFormulars(s, context);
                         }
                         direction = false;
-                        if(list.getVocabularylist().size() > 0) {
+                        if(list.getFormularlist().size() > 0) {
                             try {
-                                showvocabularys(list.getName(), act);
+                                showformulars(list.getName(), act);
                             }catch (Exception e){ }
                         }
                     }
@@ -480,18 +473,18 @@ public class Vokabeln extends AppCompatActivity {
             }
 
             if(languageslistsString.size() > 0){
-                allBase.setText(languageslistsString.get(0).replace("AllVoc_", ""));
+                allBase.setText(languageslistsString.get(0).replace("AllForm_", ""));
 
                 int offset = languageslistsString.size() + 3597874;
                 Button[] downallLists = new Button[languageslistsString.size()];
                 for (int i = 1; i < languageslistsString.size(); i++) {
-                    downallLists[i] = new Button(Vokabeln.this);
+                    downallLists[i] = new Button(Formeln.this);
 
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
                     params.setMargins(0, 90, 0, 8);
-                    downallLists[i].setText(languageslistsString.get(i).replace("AllVoc_", ""));
+                    downallLists[i].setText(languageslistsString.get(i).replace("AllForm_", ""));
                     downallLists[i].setId(i + offset);
                     downallLists[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
@@ -500,13 +493,13 @@ public class Vokabeln extends AppCompatActivity {
                     constraintSet.clone(layout00);
                     if(allfirst){
                         constraintSet.connect(i + offset, ConstraintSet.TOP, allBase.getId(), ConstraintSet.BOTTOM);
-                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline300).getId(), ConstraintSet.LEFT);
-                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline400).getId(), ConstraintSet.RIGHT);
+                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.formular_guideline300).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.formular_guideline400).getId(), ConstraintSet.RIGHT);
                         allfirst = false;
                     }else{
                         constraintSet.connect(i + offset, ConstraintSet.TOP, i - 1 + offset, ConstraintSet.BOTTOM);
-                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.vocabulary_guideline300).getId(), ConstraintSet.LEFT);
-                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.vocabulary_guideline400).getId(), ConstraintSet.RIGHT);
+                        constraintSet.connect(i + offset, ConstraintSet.RIGHT, findViewById(R.id.formular_guideline300).getId(), ConstraintSet.LEFT);
+                        constraintSet.connect(i + offset, ConstraintSet.LEFT, findViewById(R.id.formular_guideline400).getId(), ConstraintSet.RIGHT);
                     }
                     constraintSet.applyTo(layout00);
                     layout00.setVisibility(View.GONE);
@@ -516,7 +509,7 @@ public class Vokabeln extends AppCompatActivity {
                         public void onClick(View v) {
                             try {
 
-                                showvocabularys(s, act);
+                                showformulars(s, act);
                             }catch (Exception e){ Log.d("ALL", e.toString());}
                         }
                     });
@@ -526,7 +519,7 @@ public class Vokabeln extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try {
-                            showvocabularys(s, act);
+                            showformulars(s, act);
                         }catch (Exception e){}
                     }
                 });
@@ -552,44 +545,44 @@ public class Vokabeln extends AppCompatActivity {
     //Buttton OnClick Methoden
 
 
-    private static void showvocabularys(final String ListName, final Activity act){
+    private static void showformulars(final String ListName, final Activity act){
         final int listiD;
-        final VocabularyList showvocablist;
-        final VocabularyList vocabularyList;
+        final FormularList showformlist;
+        final FormularList FormularList;
         if(publiclist == false) {
-            showvocablist = VocabularyMethods.getVocabularyList0(ListName);
+            showformlist = FormularMethods.getFormularList0(ListName);
         }else{
-            showvocablist = sharedlist;
+            showformlist = sharedlist;
         }
 
-        vocabularyList = showvocablist;
+        FormularList = showformlist;
 
-        if(showvocablist.getShared() == false || showvocablist.getCreatorID() == ManageData.getUserID()) {
+        if(showformlist.getShared() == false || showformlist.getCreatorID() == ManageData.getUserID()) {
             train.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    start_train(showvocablist, act);
+                    start_train(showformlist, act);
                 }
             });
 
-            if(showvocablist.getID() == 0) {
+            if(showformlist.getID() == 0) {
                 if (MainActivity.InternetAvailable(context)) {
                     try {
                         LinkedHashMap<String, String> params = new LinkedHashMap<>();
                         params.put("id", ManageData.getUserID() + "");
-                        params.put("Titel", showvocablist.getName());
+                        params.put("Titel", showformlist.getName());
                         RequestHandler requestHandler = new RequestHandler();
-                        String sd = requestHandler.sendPostRequest(MainActivity.URL_ListAvailable, params);
+                        String sd = requestHandler.sendPostRequest(MainActivity.URL_FormListAvailable, params);
                         sd = sd.substring(1, sd.length() - 1);
                         sd = sd.replaceAll("^\"|\"$", "");
                         listiD = Integer.parseInt(sd);
-                        showvocablist.setID(listiD);
+                        showformlist.setID(listiD);
 
                         settings.setText(act.getResources().getString(R.string.Settings));
                         settings.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                openSettings(listiD, showvocablist, act);
+                                openSettings(listiD, showformlist, act);
                             }
                         });
                     }catch(Exception e) {
@@ -597,20 +590,20 @@ public class Vokabeln extends AppCompatActivity {
                     }
                 }
             }else{
-                listiD = showvocablist.getID();
+                listiD = showformlist.getID();
                 settings.setText(act.getResources().getString(R.string.Settings));
                 settings.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        openSettings(listiD, showvocablist, act);
+                        openSettings(listiD, showformlist, act);
                     }
                 });
             }
 
-            if(showvocablist.getShared() == false) {
+            if(showformlist.getShared() == false) {
                 bottom.setVisibility(View.GONE);
             }else {
-                if (showvocablist.getCreatorID() == ManageData.getUserID()) {
+                if (showformlist.getCreatorID() == ManageData.getUserID()) {
                     bottom.setVisibility(View.VISIBLE);
                     follow.setText("Platzhalter");
                     follow.setOnClickListener(new View.OnClickListener() {
@@ -627,13 +620,13 @@ public class Vokabeln extends AppCompatActivity {
             train.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    start_train(showvocablist, act);
+                    start_train(showformlist, act);
                 }
             });
             bottom.setVisibility(View.VISIBLE);
             if(MainActivity.InternetAvailable(context)) {
                 RequestHandler requestHandler = new RequestHandler();
-                String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + showvocablist.getID() + "&UserID=" + ManageData.getUserID());
+                String json = requestHandler.sendGetRequest(MainActivity.URL_getFollowForm + showformlist.getID() + "&UserID=" + ManageData.getUserID());
                 Gson gson = new Gson();
                 Type type = new TypeToken<String>() {
                 }.getType();
@@ -658,15 +651,15 @@ public class Vokabeln extends AppCompatActivity {
             follow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    openFollow(showvocablist, follow, act);
+                    openFollow(showformlist, follow, act);
                 }
             });
             rate.setText(act.getResources().getString(R.string.Rate));
         }
 
         try{
-            if(showvocablist.getShared() == true){
-                ShareInfo.setText(act.getResources().getString(R.string.PublicVocabIDInfo1) + showvocablist.getID() + act.getResources().getString(R.string.PublicVocabIDInfo2));
+            if(showformlist.getShared() == true){
+                ShareInfo.setText(act.getResources().getString(R.string.PublicFormIDInfo1) + showformlist.getID() + act.getResources().getString(R.string.PublicVocabIDInfo2));
                 ShareInfo.setVisibility(View.VISIBLE);
             }else{
                 ShareInfo.setVisibility(View.GONE);
@@ -675,10 +668,10 @@ public class Vokabeln extends AppCompatActivity {
             ShareInfo.setVisibility(View.GONE);
         }
 
-        downoriginal  = new TextView[showvocablist.size()];
-        downtranslation = new TextView[showvocablist.size() + 10000];
+        downoriginal  = new TextView[showformlist.size()];
+        downtranslation = new TextView[showformlist.size() + 10000];
 
-        if(showvocablist.size() < 5){
+        if(showformlist.size() < 5){
             error.setVisibility(View.VISIBLE);
             error.setText(act.getResources().getString(R.string.TrainingCondition));
             train.setEnabled(false);
@@ -694,13 +687,13 @@ public class Vokabeln extends AppCompatActivity {
         boolean f1 = true;
         int e1 = 0;
 
-        act.findViewById(R.id.vocabulary_scrollView).setVisibility(View.INVISIBLE);
-        act.findViewById(R.id.vocabulary_scrollview1).setVisibility(View.VISIBLE);
+        act.findViewById(R.id.formular_scrollView).setVisibility(View.INVISIBLE);
+        act.findViewById(R.id.formular_scrollview1).setVisibility(View.VISIBLE);
 
-        lang1.setText(showvocablist.getLanguageName1());
-        lang2.setText(showvocablist.getLanguageName2());
+        lang1.setText(showformlist.getLanguageName1());
+        lang2.setText(showformlist.getLanguageName2());
 
-        for (int i = 1; i < showvocablist.size(); i++) {
+        for (int i = 1; i < showformlist.size(); i++) {
             downoriginal[i] = new TextView(act);
 
             ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
@@ -708,7 +701,7 @@ public class Vokabeln extends AppCompatActivity {
 
             params.setMargins(8, 90, 8, 8);
 
-            downoriginal[i].setText(showvocablist.getVocabularylist().get(i).getOriginal());
+            downoriginal[i].setText(showformlist.getFormularlist().get(i).getOriginal());
             downoriginal[i].setId(i);
             downoriginal[i].setTextSize(18);
             downoriginal[i].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -724,19 +717,19 @@ public class Vokabeln extends AppCompatActivity {
                 f = false;
             }else{
                 constraintSeto.connect(i, ConstraintSet.TOP, e - 1, ConstraintSet.BOTTOM);
-                constraintSeto.connect(i, ConstraintSet.RIGHT, act.findViewById(R.id.vocabulary_guideline).getId(), ConstraintSet.LEFT);
-                constraintSeto.connect(i, ConstraintSet.LEFT, act.findViewById(R.id.vocabulary_guideline01).getId(), ConstraintSet.RIGHT);
+                constraintSeto.connect(i, ConstraintSet.RIGHT, act.findViewById(R.id.formular_guideline).getId(), ConstraintSet.LEFT);
+                constraintSeto.connect(i, ConstraintSet.LEFT, act.findViewById(R.id.formular_guideline01).getId(), ConstraintSet.RIGHT);
             }
 
             e = i + 1;
             constraintSeto.applyTo(layout1);
         }
-        original.setText(showvocablist.getVocabularylist().get(0).getOriginal());
-        learn_masterTranslation.setText(showvocablist.getVocabularylist().get(0).getTranslation());
+        original.setText(showformlist.getFormularlist().get(0).getOriginal());
+        learn_masterTranslation.setText(showformlist.getFormularlist().get(0).getTranslation());
 
 
 
-        for (int i = 1; i < vocabularyList.size(); i++) {
+        for (int i = 1; i < FormularList.size(); i++) {
             downtranslation[i + 10000] = new TextView(act);
 
             ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
@@ -744,7 +737,7 @@ public class Vokabeln extends AppCompatActivity {
 
             params.setMargins(8, 90, 8, 8);
 
-            downtranslation[i + 10000].setText(vocabularyList.getVocabularylist().get(i).getTranslation());
+            downtranslation[i + 10000].setText(FormularList.getFormularlist().get(i).getTranslation());
             downtranslation[i + 10000].setTextSize(18);
             downtranslation[i + 10000].setId(i + 10000);
             downtranslation[i + 10000].setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -760,38 +753,38 @@ public class Vokabeln extends AppCompatActivity {
                 f1 = false;
             }else{
                 constraintSett.connect(i + 10000, ConstraintSet.TOP, e1-1 , ConstraintSet.BOTTOM);
-                constraintSett.connect(i + 10000, ConstraintSet.RIGHT, act.findViewById(R.id.vocabulary_guideline02).getId(), ConstraintSet.LEFT);
-                constraintSett.connect(i + 10000, ConstraintSet.LEFT, act.findViewById(R.id.vocabulary_guideline).getId(), ConstraintSet.RIGHT);
+                constraintSett.connect(i + 10000, ConstraintSet.RIGHT, act.findViewById(R.id.formular_guideline02).getId(), ConstraintSet.LEFT);
+                constraintSett.connect(i + 10000, ConstraintSet.LEFT, act.findViewById(R.id.formular_guideline).getId(), ConstraintSet.RIGHT);
             }
 
             e1 = i + 1;
             constraintSett.applyTo(layout1);
         }
-        translation.setText(vocabularyList.getVocabularylist().get(0).getTranslation());
+        translation.setText(FormularList.getFormularlist().get(0).getTranslation());
 
     }
 
     @Override
     public void onBackPressed(){
-        if(findViewById(R.id.vocabulary_scrollview1).getVisibility() == View.VISIBLE) {
+        if(findViewById(R.id.formular_scrollview1).getVisibility() == View.VISIBLE) {
             open_back1();
-        }else if(findViewById(R.id.vocabulary_scrollView5).getVisibility() == View.VISIBLE) {
+        }else if(findViewById(R.id.formular_scrollView5).getVisibility() == View.VISIBLE) {
             open_learn_back();
-        }else if(findViewById(R.id.vocabulary_ShareMainView).getVisibility() == View.VISIBLE) {
+        }else if(findViewById(R.id.formular_ShareMainView).getVisibility() == View.VISIBLE) {
             openShareBack();
-        }else if(findViewById(R.id.vocabulary_scrollView).getVisibility() == View.VISIBLE) {
+        }else if(findViewById(R.id.formular_scrollView).getVisibility() == View.VISIBLE) {
             open_back();
         }
     }
 
     public void openShareBack(){
-        Intent intent = new Intent(Vokabeln.this, Vokabeln.class);
+        Intent intent = new Intent(Formeln.this, Formeln.class);
         startActivity(intent);
     }
 
     public void open_back(){
         if(layout00.getVisibility() == View.VISIBLE){
-            all.setText(getResources().getString(R.string.AllVocabularys));
+            all.setText(getResources().getString(R.string.Allformulas));
             layout00.setVisibility(View.GONE);
             if(yourlistsString.size() > 0){
                 layout.setVisibility(View.VISIBLE);
@@ -814,21 +807,21 @@ public class Vokabeln extends AppCompatActivity {
             layout1.removeView(downtranslation[i]);
         }
         if(direction == false) {
-            Intent intent = new Intent(Vokabeln.this, Vokabeln.class);
+            Intent intent = new Intent(Formeln.this, Formeln.class);
             startActivity(intent);
             direction = true;
         }else{
             if(publicback){
-                findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.VISIBLE);
-                findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
+                findViewById(R.id.formular_ShareMainView).setVisibility(View.VISIBLE);
+                findViewById(R.id.formular_scrollview1).setVisibility(View.INVISIBLE);
                 publicback = false;
             }else{
                 if (publiclist == false) {
-                    findViewById(R.id.vocabulary_scrollView).setVisibility(View.VISIBLE);
-                    findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.formular_scrollView).setVisibility(View.VISIBLE);
+                    findViewById(R.id.formular_scrollview1).setVisibility(View.INVISIBLE);
                 } else {
-                    findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.VISIBLE);
-                    findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.formular_ShareMainView).setVisibility(View.VISIBLE);
+                    findViewById(R.id.formular_scrollview1).setVisibility(View.INVISIBLE);
                 }
             }
         }
@@ -836,62 +829,60 @@ public class Vokabeln extends AppCompatActivity {
     }
 
     public void open_create(){
-        VocabularyMethods.openCreateList = true;
-        Intent intent = new Intent(this, CreateVocList.class);
+        FormularMethods.openCreateList = true;
+        Intent intent = new Intent(this, CreateFormList.class);
         startActivity(intent);
     }
 
     public void openImport(){
-        VocabularyMethods.openCreateList = false;
-        Intent intent = new Intent(this, CreateVocList.class);
+        FormularMethods.openCreateList = false;
+        Intent intent = new Intent(this, CreateFormList.class);
         startActivity(intent);
     }
 
 
     //Lernbereich
 
-    private static Vocabulary voc;
-    private static int lastvocabulary;
+    private static Formular form;
+    private static int lastFormular;
 
 
     public void open_learn_back(){
         learn_translation.setText(null);
-        findViewById(R.id.vocabulary_scrollView5).setVisibility(View.INVISIBLE);
-        findViewById(R.id.vocabulary_scrollview1).setVisibility(View.VISIBLE);
+        findViewById(R.id.formular_scrollView5).setVisibility(View.INVISIBLE);
+        findViewById(R.id.formular_scrollview1).setVisibility(View.VISIBLE);
     }
 
 
-    private static void start_train(final VocabularyList trainlist, final Activity act) {
-        if(!(ManageData.hasPremium())) {
-            VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().build());
-            InputMethodManager imm = (InputMethodManager) act.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            View view = act.getCurrentFocus();
-            try {
-                view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View view, boolean b) {
-                        if (view == null) {
-                            act.findViewById(R.id.VocabularyTrainer_AdView).setVisibility(View.VISIBLE);
-                        } else {
-                            act.findViewById(R.id.VocabularyTrainer_AdView).setVisibility(View.GONE);
-                        }
-                    }
-                });
-            } catch (Exception e) {
-            }
-        }
+    private static void start_train(final FormularList trainlist, final Activity act) {
+        FormularTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().build());
 
-        final ArrayList<Vocabulary> level0 = new ArrayList<Vocabulary>();
-        final ArrayList<Vocabulary> level1 = new ArrayList<Vocabulary>();
-        final ArrayList<Vocabulary> level2 = new ArrayList<Vocabulary>();
-        final ArrayList<Vocabulary> level3 = new ArrayList<Vocabulary>();
-        final ArrayList<Vocabulary> level4 = new ArrayList<Vocabulary>();
+        InputMethodManager imm = (InputMethodManager) act.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = act.getCurrentFocus();
+        try {
+            view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    if (view == null) {
+                        act.findViewById(R.id.FormularTrainer_AdView).setVisibility(View.VISIBLE);
+                    }else{
+                        act.findViewById(R.id.FormularTrainer_AdView).setVisibility(View.GONE);
+                    }
+                }
+            });
+        }catch (Exception e){}
+
+        final ArrayList<Formular> level0 = new ArrayList<Formular>();
+        final ArrayList<Formular> level1 = new ArrayList<Formular>();
+        final ArrayList<Formular> level2 = new ArrayList<Formular>();
+        final ArrayList<Formular> level3 = new ArrayList<Formular>();
+        final ArrayList<Formular> level4 = new ArrayList<Formular>();
 
         learn_languages.setText(trainlist.getLanguageName1()+ " - " + trainlist.getLanguageName2());
-        learn_vocabularys.setText(act.getResources().getString(R.string.Original) + " - " + act.getResources().getString(R.string.Translation));
+        learn_formulars.setText(act.getResources().getString(R.string.Original) + " - " + act.getResources().getString(R.string.Translation));
 
-        act.findViewById(R.id.vocabulary_scrollView5).setVisibility(View.VISIBLE);
-        act.findViewById(R.id.vocabulary_scrollview1).setVisibility(View.INVISIBLE);
+        act.findViewById(R.id.formular_scrollView5).setVisibility(View.VISIBLE);
+        act.findViewById(R.id.formular_scrollview1).setVisibility(View.INVISIBLE);
 
         learn_input.setVisibility(View.VISIBLE);
         learn_translation.setVisibility(View.VISIBLE);
@@ -905,65 +896,64 @@ public class Vokabeln extends AppCompatActivity {
 
 
         for (int i = 0; i < trainlist.size(); i++) {
-            level0.add(trainlist.getVocabularylist().get(i));
+            level0.add(trainlist.getFormularlist().get(i));
         }
 
         open_train(trainlist, level0, level1, level2, level3, level4, act);
 
     }
 
-
-
-    public static void open_train(final VocabularyList trainlist, final ArrayList<Vocabulary> level0, final ArrayList<Vocabulary> level1, final ArrayList<Vocabulary> level2, final ArrayList<Vocabulary> level3, final ArrayList<Vocabulary> level4, final Activity act){
+    public static void open_train(final FormularList trainlist, final ArrayList<Formular> level0, final ArrayList<Formular> level1, final ArrayList<Formular> level2, final ArrayList<Formular> level3, final ArrayList<Formular> level4, final Activity act){
         String s = learn_translation.getText().toString();
         learn_level0Score.setText(level0.size() + "");
         learn_level1Score.setText(level1.size() + "");
         learn_level2Score.setText(level2.size() + "");
         learn_level3Score.setText(level3.size() + "");
         learn_level4Score.setText(level4.size() + "");
-        voc = null;
-        lastvocabulary = 0;
+        form = null;
+        lastFormular = 0;
+
 
         while(true){
             int d = new Random().nextInt(trainlist.size());
-            if(!(level4.contains(trainlist.getVocabularylist().get(d)))){
+            if(!(level4.contains(trainlist.getFormularlist().get(d)))){
 
-                if(d != lastvocabulary){
+                if(d != lastFormular){
 
-                    voc = trainlist.getVocabularylist().get(d);
-                    lastvocabulary = d;
+                    form = trainlist.getFormularlist().get(d);
+                    lastFormular = d;
                     break;
 
                 }else{
 
                     if((level0.size() == 1) && (level1.size() == 0) && (level2.size() == 0) && (level3.size() == 0)){
-                        voc = level0.get(d);
-                        lastvocabulary = d;
+                        form = level0.get(d);
+                        lastFormular = d;
                         break;
                     }else if((level0.size() == 0) && (level1.size() == 1) && (level2.size() == 0) && (level3.size() == 0)){
-                        voc = level1.get(d);
-                        lastvocabulary = d;
+                        form = level1.get(d);
+                        lastFormular = d;
                         break;
                     }else if((level0.size() == 0) && (level1.size() == 0) && (level2.size() == 1) && (level3.size() == 0)){
-                        voc = level2.get(d);
-                        lastvocabulary = d;
+                        form = level2.get(d);
+                        lastFormular = d;
                         break;
                     }else if((level0.size() == 0) && (level1.size() == 0) && (level2.size() == 0) && (level3.size() == 1)) {
-                        voc = level3.get(d);
-                        lastvocabulary = d;
+                        form = level3.get(d);
+                        lastFormular = d;
                         break;
                     }
                 }
             }
         }
 
-        if (trainlist.getVocabularylist().indexOf(voc) % 2 == 0){
+        if (trainlist.getFormularlist().indexOf(form) % 2 == 0){
 
-            learn_language.setText(voc.getLanguageName1());
-            learn_original.setText(voc.getOriginal());
-            learn_masterTranslation.setText(voc.getTranslation());
+            learn_language.setText(form.getLanguageName1());
+            learn_original.setText(form.getOriginal());
+            learn_masterTranslation.setText(form.getTranslation());
 
-            learn_language1.setText(voc.getLanguageName2());
+            learn_language1.setText(form.getLanguageName2());
 
             learn_showtranslation.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -976,13 +966,13 @@ public class Vokabeln extends AppCompatActivity {
                     learn_masterTranslation.setVisibility(View.VISIBLE);
                     learn_right.setVisibility(View.VISIBLE);
                     learn_wrong.setVisibility(View.VISIBLE);
-                    if(level0.contains(voc)) {
+                    if(level0.contains(form)) {
                         open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act);
-                    }else if(level1.contains(voc)) {
+                    }else if(level1.contains(form)) {
                         open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act);
-                    }else if(level2.contains(voc)) {
+                    }else if(level2.contains(form)) {
                         open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act);
-                    }else if(level3.contains(voc)) {
+                    }else if(level3.contains(form)) {
                         open_learn_showtranslation(trainlist,true, level0, level1, level2, level3, level4, act);
                     }
                 }
@@ -992,13 +982,13 @@ public class Vokabeln extends AppCompatActivity {
             learn_enter.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View view){
 
-                    if (level0.contains(voc)) {
+                    if (level0.contains(form)) {
                         open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act);
-                    } else if (level1.contains(voc)) {
+                    } else if (level1.contains(form)) {
                         open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act);
-                    } else if (level2.contains(voc)) {
+                    } else if (level2.contains(form)) {
                         open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act);
-                    } else if (level3.contains(voc)) {
+                    } else if (level3.contains(form)) {
                         open_learn_enter(trainlist,true, level0, level1, level2, level3, level4, act);
                     }
                 }
@@ -1006,10 +996,10 @@ public class Vokabeln extends AppCompatActivity {
 
         } else {
 
-            learn_language.setText(voc.getLanguageName2());
-            learn_original.setText(voc.getTranslation());
-            learn_masterTranslation.setText(voc.getOriginal());
-            learn_language1.setText(voc.getLanguageName1());
+            learn_language.setText(form.getLanguageName2());
+            learn_original.setText(form.getTranslation());
+            learn_masterTranslation.setText(form.getOriginal());
+            learn_language1.setText(form.getLanguageName1());
 
             learn_showtranslation.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1023,13 +1013,13 @@ public class Vokabeln extends AppCompatActivity {
                     learn_right.setVisibility(View.VISIBLE);
                     learn_wrong.setVisibility(View.VISIBLE);
 
-                    if(level0.contains(voc)) {
+                    if(level0.contains(form)) {
                         open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act);
-                    }else if(level1.contains(voc)) {
+                    }else if(level1.contains(form)) {
                         open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act);
-                    }else if(level2.contains(voc)) {
+                    }else if(level2.contains(form)) {
                         open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act);
-                    }else if(level3.contains(voc)) {
+                    }else if(level3.contains(form)) {
                         open_learn_showtranslation(trainlist,false, level0, level1, level2, level3, level4, act);
                     }
                 }
@@ -1040,13 +1030,13 @@ public class Vokabeln extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    if(level0.contains(voc)) {
+                    if(level0.contains(form)) {
                         open_learn_enter(trainlist, false, level0, level1, level2, level3, level4, act);
-                    }else if(level1.contains(voc)) {
+                    }else if(level1.contains(form)) {
                         open_learn_enter(trainlist,false, level0, level1, level2, level3, level4, act);
-                    }else if(level2.contains(voc)) {
+                    }else if(level2.contains(form)) {
                         open_learn_enter(trainlist,false, level0, level1, level2, level3, level4, act);
-                    }else if(level3.contains(voc)) {
+                    }else if(level3.contains(form)) {
                         open_learn_enter(trainlist,false, level0, level1, level2, level3, level4, act);
                     }
                 }
@@ -1055,107 +1045,112 @@ public class Vokabeln extends AppCompatActivity {
         }
     }
 
-    private static void open_learn_enter(final VocabularyList showvocablist, boolean gerade, ArrayList<Vocabulary> level0, ArrayList<Vocabulary> level1, ArrayList<Vocabulary> level2, ArrayList<Vocabulary> level3, ArrayList<Vocabulary> level4, final Activity act){
+    private static void open_learn_enter(final FormularList showformlist, boolean gerade, ArrayList<Formular> level0, ArrayList<Formular> level1, ArrayList<Formular> level2, ArrayList<Formular> level3, ArrayList<Formular> level4, final Activity act){
 
         MainActivity.hideKeyboard(act);
-        vocabularylist =  showvocablist.getVocabularylist();
+        formularlist =  showformlist.getFormularlist();
 
         String learntrans = learn_translation.getText().toString().trim();
         learntrans.replace(" ","");
-        String ori = voc.getOriginal();
+        String ori = form.getOriginal();
         ori.replace(" ","");
-        String transi = voc.getTranslation();
+        String transi = form.getTranslation();
         transi.replace(" ","");
 
         if(gerade) {
+            learn_languages.setText(form.getLanguageName1() + " - " + form.getLanguageName2());
+            learn_formulars.setText(form.getOriginal() + " - " + form.getTranslation());
 
-            learn_languages.setText(voc.getLanguageName1() + " - " + voc.getLanguageName2());
-            learn_vocabularys.setText(voc.getOriginal() + " - " + voc.getTranslation());
 
             if(!(learntrans.replaceAll("\\s+","").equalsIgnoreCase(transi.replaceAll("\\s+","")))) {
-                if(level4.size() == vocabularylist.size()){
+
+                if(level4.size() == formularlist.size()){
                     openfinish(act);
                 }else {
 
-                    if(level1.contains(voc)){
-                        level0.add(voc);
-                        level1.remove(voc);
-                    }else if(level2.contains(voc)){
-                        level1.add(voc);
-                        level2.remove(voc);
-                    }else if(level3.contains(voc)) {
-                        level2.add(voc);
-                        level3.remove(voc);
+                    if(level1.contains(form)){
+                        level0.add(form);
+                        level1.remove(form);
+                    }else if(level2.contains(form)){
+                        level1.add(form);
+                        level2.remove(form);
+                    }else if(level3.contains(form)) {
+                        level2.add(form);
+                        level3.remove(form);
                     }
 
-                    open_train(showvocablist, level0, level1, level2, level3, level4, act);
+                    open_train(showformlist, level0, level1, level2, level3, level4, act);
                 }
             }else{
-                if(level0.contains(voc)){
-                    level0.remove(voc);
-                    level1.add(voc);
-                }else if(level1.contains(voc)){
-                    level1.remove(voc);
-                    level2.add(voc);
-                }else if(level2.contains(voc)){
-                    level2.remove(voc);
-                    level3.add(voc);
-                }else if(level3.contains(voc)) {
-                    level3.remove(voc);
-                    level4.add(voc);
+
+                if(level0.contains(form)){
+                    level0.remove(form);
+                    level1.add(form);
+                }else if(level1.contains(form)){
+                    level1.remove(form);
+                    level2.add(form);
+                }else if(level2.contains(form)){
+                    level2.remove(form);
+                    level3.add(form);
+                }else if(level3.contains(form)) {
+                    level3.remove(form);
+                    level4.add(form);
                 }
 
 
-                if(level4.size() == vocabularylist.size()){
+                if(level4.size() == formularlist.size()){
                     openfinish(act);
                 }else {
-                    open_train(showvocablist, level0, level1, level2, level3, level4, act);
+                    open_train(showformlist, level0, level1, level2, level3, level4, act);
                 }
             }
 
         }else {
 
-            learn_languages.setText(voc.getLanguageName2() + " - " + voc.getLanguageName1());
-            learn_vocabularys.setText(voc.getTranslation() + " - " + voc.getOriginal());
+
+            learn_languages.setText(form.getLanguageName2() + " - " + form.getLanguageName1());
+            learn_formulars.setText(form.getTranslation() + " - " + form.getOriginal());
 
 
             if(!(learntrans.replaceAll("\\s+","").equalsIgnoreCase(ori.replaceAll("\\s+","")))) {
-                if(level4.size() == vocabularylist.size()){
+
+                if(level4.size() == formularlist.size()){
                     openfinish(act);
                 }else {
 
-                    if(level1.contains(voc)){
-                        level0.add(voc);
-                        level1.remove(voc);
-                    }else if(level2.contains(voc)){
-                        level1.add(voc);
-                        level2.remove(voc);
-                    }else if(level3.contains(voc)) {
-                        level2.add(voc);
-                        level3.remove(voc);
+                    if(level1.contains(form)){
+                        level0.add(form);
+                        level1.remove(form);
+                    }else if(level2.contains(form)){
+                        level1.add(form);
+                        level2.remove(form);
+                    }else if(level3.contains(form)) {
+                        level2.add(form);
+                        level3.remove(form);
                     }
 
-                    open_train(showvocablist, level0, level1, level2, level3, level4, act);
+                    open_train(showformlist, level0, level1, level2, level3, level4, act);
                 }
             }else{
-                if(level0.contains(voc)){
-                    level0.remove(voc);
-                    level1.add(voc);
-                }else if(level1.contains(voc)){
-                    level1.remove(voc);
-                    level2.add(voc);
-                }else if(level2.contains(voc)){
-                    level2.remove(voc);
-                    level3.add(voc);
-                }else if(level3.contains(voc)) {
-                    level3.remove(voc);
-                    level4.add(voc);
+
+                if(level0.contains(form)){
+                    level0.remove(form);
+                    level1.add(form);
+                }else if(level1.contains(form)){
+                    level1.remove(form);
+                    level2.add(form);
+                }else if(level2.contains(form)){
+                    level2.remove(form);
+                    level3.add(form);
+                }else if(level3.contains(form)) {
+                    level3.remove(form);
+                    level4.add(form);
                 }
 
-                if(level4.size() == vocabularylist.size()){
+                if(level4.size() == formularlist.size()){
                     openfinish(act);
                 }else {
-                    open_train(showvocablist, level0, level1, level2, level3, level4, act);
+                    open_train(showformlist, level0, level1, level2, level3, level4, act);
                 }
             }
 
@@ -1173,22 +1168,20 @@ public class Vokabeln extends AppCompatActivity {
         learn_level3Score.setText("0");
         learn_level4Score.setText("0");
         learn_translation.setText(null);
-        if(!(ManageData.hasPremium())) {
-            VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
-            VocabularyTrainingInterstitialAd.setAdListener(new AdListener() {
-                @Override
-                public void onAdClosed() {
-                    VocabularyTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
-                }
-            });
-            if (VocabularyTrainingInterstitialAd.isLoaded()) {
-                VocabularyTrainingInterstitialAd.show();
-            } else {
-                Log.d("TAG", "The VocabularyTrainingInterstitialAd wasn't loaded yet.");
+        FormularTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
+        FormularTrainingInterstitialAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed() {
+                FormularTrainingInterstitialAd.loadAd(new PublisherAdRequest.Builder().addTestDevice("B3EEABB8EE11C2BE770B684D95219ECB").build());
             }
+        });
+        if (FormularTrainingInterstitialAd.isLoaded()) {
+            FormularTrainingInterstitialAd.show();
+        } else {
+            Log.d("TAG", "The FormularTrainingInterstitialAd wasn't loaded yet.");
         }
-        act.findViewById(R.id.vocabulary_scrollView5).setVisibility(View.INVISIBLE);
-        act.findViewById(R.id.vocabulary_scrollview1).setVisibility(View.VISIBLE);
+        act.findViewById(R.id.formular_scrollView5).setVisibility(View.INVISIBLE);
+        act.findViewById(R.id.formular_scrollview1).setVisibility(View.VISIBLE);
     }
 
 
@@ -1199,10 +1192,10 @@ public class Vokabeln extends AppCompatActivity {
 
 
 
-    private static void open_learn_showtranslation(final VocabularyList showvocablist, final boolean gerade, final ArrayList<Vocabulary> level0, final ArrayList<Vocabulary> level1, final ArrayList<Vocabulary> level2, final ArrayList<Vocabulary> level3, final ArrayList<Vocabulary> level4, final Activity act){
+    private static void open_learn_showtranslation(final FormularList showformlist, final boolean gerade, final ArrayList<Formular> level0, final ArrayList<Formular> level1, final ArrayList<Formular> level2, final ArrayList<Formular> level3, final ArrayList<Formular> level4, final Activity act){
 
         MainActivity.hideKeyboard(act);
-        vocabularylist =  showvocablist.getVocabularylist();
+        formularlist =  showformlist.getFormularlist();
 
 
         learn_right.setOnClickListener(new View.OnClickListener() {
@@ -1219,51 +1212,51 @@ public class Vokabeln extends AppCompatActivity {
 
                 if(gerade == false) {
 
-                    learn_masterTranslation.setText(vocabularylist.get(lastvocabulary).getTranslation());
+                    learn_masterTranslation.setText(formularlist.get(lastFormular).getTranslation());
 
-                    learn_languages.setText(voc.getLanguageName1() + " - " + voc.getLanguageName2());
-                    learn_vocabularys.setText(voc.getOriginal() + " - " + voc.getTranslation());
+                    learn_languages.setText(form.getLanguageName1() + " - " + form.getLanguageName2());
+                    learn_formulars.setText(form.getOriginal() + " - " + form.getTranslation());
 
-                    if(level4.size() == vocabularylist.size()){
+                    if(level4.size() == formularlist.size()){
                         openfinish(act);
                     }else {
 
-                        if(level1.contains(voc)){
-                            level0.add(voc);
-                            level1.remove(voc);
-                        }else if(level2.contains(voc)){
-                            level1.add(voc);
-                            level2.remove(voc);
-                        }else if(level3.contains(voc)) {
-                            level2.add(voc);
-                            level3.remove(voc);
+                        if(level1.contains(form)){
+                            level0.add(form);
+                            level1.remove(form);
+                        }else if(level2.contains(form)){
+                            level1.add(form);
+                            level2.remove(form);
+                        }else if(level3.contains(form)) {
+                            level2.add(form);
+                            level3.remove(form);
                         }
 
-                        open_train(showvocablist, level0, level1, level2, level3, level4, act);
+                        open_train(showformlist, level0, level1, level2, level3, level4, act);
                     }
 
                 }else{
 
-                    learn_masterTranslation.setText(vocabularylist.get(lastvocabulary).getOriginal());
+                    //learn_masterTranslation.setText(FormularList.get(lastFormular).getOriginal());
 
-                    learn_languages.setText(voc.getLanguageName2() + " - " + voc.getLanguageName1());
-                    learn_vocabularys.setText(voc.getTranslation() + " - " + voc.getOriginal());
+                    learn_languages.setText(form.getLanguageName2() + " - " + form.getLanguageName1());
+                    learn_formulars.setText(form.getTranslation() + " - " + form.getOriginal());
 
-                    if(level4.size() == vocabularylist.size()){
+                    if(level4.size() == formularlist.size()){
                         openfinish(act);
                     }else {
 
-                        if(level1.contains(voc)){
-                            level0.add(voc);
-                            level1.remove(voc);
-                        }else if(level2.contains(voc)){
-                            level1.add(voc);
-                            level2.remove(voc);
-                        }else if(level3.contains(voc)) {
-                            level2.add(voc);
-                            level3.remove(voc);
+                        if(level1.contains(form)){
+                            level0.add(form);
+                            level1.remove(form);
+                        }else if(level2.contains(form)){
+                            level1.add(form);
+                            level2.remove(form);
+                        }else if(level3.contains(form)) {
+                            level2.add(form);
+                            level3.remove(form);
                         }
-                        open_train(showvocablist, level0, level1, level2, level3, level4, act);
+                        open_train(showformlist, level0, level1, level2, level3, level4, act);
                     }
 
                 }
@@ -1288,53 +1281,54 @@ public class Vokabeln extends AppCompatActivity {
 
                 if(gerade == false) {
 
-                    learn_languages.setText(voc.getLanguageName1() + " - " + voc.getLanguageName2());
-                    learn_vocabularys.setText(voc.getOriginal() + " - " + voc.getTranslation());
+                    learn_languages.setText(form.getLanguageName1() + " - " + form.getLanguageName2());
+                    learn_formulars.setText(form.getOriginal() + " - " + form.getTranslation());
 
-                    if(level0.contains(voc)){
-                        level0.remove(voc);
-                        level1.add(voc);
-                    }else if(level1.contains(voc)){
-                        level1.remove(voc);
-                        level2.add(voc);
-                    }else if(level2.contains(voc)){
-                        level2.remove(voc);
-                        level3.add(voc);
-                    }else if(level3.contains(voc)) {
-                        level3.remove(voc);
-                        level4.add(voc);
+                    if(level0.contains(form)){
+                        level0.remove(form);
+                        level1.add(form);
+                    }else if(level1.contains(form)){
+                        level1.remove(form);
+                        level2.add(form);
+                    }else if(level2.contains(form)){
+                        level2.remove(form);
+                        level3.add(form);
+                    }else if(level3.contains(form)) {
+                        level3.remove(form);
+                        level4.add(form);
                     }
 
 
-                    if(level4.size() == vocabularylist.size()){
+                    if(level4.size() == formularlist.size()){
                         openfinish(act);
                     }else {
-                        open_train(showvocablist, level0, level1, level2, level3, level4, act);
+                        open_train(showformlist, level0, level1, level2, level3, level4, act);
                     }
 
                 }else{
 
-                    learn_languages.setText(voc.getLanguageName2() + " - " + voc.getLanguageName1());
-                    learn_vocabularys.setText(voc.getTranslation() + " - " + voc.getOriginal());
+                    learn_masterTranslation.setText(form.getOriginal());
+                    learn_languages.setText(form.getLanguageName2() + " - " + form.getLanguageName1());
+                    learn_formulars.setText(form.getTranslation() + " - " + form.getOriginal());
 
-                    if(level0.contains(voc)){
-                        level0.remove(voc);
-                        level1.add(voc);
-                    }else if(level1.contains(voc)){
-                        level1.remove(voc);
-                        level2.add(voc);
-                    }else if(level2.contains(voc)){
-                        level2.remove(voc);
-                        level3.add(voc);
-                    }else if(level3.contains(voc)) {
-                        level3.remove(voc);
-                        level4.add(voc);
+                    if(level0.contains(form)){
+                        level0.remove(form);
+                        level1.add(form);
+                    }else if(level1.contains(form)){
+                        level1.remove(form);
+                        level2.add(form);
+                    }else if(level2.contains(form)){
+                        level2.remove(form);
+                        level3.add(form);
+                    }else if(level3.contains(form)) {
+                        level3.remove(form);
+                        level4.add(form);
                     }
 
-                    if(level4.size() == vocabularylist.size()){
+                    if(level4.size() == formularlist.size()){
                         openfinish(act);
                     }else {
-                        open_train(showvocablist, level0, level1, level2, level3, level4, act);
+                        open_train(showformlist, level0, level1, level2, level3, level4, act);
                     }
 
                 }
@@ -1354,9 +1348,9 @@ public class Vokabeln extends AppCompatActivity {
 
 
     public void openALL(){
-        Button create = (Button) findViewById(R.id.vocabulary_create);
-        ManageData.DownloadFollowedVocabularyLists(context, true);
-        ManageData.NewDownloadVocabularyLists(context, true);
+        Button create = (Button) findViewById(R.id.formular_create);
+        ManageData.DownloadFollowedFormularLists(context, true);
+        ManageData.NewDownloadFormularLists(context, true);
         if(layout00.getVisibility() == View.GONE){
             all.setText(getResources().getString(R.string.AllLists));
             create.setVisibility(View.VISIBLE);
@@ -1368,7 +1362,7 @@ public class Vokabeln extends AppCompatActivity {
                 layout0.setVisibility(View.GONE);
             }
         }else{
-            all.setText(getResources().getString(R.string.AllVocabularys));
+            all.setText(getResources().getString(R.string.Allformulas));
             create.setVisibility(View.GONE);
             layout00.setVisibility(View.GONE);
             if(yourlistsString.size() > 0){
@@ -1406,7 +1400,7 @@ public class Vokabeln extends AppCompatActivity {
     private static Button SharedButtonList0[], SharedButtonList1[], SharedButtonList2[], SharedButtonList3[];
     public static boolean publiclist;
     private static boolean publicback;
-    public static VocabularyList sharedlist;
+    public static FormularList sharedlist;
     public static int sharedID, sharedListID;
 
 
@@ -1415,7 +1409,7 @@ public class Vokabeln extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(act);
             builder.setCancelable(true);
             builder.setTitle(act.getResources().getString(R.string.AccountNeeded));
-            builder.setMessage(act.getResources().getString(R.string.PublicVocabInfo));
+            builder.setMessage(act.getResources().getString(R.string.PublicFormInfo));
             builder.setNegativeButton(act.getResources().getString(R.string.Back), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -1428,14 +1422,14 @@ public class Vokabeln extends AppCompatActivity {
                     ManageData.RemoveOfflineData();
                     Intent intent = new Intent(act, FirstScreen.class);
                     act.startActivity(intent);
-                    act.findViewById(R.id.vocabulary_buttonView).setVisibility(View.VISIBLE);
+                    act.findViewById(R.id.formular_buttonView).setVisibility(View.VISIBLE);
                 }
             });
             builder.show();
         }else {
             if(ManageData.InternetAvailable(context) == true) {
                 openShared(act);
-                act.findViewById(R.id.vocabulary_buttonView).setVisibility(View.VISIBLE);
+                act.findViewById(R.id.formular_buttonView).setVisibility(View.VISIBLE);
             }else{
                 AlertDialog.Builder builder = new AlertDialog.Builder(act);
                 builder.setCancelable(true);
@@ -1460,20 +1454,20 @@ public class Vokabeln extends AppCompatActivity {
 
 
     private static void openShared(Activity act){
-        act.findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.VISIBLE);
-        act.findViewById(R.id.vocabulary_scrollView).setVisibility(View.GONE);
+        act.findViewById(R.id.formular_ShareMainView).setVisibility(View.VISIBLE);
+        act.findViewById(R.id.formular_scrollView).setVisibility(View.GONE);
 
-        ShareSearch = act.findViewById(R.id.vocabulary_ShareSearch);
+        ShareSearch = act.findViewById(R.id.formular_ShareSearch);
         ShareGetList.setActivated(false);
         MainActivity.hideKeyboard(act);
 
         RequestHandler requestHandler = new RequestHandler();
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<ArrayList<String>>>() {}.getType();
-        String json = requestHandler.sendGetRequest(MainActivity.URL_GetSharedLists);
+        String json = requestHandler.sendGetRequest(MainActivity.URL_GetFormularSharedLists);
         ArrayList<ArrayList<String>> SharedLists = gson.fromJson(json, type);
 
-        ListView shareListView = (ListView) act.findViewById(R.id.vocabulary_ShareListView);
+        ListView shareListView = (ListView) act.findViewById(R.id.formular_ShareListView);
         shareListView.setAdapter(new PublicListCustomAdapter(act, SharedLists));
 
     }
@@ -1481,31 +1475,31 @@ public class Vokabeln extends AppCompatActivity {
     public static void openSharedList(ArrayList<String> SharedList, Activity act){
         publiclist = true;
         publicback = true;
-        act.findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.GONE);
+        act.findViewById(R.id.formular_ShareMainView).setVisibility(View.GONE);
         if(Integer.parseInt(SharedList.get(6)) == ManageData.getUserID()) {
-            for(VocabularyList list : VocabularyMethods.vocabularylists){
+            for(FormularList list : FormularMethods.formularLists){
                 if(list.getName().equals(SharedList.get(1))){
                     sharedlist = null;
                     publiclist = false;
                     list.setSource(true);
                     list.setShared(true);
-                    showvocabularys(list.getName(), act);
+                    showformulars(list.getName(), act);
                     break;
                 }
             }
         }else{
             sharedID = Integer.parseInt(SharedList.get(6));
             sharedListID = Integer.parseInt(SharedList.get(0));
-            VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true, true, sharedListID, sharedID, true);
-            VocabularyMethods.vocabularylists.add(list);
+            FormularList list = new FormularList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true, true, sharedListID, sharedID, true);
+            FormularMethods.formularLists.add(list);
             direction = true;
             sharedlist = list;
             publiclist = true;
-            Vokabeln.sharedlist = list;
-            ManageData.DownloadVocabularys(list.getName(), act);
-            showvocabularys(list.getName(), act);
-            Vokabeln.publiclist = false;
-            Vokabeln.sharedlist = null;
+            Formeln.sharedlist = list;
+            ManageData.DownloadFormulars(list.getName(), act);
+            showformulars(list.getName(), act);
+            Formeln.publiclist = false;
+            Formeln.sharedlist = null;
         }
     }
 
@@ -1527,10 +1521,10 @@ public class Vokabeln extends AppCompatActivity {
 
 
 
-    private static void openFollow(VocabularyList flist, Button follow, Activity act){
+    private static void openFollow(FormularList flist, Button follow, Activity act){
         if(MainActivity.InternetAvailable(context)) {
             RequestHandler requestHandler = new RequestHandler();
-            String json = requestHandler.sendGetRequest(MainActivity.URL_getFollow + flist.getID() + "&UserID=" + ManageData.getUserID());
+            String json = requestHandler.sendGetRequest(MainActivity.URL_getFollowForm + flist.getID() + "&UserID=" + ManageData.getUserID());
             Gson gson = new Gson();
             Type type = new TypeToken<String>() {
             }.getType();
@@ -1548,7 +1542,7 @@ public class Vokabeln extends AppCompatActivity {
                 }
             }else {
                 LinkedHashMap<String, String> params = new LinkedHashMap<>();
-                params.put("VocID", flist.getID() + "");
+                params.put("FormID", flist.getID() + "");
                 params.put("UserID", ManageData.getUserID() + "");
                 params.put("UserID", ManageData.getUserID() + "");
                 if (followStatus == 0) {
@@ -1558,20 +1552,20 @@ public class Vokabeln extends AppCompatActivity {
                     params.put("State", 0 + "");
                     follow.setText(act.getResources().getString(R.string.Follow));
 
-                    VocabularyList g = null;
-                    VocabularyMethods.removeFollowedVocabularys(flist);
-                    for (VocabularyList list : VocabularyMethods.vocabularylists) {
+                    FormularList g = null;
+                    FormularMethods.removeFollowedFormular(flist);
+                    for (FormularList list : FormularMethods.formularLists) {
                         if (list.getName().equals(flist.getName())) {
                             g = list;
                             break;
                         }
                     }
                     if (g != null) {
-                        VocabularyMethods.vocabularylists.remove(g);
+                        FormularMethods.formularLists.remove(g);
                     }
 
                 }
-                requestHandler.sendPostRequest(MainActivity.URL_Follow, params);
+                requestHandler.sendPostRequest(MainActivity.URL_FollowForm, params);
             }
         }else{
             follow.setText("OFFLINE");
@@ -1579,11 +1573,11 @@ public class Vokabeln extends AppCompatActivity {
     }
 
 
-    private static void openSettings(final int vocID, final VocabularyList list, final Activity act){
+    private static void openSettings(final int formID, final FormularList list, final Activity act){
         PopupMenu popup = new PopupMenu(act, settings);
         MenuInflater settings = act.getMenuInflater();
-        settings.inflate(R.menu.vocabulary_settings_menu, popup.getMenu());
-        MenuItem ShareMenuItem = popup.getMenu().findItem(R.id.vocabulary_open_share);
+        settings.inflate(R.menu.formular_settings_menu, popup.getMenu());
+        MenuItem ShareMenuItem = popup.getMenu().findItem(R.id.formular_open_share);
         if (list.getShared() == false) {
             ShareMenuItem.setTitle(act.getResources().getString(R.string.PublishList));
         } else {
@@ -1593,7 +1587,7 @@ public class Vokabeln extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.vocabulary_open_share:
+                    case R.id.formular_open_share:
                         if(MainActivity.InternetAvailable(context)) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(act);
                             builder.setCancelable(true);
@@ -1607,19 +1601,19 @@ public class Vokabeln extends AppCompatActivity {
                                 builder.setPositiveButton(act.getResources().getString(R.string.Publish), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        openShare(vocID, list, act);
+                                        openShare(formID, list, act);
                                     }
                                 });
-                                builder.setTitle(act.getResources().getString(R.string.PublishVocabList));
+                                builder.setTitle(act.getResources().getString(R.string.PublishFormList));
                                 builder.setMessage(act.getResources().getString(R.string.ConfirmPublication));
                             }else{
                                 builder.setPositiveButton(act.getResources().getString(R.string.SetPrivate), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        openShare(vocID, list, act);
+                                        openShare(formID, list, act);
                                     }
                                 });
-                                builder.setTitle(act.getResources().getString(R.string.SetVocabularyListPrivaSte));
+                                builder.setTitle(act.getResources().getString(R.string.SetFormularListPrivate));
                                 builder.setMessage(act.getResources().getString(R.string.ConfirmUnPublication));
                             }
                             builder.show();
@@ -1629,19 +1623,19 @@ public class Vokabeln extends AppCompatActivity {
                             return false;
                         }
 
-                    case R.id.vocabulary_open_export:
+                    case R.id.formular_open_export:
 
                         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M && act.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
                             act.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1002);
                             exportlist = list;
                         }else {
-                            WriteCsvVocList writelist = new WriteCsvVocList();
+                            WriteCsvFormList writelist = new WriteCsvFormList();
                             writelist.WriteFile(list, act);
                         }
 
                         return true;
 
-                    case R.id.vocabulary_open_delete:
+                    case R.id.formular_open_delete:
                         AlertDialog.Builder builder = new AlertDialog.Builder(act);
                         publicback = false;
                         if(list.getSource() == false){
@@ -1655,13 +1649,13 @@ public class Vokabeln extends AppCompatActivity {
                             builder.setPositiveButton(act.getResources().getString(R.string.Ok), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    VocabularyMethods.vocabularylists.remove(list);
-                                    FirstScreen.tinyDB.remove("VocLists");
-                                    ManageData.saveVocabularyLists();
+                                    FormularMethods.formularLists.remove(list);
+                                    FirstScreen.tinyDB.remove("FormLists");
+                                    ManageData.saveFormularLists();
                                 }
                             });
-                            builder.setTitle(act.getResources().getString(R.string.DeleteVocabList));
-                            builder.setMessage(act.getResources().getString(R.string.DeleteVocabListConfirmation));
+                            builder.setTitle(act.getResources().getString(R.string.DeleteFormList));
+                            builder.setMessage(act.getResources().getString(R.string.DeleteFormListConfirmation));
                             builder.show();
                             return true;
                         }else if(MainActivity.InternetAvailable(context)) {
@@ -1677,16 +1671,16 @@ public class Vokabeln extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     RequestHandler requestHandler = new RequestHandler();
-                                    VocabularyMethods.vocabularylists.remove(list);
-                                    FirstScreen.tinyDB.remove("VocLists");
-                                    ManageData.saveVocabularyLists();
-                                    String json = requestHandler.sendGetRequest(MainActivity.URL_DeleteVocList + vocID);
-                                    Intent intent = new Intent(act, Vokabeln.class);
+                                    FormularMethods.formularLists.remove(list);
+                                    FirstScreen.tinyDB.remove("FormLists");
+                                    ManageData.saveFormularLists();
+                                    String json = requestHandler.sendGetRequest(MainActivity.URL_DeleteFormList + formID);
+                                    Intent intent = new Intent(act, Formeln.class);
                                     act.startActivity(intent);
                                 }
                             });
-                            builder.setTitle(act.getResources().getString(R.string.DeleteVocabList));
-                            builder.setMessage(act.getResources().getString(R.string.DeleteVocabListConfirmation));
+                            builder.setTitle(act.getResources().getString(R.string.DeleteFormList));
+                            builder.setMessage(act.getResources().getString(R.string.DeleteFormListConfirmation));
                             builder.show();
                             return true;
                         }else{
@@ -1701,7 +1695,7 @@ public class Vokabeln extends AppCompatActivity {
         popup.show();
     }
 
-    private static VocabularyList exportlist;
+    private static FormularList exportlist;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -1711,8 +1705,8 @@ public class Vokabeln extends AppCompatActivity {
             case 1002: {
                 if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     Toast.makeText(this, getResources().getString(R.string.AccesGranted), Toast.LENGTH_SHORT).show();
-                    WriteCsvVocList writelist = new WriteCsvVocList();
-                    writelist.WriteFile(exportlist, Vokabeln.this);
+                    WriteCsvFormList writelist = new WriteCsvFormList();
+                    writelist.WriteFile(exportlist, Formeln.this);
                 }else{
                     Toast.makeText(this, getResources().getString(R.string.AccessDenied), Toast.LENGTH_SHORT).show();
                     finish();
@@ -1723,12 +1717,12 @@ public class Vokabeln extends AppCompatActivity {
     }
 
 
-    private static void openShare(int vocID, VocabularyList list, final Activity act){
+    private static void openShare(int formID, learningunit.learningunit.Objects.Learn.Formular.FormularList list, final Activity act){
         if(ManageData.InternetAvailable(context)) {
             RequestHandler requestHandler = new RequestHandler();
-            list.setID(vocID);
+            list.setID(formID);
 
-            String json = requestHandler.sendGetRequest(MainActivity.URL_GetShared + vocID);
+            String json = requestHandler.sendGetRequest(MainActivity.URL_changesSharedForm + formID);
             Gson gson = new Gson();
             Type type = new TypeToken<String>() {
             }.getType();
@@ -1742,19 +1736,19 @@ public class Vokabeln extends AppCompatActivity {
             }
 
             if (list.getShared() == false) {
-                requestHandler.sendGetRequest(MainActivity.URL_changesShared + vocID + "&State=1");
-                ShareInfo.setText(act.getResources().getString(R.string.PublicVocabIDInfo1) + vocID + act.getResources().getString(R.string.PublicVocabIDInfo2));
+                requestHandler.sendGetRequest(MainActivity.URL_changesSharedForm + formID + "&State=1");
+                ShareInfo.setText(act.getResources().getString(R.string.PublicFormIDInfo1) + formID + act.getResources().getString(R.string.PublicVocabIDInfo2));
                 ShareInfo.setVisibility(View.VISIBLE);
                 list.setShared(true);
-                VocabularyMethods.saveVocabularyList(list);
-                Intent intent = new Intent(act, Vokabeln.class);
+                FormularMethods.saveFormularList(list);
+                Intent intent = new Intent(act, Formeln.class);
                 act.startActivity(intent);
             } else {
-                requestHandler.sendGetRequest(MainActivity.URL_changesShared + vocID + "&State=0");
+                requestHandler.sendGetRequest(MainActivity.URL_changesSharedForm + formID + "&State=0");
                 ShareInfo.setVisibility(View.GONE);
                 list.setShared(true);
-                VocabularyMethods.saveVocabularyList(list);
-                Intent intent = new Intent(act, Vokabeln.class);
+                FormularMethods.saveFormularList(list);
+                Intent intent = new Intent(act, Formeln.class);
                 act.startActivity(intent);
             }
         }else{

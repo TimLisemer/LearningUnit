@@ -10,12 +10,16 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import learningunit.learningunit.Objects.Learn.Formular.Formular;
+import learningunit.learningunit.Objects.Learn.Formular.FormularList;
+import learningunit.learningunit.Objects.Learn.Formular.FormularMethods;
 import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.Objects.Timetable.Day;
 import learningunit.learningunit.Objects.Timetable.Hour;
 import learningunit.learningunit.Objects.Timetable.HourList;
 import learningunit.learningunit.Objects.Timetable.Week;
 import learningunit.learningunit.beforeStart.FirstScreen;
+import learningunit.learningunit.menu.learn.formular.Formeln;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
 import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
@@ -26,12 +30,39 @@ public class ManageData extends MainActivity{
 
     public static LinkedHashMap<String, String> Account;
     public static int OfflineAccount = 0; //0 ==> NoAccount; 1 ==> Offline; 2 ==> Online
+    protected static boolean Premium = false;
 
     public static int getUserID(){
         if(OfflineAccount == 0 || OfflineAccount == 1) {
             return 0;
         }else{
             return Integer.parseInt(Account.get("id"));
+        }
+    }
+
+    public static int getUserAdID(){
+        if(OfflineAccount == 0 || OfflineAccount == 1) {
+            return 0;
+        }else{
+            return Integer.parseInt(Account.get("SharedID"));
+        }
+    }
+
+    public static boolean hasPremium(){
+        boolean returner;
+        if(OfflineAccount == 2) {
+            returner = Premium;
+        }else{
+            returner = false;
+        }
+        return returner;
+    }
+
+    public static void setPremium(Boolean P){
+        if(OfflineAccount == 2){
+            Premium = P;
+        }else {
+            Premium = false;
         }
     }
 
@@ -49,7 +80,21 @@ public class ManageData extends MainActivity{
                 String jsona = FirstScreen.tinyDB.getString("WeekA");
                 String jsonb = FirstScreen.tinyDB.getString("WeekA");
                 if(jsona.equalsIgnoreCase("") && jsonb.equalsIgnoreCase("")) {
-                    return true;
+                    if(FormularMethods.formularLists != null) {
+                        int e = 0;
+                        for (int ii = 0; ii < FormularMethods.formularLists.size(); ii++){
+                            if(FormularMethods.formularLists.get(ii).getSource() == true){
+                                e ++;
+                            }
+                        }
+                        if((FormularMethods.formularLists.size() - e) == 0){
+                            return false;
+                        }else{
+                            return true;
+                        }
+                    }else{
+                        return false;
+                    }
                 }else{
                     return false;
                 }
@@ -61,7 +106,6 @@ public class ManageData extends MainActivity{
 
     public static void RemoveOfflineData(){
         ArrayList<VocabularyList> a = new ArrayList<VocabularyList>();
-
         if (VocabularyMethods.vocabularylists != null) {
             for (int i = 0; i < VocabularyMethods.vocabularylists.size(); i++) {
                 if (VocabularyMethods.vocabularylists.get(i).getSource() == false) {
@@ -72,6 +116,18 @@ public class ManageData extends MainActivity{
             VocabularyMethods.vocabularylists = new ArrayList<VocabularyList>();
         }
         VocabularyMethods.vocabularylists = a;
+        FirstScreen.tinyDB.remove("VocLists");
+        ArrayList<FormularList> b = new ArrayList<FormularList>();
+        if (FormularMethods.formularLists != null) {
+            for (int i = 0; i < FormularMethods.formularLists.size(); i++) {
+                if (FormularMethods.formularLists.get(i).getSource() == false) {
+                    b.add(FormularMethods.formularLists.get(i));
+                }
+            }
+        }else{
+            FormularMethods.formularLists = new ArrayList<FormularList>();
+        }
+        FormularMethods.formularLists = b;
         FirstScreen.tinyDB.remove("VocLists");
         FirstScreen.tinyDB.remove("WeekA");
         FirstScreen.tinyDB.remove("WeekB");
@@ -89,6 +145,12 @@ public class ManageData extends MainActivity{
         FirstScreen.tinyDB.putString("VocLists", json);
     }
 
+    public static void saveFormularLists(){
+        Gson gson = new Gson();
+        String json = gson.toJson(FormularMethods.formularLists);
+        FirstScreen.tinyDB.putString("FormLists", json);
+    }
+
 
     public static void loadVocabularyLists(Context ctx){
         Gson gson = new Gson();
@@ -98,6 +160,18 @@ public class ManageData extends MainActivity{
             VocabularyMethods.vocabularylists = gson.fromJson(json, type);
         }else{
             VocabularyMethods.vocabularylists = new ArrayList<VocabularyList>();
+        }
+    }
+
+
+    public static void loadFormularLists(Context ctx){
+        Gson gson = new Gson();
+        String json = FirstScreen.tinyDB.getString("FormLists");
+        if(json != "" || json == null){
+            Type type = new TypeToken<ArrayList<FormularList>>() {}.getType();
+            FormularMethods.formularLists = gson.fromJson(json, type);
+        }else{
+            FormularMethods.formularLists = new ArrayList<FormularList>();
         }
     }
 
@@ -147,6 +221,44 @@ public class ManageData extends MainActivity{
 
 
 
+
+    public static void DownloadFollowedFormularLists(Context ctx, boolean downloadForms){
+        if(MainActivity.InternetAvailable(ctx) == true){
+            RequestHandler requestHandler = new RequestHandler();
+            Gson gson = new Gson();
+            String json = requestHandler.sendGetRequest(MainActivity.URL_FollowedFormLists + getUserID());
+            Type type = new TypeToken<ArrayList<ArrayList<String>>>() {}.getType();
+            try {
+                ArrayList<ArrayList<String>> list = gson.fromJson(json, type);
+                FormularList formularList;
+                for(ArrayList<String> alist : list){
+                    boolean go = true;
+                    for (int i = 0; i < FormularMethods.formularLists.size(); i++) {
+                        if (FormularMethods.formularLists.get(i).getName().equals(alist.get(1))) {
+                            go = false;
+                        }
+                    }
+
+                    if(go == true) {
+
+                        String a = alist.get(5);
+                        final int sharedStatus = Integer.parseInt(a);
+                        if(sharedStatus == 1) {
+                            formularList = new FormularList(alist.get(2), alist.get(3), alist.get(1), true, true, Integer.parseInt(alist.get(0)), Integer.parseInt(alist.get(4)), true);
+                            formularList.setShared(true);
+                            FormularMethods.formularLists.add(formularList);
+                        }
+                    }
+                }
+
+            }catch (Exception e) {
+                Log.d("Download", "Nothing to download");
+            }
+        }else{
+            Log.d("DownloadFormularLists", "Kein Internet Verfügbar");
+        }
+
+    }
 
 
     public static void DownloadVocabularys(String Name, Context ctx){
@@ -206,6 +318,66 @@ public class ManageData extends MainActivity{
         }
     }
 
+
+
+
+    public static void DownloadFormulars(String Name, Context ctx){
+        if(MainActivity.InternetAvailable(ctx) == true) {
+            try {
+                RequestHandler requestHandler = new RequestHandler();
+                Gson gson = new Gson();
+                Type type = new TypeToken<ArrayList<ArrayList<String>>>() {}.getType();
+                FormularList formularList;
+                if(Formeln.publiclist == false) {
+                    formularList = FormularMethods.getFormularList0(Name);
+                    formularList.getFormularlist().clear();
+                }else{
+                    formularList = Formeln.sharedlist;
+                    Formeln.sharedlist.getFormularlist().clear();
+                }
+
+                ArrayList<ArrayList<String>> voclist;
+                String json1;
+                if(Formeln.publiclist == false) {
+                    if(formularList.getCreatorID() == 0) {
+                        json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + getUserID() + "&Titel=" + formularList.getName());
+                        voclist = gson.fromJson(json1, type);
+                    }else{
+                        if(formularList.getCreatorID() != ManageData.getUserID()){
+                            Formeln.publiclist = true;
+                            Formeln.sharedlist = formularList;
+                        }
+                        json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + formularList.getCreatorID() + "&Titel=" + formularList.getName());
+                        voclist = gson.fromJson(json1, type);
+                    }
+                }else {
+                    json1 = requestHandler.sendGetRequest(MainActivity.URL_GetVocabs + Formeln.sharedID + "&Titel=" + formularList.getName());
+                    voclist = gson.fromJson(json1, type);
+                }
+
+                for (ArrayList a : voclist) {
+                    if(Formeln.publiclist == false) {
+                        Formular form = new Formular(a.get(0).toString(), a.get(1).toString(), formularList.getLanguageName1(), formularList.getLanguageName2(), false);
+                        if(!(formularList.ContainsFormular(form))){
+                            formularList.addFormular(form);
+                        }
+                    }else{
+                        Formular form = new Formular(a.get(0).toString(), a.get(1).toString(), Formeln.sharedlist.getLanguageName1(), Formeln.sharedlist.getLanguageName2(), true);
+                        if(!(Formeln.sharedlist.ContainsFormular(form))) {
+                            Formeln.sharedlist.addFormular(form);
+                        }
+                    }
+                }
+
+            } catch (Exception e) { }
+        }else{
+            Log.d("DownloadFormulars", "Kein Internet Verfügbar");
+        }
+    }
+
+
+
+
     public static void uploadVocabularyList(VocabularyList vocabularyList, Context ctx) {
         if(vocabularyList.getFollowed() == false) {
             if (MainActivity.InternetAvailable(ctx)) {
@@ -244,6 +416,48 @@ public class ManageData extends MainActivity{
         }
     }
 
+
+
+    public static void uploadFormularList(FormularList formularList, Context ctx) {
+        if(formularList.getFollowed() == false) {
+            if (MainActivity.InternetAvailable(ctx)) {
+                if (!(formularList.getName().contains("AllForm_"))) {
+                    if (OfflineAccount == 2) {
+                        formularList.setSource(true);
+                        Log.d("Upload", "----------------------------------------------------------------------------------------------");
+                        Log.d("Upload", "Uploading Formulars");
+                        Log.d("Upload", "------------------------------------------------------------------------------------------------------");
+                        LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                        params.put("Titel", formularList.getName());
+                        params.put("Sprache1", formularList.getLanguageName1());
+                        params.put("Sprache2", formularList.getLanguageName2());
+                        params.put("id", getUserID() + "");
+
+                        RequestHandler requestHandler = new RequestHandler();
+                        requestHandler.sendPostRequest(MainActivity.URL_CreateFormList, params);
+
+
+                        for (int i = 0; i < formularList.getFormularlist().size(); i++) {
+                            LinkedHashMap<String, String> paramss = new LinkedHashMap<>();
+                            paramss.put("Titel", formularList.getName());
+                            paramss.put("Sprache1", formularList.getFormularlist().get(i).getOriginal());
+                            paramss.put("Sprache2", formularList.getFormularlist().get(i).getTranslation());
+                            paramss.put("id", getUserID() + "");
+                            paramss.put("extra", i + "");
+                            requestHandler.sendPostRequest(MainActivity.URL_CreateFormular, paramss);
+                        }
+                    }
+                }
+            } else {
+                if (OfflineAccount == 2) {
+                    Log.d("uploadFormularList", "Kein Internet Verfügbar, hochladen Verschoben");
+                }
+            }
+        }
+    }
+
+
+
     public static void uploadDelayedVocabularyLists(Context ctx){
         if(OfflineAccount == 2) {
             if(MainActivity.InternetAvailable(ctx)) {
@@ -251,6 +465,20 @@ public class ManageData extends MainActivity{
                     if (list.getSource() == false) {
                         list.setSource(true);
                         uploadVocabularyList(list, ctx);
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static void uploadDelayedFormularLists(Context ctx){
+        if(OfflineAccount == 2) {
+            if(MainActivity.InternetAvailable(ctx)) {
+                for (FormularList list : FormularMethods.formularLists) {
+                    if (list.getSource() == false) {
+                        list.setSource(true);
+                        uploadFormularList(list, ctx);
                     }
                 }
             }
@@ -305,9 +533,6 @@ public class ManageData extends MainActivity{
     public static void NewDownloadVocabularyLists(Context ctx, boolean downloadVocs){
         if(MainActivity.InternetAvailable(ctx) == true){
             RequestHandler requestHandler = new RequestHandler();
-            //Log.d("NewDownload", "----------------------------------------------------------------------------------------------");
-            //Log.d("NewDownload", "Downloading VocabularyLists");
-            //Log.d("NewDownload", "------------------------------------------------------------------------------------------------------");
             Gson gson = new Gson();
             String json = requestHandler.sendGetRequest(MainActivity.URL_NewCreateVocList + getUserID());
             Type type = new TypeToken<Object[][]>() {}.getType();
@@ -380,6 +605,86 @@ public class ManageData extends MainActivity{
             }catch (Exception e) { }
         }else{
             Log.d("NewDownloadVocLists", "Kein Internet Verfügbar");
+        }
+    }
+
+
+
+    public static void NewDownloadFormularLists(Context ctx, boolean downloadForms){
+        if(MainActivity.InternetAvailable(ctx) == true){
+            RequestHandler requestHandler = new RequestHandler();
+            Gson gson = new Gson();
+            String json = requestHandler.sendGetRequest(MainActivity.URL_NewCreateFormList + getUserID());
+            Type type = new TypeToken<Object[][]>() {}.getType();
+            try {
+                Object[][] afterjson = gson.fromJson(json, type);
+                ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+                for (int gh = 0; gh < afterjson.length; gh ++){
+                    ArrayList<String> jk = new ArrayList<String>();
+                    jk.add(afterjson[gh][0].toString());
+                    jk.add(afterjson[gh][1].toString());
+                    jk.add(afterjson[gh][2].toString());
+                    jk.add(afterjson[gh][3].toString());
+                    jk.add(afterjson[gh][5].toString());
+                    list.add(jk);
+                }
+                FormularList formularList;
+                int o = 0;
+                for(ArrayList<String> alist : list){
+
+                    boolean go = true;
+                    for (int i = 0; i < FormularMethods.formularLists.size(); i++) {
+                        if (FormularMethods.formularLists.get(i).getName().equals(alist.get(1))) {
+                            go = false;
+                            break;
+                        }
+                    }
+
+                    formularList = new FormularList(alist.get(2), alist.get(3), alist.get(1), true, false);
+                    formularList.setID(Integer.parseInt(alist.get(0)));
+                    if(go == true) {
+
+                        try {
+                            final int sharedStatus = Integer.parseInt(alist.get(4));
+                            if (sharedStatus == 0) {
+                                formularList.setShared(false);
+                            } else {
+                                formularList.setShared(true);
+                            }
+                        }catch (Exception e){ }
+
+                        if(downloadForms == true) {
+                            ArrayList<ArrayList<String>> formlist = (ArrayList<ArrayList<String>>) afterjson[o][4];
+                            for (ArrayList a : formlist) {
+                                if (Formeln.publiclist == false) {
+                                    Formular form = new Formular(a.get(0).toString(), a.get(1).toString(), formularList.getLanguageName1(), formularList.getLanguageName2(), false);
+                                    formularList.addFormular(form);
+                                } else {
+                                    Formular form = new Formular(a.get(0).toString(), a.get(1).toString(), formularList.getLanguageName1(), formularList.getLanguageName2(), true);
+                                    formularList.addFormular(form);
+                                }
+                            }
+                            FormularMethods.formularLists.add(formularList);
+                        }
+
+                    }else{
+                        for (int i = 0; i < FormularMethods.formularLists.size(); i++) {
+                            if (FormularMethods.formularLists.get(i).getName().equals(alist.get(1))) {
+                                FormularMethods.formularLists.get(i).setLanguageName1(alist.get(2));
+                                FormularMethods.formularLists.get(i).setLanguageName2(alist.get(3));
+                                FormularMethods.formularLists.get(i).setName(alist.get(1));
+                                formularList.setID(Integer.parseInt(alist.get(0)));
+                                FormularMethods.formularLists.get(i).setSource(true);
+                                break;
+                            }
+                        }
+                    }
+                    o++;
+                }
+
+            }catch (Exception e) { }
+        }else{
+            Log.d("NewDownloadFormLists", "Kein Internet Verfügbar");
         }
     }
 

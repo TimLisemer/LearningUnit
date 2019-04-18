@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -128,7 +130,8 @@ public class Organizer extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-
+        final DrawerLayout dl = (DrawerLayout) findViewById(R.id.organizer_drawerLayout);
+        dl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -163,10 +166,20 @@ public class Organizer extends AppCompatActivity{
                     final Button TopNew = (Button) findViewById(R.id.organizer_new);
                     if(position == 0){
                         TopNew.setVisibility(View.GONE);
-                    }else{
-                        if(position == 1){
-                            new DashboardFragmentMethods(Organizer.this, (ListView) findViewById(R.id.organizer_dashboard__ListView), (TextView) findViewById(R.id.organizer_dashboard_info), (Button) findViewById(R.id.organizer_dashboard_create));
-                        }
+                        dl.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    }else if(position == 1){
+                        new DashboardFragmentMethods(Organizer.this, (ListView) findViewById(R.id.organizer_dashboard__ListView), (TextView) findViewById(R.id.organizer_dashboard_info), (Button) findViewById(R.id.organizer_dashboard_create));
+                        dl.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                        TopNew.setVisibility(View.VISIBLE);
+                        TopNew.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mViewPager.setCurrentItem(0);
+                                TopNew.setVisibility(View.GONE);
+                            }
+                        });
+                    }else if(position == 2){
+                        dl.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                         TopNew.setVisibility(View.VISIBLE);
                         TopNew.setOnClickListener(new View.OnClickListener() {
                             @Override

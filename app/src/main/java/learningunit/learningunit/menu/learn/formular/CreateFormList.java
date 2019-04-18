@@ -1,4 +1,4 @@
-package learningunit.learningunit.menu.learn.vocabulary;
+package learningunit.learningunit.menu.learn.formular;
 
 import android.Manifest;
 import android.content.Context;
@@ -25,24 +25,24 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.regex.Pattern;
 
+import learningunit.learningunit.Objects.Learn.Formular.Formular;
+import learningunit.learningunit.Objects.Learn.Formular.FormularList;
+import learningunit.learningunit.Objects.Learn.Formular.FormularMethods;
 import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.menu.MainActivity;
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.Learn.VocabularyPackage.ReadCsvVocList;
-import learningunit.learningunit.Objects.Learn.VocabularyPackage.Vocabulary;
-import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyList;
-import learningunit.learningunit.Objects.Learn.VocabularyPackage.VocabularyMethods;
 import learningunit.learningunit.R;
 
-public class CreateVocList extends AppCompatActivity{
-    private EditText vocabulary, vocabulary1, listtext, languagetext, languagetext1;
+public class CreateFormList extends AppCompatActivity{
+    private EditText Formular, formular1, listtext, languagetext, languagetext1;
     private TextView error1, error, Cancel1;
     private String language, language1;
 
     private EditText listtext1, languagetext11, languagetext21;
     private TextView error11;
 
-    VocabularyList list;
+    FormularList list;
     private static Context context;
 
 
@@ -64,15 +64,15 @@ public class CreateVocList extends AppCompatActivity{
     @Override
     public void onPause() {
         super.onPause();
-        ManageData.uploadDelayedVocabularyLists(this);
-        ManageData.saveVocabularyLists();
+        ManageData.uploadDelayedFormularLists(this);
+        ManageData.saveFormularLists();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        ManageData.uploadDelayedVocabularyLists(this);
-        ManageData.saveVocabularyLists();
+        ManageData.uploadDelayedFormularLists(this);
+        ManageData.saveFormularLists();
     }
 
     private Tracker mTracker;
@@ -86,19 +86,19 @@ public class CreateVocList extends AppCompatActivity{
         setContentView(R.layout.activity_create_voc_list);
         context = getApplicationContext();
 
-        vocabulary = (EditText) findViewById(R.id.CreateVocList_vocabulary);
-        vocabulary1 = (EditText) findViewById(R.id.CreateVocList_vocabulary1);
+        Formular = (EditText) findViewById(R.id.CreateFormList_formular);
+        formular1 = (EditText) findViewById(R.id.CreateFormList_formular1);
 
-        error1 = findViewById(R.id.CreateVocList_error1);
-        error = findViewById(R.id.CreateVocList_error);
-        Cancel1 = findViewById(R.id.CreateVocList_Cancel1);
+        error1 = findViewById(R.id.CreateFormList_error1);
+        error = findViewById(R.id.CreateFormList_error);
+        Cancel1 = findViewById(R.id.CreateFormList_Cancel1);
 
-        listtext = findViewById(R.id.CreateVocList_name_list);
-        languagetext = findViewById(R.id.CreateVocList_name_language1);
-        languagetext1 = findViewById(R.id.CreateVocList_name_language2);
+        listtext = findViewById(R.id.CreateFormList_name_list);
+        languagetext = findViewById(R.id.CreateFormList_name_language1);
+        languagetext1 = findViewById(R.id.CreateFormList_name_language2);
 
         //Initialisieren der Knöpfe und rufen der OnClick methode ( scrollview )
-        back = (Button) findViewById(R.id.CreateVocList_back);
+        back = (Button) findViewById(R.id.CreateFormList_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,7 +106,7 @@ public class CreateVocList extends AppCompatActivity{
             }
         });
 
-        continue0 = (Button) findViewById(R.id.CreateVocList_continue);
+        continue0 = (Button) findViewById(R.id.CreateFormList_continue);
         continue0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +117,7 @@ public class CreateVocList extends AppCompatActivity{
 
 
         //Initialisieren der Knöpfe und rufen der OnClick methode ( scrollview1 )
-        back1 = (Button) findViewById(R.id.CreateVocList_back1);
+        back1 = (Button) findViewById(R.id.CreateFormList_back1);
         back1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,7 +125,7 @@ public class CreateVocList extends AppCompatActivity{
             }
         });
 
-        next = (Button) findViewById(R.id.CreateVocList_next);
+        next = (Button) findViewById(R.id.CreateFormList_next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,7 +133,7 @@ public class CreateVocList extends AppCompatActivity{
             }
         });
 
-        finish = (Button) findViewById(R.id.CreateVocList_finish);
+        finish = (Button) findViewById(R.id.CreateFormList_finish);
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,7 +144,7 @@ public class CreateVocList extends AppCompatActivity{
 
 
         //Initialisieren der Knöpfe und rufen der OnClick methode ( scrollview2 )
-        cancel = (Button) findViewById(R.id.CreateVocList_cancel);
+        cancel = (Button) findViewById(R.id.CreateFormList_cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,7 +152,7 @@ public class CreateVocList extends AppCompatActivity{
             }
         });
 
-        return0 = (Button) findViewById(R.id.CreateVocList_return);
+        return0 = (Button) findViewById(R.id.CreateFormList_return);
         return0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,7 +163,7 @@ public class CreateVocList extends AppCompatActivity{
 
 
         //Initialisieren der Knöpfe und rufen der OnClick methode ( scrollview3 )
-        finish1 = (Button) findViewById(R.id.CreateVocList_finish1);
+        finish1 = (Button) findViewById(R.id.CreateFormList_finish1);
         finish1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,7 +171,7 @@ public class CreateVocList extends AppCompatActivity{
             }
         });
 
-        return1 = (Button) findViewById(R.id.CreateVocList_return1);
+        return1 = (Button) findViewById(R.id.CreateFormList_return1);
         return1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,11 +180,11 @@ public class CreateVocList extends AppCompatActivity{
         });
 
         //Initialisieren der Knöpfe und rufen der OnClick methode ( scrollview4 )
-        listtext1 = (EditText) findViewById(R.id.CreateVocList_name_list1);
-        languagetext11 = (EditText) findViewById(R.id.CreateVocList_name_language11);
-        languagetext21 = (EditText) findViewById(R.id.CreateVocList_name_language21);
-        error11 = (TextView) findViewById(R.id.CreateVocList_error11);
-        back11 = (Button) findViewById(R.id.CreateVocList_back11);
+        listtext1 = (EditText) findViewById(R.id.CreateFormList_name_list1);
+        languagetext11 = (EditText) findViewById(R.id.CreateFormList_name_language11);
+        languagetext21 = (EditText) findViewById(R.id.CreateFormList_name_language21);
+        error11 = (TextView) findViewById(R.id.CreateFormList_error11);
+        back11 = (Button) findViewById(R.id.CreateFormList_back11);
         back11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,7 +192,7 @@ public class CreateVocList extends AppCompatActivity{
             }
         });
 
-        continue1 = (Button) findViewById(R.id.CreateVocList_continue1);
+        continue1 = (Button) findViewById(R.id.CreateFormList_continue1);
         continue1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,7 +200,7 @@ public class CreateVocList extends AppCompatActivity{
             }
         });
 
-        continue11 = (Button) findViewById(R.id.CreateVocList_continue11);
+        continue11 = (Button) findViewById(R.id.CreateFormList_continue11);
         continue11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,19 +214,19 @@ public class CreateVocList extends AppCompatActivity{
 
 
     private void openCreateList(){
-        if(VocabularyMethods.openCreateList == true){
-            findViewById(R.id.CreateVocList_scrollview).setVisibility(View.VISIBLE);
-            findViewById(R.id.CreateVocList_scrollview4).setVisibility(View.GONE);
+        if(FormularMethods.openCreateList == true){
+            findViewById(R.id.CreateFormList_scrollview).setVisibility(View.VISIBLE);
+            findViewById(R.id.CreateFormList_scrollview4).setVisibility(View.GONE);
         }else{
-            findViewById(R.id.CreateVocList_scrollview4).setVisibility(View.VISIBLE);
-            findViewById(R.id.CreateVocList_scrollview).setVisibility(View.GONE);
+            findViewById(R.id.CreateFormList_scrollview4).setVisibility(View.VISIBLE);
+            findViewById(R.id.CreateFormList_scrollview).setVisibility(View.GONE);
         }
     }
 
 
     //Buttton OnClick Methoden ( scrollview )
     public void open_back(){
-        Intent intent = new Intent(this, Vokabeln.class);
+        Intent intent = new Intent(this, Formeln.class);
         startActivity(intent);
     }
 
@@ -236,25 +236,25 @@ public class CreateVocList extends AppCompatActivity{
         language1 = languagetext1.getText().toString();
 
         if (listtext.length() <= 0){
-            error.setText("Bitte gebe einen Namen für die Vokabelliste an.");
+            error.setText("Bitte gebe einen Namen für die Formelliste an.");
         }else if (languagetext.length() <= 0){
             error.setText("Bitte gebe einen Namen von Sprache 1 an.");
         }else if (languagetext1.length() <= 0){
             error.setText("Bitte gebe einen Namen von Sprache 2 an.");
         }else{
             if (!(languagetext.getText().toString().trim().equalsIgnoreCase(languagetext1.getText().toString().trim()))) {
-                if(VocabularyMethods.nameavailable(listtext.getText().toString()) == true){
-                    list = new VocabularyList(language, language1, listtext.getText().toString(), false, false);
-                    VocabularyMethods.saveVocabularyList(list);
-                    vocabulary.setHint("Original (" + language + ")");
-                    vocabulary1.setHint("Übersetzung (" + language1 + ")");
+                if(FormularMethods.nameavailable(listtext.getText().toString()) == true){
+                    list = new FormularList(language, language1, listtext.getText().toString(), false, false);
+                    FormularMethods.saveFormularList(list);
+                    Formular.setHint("Original (" + language + ")");
+                    formular1.setHint("Übersetzung (" + language1 + ")");
 
                     error.setText("");
                     listtext.setText("");
                     languagetext.setText("");
                     languagetext1.setText("");
-                    findViewById(R.id.CreateVocList_scrollview).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.CreateVocList_scrollview1).setVisibility(View.VISIBLE);
+                    findViewById(R.id.CreateFormList_scrollview).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.CreateFormList_scrollview1).setVisibility(View.VISIBLE);
                 }else {
                     error.setText("Es existiert bereits eine Liste mit diesem Namen");
                 }
@@ -271,71 +271,71 @@ public class CreateVocList extends AppCompatActivity{
     public void open_back1(){
 
         error1.setText("");
-        vocabulary.setText("");
-        vocabulary1.setText("");
-        vocabulary.setHint("Original (" + language + ")");
-        vocabulary1.setHint("Original (" + language1 + ")");
-        MainActivity.hideKeyboard(CreateVocList.this);
-        if(list.getVocabularylist().size() == 0) {
-            Cancel1.setText("Wollen sie wirklich abbrechen? Es gehen dadurch KEINE Vokabeln verloren.");
+        Formular.setText("");
+        formular1.setText("");
+        Formular.setHint("Original (" + language + ")");
+        formular1.setHint("Original (" + language1 + ")");
+        MainActivity.hideKeyboard(CreateFormList.this);
+        if(list.getFormularlist().size() == 0) {
+            Cancel1.setText("Wollen sie wirklich abbrechen? Es gehen dadurch KEINE Formeln verloren.");
         }else{
-            Cancel1.setText("Wollen sie wirklich abbrechen? Dadurch gehen die letzten " + list.getVocabularylist().size() + " eingegebeben Vokabeln verloren.");
+            Cancel1.setText("Wollen sie wirklich abbrechen? Dadurch gehen die letzten " + list.getFormularlist().size() + " eingegebeben Formeln verloren.");
         }
-        findViewById(R.id.CreateVocList_scrollview1).setVisibility(View.INVISIBLE);
-        findViewById(R.id.CreateVocList_scrollview2).setVisibility(View.VISIBLE);
+        findViewById(R.id.CreateFormList_scrollview1).setVisibility(View.INVISIBLE);
+        findViewById(R.id.CreateFormList_scrollview2).setVisibility(View.VISIBLE);
     }
 
     public void open_next(){
-        if (vocabulary.length() <= 0){
-            error1.setText("Bitte gebe die Vokabel auf " + language + " an.");
-        }else if (vocabulary1.length() <= 0){
-            error1.setText("Bitte gebe die Vokabel auf " + language1 + " an.");
+        if (Formular.length() <= 0){
+            error1.setText("Bitte gebe die Formel auf " + language + " an.");
+        }else if (formular1.length() <= 0){
+            error1.setText("Bitte gebe die Formel auf " + language1 + " an.");
         }else{
-            Vocabulary voc = new Vocabulary(vocabulary.getText().toString(), vocabulary1.getText().toString(), language, language1, false);
-            list.addVocabulary(voc);
-            vocabulary.setText("");
-            vocabulary1.setText("");
-            vocabulary.setHint("Original (" + language + ")");
-            vocabulary1.setHint("Übersetzung (" + language1 + ")");
+            Formular form = new Formular(Formular.getText().toString(), formular1.getText().toString(), language, language1, false);
+            list.addFormular(form);
+            Formular.setText("");
+            formular1.setText("");
+            Formular.setHint("Original (" + language + ")");
+            formular1.setHint("Übersetzung (" + language1 + ")");
 
-            vocabulary.requestFocus();
+            Formular.requestFocus();
             InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(vocabulary, InputMethodManager.SHOW_IMPLICIT);
+            imm.showSoftInput(Formular, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 
     public void open_finish(){
 
-        if (!(vocabulary.length() <= 0) && (!(vocabulary1.length() <= 0))){
-            if (vocabulary.length() <= 0){
-                error1.setText("Bitte gebe die Vokabel auf " + language + " an.");
-                vocabulary.setText("");
-                vocabulary1.setText("");
-                vocabulary.setHint("Original (" + language + ")");
-                vocabulary1.setHint("Übersetzung (" + language1 + ")");
-            }else if (vocabulary1.length() <= 0){
-                error1.setText("Bitte gebe die Vokabel auf " + language1 + " an.");
-                vocabulary.setText("");
-                vocabulary1.setText("");
-                vocabulary.setHint("Original (" + language + ")");
-                vocabulary1.setHint("Übersetzung (" + language1 + ")");
+        if (!(Formular.length() <= 0) && (!(formular1.length() <= 0))){
+            if (Formular.length() <= 0){
+                error1.setText("Bitte gebe die Formel auf " + language + " an.");
+                Formular.setText("");
+                formular1.setText("");
+                Formular.setHint("Original (" + language + ")");
+                formular1.setHint("Übersetzung (" + language1 + ")");
+            }else if (formular1.length() <= 0){
+                error1.setText("Bitte gebe die Formel auf " + language1 + " an.");
+                Formular.setText("");
+                formular1.setText("");
+                Formular.setHint("Original (" + language + ")");
+                formular1.setHint("Übersetzung (" + language1 + ")");
             }else {
                 MainActivity.hideKeyboard(this);
-                Vocabulary voc = new Vocabulary(vocabulary.getText().toString(), vocabulary1.getText().toString(), language, language1, false);
-                list.addVocabulary(voc);
+                Formular form = new Formular(Formular.getText().toString(), formular1.getText().toString(), language, language1, false);
+                list.addFormular(form);
 
-                findViewById(R.id.CreateVocList_scrollview1).setVisibility(View.INVISIBLE);
-                findViewById(R.id.CreateVocList_scrollview3).setVisibility(View.VISIBLE);
+                findViewById(R.id.CreateFormList_scrollview1).setVisibility(View.INVISIBLE);
+                findViewById(R.id.CreateFormList_scrollview3).setVisibility(View.VISIBLE);
             }
         }else{
             MainActivity.hideKeyboard(this);
-            if(list.getVocabularylist().size() == 0) {
-                Cancel1.setText("Sie haben noch keine Vokabel eingegeben, wollen sie abbrechen?");
-                findViewById(R.id.CreateVocList_scrollview1).setVisibility(View.INVISIBLE);
-                findViewById(R.id.CreateVocList_scrollview2).setVisibility(View.VISIBLE);
+            if(list.getFormularlist().size() == 0) {
+                Cancel1.setText("Sie haben noch keine Formel eingegeben, wollen sie abbrechen?");
+                findViewById(R.id.CreateFormList_scrollview1).setVisibility(View.INVISIBLE);
+                findViewById(R.id.CreateFormList_scrollview2).setVisibility(View.VISIBLE);
             }else{
-                findViewById(R.id.CreateVocList_scrollview1).setVisibility(View.INVISIBLE);
-                findViewById(R.id.CreateVocList_scrollview3).setVisibility(View.VISIBLE);
+                findViewById(R.id.CreateFormList_scrollview1).setVisibility(View.INVISIBLE);
+                findViewById(R.id.CreateFormList_scrollview3).setVisibility(View.VISIBLE);
             }
 
         }
@@ -345,45 +345,45 @@ public class CreateVocList extends AppCompatActivity{
 
     //Buttton OnClick Methoden ( scrollview2 )
     public void open_cancel(){
-        VocabularyMethods.removeVocabularyList(list);
-        Intent intent = new Intent(this, Vokabeln.class);
+        FormularMethods.removeFormularList(list);
+        Intent intent = new Intent(this, Formeln.class);
         startActivity(intent);
     }
 
     public void open_return(){
         MainActivity.showKeyboard(this);
-        findViewById(R.id.CreateVocList_scrollview2).setVisibility(View.INVISIBLE);
-        findViewById(R.id.CreateVocList_scrollview1).setVisibility(View.VISIBLE);
+        findViewById(R.id.CreateFormList_scrollview2).setVisibility(View.INVISIBLE);
+        findViewById(R.id.CreateFormList_scrollview1).setVisibility(View.VISIBLE);
     }
 
 
     //Buttton OnClick Methoden ( scrollview2 )
     public void open_finish1(){
-        VocabularyMethods.saveVocabularyList(list);
-        ManageData.uploadVocabularyList(list, context);
-        Intent intent = new Intent(this, Vokabeln.class);
+        FormularMethods.saveFormularList(list);
+        ManageData.uploadFormularList(list, context);
+        Intent intent = new Intent(this, Formeln.class);
         startActivity(intent);
     }
 
     public void open_return1(){
         MainActivity.showKeyboard(this);
-        findViewById(R.id.CreateVocList_scrollview3).setVisibility(View.INVISIBLE);
-        findViewById(R.id.CreateVocList_scrollview1).setVisibility(View.VISIBLE);
+        findViewById(R.id.CreateFormList_scrollview3).setVisibility(View.INVISIBLE);
+        findViewById(R.id.CreateFormList_scrollview1).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onBackPressed(){
-        if(findViewById(R.id.CreateVocList_scrollview).getVisibility() == View.VISIBLE){
+        if(findViewById(R.id.CreateFormList_scrollview).getVisibility() == View.VISIBLE){
             open_back();
-        }else if(findViewById(R.id.CreateVocList_scrollview1).getVisibility() == View.VISIBLE){
+        }else if(findViewById(R.id.CreateFormList_scrollview1).getVisibility() == View.VISIBLE){
             open_back1();
-        }else if(findViewById(R.id.CreateVocList_scrollview2).getVisibility() == View.VISIBLE){
+        }else if(findViewById(R.id.CreateFormList_scrollview2).getVisibility() == View.VISIBLE){
             open_return();
-        }else if(findViewById(R.id.CreateVocList_scrollview3).getVisibility() == View.VISIBLE){
+        }else if(findViewById(R.id.CreateFormList_scrollview3).getVisibility() == View.VISIBLE){
             open_return1();
-        }else if(findViewById(R.id.CreateVocList_scrollview3).getVisibility() == View.VISIBLE){
+        }else if(findViewById(R.id.CreateFormList_scrollview3).getVisibility() == View.VISIBLE){
             open_return1();
-        }else if(findViewById(R.id.CreateVocList_scrollview4).getVisibility() == View.VISIBLE){
+        }else if(findViewById(R.id.CreateFormList_scrollview4).getVisibility() == View.VISIBLE){
             open_back();
         }
     }
@@ -453,13 +453,13 @@ public class CreateVocList extends AppCompatActivity{
 
     public void openContinue1(InputStream is){
         if(!(listtext1.getText().toString().trim().matches(""))) {
-            if(VocabularyMethods.nameavailable(listtext1.getText().toString().trim())) {
+            if(FormularMethods.nameavailable(listtext1.getText().toString().trim())) {
                 if(!(languagetext11.getText().toString().trim().matches(""))) {
                     if(!(languagetext21.getText().toString().trim().matches(""))) {
                         if(!(languagetext11.getText().toString().trim().equalsIgnoreCase(languagetext21.getText().toString().trim()))){
                             ReadCsvVocList rl = new ReadCsvVocList();
-                            rl.ReadList(CreateVocList.this, is, languagetext11.getText().toString().trim(), languagetext21.getText().toString().trim(), listtext1.getText().toString().trim());
-                            Intent intent = new Intent(this, Vokabeln.class);
+                            rl.ReadList(CreateFormList.this, is, languagetext11.getText().toString().trim(), languagetext21.getText().toString().trim(), listtext1.getText().toString().trim());
+                            Intent intent = new Intent(this, Formeln.class);
                             startActivity(intent);
                         }else{
                             languagetext21.setError("Identisch zu Sprache 1");
@@ -471,10 +471,10 @@ public class CreateVocList extends AppCompatActivity{
                     languagetext11.setError("Bitte gebe einen Namen für diese Sprache ein");
                 }
             }else{
-                listtext1.setError("Es existiert berreits eine Vokabelliste mit diesem Namen");
+                listtext1.setError("Es existiert berreits eine Formelliste mit diesem Namen");
             }
         }else{
-            listtext1.setError("Bitte gebe einen Namen für die Vokabelliste ein");
+            listtext1.setError("Bitte gebe einen Namen für die Formelliste ein");
         }
     }
 

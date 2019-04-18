@@ -7,11 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -19,6 +22,8 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.content.res.Configuration;
@@ -27,10 +32,23 @@ import android.util.DisplayMetrics;
 
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherAdView;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdCallback;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.analytics.Tracker;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
+
+import learningunit.learningunit.Objects.MainMethods.MainMethods;
+import learningunit.learningunit.Objects.MainMethods.NewsFeed;
 import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
+import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.beforeStart.FirstScreen;
+import learningunit.learningunit.menu.learn.formular.Formeln;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
 import learningunit.learningunit.menu.organizer.Organizer;
 import learningunit.learningunit.menu.organizer.timetable.Timetable;
@@ -42,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static Context context;
 
-    public int backLocation = 0; // 0 = Main Menu; 1 = Lernen; 2 = Einstellungen, 3 = Sprachauswahl;
+    public static int backLocation = 0; // 0 = Main Menu; 1 = Lernen; 2 = Einstellungen, 3 = Sprachauswahl;
 
     //Datenbank
     private static final String ROOT_URL = "https://learningunit.de/MySQL/v1/Api.php?apicall=";
@@ -52,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_GetAccounts = ROOT_URL + "GetAccounts";
     public static final String URL_UpdateAccount = ROOT_URL + "UpdateAccount";
     public static final String URL_DeleteAccount = ROOT_URL + "DeleteAccount&id=";
+    public static final String URL_InsertPremium = ROOT_URL + "InsertPremium&id=";
+    public static final String URL_GetPremium = ROOT_URL + "Premium&id=";
     public static final String URL_DeleteVocList = ROOT_URL + "DeleteVocList&id=";
     public static final String URL_CreateVocList = ROOT_URL + "CreateVocList";
     public static final String URL_NewCreateVocList = ROOT_URL + "NewGetVocabLists&id=";
@@ -65,6 +85,26 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_getFollow = ROOT_URL + "getFollow&VocID=";
     public static final String URL_Follow = ROOT_URL + "Follow";
     public static final String URL_FollowedLists = ROOT_URL + "GetFollowedVocabLists&id=";
+
+
+
+    public static final String URL_DeleteFormList = ROOT_URL + "DeleteFormList&id=";
+    public static final String URL_CreateFormList = ROOT_URL + "CreateFormList";
+    public static final String URL_NewCreateFormList = ROOT_URL + "NewCreateFormList&id=";
+    public static final String URL_CreateFormular = ROOT_URL + "CreateFormular";
+    public static final String URL_GetFormLists = ROOT_URL + "GetFormLists&id=";
+    public static final String URL_GetFormulars = ROOT_URL + "GetFormulars&id=";
+    public static final String URL_GetFormularSharedLists = ROOT_URL + "GetFormularSharedLists";
+    public static final String URL_FormListAvailable = ROOT_URL + "FormListAvailable";
+    public static final String URL_GetSharedForm = ROOT_URL + "GetSharedForm&id=";
+    public static final String URL_changesSharedForm = ROOT_URL + "changesSharedForm &id=";
+    public static final String URL_getFollowForm = ROOT_URL + "getFollowForm&VocID=";
+    public static final String URL_FollowForm = ROOT_URL + "FollowForm";
+    public static final String URL_FollowedFormLists = ROOT_URL + "GetFollowedFormLists&id=";
+
+
+
+
     public static final String URL_insertWeek= ROOT_URL + "insertWeek";
     public static final String URL_getWeekbyUser= ROOT_URL + "getWeekbyUser&id=";
     public static final String URL_getWeekbyId= ROOT_URL + "getWeekbyId&id=";
@@ -80,19 +120,14 @@ public class MainActivity extends AppCompatActivity {
 
     private Tracker mTracker;
     private PublisherAdView MainAdView;
+    private RewardedAd rewardedAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
         MainAdView = (PublisherAdView) findViewById(R.id.MainActivity_AdView);
-        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
-        MainAdView.loadAd(adRequest);
-        MainAdView.setAdSizes(AdSize.SMART_BANNER);
-
-
 
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
@@ -104,6 +139,67 @@ public class MainActivity extends AppCompatActivity {
             ManageData.loadOfflineAccount();
         }else if(ManageData.OfflineAccount == 2){
             ManageData.loadOnlineAccount();
+            loadPremium();
+        }
+
+
+        if(!(ManageData.hasPremium())) {
+            KeyboardVisibilityEvent.setEventListener(this, new KeyboardVisibilityEventListener() {
+                @Override
+                public void onVisibilityChanged(boolean isOpen) {
+                    try {
+                        ScrollView scrollpremium = (ScrollView) findViewById(R.id.main_premiumScrollView);
+                        Button continuepremium = (Button) findViewById(R.id.main_premiumContinue);
+                        if (isOpen) {
+                            MainAdView.setVisibility(View.GONE);
+                            scrollpremium.setScrollY(continuepremium.getHeight() + 20 + 32);
+                        } else {
+                            MainAdView.setVisibility(View.VISIBLE);
+                        }
+                    }catch (Exception e){}
+                }
+            });
+            MainAdView.setVisibility(View.VISIBLE);
+            MobileAds.initialize(this, "ca-app-pub-2182452775939631~7797227952");
+            rewardedAd = createAndLoadRewardedAd();
+            PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+            MainAdView.loadAd(adRequest);
+            MainAdView.setAdSizes(AdSize.SMART_BANNER);
+
+            Button support = (Button) findViewById(R.id.main_support);
+            support.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (rewardedAd.isLoaded()) {
+                        RewardedAdCallback adCallback = new RewardedAdCallback() {
+                            @Override
+                            public void onRewardedAdOpened() {
+                                // Ad opened.
+                            }
+
+                            @Override
+                            public void onRewardedAdClosed() {
+                                rewardedAd = createAndLoadRewardedAd();
+                            }
+
+                            @Override
+                            public void onUserEarnedReward(@NonNull RewardItem reward) {
+                                // User earned reward.
+                            }
+
+                            @Override
+                            public void onRewardedAdFailedToShow(int errorCode) {
+                                // Ad failed to display
+                            }
+                        };
+                        rewardedAd.show(MainActivity.this, adCallback);
+                    } else {
+                        Log.d("TAG", "The rewarded ad wasn't loaded yet.");
+                    }
+                }
+            });
+        }else{
+            MainAdView.setVisibility(View.GONE);
         }
 
         //Initialisieren der Knöpfe und rufen der OnClick methode
@@ -124,11 +220,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button formular = (Button) findViewById(R.id.main_learn_formular);
+        formular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //open_formular();
+            }
+        });
+
+        Button accountBack = (Button)findViewById(R.id.main_accountBack);
+        accountBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findViewById(R.id.main_accountLayout).setVisibility(View.GONE);
+                findViewById(R.id.main_settingsLayout).setVisibility(View.VISIBLE);
+            }
+        });
+
         settingsBack = (Button) findViewById(R.id.main_settingsBack);
         settingsBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openSettingsBack();
+            }
+        });
+
+        final Button account = (Button)findViewById(R.id.main_settingsAccount);
+        account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backLocation = 4;
+                findViewById(R.id.main_accountLayout).setVisibility(View.VISIBLE);
+                findViewById(R.id.main_settingsLayout).setVisibility(View.GONE);
+                if(ManageData.hasPremium()){
+                    MainMethods.open_AdSettings(MainActivity.this);
+                }else{
+                    MainMethods.open_RemoveAds(MainActivity.this);
+                }
             }
         });
 
@@ -156,13 +284,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        forum = (Button) findViewById(R.id.main_forum);
-        forum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                open_forum();
-            }
-        });
 
         learn = (Button) findViewById(R.id.main_learn);
         learn.setOnClickListener(new View.OnClickListener() {
@@ -219,6 +340,9 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.main_settingsLayout).setVisibility(View.GONE);
             }
         });
+
+        Button play = (Button) findViewById(R.id.main_play);
+
 
         languageBack = (Button) findViewById(R.id.main_settingsLanguageBack);
         languageBack.setOnClickListener(new View.OnClickListener() {
@@ -289,50 +413,69 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        thread = new Thread() {
-
-            @Override
-            public void run() {
-                try {
-                    do{
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                NewsFeed.startTime();
-                            }
-                        });
-                        Thread.sleep(1000);
-                    }
-                    while (!thread.isInterrupted());
-                } catch (InterruptedException e) {
-                }
-            }
-        };
-
-        thread.start();
-        */
-        /*
-        if(FirstScreen.tinyDB != null) {
-            String language = FirstScreen.tinyDB.getString("appLanguage");
-            if (!(language.matches(""))) {
-                String languageToLoad = FirstScreen.tinyDB.getString("en-US");// your language
-                Locale locale = new Locale(languageToLoad);
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                getBaseContext().getResources().updateConfiguration(config,
-                        getBaseContext().getResources().getDisplayMetrics());
-                this.setContentView(R.layout.activity_main);
-            }else{
-                Log.d("Language", "Matches..............................");
-            }
-        }else{
-            Log.d("Language", "Null..............................");
+        if(ManageData.OfflineAccount == 2 || ManageData.OfflineAccount == 1){
+            news.setText(NewsFeed.NewsString(MainActivity.this));
         }
 
-        */
     }
+
+    public RewardedAd createAndLoadRewardedAd() {
+        RewardedAd rewardedAd = new RewardedAd(this,
+                "ca-app-pub-2182452775939631/5070637044");
+        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
+            @Override
+            public void onRewardedAdLoaded() {
+                Log.d("RewardedAD", "AD Loaded");
+            }
+
+            @Override
+            public void onRewardedAdFailedToLoad(int errorCode) {
+                Log.d("RewardedAD", "Failed to Load Ad");
+            }
+        };
+        rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
+        return rewardedAd;
+    }
+
+
+
+
+
+    public void loadPremium() {
+        if (ManageData.InternetAvailable(MainActivity.this)){
+            RequestHandler requestHandler = new RequestHandler();
+            String pre = requestHandler.sendGetRequest(MainActivity.URL_GetPremium + ManageData.getUserID());
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<Integer>>() {
+            }.getType();
+            ArrayList<Integer> i = gson.fromJson(pre, type);
+            ManageData.Account.put("SharedID", i.get(1) + "");
+            if (i.get(0) == 1) {
+                ManageData.setPremium(true);
+            } else {
+                ManageData.setPremium(false);
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Buttton OnClick Methoden
     public void open_logout(){
@@ -341,13 +484,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void open_forum(){
-        //Intent intent = new Intent(this, FirstScreen.class);
-        //startActivity(intent);
-    }
 
     public void open_vocabulary(){
         Intent intent = new Intent(this, Vokabeln.class);
+        startActivity(intent);
+    }
+
+    public void open_formular(){
+        Intent intent = new Intent(this, Formeln.class);
         startActivity(intent);
     }
 
@@ -477,6 +621,15 @@ public class MainActivity extends AppCompatActivity {
             openSettingsBack();
         }else if (backLocation == 3) {
             open_languageBack();
+        }else if(backLocation == 4){
+            findViewById(R.id.main_accountLayout).setVisibility(View.GONE);
+            findViewById(R.id.main_settingsLayout).setVisibility(View.VISIBLE);
+        }else if(backLocation == 5){
+            findViewById(R.id.main_accountLayout).setVisibility(View.VISIBLE);
+            findViewById(R.id.main_premiumLayout).setVisibility(View.GONE);
+        }else if(backLocation == 6){
+            findViewById(R.id.main_accountLayout).setVisibility(View.VISIBLE);
+            findViewById(R.id.main_premiumSettingsLayout).setVisibility(View.GONE);
         }
     }
 
@@ -503,19 +656,6 @@ public class MainActivity extends AppCompatActivity {
         imm.showSoftInput(view, 0);
     }
 
-    public static boolean isKeyboardOpen(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = activity.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            return false;
-        }else{
-            return true;
-        }
-
-    }
-
     public static boolean InternetAvailable(Context ctx) {
         if(ManageData.OfflineAccount == 2) {
             ConnectivityManager connectivityManager = (ConnectivityManager) ctx
@@ -533,14 +673,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
-    }
-    public static void onAppPause(Context ctx){
-        ManageData.uploadDelayedVocabularyLists(ctx);
-        ManageData.saveVocabularyLists();
-    }
-    public static void onAppShutdown(Context ctx){
-        ManageData.uploadDelayedVocabularyLists(ctx);
-        ManageData.saveVocabularyLists();
     }
 
     public static void NoNetworkAlert(Context ctx) {

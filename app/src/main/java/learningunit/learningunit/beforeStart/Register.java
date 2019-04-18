@@ -300,18 +300,21 @@ public class Register extends AppCompatActivity {
                         return 0;
                     }
                 }else {
-                    sd = sd.replaceAll(" ","");
+                    Gson gson = new Gson();
+                    Type type1 = new TypeToken<ArrayList<String>>() {}.getType();
+                    ArrayList<String> CreateList = new ArrayList<String>();
+                    CreateList = gson.fromJson(sd, type1);
                     ManageData.Account = new LinkedHashMap<>();
                     ArrayList list;
-                    Gson gson = new Gson();
-                    String json = requestHandler.sendGetRequest(MainActivity.URL_GetAccount + sd);
+                    String json = requestHandler.sendGetRequest(MainActivity.URL_GetAccount + Integer.parseInt(CreateList.get(0)));
                     Type type = new TypeToken<ArrayList<String>>() {}.getType();
                     list = gson.fromJson(json, type);
 
-                    ManageData.Account.put("id", sd);
+                    ManageData.Account.put("id", CreateList.get(0));
                     ManageData.Account.put("Benutzername", list.get(1).toString());
                     ManageData.Account.put("Email", list.get(2).toString());
                     ManageData.Account.put("Sprache", list.get(3).toString());
+                    ManageData.Account.put("SharedID", CreateList.get(1));
                     ManageData.setOnlineAccount(true);
                     Log.d("Account", ManageData.Account + "");
                     return 1;

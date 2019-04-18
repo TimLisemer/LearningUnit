@@ -1,6 +1,7 @@
 package learningunit.learningunit.Objects.Organizer;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -8,7 +9,9 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
@@ -47,7 +50,7 @@ import learningunit.learningunit.menu.organizer.Organizer;
 
 public class HomeFragmentMethods extends AppCompatActivity {
 
-    public static int startCondition = 0; //0 = normal 1 = home 2 = exam 3 = pres
+    public static int startCondition = 0; //0 = normal 1 = home 2 = exam 3 = pres 4 = pic
     int fday, fmonth, fyear;
     Hour Selected;
     public static Boolean HourChosen = false;
@@ -62,6 +65,8 @@ public class HomeFragmentMethods extends AppCompatActivity {
             ExamClick(fragmentView, activity);
         }else if(startCondition == 3) {
             PresentationClick(fragmentView, activity);
+        }else if(startCondition == 4){
+            PickClick(fragmentView, activity);
         }
 
         Button Opt1 = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Gradefragment_organizer_home_GradeSubSelection_Opt1);
@@ -119,6 +124,95 @@ public class HomeFragmentMethods extends AppCompatActivity {
         });
 
         Button Notes = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Notizen);
+
+        Button Picture = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Bilder);
+        Picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PickClick(fragmentView, activity);
+            }
+        });
+    }
+
+    private void PickClick(final View fragmentView, final Activity activity){
+        startCondition = 0;
+        MainActivity.hideKeyboard(activity);
+        final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
+        final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
+
+        Button overview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
+        Button newOne = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_CreateSelection);
+        overview.setText(activity.getResources().getString(R.string.PicOverview));
+        newOne.setText(activity.getResources().getString(R.string.TakeAPic));
+
+        newOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, organizer_camera.class);
+                activity.startActivity(intent);
+            }
+        });
+
+        Selection.setVisibility(View.VISIBLE);
+        MainLayout.setVisibility(View.GONE);
+
+        final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
+        TopBack.setText(activity.getResources().getString(R.string.Back));
+        TopBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Selection.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+            }
+        });
+
+        Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+            @Override
+            public void doBack() {
+                Selection.setVisibility(View.GONE);
+                MainLayout.setVisibility(View.VISIBLE);
+                TopBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+                Organizer.setOnBackPressedListener(new OnBackPressedListener() {
+                    @Override
+                    public void doBack() {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                    }
+                });
+            }
+        });
+
+
+        Button PicOverview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
+        PicOverview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+            }
+        });
+
 
     }
 
