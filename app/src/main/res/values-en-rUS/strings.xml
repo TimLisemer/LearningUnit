@@ -235,4 +235,7 @@
     <string name="NoAds">All advertising removed</string>
     <string name="AllActiveEvents">All active events:</string>
     <string name="NoActiveEvents">No Active events, go and create one in the Organizer Section!</string>
+    <string name="SavedAt">"Saved at: "</string>
+    <string name="TakeAPic">Take a Picture</string>
+    <string name="PicOverview">Picture Overview</string>
 </resources>

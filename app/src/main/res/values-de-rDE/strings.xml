@@ -235,4 +235,7 @@
     <string name="NoAds">Sämtliche Werbung entfernt</string>
     <string name="AllActiveEvents">Alle aktiven Termine:</string>
     <string name="NoActiveEvents">Keine aktiven Terminen, erstelle jetzt einen im Organizer!</string>
+    <string name="SavedAt">"Gespeichert unter: "</string>
+    <string name="TakeAPic">Bild aufnehmen</string>
+    <string name="PicOverview">Bilder Übersicht</string>
 </resources>

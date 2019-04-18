@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_notiz"
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:title="Notizen" />
+        <item
+            android:id="@+id/nav_feacher"
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:title="Fächer" />
+    </group>
+
+    <item android:title="Aufgaben">
+        <menu>
+            <item
+                android:id="@+id/nav_haus"
+                android:icon="@android:drawable/ic_dialog_dialer"
+                android:title="Hausaufgaben" />
+            <item
+                android:id="@+id/nav_klaus"
+                android:icon="@android:drawable/ic_input_get"
+                android:title="Klausuren" />
+        </menu>
+    </item>
+
+</menu>
