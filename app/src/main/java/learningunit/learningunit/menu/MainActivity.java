@@ -44,6 +44,7 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
 
 import learningunit.learningunit.Objects.MainMethods.MainMethods;
+import learningunit.learningunit.Objects.MainMethods.NewsFeed;
 import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.beforeStart.FirstScreen;
@@ -223,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         formular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                open_formular();
+                //open_formular();
             }
         });
 
@@ -283,13 +284,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        forum = (Button) findViewById(R.id.main_forum);
-        forum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                open_forum();
-            }
-        });
 
         learn = (Button) findViewById(R.id.main_learn);
         learn.setOnClickListener(new View.OnClickListener() {
@@ -346,6 +340,9 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.main_settingsLayout).setVisibility(View.GONE);
             }
         });
+
+        Button play = (Button) findViewById(R.id.main_play);
+
 
         languageBack = (Button) findViewById(R.id.main_settingsLanguageBack);
         languageBack.setOnClickListener(new View.OnClickListener() {
@@ -415,6 +412,11 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+
+        if(ManageData.OfflineAccount == 2 || ManageData.OfflineAccount == 1){
+            news.setText(NewsFeed.NewsString(MainActivity.this));
+        }
+
     }
 
     public RewardedAd createAndLoadRewardedAd() {
@@ -482,10 +484,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void open_forum(){
-        //Intent intent = new Intent(this, FirstScreen.class);
-        //startActivity(intent);
-    }
 
     public void open_vocabulary(){
         Intent intent = new Intent(this, Vokabeln.class);

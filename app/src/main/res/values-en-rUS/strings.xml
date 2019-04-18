@@ -233,4 +233,6 @@
     <string name="YourAdID">Your Advertisement ID:</string>
     <string name="Status">Status</string>
     <string name="NoAds">All advertising removed</string>
+    <string name="AllActiveEvents">All active events:</string>
+    <string name="NoActiveEvents">No Active events, go and create one in the Organizer Section!</string>
 </resources>

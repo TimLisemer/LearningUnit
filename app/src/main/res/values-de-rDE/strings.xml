@@ -233,4 +233,6 @@
     <string name="YourAdID">Deine Werbe ID:</string>
     <string name="Status">Status</string>
     <string name="NoAds">Sämtliche Werbung entfernt</string>
+    <string name="AllActiveEvents">Alle aktiven Termine:</string>
+    <string name="NoActiveEvents">Keine aktiven Terminen, erstelle jetzt einen im Organizer!</string>
 </resources>

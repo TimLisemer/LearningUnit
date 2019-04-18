@@ -95,7 +95,7 @@
                 app:layout_constraintGuide_percent="0.666666" />
 
             <Button
-                android:id="@+id/main_forum"
+                android:id="@+id/main_play"
                 style="@style/Fynnx_Buttons"
                 android:text="@string/Play"
                 app:layout_constraintBottom_toTopOf="@+id/guideline10"
