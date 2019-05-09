@@ -238,4 +238,5 @@
     <string name="SavedAt">"Saved at: "</string>
     <string name="TakeAPic">Take a Picture</string>
     <string name="PicOverview">Picture Overview</string>
+    <string name="Creator">Creator</string>
 </resources>

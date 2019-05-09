@@ -7,7 +7,7 @@ public class FormularList {
     private ArrayList<Formular> formularList =  new ArrayList<Formular>();
     private String name, LanguageName1, LanguageName2;
     private boolean source, followed, Shared;
-    private int id;
+    private int id, Followers;
     private int CreatorID;
 
     public FormularList(String LanguageName1, String LanguageName2, String name, boolean source, boolean followed) {
@@ -114,4 +114,27 @@ public class FormularList {
         return LanguageName2;
     }
 
+    @Override
+    public String toString() {
+        return "FormularList{" +
+                "formularList=" + formularList +
+                ", name='" + name + '\'' +
+                ", LanguageName1='" + LanguageName1 + '\'' +
+                ", LanguageName2='" + LanguageName2 + '\'' +
+                ", source=" + source +
+                ", followed=" + followed +
+                ", Shared=" + Shared +
+                ", id=" + id +
+                ", Followers=" + Followers +
+                ", CreatorID=" + CreatorID +
+                '}';
+    }
+
+    public int getFollowers() {
+        return Followers;
+    }
+
+    public void setFollowers(int followers) {
+        Followers = followers;
+    }
 }

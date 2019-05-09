@@ -64,7 +64,7 @@ import learningunit.learningunit.R;
 
 public class Vokabeln extends AppCompatActivity {
 
-    private static Button back, back1, create, train, all, follow, rate, settings, yourBase, followbase, allBase, nolistButton, importList;
+    private static Button back, back1, create, train, all, follow, settings, yourBase, followbase, allBase, nolistButton, importList;
     private static TextView lang1, lang2, original, translation, error, nolist;
     private static ConstraintLayout layout, layout0, layout00, layout1, bottom;
     private static ConstraintSet constraintSet, constraintSeto, constraintSett;
@@ -226,7 +226,6 @@ public class Vokabeln extends AppCompatActivity {
         followbase = (Button) findViewById(R.id.vocabulary_followBase);
         bottom = (ConstraintLayout) findViewById(R.id.vocabulary_showvocabularybottom);
         settings = (Button) findViewById(R.id.vocabulary_edit);
-        rate = (Button) findViewById(R.id.vocabulary_rate);
         follow = (Button) findViewById(R.id.vocabulary_follow);
         nolist = (TextView) findViewById(R.id.vocabulary_nolists);
         lang1 = (TextView) findViewById(R.id.vocabulary_language);
@@ -612,13 +611,12 @@ public class Vokabeln extends AppCompatActivity {
             }else {
                 if (showvocablist.getCreatorID() == ManageData.getUserID()) {
                     bottom.setVisibility(View.VISIBLE);
-                    follow.setText("Platzhalter");
+                    follow.setText(showvocablist.getFollowers() + " Follower");
                     follow.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                         }
                     });
-                    rate.setText("Platzhalter");
                 } else {
                     bottom.setVisibility(View.GONE);
                 }
@@ -661,7 +659,6 @@ public class Vokabeln extends AppCompatActivity {
                     openFollow(showvocablist, follow, act);
                 }
             });
-            rate.setText(act.getResources().getString(R.string.Rate));
         }
 
         try{
@@ -1489,6 +1486,7 @@ public class Vokabeln extends AppCompatActivity {
                     publiclist = false;
                     list.setSource(true);
                     list.setShared(true);
+                    list.setFollowers(Integer.parseInt(SharedList.get(7)));
                     showvocabularys(list.getName(), act);
                     break;
                 }
@@ -1498,6 +1496,7 @@ public class Vokabeln extends AppCompatActivity {
             sharedListID = Integer.parseInt(SharedList.get(0));
             VocabularyList list = new VocabularyList(SharedList.get(2), SharedList.get(3), SharedList.get(1), true, true, sharedListID, sharedID, true);
             VocabularyMethods.vocabularylists.add(list);
+            list.setFollowers(Integer.parseInt(SharedList.get(7)));
             direction = true;
             sharedlist = list;
             publiclist = true;

@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Deklarieren der Knöpfe
-    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode, languageBack, german, english, changeLanguage, dellOfflineData;
+    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode, languageBack, german, english, changeLanguage, dellOfflineData, newLogout;
     public static TextView news;
     private Button learnBack, learnVocab;
     Activity a = new Activity();
@@ -203,6 +203,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Initialisieren der Knöpfe und rufen der OnClick methode
+
+        newLogout = (Button) findViewById(R.id.main_newLogout);
+        newLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open_logout();
+            }
+        });
 
         dellOfflineData = (Button) findViewById(R.id.main_settingsDeleteOfflineData);
         dellOfflineData.setOnClickListener(new View.OnClickListener() {
@@ -312,14 +320,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        statistics = (Button) findViewById(R.id.main_statistics);
-        statistics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                open_statistics();
-            }
-        });
-
         settings = (Button) findViewById(R.id.main_settings);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -340,9 +340,6 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.main_settingsLayout).setVisibility(View.GONE);
             }
         });
-
-        Button play = (Button) findViewById(R.id.main_play);
-
 
         languageBack = (Button) findViewById(R.id.main_settingsLanguageBack);
         languageBack.setOnClickListener(new View.OnClickListener() {
@@ -544,21 +541,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void open_statistics(){
-        //Intent intent = new Intent(this, FirstScreen.class);
-        //startActivity(intent);
-    }
-
     public void open_settings(){
         findViewById(R.id.main_mainLayout0).setVisibility(View.GONE);
-        findViewById(R.id.main_settingsLayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.main_settingsNewLayout).setVisibility(View.VISIBLE);
         news.setVisibility(View.GONE);
         backLocation = 2;
     }
 
     public void openSettingsBack(){
         findViewById(R.id.main_mainLayout0).setVisibility(View.VISIBLE);
-        findViewById(R.id.main_settingsLayout).setVisibility(View.GONE);
+        findViewById(R.id.main_settingsNewLayout).setVisibility(View.GONE);
         news.setVisibility(View.VISIBLE);
         backLocation = 0;
     }

@@ -50,7 +50,6 @@ public class PublicListCustomAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Vokabeln.openSharedList(SharedList, activity);
-                Log.d("AAA", "BBBBB");
             }
         });
 
@@ -67,9 +66,10 @@ public class PublicListCustomAdapter extends BaseAdapter {
         lannguages.setText("<-->");
         languageView1.setText(SharedList.get(2));
         languageView2.setText(SharedList.get(3));
-        countView.setText(SharedList.get(5) + " Vokabeln");
-        creatorView.setText("Ersteller: " + SharedList.get(4));
+        countView.setText(SharedList.get(5) + " " + activity.getResources().getString(R.string.Vocabularys));
+        creatorView.setText(activity.getResources().getString(R.string.Creator) + " " + SharedList.get(4));
         idView.setText("ID: " + SharedList.get(0));
+        followerView.setText(SharedList.get(7) + " Follower");
 
         nameView.setSelected(true);
         languageView1.setSelected(true);

@@ -565,6 +565,9 @@ public class ManageData extends MainActivity{
                     if(go == true) {
 
                         try {
+
+                            vocabularyList.setFollowers(Integer.parseInt(alist.get(5)));
+
                             final int sharedStatus = Integer.parseInt(alist.get(4));
                             if (sharedStatus == 0) {
                                 vocabularyList.setShared(false);
@@ -645,6 +648,7 @@ public class ManageData extends MainActivity{
                     if(go == true) {
 
                         try {
+                            formularList.setFollowers(Integer.parseInt(alist.get(5)));
                             final int sharedStatus = Integer.parseInt(alist.get(4));
                             if (sharedStatus == 0) {
                                 formularList.setShared(false);

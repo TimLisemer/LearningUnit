@@ -11,7 +11,7 @@ public class VocabularyList {
     private ArrayList<Vocabulary> vocabularylist =  new ArrayList<Vocabulary>();
     private String name, LanguageName1, LanguageName2;
     private boolean source, followed, Shared;
-    private int id;
+    private int id, Followers;
     private int CreatorID;
 
     public VocabularyList(String LanguageName1, String LanguageName2, String name, boolean source, boolean followed) {
@@ -131,7 +131,16 @@ public class VocabularyList {
                 ", followed=" + followed +
                 ", Shared=" + Shared +
                 ", id=" + id +
+                ", Followers=" + Followers +
                 ", CreatorID=" + CreatorID +
                 '}';
+    }
+
+    public int getFollowers() {
+        return Followers;
+    }
+
+    public void setFollowers(int followers) {
+        Followers = followers;
     }
 }
