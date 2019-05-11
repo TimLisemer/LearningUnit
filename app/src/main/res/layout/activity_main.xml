@@ -109,7 +109,7 @@
                 app:layout_constraintGuide_percent="0.75" />
 
             <Button
-                android:id="@+id/main_learn"
+                android:id="@+id/main_learn_vocabulary"
                 style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@mipmap/button"
                 android:fontFamily="@font/hammersmith_one"
-                android:text="@string/Learn"
+                android:text="@string/Vocabularys"
                 android:textColor="@color/TEXT_WHITE"
                 app:layout_constraintBottom_toTopOf="@+id/guideline10"
                 app:layout_constraintEnd_toStartOf="@+id/guideline64"
@@ -862,7 +862,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline49" />
 
         <Button
-            android:id="@+id/main_learn_vocabulary"
+            android:id="@+id/main_learn_vocabulary1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

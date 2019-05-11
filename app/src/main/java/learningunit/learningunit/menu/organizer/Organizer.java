@@ -43,6 +43,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.OnBackPressedListener;
 import learningunit.learningunit.Objects.Organizer.EventMethods;
 import learningunit.learningunit.Objects.Organizer.Exam;
@@ -114,6 +115,10 @@ public class Organizer extends AppCompatActivity{
         mTracker = application.getDefaultTracker();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organizer);
+
+        if(ManageData.OfflineAccount == 2 && ManageData.InternetAvailable(getApplication().getApplicationContext())){
+            ManageData.LoadOrganizer();
+        }
 
         Button TopBack = (Button) findViewById(R.id.organizer_back);
         TopBack.setOnClickListener(new View.OnClickListener() {

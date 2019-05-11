@@ -31,5 +31,13 @@ public class Event {
         this.description = description;
     }
 
-
+    public String toString() {
+        return "Event{" +
+                "day=" + day +
+                ", month=" + month +
+                ", year=" + year +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

@@ -105,9 +105,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public static final String URL_insertWeek= ROOT_URL + "insertWeek";
-    public static final String URL_getWeekbyUser= ROOT_URL + "getWeekbyUser&id=";
-    public static final String URL_getWeekbyId= ROOT_URL + "getWeekbyId&id=";
+    public static final String URL_insertWeek = ROOT_URL + "insertWeek";
+    public static final String URL_getWeekbyUser = ROOT_URL + "getWeekbyUser&id=";
+    public static final String URL_getWeekbyId = ROOT_URL + "getWeekbyId&id=";
+    public static final String URL_getEvents = ROOT_URL + "getEvents&id=";
+    public static final String URL_CreateHomework = ROOT_URL + "CreateHomework";
+    public static final String URL_CreateExam = ROOT_URL + "CreateExam";
+    public static final String URL_CreatePresentation = ROOT_URL + "CreatePresentation";
 
 
 
@@ -141,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
             ManageData.loadOnlineAccount();
             loadPremium();
         }
-
 
         if(!(ManageData.hasPremium())) {
             KeyboardVisibilityEvent.setEventListener(this, new KeyboardVisibilityEventListener() {
@@ -292,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        /*
         learn = (Button) findViewById(R.id.main_learn);
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -303,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.main_learnLayout).setVisibility(View.VISIBLE);
             }
         });
+        */
 
         organizer = (Button) findViewById(R.id.main_organizer);
         organizer.setOnClickListener(new View.OnClickListener() {
@@ -411,6 +415,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         if(ManageData.OfflineAccount == 2 || ManageData.OfflineAccount == 1){
+            if(ManageData.OfflineAccount == 2 && ManageData.InternetAvailable(getApplication())){
+                ManageData.LoadOrganizer();
+            }
             news.setText(NewsFeed.NewsString(MainActivity.this));
         }
 
