@@ -28,4 +28,13 @@ public class Homework extends Event {
     public void setDone(boolean done) {
         this.done = done;
     }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "Homework{" +
+                "hour=" + hour +
+                ", done=" + done +
+                '}';
+    }
 }

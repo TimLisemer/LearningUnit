@@ -13,6 +13,9 @@ import java.util.LinkedHashMap;
 import learningunit.learningunit.Objects.Learn.Formular.Formular;
 import learningunit.learningunit.Objects.Learn.Formular.FormularList;
 import learningunit.learningunit.Objects.Learn.Formular.FormularMethods;
+import learningunit.learningunit.Objects.Organizer.Exam;
+import learningunit.learningunit.Objects.Organizer.Homework;
+import learningunit.learningunit.Objects.Organizer.Presentation;
 import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.Objects.Timetable.Day;
 import learningunit.learningunit.Objects.Timetable.Hour;
@@ -565,6 +568,9 @@ public class ManageData extends MainActivity{
                     if(go == true) {
 
                         try {
+
+                            vocabularyList.setFollowers(Integer.parseInt(alist.get(5)));
+
                             final int sharedStatus = Integer.parseInt(alist.get(4));
                             if (sharedStatus == 0) {
                                 vocabularyList.setShared(false);
@@ -645,6 +651,7 @@ public class ManageData extends MainActivity{
                     if(go == true) {
 
                         try {
+                            formularList.setFollowers(Integer.parseInt(alist.get(5)));
                             final int sharedStatus = Integer.parseInt(alist.get(4));
                             if (sharedStatus == 0) {
                                 formularList.setShared(false);
@@ -787,7 +794,123 @@ public class ManageData extends MainActivity{
 
 
 
+    public static boolean LoadOrganizer(){
+        RequestHandler requestHandler = new RequestHandler();
+        Gson gson = new Gson();
+        String json  = requestHandler.sendGetRequest(MainActivity.URL_getEvents + getUserID());
+        if(json.isEmpty()){
+            Log.d("LoadOrganizer false", json);
+            return false;
+        }else {
+            Log.d("LoadOrganizer true", json);
+            Object[][][] object;
+            Type type = new TypeToken<Object[][][]>() {}.getType();
+            object = gson.fromJson(json, type);
 
+            Log.d("LoadOrganizer", object.toString());
+
+            try {
+                for (int d = 0; d < object[0].length; d++) {
+                    Homework homework = new Homework(Integer.parseInt(object[0][d][0].toString()), Integer.parseInt(object[0][d][1].toString()), Integer.parseInt(object[0][d][2].toString()));
+                    homework.setTitle(object[0][d][3].toString());
+                    homework.setDescription(object[0][d][4].toString());
+                    homework.setHour(new Hour(object[0][d][6].toString(), "#" + object[0][d][5].toString()));
+                    if (Integer.parseInt(object[0][d][7].toString()) == 0) {
+                        homework.setDone(false);
+                    } else {
+                        homework.setDone(true);
+                    }
+                    String json1 = FirstScreen.tinyDB.getString("Homework");
+                    ArrayList<Homework> halist;
+                    if (json1.equals("")) {
+                        halist = new ArrayList<Homework>();
+                    } else {
+                        Type type1 = new TypeToken<ArrayList<Homework>>() {
+                        }.getType();
+                        halist = gson.fromJson(json1, type1);
+                    }
+                    Boolean go = true;
+                    for(Homework ha : halist){
+                        if(ha.getDay() == homework.getDay() && ha.getMonth() == homework.getMonth() && ha.getYear() == homework.getYear() && ha.getTitle().equalsIgnoreCase(homework.getTitle()) && ha.getDescription().equalsIgnoreCase(homework.getDescription()) && ha.getHour().getName().equalsIgnoreCase(homework.getHour().getName()) && ha.getHour().getColorCode().equalsIgnoreCase(homework.getHour().getColorCode())){
+                            go = false;
+                        }
+                    }
+                    if(go == true) {
+                        halist.add(homework);
+                        Log.d("Homework", "Downloaded Homework " + homework.getTitle());
+                        FirstScreen.tinyDB.putString("Homework", gson.toJson(halist));
+                    }
+                }
+            }catch (Exception e){
+                Log.d("Homework", e.toString());
+            }
+            try{
+                for(int d = 0; d < object[1][d].length; d ++) {
+                    Exam exam = new Exam(Integer.parseInt(object[1][d][0].toString()), Integer.parseInt(object[1][d][1].toString()), Integer.parseInt(object[1][d][2].toString()));
+                    exam.setTitle(object[1][d][3].toString());
+                    exam.setDescription(object[1][d][4].toString());
+                    exam.setHour(new Hour(object[1][d][6].toString(), "#" + object[1][d][5].toString()));
+                    exam.setGrade(Integer.parseInt(object[1][d][7].toString()));
+                    String json1 = FirstScreen.tinyDB.getString("Exam");
+                    ArrayList<Exam> exlist;
+                    if(json1.equals("")){
+                        exlist = new ArrayList<Exam>();
+                    }else {
+                        Type type1 = new TypeToken<ArrayList<Exam>>() {
+                        }.getType();
+                        exlist = gson.fromJson(json1, type1);
+                    }
+                    Boolean go = true;
+                    for(Exam ex : exlist){
+                        if(ex.getDay() == exam.getDay() && ex.getMonth() == exam.getMonth() && ex.getYear() == exam.getYear() && ex.getTitle().equalsIgnoreCase(exam.getTitle()) && ex.getDescription().equalsIgnoreCase(exam.getDescription()) && ex.getHour().getName().equalsIgnoreCase(exam.getHour().getName()) && ex.getHour().getColorCode().equalsIgnoreCase(exam.getHour().getColorCode())){
+                            go = false;
+                        }
+                    }
+                    if(go == true) {
+                        exlist.add(exam);
+                        Log.d("Exam", "Downloaded Exam " + exam.getTitle());
+                        FirstScreen.tinyDB.putString("Exam", gson.toJson(exlist));
+                    }
+                }
+            }catch (Exception e){
+                Log.d("Exam", e.toString());
+            }
+            try{
+                for(int d = 0; d < object[2][d].length; d ++) {
+                    Presentation pre = new Presentation(Integer.parseInt(object[2][d][0].toString()), Integer.parseInt(object[2][d][1].toString()), Integer.parseInt(object[2][d][2].toString()));
+                    pre.setTitle(object[2][d][3].toString());
+                    pre.setDescription(object[2][d][4].toString());
+                    pre.setHour(new Hour(object[2][d][6].toString(), "#" + object[2][d][5].toString()));
+                    pre.setGrade(Integer.parseInt(object[2][d][7].toString()));
+                    String json1 = FirstScreen.tinyDB.getString("Presentation");
+                    ArrayList<Presentation> prelist;
+                    if(json1.equals("")){
+                        prelist = new ArrayList<Presentation>();
+                    }else {
+                        Type type1 = new TypeToken<ArrayList<Presentation>>() {
+                        }.getType();
+                        prelist = gson.fromJson(json1, type1);
+                    }
+                    Boolean go = true;
+                    for(Presentation presentation : prelist){
+                        if(presentation.getDay() == pre.getDay() && presentation.getMonth() == pre.getMonth() && presentation.getYear() == pre.getYear() && presentation.getTitle().equalsIgnoreCase(pre.getTitle()) && presentation.getDescription().equalsIgnoreCase(pre.getDescription()) && presentation.getHour().getName().equalsIgnoreCase(pre.getHour().getName()) && presentation.getHour().getColorCode().equalsIgnoreCase(pre.getHour().getColorCode())){
+                            go = false;
+                        }
+                    }
+                    if(go == true) {
+                        prelist.add(pre);
+                        Log.d("Presentation", "Downloaded Presentation " + pre.getTitle());
+                        FirstScreen.tinyDB.putString("Presentation", gson.toJson(prelist));
+                    }
+                }
+            }catch (Exception e){
+                Log.d("Presentation", e.toString());
+            }
+
+
+            return true;
+        }
+    }
 
 
 

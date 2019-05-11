@@ -238,4 +238,5 @@
     <string name="SavedAt">"Gespeichert unter: "</string>
     <string name="TakeAPic">Bild aufnehmen</string>
     <string name="PicOverview">Bilder Übersicht</string>
+    <string name="Creator">Ersteller</string>
 </resources>

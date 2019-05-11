@@ -105,14 +105,18 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public static final String URL_insertWeek= ROOT_URL + "insertWeek";
-    public static final String URL_getWeekbyUser= ROOT_URL + "getWeekbyUser&id=";
-    public static final String URL_getWeekbyId= ROOT_URL + "getWeekbyId&id=";
+    public static final String URL_insertWeek = ROOT_URL + "insertWeek";
+    public static final String URL_getWeekbyUser = ROOT_URL + "getWeekbyUser&id=";
+    public static final String URL_getWeekbyId = ROOT_URL + "getWeekbyId&id=";
+    public static final String URL_getEvents = ROOT_URL + "getEvents&id=";
+    public static final String URL_CreateHomework = ROOT_URL + "CreateHomework";
+    public static final String URL_CreateExam = ROOT_URL + "CreateExam";
+    public static final String URL_CreatePresentation = ROOT_URL + "CreatePresentation";
 
 
 
     //Deklarieren der Knöpfe
-    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode, languageBack, german, english, changeLanguage, dellOfflineData;
+    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode, languageBack, german, english, changeLanguage, dellOfflineData, newLogout;
     public static TextView news;
     private Button learnBack, learnVocab;
     Activity a = new Activity();
@@ -141,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
             ManageData.loadOnlineAccount();
             loadPremium();
         }
-
 
         if(!(ManageData.hasPremium())) {
             KeyboardVisibilityEvent.setEventListener(this, new KeyboardVisibilityEventListener() {
@@ -203,6 +206,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Initialisieren der Knöpfe und rufen der OnClick methode
+
+        newLogout = (Button) findViewById(R.id.main_newLogout);
+        newLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open_logout();
+            }
+        });
 
         dellOfflineData = (Button) findViewById(R.id.main_settingsDeleteOfflineData);
         dellOfflineData.setOnClickListener(new View.OnClickListener() {
@@ -284,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        /*
         learn = (Button) findViewById(R.id.main_learn);
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.main_learnLayout).setVisibility(View.VISIBLE);
             }
         });
+        */
 
         organizer = (Button) findViewById(R.id.main_organizer);
         organizer.setOnClickListener(new View.OnClickListener() {
@@ -309,14 +321,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 open_timetable();
-            }
-        });
-
-        statistics = (Button) findViewById(R.id.main_statistics);
-        statistics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                open_statistics();
             }
         });
 
@@ -340,9 +344,6 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.main_settingsLayout).setVisibility(View.GONE);
             }
         });
-
-        Button play = (Button) findViewById(R.id.main_play);
-
 
         languageBack = (Button) findViewById(R.id.main_settingsLanguageBack);
         languageBack.setOnClickListener(new View.OnClickListener() {
@@ -414,6 +415,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         if(ManageData.OfflineAccount == 2 || ManageData.OfflineAccount == 1){
+            if(ManageData.OfflineAccount == 2 && ManageData.InternetAvailable(getApplication())){
+                ManageData.LoadOrganizer();
+            }
             news.setText(NewsFeed.NewsString(MainActivity.this));
         }
 
@@ -544,21 +548,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void open_statistics(){
-        //Intent intent = new Intent(this, FirstScreen.class);
-        //startActivity(intent);
-    }
-
     public void open_settings(){
         findViewById(R.id.main_mainLayout0).setVisibility(View.GONE);
-        findViewById(R.id.main_settingsLayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.main_settingsNewLayout).setVisibility(View.VISIBLE);
         news.setVisibility(View.GONE);
         backLocation = 2;
     }
 
     public void openSettingsBack(){
         findViewById(R.id.main_mainLayout0).setVisibility(View.VISIBLE);
-        findViewById(R.id.main_settingsLayout).setVisibility(View.GONE);
+        findViewById(R.id.main_settingsNewLayout).setVisibility(View.GONE);
         news.setVisibility(View.VISIBLE);
         backLocation = 0;
     }

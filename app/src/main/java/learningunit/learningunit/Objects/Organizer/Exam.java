@@ -27,4 +27,12 @@ public class Exam extends Event {
         this.hour = hour;
     }
 
+    @Override
+    public String toString() {
+        super.toString();
+        return "Exam{" +
+                "hour=" + hour +
+                ", grade=" + grade +
+                '}';
+    }
 }

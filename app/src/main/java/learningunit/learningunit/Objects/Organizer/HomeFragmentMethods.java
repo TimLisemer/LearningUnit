@@ -36,10 +36,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.API.OnBackPressedListener;
+import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.Objects.Timetable.Day;
 import learningunit.learningunit.Objects.Timetable.Hour;
 import learningunit.learningunit.Objects.Timetable.Week;
@@ -73,7 +75,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
         Opt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Overview(fragmentView, activity, 2, false);
+                Overview(fragmentView, activity, 2, true);
             }
         });
     }
@@ -82,7 +84,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
     private void start(final View fragmentView, final Activity activity){
         MainActivity.hideKeyboard(activity);
-        GradeClick(fragmentView, activity);
+        //GradeClick(fragmentView, activity);
         Button pre = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Presentation);
         pre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +125,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
             }
         });
 
-        Button Notes = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Notizen);
 
         Button Picture = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Bilder);
         Picture.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +133,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 PickClick(fragmentView, activity);
             }
         });
+
     }
 
     private void PickClick(final View fragmentView, final Activity activity){
@@ -1142,6 +1144,22 @@ public class HomeFragmentMethods extends AppCompatActivity {
             eventlist = gson.fromJson(json1, type);
         }
 
+        if(ManageData.OfflineAccount == 2 && ManageData.InternetAvailable(activity)) {
+            LinkedHashMap<String, String> params = new LinkedHashMap<>();
+            params.put("uid", ManageData.getUserID() + "");
+            params.put("day", event.getDay() + "");
+            params.put("month", event.getMonth() + "");
+            params.put("year", event.getYear() + "");
+            params.put("title", event.getTitle() + "");
+            params.put("desc", event.getDescription() + "");
+            params.put("hName", event.getHour().getName() + "");
+            String ColorCode = event.getHour().getColorCode();
+            ColorCode = ColorCode.replaceFirst("#", "");
+            params.put("hColor", ColorCode);
+            RequestHandler requestHandler = new RequestHandler();
+            requestHandler.sendPostRequest(MainActivity.URL_CreatePresentation, params);
+        }
+
         eventlist.add(event);
         FirstScreen.tinyDB.putString("Presentation", gson.toJson(eventlist));
 
@@ -1211,6 +1229,24 @@ public class HomeFragmentMethods extends AppCompatActivity {
         }
 
         eventlist.add(event);
+
+        if(ManageData.OfflineAccount == 2 && ManageData.InternetAvailable(activity)) {
+            LinkedHashMap<String, String> params = new LinkedHashMap<>();
+            params.put("uid", ManageData.getUserID() + "");
+            params.put("day", event.getDay() + "");
+            params.put("month", event.getMonth() + "");
+            params.put("year", event.getYear() + "");
+            params.put("title", event.getTitle() + "");
+            params.put("desc", event.getDescription() + "");
+            params.put("hName", event.getHour().getName() + "");
+            String ColorCode = event.getHour().getColorCode();
+            ColorCode = ColorCode.replaceFirst("#", "");
+            params.put("hColor", ColorCode);
+            RequestHandler requestHandler = new RequestHandler();
+            requestHandler.sendPostRequest(MainActivity.URL_CreateHomework, params);
+        }
+
+
         FirstScreen.tinyDB.putString("Homework", gson.toJson(eventlist));
 
         if(FirstScreen.tinyDB.getString("WeekA").equals("")) {
@@ -1277,6 +1313,24 @@ public class HomeFragmentMethods extends AppCompatActivity {
             }.getType();
             eventlist = gson.fromJson(json1, type);
         }
+
+
+        if(ManageData.OfflineAccount == 2 && ManageData.InternetAvailable(activity)) {
+            LinkedHashMap<String, String> params = new LinkedHashMap<>();
+            params.put("uid", ManageData.getUserID() + "");
+            params.put("day", event.getDay() + "");
+            params.put("month", event.getMonth() + "");
+            params.put("year", event.getYear() + "");
+            params.put("title", event.getTitle() + "");
+            params.put("desc", event.getDescription() + "");
+            params.put("hName", event.getHour().getName() + "");
+            String ColorCode = event.getHour().getColorCode();
+            ColorCode = ColorCode.replaceFirst("#", "");
+            params.put("hColor", ColorCode);
+            RequestHandler requestHandler = new RequestHandler();
+            requestHandler.sendPostRequest(MainActivity.URL_CreateExam, params);
+        }
+
 
         eventlist.add(event);
         FirstScreen.tinyDB.putString("Exam", gson.toJson(eventlist));
@@ -2250,7 +2304,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
         }
     }
 
-
+    /*
     public void GradeClick(final View fragmentView, final Activity activity){
         final Button Grade = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Grade);
         Grade.setOnClickListener(new View.OnClickListener() {
@@ -2354,7 +2408,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
     }
 
 
-
+    */
 
 
 
