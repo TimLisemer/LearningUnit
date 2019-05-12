@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String URL_CreateHomework = ROOT_URL + "CreateHomework";
     public static final String URL_CreateExam = ROOT_URL + "CreateExam";
     public static final String URL_CreatePresentation = ROOT_URL + "CreatePresentation";
+    public static final String URL_Changegrade = ROOT_URL + "changeGrade";
+    public static final String URL_ChangeDone = ROOT_URL + "changeDone";
 
 
 
