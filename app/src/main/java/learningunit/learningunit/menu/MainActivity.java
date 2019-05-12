@@ -207,6 +207,14 @@ public class MainActivity extends AppCompatActivity {
 
         //Initialisieren der Knöpfe und rufen der OnClick methode
 
+        Button setting_back = (Button) findViewById(R.id.main_settings_back);
+        setting_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSettingsBack();
+            }
+        });
+
         newLogout = (Button) findViewById(R.id.main_newLogout);
         newLogout.setOnClickListener(new View.OnClickListener() {
             @Override
