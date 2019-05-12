@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "980930609690",
+    "firebase_url": "https://learning-unit.firebaseio.com",
+    "project_id": "learning-unit",
+    "storage_bucket": "learning-unit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980930609690:android:949520d1213956d8",
+        "android_client_info": {
+          "package_name": "learningunit.learningunit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980930609690-3auehbj2lngt5fjdkj0e5k5iasieul8q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYE_mN6pnw0lsYhg3zpCvA5m0OlMJaT-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "980930609690-3auehbj2lngt5fjdkj0e5k5iasieul8q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-2182452775939631~7797227952"
+    }
+  ],
+  "configuration_version": "1"
+}
