@@ -72,6 +72,16 @@ public class organizer_pictures extends AppCompatActivity {
             }
         });
 
+        Button test = (Button) findViewById(R.id.organizer_picture_test);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(organizer_pictures.this, GalleryPreview.class);
+                startActivity(intent);
+            }
+        });
+        /*
+
         galleryGridView = (GridView) findViewById(R.id.galleryGridView);
 
         int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
@@ -114,7 +124,7 @@ public class organizer_pictures extends AppCompatActivity {
 
 
 
-
+        */
     }
 
     public float convertDpToPx(Context context, float dp) {
