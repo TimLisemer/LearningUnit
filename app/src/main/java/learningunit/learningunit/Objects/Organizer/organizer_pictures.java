@@ -9,10 +9,12 @@ import android.database.MergeCursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,8 +52,7 @@ public class organizer_pictures extends AppCompatActivity {
     static GridView galleryGridView;
     static ArrayList<HashMap<String, String>> albumList = new ArrayList<HashMap<String, String>>();
     static Activity apli2;
-
-
+    ArrayList<String> filepath = new ArrayList<String>();
 
 
     @Override
@@ -61,7 +62,7 @@ public class organizer_pictures extends AppCompatActivity {
 
         apli2 = this;
 
-        Button back = (Button) findViewById(R.id.camera_back);
+        Button back = (Button) findViewById(R.id.organizer_picture_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,13 +92,51 @@ public class organizer_pictures extends AppCompatActivity {
         if(hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_KEY);
         }
+
+
+
+        Button test = (Button) findViewById(R.id.organizer_picture_test);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (android.os.Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+
+                    File albumdir = new File (Environment.getExternalStorageDirectory() + File.separator + "LearningUnit" + File.separator + "Pictures");
+                    walkdir(albumdir);
+
+                    for (String s : filepath){
+                        Log.d("ha", "s: "+s);
+                    }
+                }
+            }
+        });
+
+
+
+
+
     }
 
     public float convertDpToPx(Context context, float dp) {
         return dp * context.getResources().getDisplayMetrics().density;
     }
 
+    public void walkdir(File albumdir) {
+        File listFile[] = albumdir.listFiles();
 
+        if (listFile != null){
+            for (int i = 0; i < listFile.length; i++){
+
+                if (listFile[i].isDirectory()) {
+                    walkdir(listFile[i]);
+
+                } else {
+
+                    filepath.add(listFile[i].getAbsolutePath());
+                }
+            }
+        }
+    }
 
 
 }
