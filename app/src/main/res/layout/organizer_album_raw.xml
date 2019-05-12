@@ -13,8 +13,7 @@
             android:id="@+id/galleryImage"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:scaleType="centerCrop"
-            android:src=""/>
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -37,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:shadowColor="#000"
                     android:shadowRadius="7.0"
-                    android:text="This is some"
+                    android:text="etwas"
                     android:textColor="#ffffff"
                     android:textSize="14sp"
                     android:maxLines="1"
@@ -49,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:shadowColor="#000"
                     android:shadowRadius="7.0"
-                    android:text="This is some"
+                    android:text="etwas"
                     android:textColor="#ffffff"
                     android:textSize="12sp"
                     android:maxLines="1"

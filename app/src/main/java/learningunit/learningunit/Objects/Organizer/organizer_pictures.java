@@ -47,9 +47,11 @@ public class organizer_pictures extends AppCompatActivity {
 
     static final int REQUEST_PERMISSION_KEY = 1;
     LoadAlbum loadAlbumTask;
-    GridView galleryGridView;
+    static GridView galleryGridView;
     static ArrayList<HashMap<String, String>> albumList = new ArrayList<HashMap<String, String>>();
     static Activity apli2;
+
+
 
 
     @Override

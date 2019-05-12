@@ -16,6 +16,7 @@ import static learningunit.learningunit.Objects.Organizer.Function.KEY_PATH;
 import static learningunit.learningunit.Objects.Organizer.Function.KEY_TIMESTAMP;
 import static learningunit.learningunit.Objects.Organizer.Function.converToTime;
 import static learningunit.learningunit.Objects.Organizer.Function.mappingInbox;
+import static learningunit.learningunit.Objects.Organizer.organizer_pictures.galleryGridView;
 
 public class LoadAlbumImages extends AsyncTask<String, Void, String> {
 
@@ -61,11 +62,10 @@ public class LoadAlbumImages extends AsyncTask<String, Void, String> {
         SingleAlbumAdapter adapter = new SingleAlbumAdapter(organizer_album.apli, organizer_album.imageList);
         galleryGridView.setAdapter(adapter);
         galleryGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    final int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 Intent intent = new Intent(organizer_album.apli, GalleryPreview.class);
                 intent.putExtra("path", organizer_album.imageList.get(+position).get(KEY_PATH));
-                startActivity(intent);
+                organizer_album.apli.startActivity(intent);
             }
         });
     }

@@ -20,7 +20,7 @@ import static learningunit.learningunit.Objects.Organizer.Function.convertDpToPi
 public class organizer_album extends AppCompatActivity {
 
     static Activity apli;
-    GridView galleryGridView;
+    static GridView galleryGridView;
     static ArrayList<HashMap<String, String>> imageList = new ArrayList<HashMap<String, String>>();
     static String album_name = "";
     LoadAlbumImages loadAlbumTask;
@@ -32,14 +32,16 @@ public class organizer_album extends AppCompatActivity {
 
         apli = this;
         Intent intent = getIntent();
-        album_name = intent.getStringExtra("name");
+        album_name = intent.getStringExtra("Album");
         setTitle(album_name);
 
 
         galleryGridView = (GridView) findViewById(R.id.galleryGridView);
+
         int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
         Resources resources = getApplicationContext().getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
+
         float dp = iDisplayWidth / (metrics.densityDpi / 160f);
 
         if(dp < 360)

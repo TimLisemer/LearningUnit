@@ -19,6 +19,7 @@ import static learningunit.learningunit.Objects.Organizer.Function.KEY_TIMESTAMP
 import static learningunit.learningunit.Objects.Organizer.Function.converToTime;
 import static learningunit.learningunit.Objects.Organizer.Function.getCount;
 import static learningunit.learningunit.Objects.Organizer.Function.mappingInbox;
+import static learningunit.learningunit.Objects.Organizer.organizer_album.galleryGridView;
 
 public class LoadAlbum extends AsyncTask<String, Void, String> {
 
@@ -42,6 +43,7 @@ public class LoadAlbum extends AsyncTask<String, Void, String> {
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.MediaColumns.DATE_MODIFIED };
 
         Cursor cursorExternal = organizer_album.apli.getContentResolver().query(uriExternal, projection, "_data IS NOT NULL) GROUP BY (bucket_display_name", null, null);
+        Cursor cursorInternal = organizer_album.apli.getContentResolver().query(uriInternal, projection, "_data IS NOT NULL) GROUP BY (bucket_display_name", null, null);
 
         Cursor cursor = new MergeCursor(new Cursor[]{cursorExternal, cursorInternal});
 
@@ -59,21 +61,20 @@ public class LoadAlbum extends AsyncTask<String, Void, String> {
         return xml;
 
 
-        @Override
-        protected void onPostExecute(String xml) {
+    }
 
-            AlbumAdapter adapter = new AlbumAdapter(organizer_pictures.apli2, organizer_pictures.albumList);
-            galleryGridView.setAdapter(adapter);
-            galleryGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View view,
-                                        final int position, long id) {
-                    Intent intent = new Intent(organizer_pictures.apli2, organizer_album.class);
-                    intent.putExtra("name", organizer_pictures.albumList.get(+position).get(KEY_ALBUM));
-                    startActivity(intent);
-                }
-            });
-        }
+    @Override
+    protected void onPostExecute(String xml) {
 
+        AlbumAdapter adapter = new AlbumAdapter(organizer_pictures.apli2, organizer_pictures.albumList);
+        galleryGridView.setAdapter(adapter);
+        galleryGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                Intent intent = new Intent(organizer_pictures.apli2, organizer_album.class);
+                intent.putExtra("name", organizer_pictures.albumList.get(+position).get(KEY_ALBUM));
+                organizer_pictures.apli2.startActivity(intent);
+            }
+        });
     }
 
 }

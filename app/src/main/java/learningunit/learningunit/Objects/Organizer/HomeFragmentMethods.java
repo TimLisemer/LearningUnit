@@ -207,10 +207,12 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
         Button PicOverview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
         PicOverview.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
-
+                Intent intent = new Intent(activity, organizer_pictures.class);
+                activity.startActivity(intent);
 
             }
         });
