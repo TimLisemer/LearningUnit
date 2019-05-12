@@ -3,22 +3,15 @@ package learningunit.learningunit.Objects.Organizer;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 import android.graphics.Matrix;
-
-import com.bumptech.glide.Glide;
-
 import java.io.File;
-import java.io.IOException;
-
 import learningunit.learningunit.R;
 
-import static android.graphics.ImageFormat.JPEG;
+
 
 public class GalleryPreview extends AppCompatActivity {
 
