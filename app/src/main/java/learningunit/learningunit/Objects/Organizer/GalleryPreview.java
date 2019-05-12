@@ -58,4 +58,4 @@ public class GalleryPreview extends AppCompatActivity {
 
 
 
-}
+
