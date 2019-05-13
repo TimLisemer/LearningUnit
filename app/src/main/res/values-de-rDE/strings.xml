@@ -247,4 +247,6 @@
     <string name="DeleteImage">Bild Löschen</string>
     <string name="EnterGradeMessage">Gebe eine Note ein um sie zu speichern</string>
     <string name="DataTransfer">Daten Übertragung</string>
+    <string name="WithoutAccount">Ohne Konto</string>
+    <string name="WarningWithoutAccount">Wenn du kein Account erstellt, bist du nicht sicher vor Verlust deiner Daten. Willst du trotzdem fortfahren?</string>
 </resources>

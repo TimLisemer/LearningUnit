@@ -191,7 +191,7 @@
         android:id="@+id/login_ScrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -316,7 +316,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/login_back1"
                 app:layout_constraintVertical_bias="0.098" />
 
-
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
@@ -324,12 +323,44 @@
         android:id="@+id/first_scrollview1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.39">
+
+        <ImageView
+            android:id="@+id/first_imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/sa_balken_logotest" />
+
+        <TextView
+            android:id="@+id/first_textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/WithoutAccount"
+            android:textAlignment="center"
+            android:textColor="@color/TEXT_WHITE"
+            android:textColorLink="@color/TEXT_WHITE"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/first_imageView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/first_layout1"
@@ -391,7 +422,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text=" BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist"
+                android:text="@string/WarningWithoutAccount"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -400,19 +431,6 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="62dp"
-            android:layout_marginBottom="8dp"
-            android:scaleType="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@mipmap/sa_balken_logo_notext" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
