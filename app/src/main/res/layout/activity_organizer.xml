@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            android:visibility="visible"
+            android:visibility="gone"
             app:headerLayout="@layout/nav_header_organizer"
             app:menu="@menu/activity_organizer_drawer" />
 

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -80,7 +81,6 @@ public class Vokabeln extends AppCompatActivity {
     private static Context context;
 
     //Lernbereich
-
     private static Button learn_back, learn_enter, learn_showtranslation, learn_right, learn_wrong;
 
     private static TextView learn_level0Score, learn_level1Score, learn_level2Score, learn_level3Score, learn_level4Score,
@@ -346,9 +346,14 @@ public class Vokabeln extends AppCompatActivity {
             if(yourlistsString.size() > 0) {
                 layout.setVisibility(View.VISIBLE);
                 yourBase.setText(yourlistsString.get(0));
+                yourBase.setTextColor(Color.WHITE);
+                yourBase.setBackground(getDrawable(R.drawable.sa_button1));
                 downyourLists = new Button[yourlistsString.size()];
+
                 for (int i = 1; i < yourlistsString.size(); i++) {
                     downyourLists[i] = new Button(Vokabeln.this);
+                    downyourLists[i].setTextColor(Color.WHITE);
+                    downyourLists[i].setBackground(getDrawable(R.drawable.sa_button1));
 
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
@@ -401,11 +406,15 @@ public class Vokabeln extends AppCompatActivity {
             if(followedlistsString.size() > 0){
                 layout0.setVisibility(View.VISIBLE);
                 followbase.setText(followedlistsString.get(0));
+                followbase.setTextColor(Color.WHITE);
+                followbase.setBackground(getDrawable(R.drawable.sa_button1));
 
                 int offset = yourlistsString.size();
                 downfollowedLists = new Button[followedlistsString.size()];
                 for (int i = 1; i < followedlistsString.size(); i++) {
                     downfollowedLists[i] = new Button(Vokabeln.this);
+                    downfollowedLists[i].setTextColor(Color.WHITE);
+                    downfollowedLists[i].setBackground(getDrawable(R.drawable.sa_button1));
 
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
@@ -480,11 +489,14 @@ public class Vokabeln extends AppCompatActivity {
 
             if(languageslistsString.size() > 0){
                 allBase.setText(languageslistsString.get(0).replace("AllVoc_", ""));
-
+                allBase.setTextColor(Color.WHITE);
+                allBase.setBackground(getDrawable(R.drawable.sa_button1));
                 int offset = languageslistsString.size() + 3597874;
                 Button[] downallLists = new Button[languageslistsString.size()];
                 for (int i = 1; i < languageslistsString.size(); i++) {
                     downallLists[i] = new Button(Vokabeln.this);
+                    downallLists[i].setTextColor(Color.WHITE);
+                    downallLists[i].setBackground(getDrawable(R.drawable.sa_button1));
 
                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
