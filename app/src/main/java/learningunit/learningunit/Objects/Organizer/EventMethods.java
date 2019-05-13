@@ -5,10 +5,13 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class EventMethods {
+
+    public static File fullscreen;
 
     public static ArrayList<Event> SortEventList(ArrayList<Event> elist){
         ArrayList<Event> eventlist = elist;

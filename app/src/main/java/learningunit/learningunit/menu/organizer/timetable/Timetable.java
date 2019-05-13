@@ -103,6 +103,8 @@ public class Timetable extends AppCompatActivity {
         MainActivity.hideKeyboard(this);
         setContentView(R.layout.activity_timetable);
 
+        weekly = findViewById(R.id.Timetable_weekly);
+
         createNew = findViewById(R.id.timetable_createNew);
         createNew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,9 +181,6 @@ public class Timetable extends AppCompatActivity {
                 opencreate_cancel();
             }
         });
-
-        mute = (CheckBox) findViewById(R.id.Timetable_mute);
-        weekly = (CheckBox) findViewById(R.id.Timetable_weekly);
 
         dayEditName = (EditText) findViewById(R.id.timetable_dayEditName);
 

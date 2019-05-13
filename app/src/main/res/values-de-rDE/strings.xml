@@ -241,4 +241,8 @@
     <string name="Creator">Ersteller</string>
     <string name="NoImageInfo">Es wurde noch kein Bild aufgenommen</string>
     <string name="NoImageInfo2">Erstelle jetzt eins</string>
+    <string name="WeeklyChanging">Wöchentlich wechselnder Stundenplan?</string>
+    <string name="DeleteImageTitle">Bild Löschen?</string>
+    <string name="DeleteImageQuestion">Bist du sicher, dass du dieses Bild endgültig löschen möchtest?</string>
+    <string name="DeleteImage">Bild Löschen</string>
 </resources>

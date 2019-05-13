@@ -241,4 +241,8 @@
     <string name="Creator">Creator</string>
     <string name="NoImageInfo">No picture has been taken yet</string>
     <string name="NoImageInfo2">Create one now</string>
+    <string name="WeeklyChanging">Weekly changing timetable?</string>
+    <string name="DeleteImageTitle">Delete Image?</string>
+    <string name="DeleteImageQuestion">Are you sure you want to permanently delete this image?</string>
+    <string name="DeleteImage">Delete Image</string>
 </resources>
