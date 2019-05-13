@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_organizer_home_RootLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg">
 
 
     <ScrollView
         android:id="@+id/fragment_organizer_home_EnterNewCertificateScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +22,7 @@
             android:id="@+id/fragment_organizer_home_EnterNewCertificate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +44,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="TextView"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -60,6 +63,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/Titel"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -76,6 +80,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="@string/Titel"
                 android:inputType="textPersonName"
@@ -95,6 +100,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/Description"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -112,10 +118,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="@string/Description"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -125,12 +133,14 @@
 
             <Button
                 android:id="@+id/fragment_organizer_home_EnterNewCertificate_back"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="80dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:background="@mipmap/button_basic"
                 android:text="@string/Back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/fragment_organizer_home_EnterNewCertificate_Guideline"
@@ -140,12 +150,14 @@
 
             <Button
                 android:id="@+id/fragment_organizer_home_EnterNewCertificate_finish"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="80dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
+                android:background="@mipmap/button_basic"
                 android:text="@string/Next"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -225,6 +237,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Grade_Certificate"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -240,6 +253,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Grade_Exam"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -255,6 +269,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Grade_Presentation"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -300,6 +315,7 @@
         android:id="@+id/fragment_organizer_home_MainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@mipmap/bg"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -331,6 +347,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Bilder"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -343,6 +360,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Presentation"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -358,6 +376,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_hausaufgaben"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -371,6 +390,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_arbeiten"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -419,6 +439,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Homework_OverviewSelection"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -434,6 +455,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Homework_CreateSelection"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -488,6 +510,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="@string/HomeworkOverview"
+            android:textColor="@color/TEXT_WHITE"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -586,6 +609,7 @@
                 android:layout_marginTop="16dp"
                 android:lineSpacingExtra="14sp"
                 android:text="@string/EnterNewHomework"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -608,6 +632,7 @@
 
             <Button
                 android:id="@+id/organizer_NewEventNext"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -624,6 +649,7 @@
 
             <Button
                 android:id="@+id/organizer_NewEventBack"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -645,6 +671,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/DutyDate"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -690,7 +717,7 @@
                 android:id="@+id/fragment_organizer_home_SubjectSelection_UP"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="#FFFFFF	"
+                android:background="@mipmap/bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -703,6 +730,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="16dp"
+                    android:background="@color/TEXT_WHITE"
                     android:text="@string/Timetable"
                     android:textAlignment="center"
                     android:textSize="18sp"
@@ -726,10 +754,14 @@
                         android:id="@+id/fragment_organizer_home_SubjectSelection_TextInput"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
+                        android:background="@color/TEXT_WHITE"
                         android:hint="Stundenname"
                         android:textAlignment="center"
+                        android:textColor="@color/OhneKonto"
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -748,6 +780,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@string/CustomHourName"
                     android:textAlignment="center"
+                    android:textColor="@color/TEXT_WHITE"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:visibility="visible"
@@ -757,6 +790,7 @@
 
                 <Button
                     android:id="@+id/fragment_organizer_home_SubjectSelection_Back"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -770,6 +804,7 @@
 
                 <Button
                     android:id="@+id/fragment_organizer_home_SubjectSelection_Next"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -797,6 +832,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="Stunde"
                     android:textAlignment="center"
+                    android:textColor="@color/TEXT_WHITE"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -845,6 +881,7 @@
 
                     <Button
                         android:id="@+id/fragment_organizer_home_SubjectSelection_DOWN_Base1"
+                        style="@style/Fynnx_Buttons"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -858,6 +895,7 @@
 
                     <Button
                         android:id="@+id/fragment_organizer_home_SubjectSelection_DOWN_Base2"
+                        style="@style/Fynnx_Buttons"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -908,6 +946,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/NoHourNameChosen"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -922,6 +961,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/Titel"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -936,6 +976,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/Description"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -950,6 +991,7 @@
                 android:layout_marginTop="16dp"
                 android:lineSpacingExtra="14sp"
                 android:text="@string/EnterNewHomework"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -968,6 +1010,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:text="Datum"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -976,6 +1019,7 @@
 
             <Button
                 android:id="@+id/fragment_organizer_home_NewHomework_Next"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -989,6 +1033,7 @@
 
             <Button
                 android:id="@+id/fragment_organizer_home_NewHomework_Back"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -1023,6 +1068,7 @@
                     android:id="@+id/fragment_organizer_home_NewHomework_TitelInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/TEXT_WHITE"
                     android:hint="@string/Titel"
                     android:textAlignment="center" />
             </android.support.design.widget.TextInputLayout>
@@ -1034,6 +1080,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="@string/Description"
                 android:inputType="textMultiLine"
@@ -1045,6 +1092,7 @@
 
             <Button
                 android:id="@+id/fragment_organizer_home_NewHomework_HourSelection"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -1085,7 +1133,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/TEXT_WHITE"
                 android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -1096,7 +1144,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/TEXT_WHITE"
                 android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -1107,7 +1155,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/TEXT_WHITE"
                 android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -1118,7 +1166,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/TEXT_WHITE"
                 android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -1133,6 +1181,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/EnterNewHomework"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -1148,6 +1197,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/Overview"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -1156,6 +1206,7 @@
 
             <Button
                 android:id="@+id/fragment_organizer_home_HomeworkFinish_Back"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -1169,6 +1220,7 @@
 
             <Button
                 android:id="@+id/fragment_organizer_home_HomeworkFinish_Finish"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -1196,6 +1248,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/Date"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -1211,6 +1264,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="TextView"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -1226,6 +1280,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/Hour"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -1241,6 +1296,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="TextView"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -1265,6 +1321,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="TextView"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -1280,6 +1337,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="TextView"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
