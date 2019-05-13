@@ -247,4 +247,6 @@
     <string name="DeleteImage">Delete Image</string>
     <string name="EnterGradeMessage">Enter a Grade to save it</string>
     <string name="DataTransfer">Data Transfer</string>
+    <string name="WithoutAccount">Without Account</string>
+    <string name="WarningWithoutAccount">If you do not create an account, you are not safe from losing your data. Do you still want to continue?</string>
 </resources>
