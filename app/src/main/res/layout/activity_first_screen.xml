@@ -195,7 +195,7 @@
         android:id="@+id/login_ScrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -245,8 +245,9 @@
 
             <Button
                 android:id="@+id/login_decline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Fynnx_Buttons"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
@@ -258,8 +259,8 @@
 
             <Button
                 android:id="@+id/login_accept"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
@@ -267,11 +268,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.75"
                 app:layout_constraintStart_toStartOf="@+id/login_info2"
-                app:layout_constraintTop_toBottomOf="@+id/login_info2" />
+                app:layout_constraintTop_toBottomOf="@+id/login_info2"
+                style="@style/Fynnx_Buttons"/>
 
             <Button
                 android:id="@+id/login_back1"
-                android:layout_width="wrap_content"
+                android:layout_width="55dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -308,7 +310,7 @@
         android:id="@+id/first_scrollview1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
