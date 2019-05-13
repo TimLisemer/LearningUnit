@@ -14,7 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -1045,7 +1045,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/main_mainLayout0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -1112,6 +1112,7 @@
 
         <Button
             android:id="@+id/main_learn_formular"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -1119,7 +1120,6 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/Formulars"
-            style="@style/Fynnx_Buttons"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline56"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -1127,6 +1127,7 @@
 
         <Button
             android:id="@+id/main_learn_vocabulary1"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -1134,7 +1135,6 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/Vocabularys"
-            style="@style/Fynnx_Buttons"
             app:layout_constraintBottom_toTopOf="@+id/guideline49"
             app:layout_constraintEnd_toStartOf="@+id/guideline56"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
