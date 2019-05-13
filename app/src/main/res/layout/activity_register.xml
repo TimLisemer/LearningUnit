@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/sa_bg_white"
     tools:context="learningunit.learningunit.beforeStart.Register">
 
     <android.support.constraint.ConstraintLayout
@@ -134,11 +135,12 @@
             <EditText
                 android:id="@+id/register_username"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:background="@mipmap/sa_textbalken"
                 android:ems="10"
                 android:hint="Benutzername"
                 android:inputType="textPersonName"
@@ -153,10 +155,11 @@
             <EditText
                 android:id="@+id/register_password"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@mipmap/sa_textbalken"
                 android:ems="10"
                 android:hint="Passwort"
                 android:inputType="textPassword"
@@ -168,10 +171,11 @@
             <EditText
                 android:id="@+id/register_password1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@mipmap/sa_textbalken"
                 android:ems="10"
                 android:hint="Passwort wiederholen"
                 android:inputType="textPassword"
@@ -183,10 +187,11 @@
             <EditText
                 android:id="@+id/register_email"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@mipmap/sa_textbalken"
                 android:ems="10"
                 android:hint="E-Mail"
                 android:inputType="textEmailAddress"
@@ -212,11 +217,13 @@
 
             <Button
                 android:id="@+id/register_back"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="79dp"
+                android:layout_height="55dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:background="@mipmap/sa_arrow"
                 android:text="Zurück"
+                android:textColor="@color/TEXT_WHITE"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -247,8 +254,18 @@
                 android:text="Registrieren"
                 app:layout_constraintEnd_toEndOf="@+id/register_password1"
                 app:layout_constraintStart_toStartOf="@+id/register_password1"
-                app:layout_constraintTop_toBottomOf="@+id/register_checkBox" />
+                app:layout_constraintTop_toBottomOf="@+id/register_checkBox"
+                style="@style/Fynnx_Buttons"/>
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:srcCompat="@mipmap/sa_balken_logo_notext" />
 
 </android.support.constraint.ConstraintLayout>
