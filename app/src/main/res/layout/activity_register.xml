@@ -132,6 +132,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <Button
+                android:id="@+id/register_back"
+                android:layout_width="66dp"
+                android:layout_height="61dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/sa_arrow_back_white_24dp"
+                android:text=""
+                android:textColor="@color/TEXT_WHITE"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/register_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="62dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@mipmap/sa_balken_logo_notext" />
+
             <EditText
                 android:id="@+id/register_username"
                 android:layout_width="wrap_content"
@@ -214,30 +244,6 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/register_password1"
                 app:layout_constraintTop_toBottomOf="@+id/register_error" />
-
-            <Button
-                android:id="@+id/register_back"
-                android:layout_width="66dp"
-                android:layout_height="61dp"
-                android:background="@drawable/sa_arrow_back_white_24dp"
-                android:text=""
-                android:textColor="@color/TEXT_WHITE"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/register_imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="62dp"
-                android:layout_marginBottom="8dp"
-                android:scaleType="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@mipmap/sa_balken_logo_notext" />
 
             <TextView
                 android:id="@+id/register_error"

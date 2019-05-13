@@ -246,4 +246,5 @@
     <string name="DeleteImageQuestion">Are you sure you want to permanently delete this image?</string>
     <string name="DeleteImage">Delete Image</string>
     <string name="EnterGradeMessage">Enter a Grade to save it</string>
+    <string name="DataTransfer">Data Transfer</string>
 </resources>
