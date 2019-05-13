@@ -248,5 +248,6 @@
     <string name="EnterGradeMessage">Enter a Grade to save it</string>
     <string name="DataTransfer">Data Transfer</string>
     <string name="WithoutAccount">Without Account</string>
-    <string name="WarningWithoutAccount">If you do not create an account, you are not safe from losing your data. Do you still want to continue?</string>
+    <string name="WarningWithoutAccount">An account offers you many advantages such as:\n\nSaving your data to protect it from loss.\n\nRetrieve your data from different devices to learn on even more devices.\n\nSharing information such as timetable and vocabulary lists with your friends.\n\nAccess to public vocabulary lists.</string>
+    <string name="Register">To Register</string>
 </resources>
