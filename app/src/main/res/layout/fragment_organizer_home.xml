@@ -7,6 +7,129 @@
     android:layout_height="match_parent">
 
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/fragment_organizer_home_MainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline71"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline72"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <Button
+            android:id="@+id/fragment_organizer_home_Bilder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/sa_button"
+            android:text="@string/Pictures"
+            android:textColor="@color/TEXT_WHITE"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline34"
+            app:layout_constraintStart_toStartOf="@+id/guideline33"
+            app:layout_constraintTop_toTopOf="@+id/guideline72" />
+
+        <Button
+            android:id="@+id/fragment_organizer_home_Presentation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/sa_button"
+            android:text="@string/Presentations"
+            android:textColor="@color/TEXT_WHITE"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/guideline72"
+            app:layout_constraintEnd_toStartOf="@+id/guideline34"
+            app:layout_constraintStart_toStartOf="@+id/guideline33"
+            app:layout_constraintTop_toTopOf="@+id/guideline71"
+            app:layout_constraintVertical_bias="0.35000002"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <Button
+            android:id="@+id/fragment_organizer_home_hausaufgaben"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/sa_button"
+            android:text="@string/Homework"
+            android:textColor="@color/TEXT_WHITE"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/guideline29"
+            app:layout_constraintEnd_toStartOf="@+id/guideline34"
+            app:layout_constraintStart_toStartOf="@+id/guideline33"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <Button
+            android:id="@+id/fragment_organizer_home_arbeiten"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/sa_button"
+            android:text="@string/Exam"
+            android:textColor="@color/TEXT_WHITE"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/guideline71"
+            app:layout_constraintEnd_toStartOf="@+id/guideline34"
+            app:layout_constraintStart_toStartOf="@+id/guideline33"
+            app:layout_constraintTop_toTopOf="@+id/guideline29"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="0dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="0dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+    </android.support.constraint.ConstraintLayout>
+
     <ScrollView
         android:id="@+id/fragment_organizer_home_EnterNewCertificateScrollView"
         android:layout_width="match_parent"
@@ -131,7 +254,10 @@
                 android:layout_marginTop="80dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Back"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/fragment_organizer_home_EnterNewCertificate_Guideline"
                 app:layout_constraintStart_toStartOf="parent"
@@ -146,7 +272,10 @@
                 android:layout_marginTop="80dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Next"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/fragment_organizer_home_EnterNewCertificate_Guideline"
@@ -297,117 +426,6 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/fragment_organizer_home_MainLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="0dp"
-        tools:layout_conversion_absoluteWidth="0dp">
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline29"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline71"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline72"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.75" />
-
-        <Button
-            android:id="@+id/fragment_organizer_home_Bilder"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/Pictures"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline34"
-            app:layout_constraintStart_toStartOf="@+id/guideline33"
-            app:layout_constraintTop_toTopOf="@+id/guideline72" />
-
-        <Button
-            android:id="@+id/fragment_organizer_home_Presentation"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/Presentations"
-            app:layout_constraintBottom_toTopOf="@+id/guideline72"
-            app:layout_constraintEnd_toStartOf="@+id/guideline34"
-            app:layout_constraintStart_toStartOf="@+id/guideline33"
-            app:layout_constraintTop_toTopOf="@+id/guideline71"
-            app:layout_constraintVertical_bias="0.35000002"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp" />
-
-        <Button
-            android:id="@+id/fragment_organizer_home_hausaufgaben"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/Homework"
-            app:layout_constraintBottom_toTopOf="@+id/guideline29"
-            app:layout_constraintEnd_toStartOf="@+id/guideline34"
-            app:layout_constraintStart_toStartOf="@+id/guideline33"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp" />
-
-        <Button
-            android:id="@+id/fragment_organizer_home_arbeiten"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/Exam"
-            app:layout_constraintBottom_toTopOf="@+id/guideline71"
-            app:layout_constraintEnd_toStartOf="@+id/guideline34"
-            app:layout_constraintStart_toStartOf="@+id/guideline33"
-            app:layout_constraintTop_toTopOf="@+id/guideline29"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline33"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.2"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline34"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.8"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
         android:id="@+id/fragment_organizer_home_HomeworkSelection"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -425,7 +443,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:background="@drawable/sa_button"
             android:text="@string/HomeworkOverview"
+            android:textColor="@color/TEXT_WHITE"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline43"
             app:layout_constraintEnd_toStartOf="@+id/guideline44"
             app:layout_constraintStart_toStartOf="@+id/guideline45"
@@ -440,7 +461,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:background="@drawable/sa_button"
             android:text="@string/EnterNewHomework"
+            android:textColor="@color/TEXT_WHITE"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline44"
             app:layout_constraintStart_toStartOf="@+id/guideline45"
@@ -614,7 +638,10 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Next"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline40"
@@ -630,7 +657,10 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Back"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline40"
                 app:layout_constraintHorizontal_bias="0.625"
@@ -762,7 +792,10 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
+                    android:background="@drawable/sa_button"
                     android:text="@string/Back"
+                    android:textColor="@color/TEXT_WHITE"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/fragment_organizer_home_SubjectSelection_Guideline1"
                     app:layout_constraintHorizontal_bias="0.15"
                     app:layout_constraintStart_toStartOf="parent"
@@ -775,7 +808,10 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
+                    android:background="@drawable/sa_button"
                     android:text="@string/Next"
+                    android:textColor="@color/TEXT_WHITE"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.867"
                     app:layout_constraintStart_toStartOf="@+id/fragment_organizer_home_SubjectSelection_Guideline1"
@@ -850,7 +886,10 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
+                        android:background="@drawable/sa_button"
                         android:text="Button"
+                        android:textColor="@color/TEXT_WHITE"
+                        android:textStyle="bold"
                         android:visibility="visible"
                         app:layout_constraintEnd_toStartOf="@+id/fragment_organizer_home_SubjectSelection_Guideline2"
                         app:layout_constraintStart_toStartOf="parent"
@@ -863,7 +902,10 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
+                        android:background="@drawable/sa_button"
                         android:text="Button"
+                        android:textColor="@color/TEXT_WHITE"
+                        android:textStyle="bold"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/fragment_organizer_home_SubjectSelection_Guideline2"
@@ -981,7 +1023,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Next"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline41"
@@ -994,7 +1039,10 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Back"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/guideline41"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -1050,7 +1098,10 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="64dp"
                 android:layout_marginEnd="32dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/ChooseHour"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_organizer_home_NewHomework_DescriptionInput" />
@@ -1161,7 +1212,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Back"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/fragment_organizer_home_HomeworkFinish_Guideline"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -1174,7 +1228,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Finish"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/fragment_organizer_home_HomeworkFinish_Guideline"

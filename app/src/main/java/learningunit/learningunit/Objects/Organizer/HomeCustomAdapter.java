@@ -554,7 +554,7 @@ public class HomeCustomAdapter extends BaseAdapter {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setCancelable(true);
         builder.setTitle(activity.getResources().getString(R.string.EnterGrade));
-        builder.setMessage(activity.getResources().getString(R.string.TimetableEnterID));
+        builder.setMessage(activity.getResources().getString(R.string.EnterGradeMessage));
 
         final LinearLayout editLayout = new LinearLayout(activity);
         final EditText editNumber = new EditText(activity);

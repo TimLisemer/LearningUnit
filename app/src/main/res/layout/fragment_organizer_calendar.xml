@@ -85,7 +85,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:visibility="visible"
-            app:compactCalendarBackgroundColor="#FFFF"
+            app:compactCalendarBackgroundColor="#fafafa"
             app:compactCalendarCurrentDayBackgroundColor="#B71C1C"
             app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
             app:compactCalendarMultiEventIndicatorColor="#000"
