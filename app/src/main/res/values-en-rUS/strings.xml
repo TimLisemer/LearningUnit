@@ -239,4 +239,6 @@
     <string name="TakeAPic">Take a Picture</string>
     <string name="PicOverview">Picture Overview</string>
     <string name="Creator">Creator</string>
+    <string name="NoImageInfo">No picture has been taken yet</string>
+    <string name="NoImageInfo2">Create one now</string>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
@@ -31,6 +32,7 @@ import com.google.gson.reflect.TypeToken;
 
 import org.joda.time.DateTime;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
     public static Boolean HourChosen = false;
     public static Button downHour[];
     public static Button downHour1[];
+    ArrayList<String> filepath= new ArrayList<String>();
 
     public HomeFragmentMethods(final View fragmentView, final Activity activity) {
         start(fragmentView, activity);
@@ -207,10 +210,11 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
         Button PicOverview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
         PicOverview.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-
-
+                Intent intent = new Intent(activity, organizer_pictures.class);
+                activity.startActivity(intent);
 
             }
         });
@@ -219,8 +223,27 @@ public class HomeFragmentMethods extends AppCompatActivity {
     }
 
 
+    public void walkdir(File dir) {
+        File listFile[] = dir.listFiles();
 
-    private void PresentationClick(final View fragmentView, final Activity activity){
+        if (listFile != null) {
+            for (int i = 0; i < listFile.length; i++) {
+
+                if (listFile[i].isDirectory()) {// if its a directory need to get the files under that directory
+                    walkdir(listFile[i]);
+                } else {// add path of  files to your arraylist for later use
+
+                    //Do what ever u want
+                    filepath.add(listFile[i].getAbsolutePath());
+
+                }
+            }
+        }
+    }
+
+
+
+        private void PresentationClick(final View fragmentView, final Activity activity){
         startCondition = 0;
         MainActivity.hideKeyboard(activity);
         final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);

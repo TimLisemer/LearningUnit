@@ -20,7 +20,10 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
+import learningunit.learningunit.Objects.API.ManageData;
+import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.R;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.MainActivity;
@@ -326,9 +329,43 @@ public class HomeCustomAdapter extends BaseAdapter {
                                 if (h.getDone()) {
                                     done.setText(activity.getResources().getString(R.string.NotDone));
                                     h.setDone(false);
+
+                                    if(ManageData.OfflineAccount == 2 && ManageData.InternetAvailable(activity)) {
+                                        LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                                        params.put("u_id", ManageData.getUserID() + "");
+                                        params.put("day", h.getDay() + "");
+                                        params.put("month", h.getMonth() + "");
+                                        params.put("year", h.getYear() + "");
+                                        params.put("title", h.getTitle() + "");
+                                        params.put("desc", h.getDescription() + "");
+                                        params.put("hour_name", h.getHour().getName() + "");
+                                        String ColorCode = h.getHour().getColorCode();
+                                        ColorCode = ColorCode.replaceFirst("#", "");
+                                        params.put("color", ColorCode);
+                                        params.put("done", "false");
+                                        RequestHandler requestHandler = new RequestHandler();
+                                        requestHandler.sendPostRequest(MainActivity.URL_ChangeDone, params);
+                                    }
+
                                 } else {
                                     done.setText(activity.getResources().getString(R.string.Done));
                                     h.setDone(true);
+                                    if(ManageData.OfflineAccount == 2 && ManageData.InternetAvailable(activity)) {
+                                        LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                                        params.put("u_id", ManageData.getUserID() + "");
+                                        params.put("day", h.getDay() + "");
+                                        params.put("month", h.getMonth() + "");
+                                        params.put("year", h.getYear() + "");
+                                        params.put("title", h.getTitle() + "");
+                                        params.put("desc", h.getDescription() + "");
+                                        params.put("hour_name", h.getHour().getName() + "");
+                                        String ColorCode = h.getHour().getColorCode();
+                                        ColorCode = ColorCode.replaceFirst("#", "");
+                                        params.put("color", ColorCode);
+                                        params.put("done", "true");
+                                        RequestHandler requestHandler = new RequestHandler();
+                                        requestHandler.sendPostRequest(MainActivity.URL_ChangeDone, params);
+                                    }
                                 }
                                 Gson gson = new Gson();
                                 for(Homework ha : CompleteHA){
@@ -548,6 +585,24 @@ public class HomeCustomAdapter extends BaseAdapter {
                     Gson gson = new Gson();
                     if(event instanceof Exam){
                         ((Exam) event).setGrade(Integer.parseInt(editNumber.getText().toString()));
+                        if(ManageData.OfflineAccount == 2 && ManageData.InternetAvailable(activity)) {
+                            LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                            params.put("u_id", ManageData.getUserID() + "");
+                            params.put("day", event.getDay() + "");
+                            params.put("month", event.getMonth() + "");
+                            params.put("year", event.getYear() + "");
+                            params.put("title", event.getTitle() + "");
+                            params.put("desc", event.getDescription() + "");
+                            Exam exa = (Exam) event;
+                            params.put("hour_name", exa.getHour().getName() + "");
+                            String ColorCode = exa.getHour().getColorCode();
+                            ColorCode = ColorCode.replaceFirst("#", "");
+                            params.put("color", ColorCode);
+                            params.put("grade", editNumber.getText().toString());
+                            params.put("GradeExam", "0");
+                            RequestHandler requestHandler = new RequestHandler();
+                            requestHandler.sendPostRequest(MainActivity.URL_Changegrade, params);
+                        }
                         ex.remove(pos);
                         ex.add((Exam) event);
                         Exam exam = (Exam) event;
@@ -559,6 +614,24 @@ public class HomeCustomAdapter extends BaseAdapter {
                         FirstScreen.tinyDB.putString("Exam", gson.toJson(CompleteEX));
                     }else if(event instanceof Presentation){
                         ((Presentation) event).setGrade(Integer.parseInt(editNumber.getText().toString()));
+                        if(ManageData.OfflineAccount == 2 && ManageData.InternetAvailable(activity)) {
+                            LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                            params.put("u_id", ManageData.getUserID() + "");
+                            params.put("day", event.getDay() + "");
+                            params.put("month", event.getMonth() + "");
+                            params.put("year", event.getYear() + "");
+                            params.put("title", event.getTitle() + "");
+                            params.put("desc", event.getDescription() + "");
+                            Presentation exa = (Presentation) event;
+                            params.put("hour_name", exa.getHour().getName() + "");
+                            String ColorCode = exa.getHour().getColorCode();
+                            ColorCode = ColorCode.replaceFirst("#", "");
+                            params.put("color", ColorCode);
+                            params.put("grade", editNumber.getText().toString());
+                            params.put("GradeExam", "1");
+                            RequestHandler requestHandler = new RequestHandler();
+                            requestHandler.sendPostRequest(MainActivity.URL_Changegrade, params);
+                        }
                         pr.remove(pos);
                         pr.add((Presentation) event);
                         Presentation presentation = (Presentation) event;
