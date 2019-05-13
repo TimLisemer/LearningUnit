@@ -218,6 +218,7 @@ public class organizer_camera extends AppCompatActivity {
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
+
     }
 
     CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
