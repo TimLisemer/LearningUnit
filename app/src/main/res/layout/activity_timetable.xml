@@ -21,7 +21,7 @@
             android:id="@+id/timetable_createScrollviewLayout0"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -172,6 +172,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/HourCount"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/guideline21"
@@ -187,6 +188,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/CreateTimetable"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="22sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -204,6 +206,7 @@
                 android:text="@string/DayCount"
                 android:textAlignment="center"
                 android:textAllCaps="false"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -221,6 +224,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Wöchentlich wechselnder Stundenplan?"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -235,6 +239,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Smartphone während aktiver Stunde Stummschalten?"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -243,6 +248,7 @@
 
             <Button
                 android:id="@+id/timetable_createBack"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -259,6 +265,7 @@
 
             <Button
                 android:id="@+id/timetable_createNext"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -294,6 +301,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="0"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/guideline21"
@@ -321,6 +329,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="0"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/guideline21"
@@ -365,6 +374,7 @@
 
                 <Button
                     android:id="@+id/timetable_addDayBase"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
@@ -393,6 +403,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
+                        android:background="@color/TEXT_WHITE"
                         android:hint="@string/NameOfDay"
                         android:textAlignment="center"
                         android:visibility="visible"
@@ -410,6 +421,7 @@
             android:id="@+id/timetable_dayLayout1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -423,6 +435,7 @@
 
             <Button
                 android:id="@+id/timetable_dayBack"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -445,6 +458,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/Day"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold|italic"
                 android:visibility="visible"
@@ -454,6 +468,7 @@
 
             <Button
                 android:id="@+id/timetable_dayCancel"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -479,6 +494,7 @@
 
             <Button
                 android:id="@+id/timetable_dayNext"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -500,7 +516,7 @@
         android:id="@+id/timetable_dayLayout4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#FFFFFF	"
+        android:background="@mipmap/bg"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -517,6 +533,7 @@
             android:layout_marginBottom="8dp"
             android:text="Es wurden noch nicht alle Namen der Fächer  für die jeweiligen Stunden angegeben."
             android:textAlignment="center"
+            android:textColor="@color/TEXT_WHITE"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView3"
@@ -526,6 +543,7 @@
 
         <Button
             android:id="@+id/timetable_dayLayout4Back"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -549,6 +567,7 @@
             android:layout_marginBottom="8dp"
             android:text="Um den Namen eines Fachs anzugeben drücke auf die jeweilige Stunde, und fülle das aufkommende Formular aus."
             android:textAlignment="center"
+            android:textColor="@color/TEXT_WHITE"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -561,7 +580,7 @@
         android:id="@+id/timetable_dayLayout3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#FFFFFF	"
+        android:background="@mipmap/bg"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -572,12 +591,14 @@
             android:id="@+id/timetable_hourColorLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@mipmap/bg"
             android:visibility="gone">
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/timetable_hourColorLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@mipmap/bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -933,7 +954,7 @@
             android:id="@+id/timetable_dayLayout5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#FFFFFF	"
+            android:background="@mipmap/bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -948,6 +969,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/SuggestedHoursNames"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="visible"
@@ -971,6 +993,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+                    android:background="@color/TEXT_WHITE"
                     android:hint="Stundenname"
                     android:textAlignment="center"
                     android:visibility="visible"
@@ -991,6 +1014,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/CustomHourName"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="visible"
@@ -1000,6 +1024,7 @@
 
             <Button
                 android:id="@+id/timetable_name_back"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -1013,6 +1038,7 @@
 
             <Button
                 android:id="@+id/timetable_name_next"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -1040,6 +1066,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="Stunde"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -1073,6 +1100,7 @@
 
                 <Button
                     android:id="@+id/timetable_hourNameBase"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -1085,6 +1113,7 @@
 
                 <Button
                     android:id="@+id/timetable_hourNameBase1"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
