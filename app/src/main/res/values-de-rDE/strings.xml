@@ -241,4 +241,5 @@
     <string name="Creator">Ersteller</string>
     <string name="NoImageInfo">Es wurde noch kein Bild aufgenommen</string>
     <string name="NoImageInfo2">Erstelle jetzt eins</string>
+    <string name="WeeklyChanging">Wöchentlich wechselnder Stundenplan?</string>
 </resources>

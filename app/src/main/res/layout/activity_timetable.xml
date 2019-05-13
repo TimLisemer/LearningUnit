@@ -154,15 +154,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/HourCount"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline21"
                 app:layout_constraintStart_toStartOf="@+id/guideline22"
-                app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+                app:layout_constraintTop_toBottomOf="@+id/seekBar"
+                app:layout_constraintVertical_bias="0.13999999" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -184,7 +187,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/DayCount"
@@ -196,7 +199,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline21"
                 app:layout_constraintStart_toStartOf="@+id/guideline22"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
-                app:layout_constraintVertical_bias="0.06999999" />
+                app:layout_constraintVertical_bias="0.060000002" />
 
             <Button
                 android:id="@+id/timetable_createBack"
@@ -211,7 +214,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline25"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+                app:layout_constraintTop_toBottomOf="@+id/Timetable_weekly"
+                app:layout_constraintVertical_bias="0.6" />
 
             <Button
                 android:id="@+id/timetable_createNext"
@@ -226,7 +230,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline25"
-                app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+                app:layout_constraintTop_toBottomOf="@+id/Timetable_weekly"
+                app:layout_constraintVertical_bias="0.6" />
 
             <SeekBar
                 android:id="@+id/seekBar"
@@ -281,6 +286,23 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline21"
                 app:layout_constraintStart_toStartOf="@+id/guideline22"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <CheckBox
+                android:id="@+id/Timetable_weekly"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/WeeklyChanging"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar2"
+                app:layout_constraintVertical_bias="0.25" />
 
         </android.support.constraint.ConstraintLayout>
 
