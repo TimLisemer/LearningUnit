@@ -5,13 +5,13 @@
     android:id="@+id/constraintLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/sa_bg_white"
     tools:context="learningunit.learningunit.beforeStart.FirstScreen">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/first_scrollview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@mipmap/sa_bg_white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -318,14 +318,14 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/first_layout1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="362dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3">
+            app:layout_constraintVertical_bias="0.509">
 
 
             <android.support.constraint.Guideline
@@ -337,6 +337,7 @@
 
             <Button
                 android:id="@+id/first_back"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_marginStart="16dp"
@@ -346,15 +347,16 @@
                 android:text="@string/Back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/first_textview"
-                style="@style/Fynnx_Buttons"
-                />
+                app:layout_constraintVertical_bias="1.0" />
 
             <Button
                 android:id="@+id/first_continue1"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
@@ -362,19 +364,22 @@
                 android:text="@string/Continue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
-                app:layout_constraintTop_toBottomOf="@+id/first_textview" />
+                app:layout_constraintTop_toBottomOf="@+id/first_textview"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/first_textview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text=" BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist BLABLA Warum ein Konto besser ist"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
