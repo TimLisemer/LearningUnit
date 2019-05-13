@@ -250,4 +250,5 @@
     <string name="WithoutAccount">Without Account</string>
     <string name="WarningWithoutAccount">An account offers you many advantages such as:\n\nSaving your data to protect it from loss.\n\nRetrieve your data from different devices to learn on even more devices.\n\nSharing information such as timetable and vocabulary lists with your friends.\n\nAccess to public vocabulary lists.</string>
     <string name="Register">To Register</string>
+    <string name="ReportListText">List Reported, we will look at it</string>
 </resources>
