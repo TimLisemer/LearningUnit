@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/sa_bg_white"
     tools:context="learningunit.learningunit.beforeStart.Register">
 
     <android.support.constraint.ConstraintLayout
@@ -134,11 +135,12 @@
             <EditText
                 android:id="@+id/register_username"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:background="@mipmap/sa_textbalken"
                 android:ems="10"
                 android:hint="Benutzername"
                 android:inputType="textPersonName"
@@ -153,10 +155,11 @@
             <EditText
                 android:id="@+id/register_password"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@mipmap/sa_textbalken"
                 android:ems="10"
                 android:hint="Passwort"
                 android:inputType="textPassword"
@@ -168,10 +171,11 @@
             <EditText
                 android:id="@+id/register_password1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@mipmap/sa_textbalken"
                 android:ems="10"
                 android:hint="Passwort wiederholen"
                 android:inputType="textPassword"
@@ -183,10 +187,11 @@
             <EditText
                 android:id="@+id/register_email"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@mipmap/sa_textbalken"
                 android:ems="10"
                 android:hint="E-Mail"
                 android:inputType="textEmailAddress"
@@ -212,13 +217,27 @@
 
             <Button
                 android:id="@+id/register_back"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Zurück"
+                android:layout_width="66dp"
+                android:layout_height="61dp"
+                android:background="@drawable/sa_arrow_back_white_24dp"
+                android:text=""
+                android:textColor="@color/TEXT_WHITE"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/register_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="62dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@mipmap/sa_balken_logo_notext" />
 
             <TextView
                 android:id="@+id/register_error"
@@ -238,6 +257,7 @@
 
             <Button
                 android:id="@+id/register_register"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

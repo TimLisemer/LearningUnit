@@ -121,14 +121,14 @@
     <string name="NameExists">Name already exists</string>
     <string name="DeleteVocabList">Delete Vocabulary List?</string>
     <string name="DeleteVocabListConfirmation">"Are you sure you want to delete this vocabulary list? "</string>
-    <string name="ConfirmPublication">With your approval you confirm that you do not violate any rights of third parties.</string>
+    <string name="ConfirmPublication">With your approval you confirm, that you do not violate any rights of third parties.</string>
     <string name="SetPrivate">Set Private</string>
     <string name="PublishVocabList">Publish Vocabulary List</string>
     <string name="Publish">Publish</string>
     <string name="ConfirmUnPublication">Your vocabulary list loses all followers and ratings</string>
     <string name="SetVocabularyListPrivaSte">Auf Privat stellen</string>
     <string name="SetListPrivate">Make List Private</string>
-    <string name="PublishList">Publish Liste</string>
+    <string name="PublishList">Publish List</string>
     <string name="Follow">Follow</string>
     <string name="Followed">Followed</string>
     <string name="AccesGranted">Acces Granted!</string>
@@ -245,4 +245,5 @@
     <string name="DeleteImageTitle">Delete Image?</string>
     <string name="DeleteImageQuestion">Are you sure you want to permanently delete this image?</string>
     <string name="DeleteImage">Delete Image</string>
+    <string name="EnterGradeMessage">Enter a Grade to save it</string>
 </resources>

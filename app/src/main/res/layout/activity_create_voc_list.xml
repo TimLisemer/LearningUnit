@@ -35,14 +35,17 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:ems="10"
                 android:hint="@string/NameOfVocabularylist"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CreateVocList_error" />
+                app:layout_constraintTop_toBottomOf="@+id/CreateVocList_error"
+                app:layout_constraintVertical_bias="0.0" />
 
             <Button
                 android:id="@+id/CreateVocList_back"
@@ -50,7 +53,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Back"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,14 +67,17 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:ems="10"
                 android:hint="@string/NameOfLanguage2"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CreateVocList_name_language1" />
+                app:layout_constraintTop_toBottomOf="@+id/CreateVocList_name_language1"
+                app:layout_constraintVertical_bias="0.050000012" />
 
             <EditText
                 android:id="@+id/CreateVocList_name_language1"
@@ -77,13 +86,16 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:ems="10"
                 android:hint="@string/NameOfLanguage1"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CreateVocList_name_list" />
+                app:layout_constraintTop_toBottomOf="@+id/CreateVocList_name_list"
+                app:layout_constraintVertical_bias="0.050000012" />
 
             <Button
                 android:id="@+id/CreateVocList_continue"
@@ -92,10 +104,16 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Continue"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CreateVocList_name_language2" />
+                app:layout_constraintTop_toBottomOf="@+id/CreateVocList_name_language2"
+                app:layout_constraintVertical_bias="0.14999998" />
 
             <TextView
                 android:id="@+id/CreateVocList_error"
@@ -113,7 +131,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/CreateVocList_back"
-                app:layout_constraintVertical_bias="0.16000003" />
+                app:layout_constraintVertical_bias="0.060000002" />
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
@@ -163,7 +181,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Cancel"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -204,7 +225,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/NextVocabulary"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/CreateVocList_vocabulary1" />
@@ -216,7 +240,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/FinishVocabulary"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -256,7 +283,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/YesCancel"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/CreateVocList_return" />
@@ -268,7 +298,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/NoKeepEditing"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent"
@@ -336,7 +369,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/YesFinish"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -349,7 +385,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/NoKeepEditing"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -431,7 +470,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/Back"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -472,8 +514,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/sa_button"
                 android:enabled="false"
                 android:text="@string/Continue"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -586,7 +631,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/sa_button"
                 android:text="@string/ChooseCSVFile"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
