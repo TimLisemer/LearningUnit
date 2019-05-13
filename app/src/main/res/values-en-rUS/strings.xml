@@ -252,4 +252,5 @@
     <string name="Register">To Register</string>
     <string name="Settingss">Settings</string>
     <string name="Premium">Premium</string>
+    <string name="ReportListText">"List Reported, we will look at it "</string>
 </resources>

@@ -662,7 +662,7 @@ public class Vokabeln extends AppCompatActivity {
             settings.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("Liste", "Gemeldet");
+                    Toast.makeText(act, act.getResources().getString(R.string.ReportListText), Toast.LENGTH_SHORT).show();
                 }
             });
             follow.setOnClickListener(new View.OnClickListener() {
