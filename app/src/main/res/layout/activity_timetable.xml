@@ -20,7 +20,7 @@
             android:id="@+id/timetable_createScrollviewLayout0"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +122,7 @@
             android:id="@+id/timetable_createScrollviewLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -154,7 +154,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/HourCount"
                 android:textAlignment="center"
@@ -184,7 +184,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/DayCount"
@@ -197,35 +197,6 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline22"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
                 app:layout_constraintVertical_bias="0.06999999" />
-
-            <CheckBox
-                android:id="@+id/Timetable_weekly"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="48dp"
-                android:layout_marginEnd="16dp"
-                android:text="Wöchentlich wechselnder Stundenplan?"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
-
-            <CheckBox
-                android:id="@+id/Timetable_mute"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="16dp"
-                android:text="Smartphone während aktiver Stunde Stummschalten?"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Timetable_weekly" />
 
             <Button
                 android:id="@+id/timetable_createBack"
@@ -240,8 +211,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline25"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Timetable_mute"
-                app:layout_constraintVertical_bias="0.39" />
+                app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
 
             <Button
                 android:id="@+id/timetable_createNext"
@@ -256,8 +226,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline25"
-                app:layout_constraintTop_toBottomOf="@+id/Timetable_mute"
-                app:layout_constraintVertical_bias="0.39" />
+                app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
 
             <SeekBar
                 android:id="@+id/seekBar"
