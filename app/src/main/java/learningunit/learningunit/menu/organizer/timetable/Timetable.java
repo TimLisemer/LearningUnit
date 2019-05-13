@@ -3,6 +3,7 @@ package learningunit.learningunit.menu.organizer.timetable;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.constraint.ConstraintLayout;
@@ -589,6 +590,9 @@ public class Timetable extends AppCompatActivity {
                                         downHour[ii] = new Button(Timetable.this);
                                     }
 
+                                    downHour[ii].setTextColor(Color.WHITE);
+                                    downHour[ii].setBackground(getDrawable(R.drawable.sa_button1));
+
                                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
@@ -624,6 +628,10 @@ public class Timetable extends AppCompatActivity {
                                     if(downHour1[ii] == null) {
                                         downHour1[ii] = new Button(Timetable.this);
                                     }
+
+                                    downHour1[ii].setTextColor(Color.WHITE);
+                                    downHour1[ii].setBackground(getDrawable(R.drawable.sa_button1));
+
                                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
@@ -735,6 +743,10 @@ public class Timetable extends AppCompatActivity {
                                     if(downHour[ii] == null) {
                                         downHour[ii] = new Button(Timetable.this);
                                     }
+
+                                    downHour[ii].setTextColor(Color.WHITE);
+                                    downHour[ii].setBackground(getDrawable(R.drawable.sa_button1));
+
                                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
@@ -769,6 +781,8 @@ public class Timetable extends AppCompatActivity {
                                     if(downHour1[ii] == null) {
                                         downHour1[ii] = new Button(Timetable.this);
                                     }
+                                    downHour1[ii].setTextColor(Color.WHITE);
+                                    downHour1[ii].setBackground(getDrawable(R.drawable.sa_button1));
                                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
@@ -882,6 +896,9 @@ public class Timetable extends AppCompatActivity {
                                         downHour[ii] = new Button(Timetable.this);
                                     }
 
+                                    downHour[ii].setTextColor(Color.WHITE);
+                                    downHour[ii].setBackground(getDrawable(R.drawable.sa_button1));
+
                                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 
@@ -917,6 +934,8 @@ public class Timetable extends AppCompatActivity {
                                     if(downHour1[ii] == null) {
                                         downHour1[ii] = new Button(Timetable.this);
                                     }
+                                    downHour1[ii].setTextColor(Color.WHITE);
+                                    downHour1[ii].setBackground(getDrawable(R.drawable.sa_button1));
                                     ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
                                             ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
 

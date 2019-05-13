@@ -58,6 +58,7 @@
 
             <Button
                 android:id="@+id/timetable_createBack0"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -75,6 +76,7 @@
 
             <Button
                 android:id="@+id/timetable_createNew"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -90,6 +92,7 @@
 
             <Button
                 android:id="@+id/timetable_createShared"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -203,6 +206,7 @@
 
             <Button
                 android:id="@+id/timetable_createBack"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -219,6 +223,7 @@
 
             <Button
                 android:id="@+id/timetable_createNext"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -400,6 +405,7 @@
 
             <Button
                 android:id="@+id/timetable_dayBack"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -431,6 +437,7 @@
 
             <Button
                 android:id="@+id/timetable_dayCancel"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -448,7 +455,6 @@
             android:id="@+id/timetable_dayLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -456,6 +462,7 @@
 
             <Button
                 android:id="@+id/timetable_dayNext"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -503,13 +510,14 @@
 
         <Button
             android:id="@+id/timetable_dayLayout4Back"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Zurück"
+            android:text="@string/Back"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -612,6 +620,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor1"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -626,6 +635,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor7"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -638,6 +648,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor13"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -650,6 +661,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor2"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -663,6 +675,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor8"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -675,6 +688,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor14"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -687,6 +701,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor3"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -700,6 +715,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor9"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -712,6 +728,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor15"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -724,6 +741,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor4"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -736,6 +754,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor10"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -748,18 +767,20 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor16"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
-                        android:background="#8A2BE2	"
+                        android:background="#90EE90	"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/timetable_hourColor10"
                         app:layout_constraintTop_toBottomOf="@+id/timetable_hourColor15" />
 
                     <Button
                         android:id="@+id/timetable_hourColor5"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -772,6 +793,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor11"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -784,6 +806,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor17"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -796,6 +819,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor6"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -810,6 +834,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor12"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -824,6 +849,7 @@
 
                     <Button
                         android:id="@+id/timetable_hourColor18"
+                        style="@style/DynamicButtons"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -842,7 +868,6 @@
                 android:id="@+id/constraintLayout3"
                 android:layout_width="384dp"
                 android:layout_height="0dp"
-                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -877,20 +902,21 @@
 
                 <Button
                     android:id="@+id/timetable_colorBack"
-                    android:layout_width="wrap_content"
+                    style="@style/Fynnx_Buttons"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     android:text="Zurück"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline31"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <Button
                     android:id="@+id/timetable_colorSkip"
-                    android:layout_width="wrap_content"
+                    style="@style/Fynnx_Buttons"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
@@ -899,9 +925,16 @@
                     android:text="Überspringen"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/timetable_colorSwitchText" />
+                    app:layout_constraintStart_toStartOf="@+id/guideline31"
+                    app:layout_constraintTop_toBottomOf="@+id/timetable_colorSwitchText"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
@@ -911,6 +944,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="#FFFFFF	"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -977,6 +1011,7 @@
 
             <Button
                 android:id="@+id/timetable_name_back"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -990,6 +1025,7 @@
 
             <Button
                 android:id="@+id/timetable_name_next"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -1029,6 +1065,7 @@
             android:id="@+id/timetable_dayNameScrollview"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -1055,7 +1092,10 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:background="@drawable/sa_button1"
                     android:text="Button"
+                    android:textColor="@color/TEXT_WHITE"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/guideline20"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1067,7 +1107,10 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:background="@drawable/sa_button1"
                     android:text="Button"
+                    android:textColor="@color/TEXT_WHITE"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline20"
                     app:layout_constraintTop_toTopOf="parent" />
