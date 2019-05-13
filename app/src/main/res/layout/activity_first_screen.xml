@@ -12,7 +12,7 @@
         android:id="@+id/first_scrollview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -192,7 +192,7 @@
         android:id="@+id/login_ScrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -276,7 +276,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/sa_arrow_back_white_24dp"
-                android:text="@string/Back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -290,14 +289,15 @@
                 android:layout_marginTop="75dp"
                 android:layout_marginEnd="64dp"
                 android:layout_marginBottom="8dp"
-                android:text="Sollen deine vorhandenen Daten wie Vokabeln,  Formeln, KalendereintrÃ¤ge usw. in diesen Account Ã¼bertragen werden?"
+                android:text="Sollen deine vorhandenen Daten wie Vokabeln,  Formeln, Kalendereinträge usw. in diesen Account Übertragen werden?"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_back1"
-                app:layout_constraintVertical_bias="0.100000024" />
+                app:layout_constraintVertical_bias="0.098" />
 
 
         </android.support.constraint.ConstraintLayout>
