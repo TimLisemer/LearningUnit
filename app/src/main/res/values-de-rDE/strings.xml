@@ -248,5 +248,6 @@
     <string name="EnterGradeMessage">Gebe eine Note ein um sie zu speichern</string>
     <string name="DataTransfer">Daten Übertragung</string>
     <string name="WithoutAccount">Ohne Konto</string>
-    <string name="WarningWithoutAccount">Wenn du kein Account erstellt, bist du nicht sicher vor Verlust deiner Daten. Willst du trotzdem fortfahren?</string>
+    <string name="WarningWithoutAccount">Ein Account bietet dir viele Vorteile wie etwa:\n\nDas speichern deiner Daten, um sie vor Verlust zu schützen.\n\nDas Abrufen deiner Daten von verschiedenen Geräten, um auf noch mehr Geräten zu lernen.\n\nDas teilen von Informationen wie Stundenpläne und Vokabellisten mit deinen Freunden.\n\nZugang zu öffentlichen Vokabellisten.</string>
+    <string name="Register">Registrieren</string>
 </resources>
