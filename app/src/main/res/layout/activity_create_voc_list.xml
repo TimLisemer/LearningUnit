@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/bg"
     tools:context=".menu.learn.vocabulary.CreateVocList"
     tools:layout_editor_absoluteY="25dp">
 
@@ -11,6 +12,7 @@
         android:id="@+id/CreateVocList_scrollview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@mipmap/bg"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +30,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.842">
 
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline94"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline93"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.1" />
+
             <EditText
                 android:id="@+id/CreateVocList_name_list"
                 android:layout_width="0dp"
@@ -35,6 +51,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="@string/NameOfVocabularylist"
                 android:inputType="textPersonName"
@@ -46,11 +63,15 @@
 
             <Button
                 android:id="@+id/CreateVocList_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/Back"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@mipmap/button_back"
+                app:layout_constraintBottom_toTopOf="@+id/guideline93"
+                app:layout_constraintEnd_toStartOf="@+id/guideline94"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,6 +82,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="@string/NameOfLanguage2"
                 android:inputType="textPersonName"
@@ -77,6 +99,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="@string/NameOfLanguage1"
                 android:inputType="textPersonName"
@@ -87,6 +110,7 @@
 
             <Button
                 android:id="@+id/CreateVocList_continue"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -121,6 +145,7 @@
         android:id="@+id/CreateVocList_scrollview1"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@mipmap/bg"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -159,7 +184,8 @@
 
             <Button
                 android:id="@+id/CreateVocList_back1"
-                android:layout_width="wrap_content"
+                style="@style/Fynnx_Buttons"
+                android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -174,6 +200,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="@string/VocLang1"
                 android:inputType="textPersonName"
@@ -189,6 +216,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="@string/VocLang2"
                 android:inputType="textPersonName"
@@ -199,6 +227,7 @@
 
             <Button
                 android:id="@+id/CreateVocList_next"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -211,6 +240,7 @@
 
             <Button
                 android:id="@+id/CreateVocList_finish"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -230,6 +260,7 @@
         android:id="@+id/CreateVocList_scrollview2"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@mipmap/bg"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -251,6 +282,7 @@
 
             <Button
                 android:id="@+id/CreateVocList_cancel"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -263,6 +295,7 @@
 
             <Button
                 android:id="@+id/CreateVocList_return"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -283,6 +316,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/CancelQuestion"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -299,6 +333,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/CreateVocListCancelInfo"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -331,6 +366,7 @@
 
             <Button
                 android:id="@+id/CreateVocList_finish1"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -344,6 +380,7 @@
 
             <Button
                 android:id="@+id/CreateVocList_return1"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -364,6 +401,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/CreateVocabularyListFinishInfo"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -379,6 +417,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/FinishQuestion"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -393,6 +432,7 @@
         android:id="@+id/CreateVocList_scrollview4"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@mipmap/bg"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -410,6 +450,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.842">
 
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline92"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline91"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.1" />
+
             <EditText
                 android:id="@+id/CreateVocList_name_list1"
                 android:layout_width="0dp"
@@ -417,6 +471,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="@string/NameOfVocabularylist"
                 android:inputType="textPersonName"
@@ -427,11 +482,15 @@
 
             <Button
                 android:id="@+id/CreateVocList_back11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/Back"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@mipmap/button_back"
+                app:layout_constraintBottom_toTopOf="@+id/guideline91"
+                app:layout_constraintEnd_toStartOf="@+id/guideline92"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -442,6 +501,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="@string/NameOfLanguage2"
                 android:inputType="textPersonName"
@@ -457,6 +517,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="@string/NameOfLanguage1"
                 android:inputType="textPersonName"
@@ -467,6 +528,7 @@
 
             <Button
                 android:id="@+id/CreateVocList_continue1"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -507,6 +569,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="@string/VocListImportHeading"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/CreateVocList_error11"
@@ -524,6 +587,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="@string/OneVocPerLine"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -542,6 +606,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/LanguageCommaChangeInfo"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -572,6 +637,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/Max1kVocabs"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -581,6 +647,7 @@
 
             <Button
                 android:id="@+id/CreateVocList_continue11"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
