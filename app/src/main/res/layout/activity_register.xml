@@ -259,13 +259,4 @@
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:srcCompat="@mipmap/sa_balken_logo_notext" />
-
 </android.support.constraint.ConstraintLayout>
