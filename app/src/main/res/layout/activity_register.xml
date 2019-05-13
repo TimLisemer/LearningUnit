@@ -11,7 +11,7 @@
         android:id="@+id/register_ScrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -50,14 +50,14 @@
                 android:id="@+id/register_imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.533"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@mipmap/sa_balken_logotest" />
+                app:srcCompat="@mipmap/sa_balken_logo" />
 
             <TextView
                 android:id="@+id/register_textView2"
@@ -102,6 +102,7 @@
 
             <Button
                 android:id="@+id/register_decline"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -110,12 +111,12 @@
                 android:text="Nein, danke"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/register_info"
-                style="@style/Fynnx_Buttons"/>
+                app:layout_constraintTop_toBottomOf="@+id/register_info" />
 
 
             <Button
                 android:id="@+id/register_accept"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -124,8 +125,7 @@
                 android:text="Ok"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/register_info"
-                style="@style/Fynnx_Buttons"/>
+                app:layout_constraintTop_toBottomOf="@+id/register_info" />
 
             <TextView
                 android:id="@+id/register_info1"
@@ -154,7 +154,7 @@
         android:id="@+id/register_ScrollView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -189,14 +189,14 @@
                 android:id="@+id/register_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.533"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@mipmap/sa_balken_logotest" />
+                app:srcCompat="@mipmap/sa_balken_logo" />
 
             <TextView
                 android:id="@+id/register_textView"
