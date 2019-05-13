@@ -217,15 +217,27 @@
 
             <Button
                 android:id="@+id/register_back"
-                android:layout_width="79dp"
-                android:layout_height="55dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@mipmap/sa_arrow"
-                android:text="Zurück"
+                android:layout_width="66dp"
+                android:layout_height="61dp"
+                android:background="@drawable/sa_arrow_back_white_24dp"
+                android:text=""
                 android:textColor="@color/TEXT_WHITE"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/register_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="62dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@mipmap/sa_balken_logo_notext" />
 
             <TextView
                 android:id="@+id/register_error"
@@ -245,6 +257,7 @@
 
             <Button
                 android:id="@+id/register_register"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -254,8 +267,7 @@
                 android:text="Registrieren"
                 app:layout_constraintEnd_toEndOf="@+id/register_password1"
                 app:layout_constraintStart_toStartOf="@+id/register_password1"
-                app:layout_constraintTop_toBottomOf="@+id/register_checkBox"
-                style="@style/Fynnx_Buttons"/>
+                app:layout_constraintTop_toBottomOf="@+id/register_checkBox" />
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
