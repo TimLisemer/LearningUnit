@@ -210,20 +210,11 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
         Button PicOverview = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_OverviewSelection);
         PicOverview.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-
-                if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)){
-
-                    File dir= new File(Environment.getExternalStorageDirectory() + File.separator + "LearningUnit" + File.separator + "Pictures");
-                    walkdir(dir);
-
-
-                    for(String s : filepath){
-                        Log.d("ha", "s: " + s);
-                    }
-
-                }
+                Intent intent = new Intent(activity, organizer_pictures.class);
+                activity.startActivity(intent);
 
             }
         });
