@@ -13,15 +13,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:adSize="SMART_BANNER"
         app:adUnitId="ca-app-pub-2182452775939631/4803754174"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-    </com.google.android.gms.ads.doubleclick.PublisherAdView>
+        app:layout_constraintVertical_bias="1.0"></com.google.android.gms.ads.doubleclick.PublisherAdView>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -82,6 +81,7 @@
 
             <Button
                 android:id="@+id/timetableShowcase_Back"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -93,6 +93,7 @@
 
             <Button
                 android:id="@+id/timetableShowcase_New"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -105,6 +106,7 @@
 
             <Button
                 android:id="@+id/timetableShowcase_Share"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"

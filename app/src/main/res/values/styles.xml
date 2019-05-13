@@ -22,6 +22,21 @@
         <item name="android:textStyle">normal|bold</item>
     </style>
 
+    <style name="DynamicButtons">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">@font/hammersmith_one</item>
+        <item name="android:textColor">@color/TEXT_WHITE</item>
+        <item name="android:textColorLink">@color/TEXT_PRESSED</item>
+        <item name="android:textStyle">normal|bold</item>
+        <item name="android:radius">5dp</item>
+    </style>
+
+
     <style name="Text_Feld" />
 
     <style name="AppTheme.NoActionBar">

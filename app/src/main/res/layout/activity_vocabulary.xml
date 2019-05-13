@@ -315,6 +315,7 @@
 
                 <Button
                     android:id="@+id/vocabulary_import"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="174dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -331,6 +332,7 @@
 
                 <Button
                     android:id="@+id/vocabulary_shared"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
