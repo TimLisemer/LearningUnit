@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/bg"
     tools:context="learningunit.learningunit.beforeStart.Register">
 
     <android.support.constraint.ConstraintLayout
@@ -30,6 +31,20 @@
             app:layout_constraintVertical_bias="0.0">
 
             <android.support.constraint.Guideline
+                android:id="@+id/guideline108"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline107"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <android.support.constraint.Guideline
                 android:id="@+id/guideline3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,6 +60,7 @@
                 android:layout_marginEnd="64dp"
                 android:text="Andernfalls gehen diese dauerhaft verloren."
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,8 +70,9 @@
 
             <Button
                 android:id="@+id/register_decline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Fynnx_Buttons"
+                android:layout_width="133dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -66,7 +83,8 @@
 
             <Button
                 android:id="@+id/register_accept"
-                android:layout_width="wrap_content"
+                style="@style/Fynnx_Buttons"
+                android:layout_width="133dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -78,13 +96,15 @@
 
             <Button
                 android:id="@+id/register_back1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Zurück"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@mipmap/button_back"
+                app:layout_constraintBottom_toTopOf="@+id/guideline107"
+                app:layout_constraintEnd_toStartOf="@+id/guideline108"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
@@ -99,6 +119,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="Sollen deine vorhandenen Daten wie Vokabeln,  Formeln, Kalendereinträge usw. in diesen Account übertragen werden?"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -126,10 +147,25 @@
             android:id="@+id/login_Layout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@mipmap/bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline106"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline105"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.1" />
 
             <EditText
                 android:id="@+id/register_username"
@@ -139,6 +175,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="Benutzername"
                 android:inputType="textPersonName"
@@ -157,6 +194,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="Passwort"
                 android:inputType="textPassword"
@@ -172,6 +210,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="Passwort wiederholen"
                 android:inputType="textPassword"
@@ -187,6 +226,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@color/TEXT_WHITE"
                 android:ems="10"
                 android:hint="E-Mail"
                 android:inputType="textEmailAddress"
@@ -204,6 +244,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Ja ich habe die AGB`s sowie die Datenschutzbestimmungen gelesen, und stimme ihnen zu"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="11sp"
                 app:layout_constraintEnd_toEndOf="@+id/register_password1"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -213,10 +254,14 @@
             <Button
                 android:id="@+id/register_back"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Zurück"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@mipmap/button_back"
+                app:layout_constraintBottom_toTopOf="@+id/guideline105"
+                app:layout_constraintEnd_toStartOf="@+id/guideline106"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -238,6 +283,7 @@
 
             <Button
                 android:id="@+id/register_register"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

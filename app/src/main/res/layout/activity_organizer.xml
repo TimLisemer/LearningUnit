@@ -5,6 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/bg"
     tools:context=".menu.organizer.Organizer">
 
     <android.support.v4.widget.DrawerLayout
@@ -14,16 +15,6 @@
         android:fitsSystemWindows="true"
         android:visibility="visible"
         tools:openDrawer="start">
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/organizer_NavigationView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            android:visibility="visible"
-            app:headerLayout="@layout/nav_header_organizer"
-            app:menu="@menu/activity_organizer_drawer" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

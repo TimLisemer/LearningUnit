@@ -17,9 +17,6 @@
         android:roundIcon="@mipmap/mylogo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Objects.Organizer.organizer_pictures"></activity>
-        <activity android:name=".Objects.Organizer.organizer_album" />
-        <activity android:name=".Objects.Organizer.GalleryPreview" />
         <activity android:name=".Objects.Organizer.organizer_camera" />
         <activity android:name=".menu.learn.formular.CreateFormList" />
         <activity android:name=".menu.learn.formular.Formeln" />
