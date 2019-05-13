@@ -30,7 +30,6 @@
             android:fontFamily="@font/poppins"
             android:text="Unter diesen Daten konte kein Account gefunden werden"
             android:textAlignment="center"
-            android:textColor="@color/TEXT_WHITE"
             android:textSize="14sp"
             android:textStyle="bold"
             android:visibility="gone"
