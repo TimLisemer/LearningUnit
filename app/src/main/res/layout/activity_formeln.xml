@@ -13,6 +13,7 @@
         android:id="@+id/formular_scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@mipmap/bg"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +26,7 @@
             android:id="@+id/formular_layout2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -41,6 +42,34 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline98"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.66" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline97"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.32" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline96"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.2" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline95"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.4" />
+
                 <TextView
                     android:id="@+id/formular_nolists"
                     android:layout_width="0dp"
@@ -50,6 +79,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@string/NoFormListCreatedYet"
                     android:textAlignment="center"
+                    android:textColor="@color/TEXT_WHITE"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:visibility="visible"
@@ -59,42 +89,50 @@
 
                 <Button
                     android:id="@+id/formular_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/Fynnx_Buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/AllFormulars"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline95"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline98"
+                    app:layout_constraintStart_toStartOf="@+id/guideline97"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/formular_create"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/NewList"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline95"
                     app:layout_constraintEnd_toEndOf="@+id/formular_formular1"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/formular_all"
+                    app:layout_constraintStart_toStartOf="@+id/guideline98"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/formular_back"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/Back"
-                    app:layout_constraintEnd_toStartOf="@+id/formular_all"
+                    android:background="@mipmap/button_back"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline95"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline96"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/formular_nolistsButton"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -303,6 +341,7 @@
 
                 <Button
                     android:id="@+id/formular_import"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="174dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -316,6 +355,7 @@
 
                 <Button
                     android:id="@+id/formular_shared"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -350,6 +390,34 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.constraint.Guideline
+                android:id="@+id/guideline102"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.4" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline101"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.32" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline99"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.66" />
+
+            <android.support.constraint.Guideline
                 android:id="@+id/formular_guideline0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -358,37 +426,44 @@
 
             <Button
                 android:id="@+id/formular_edit"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_height="0dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/Settings"
+                app:layout_constraintBottom_toTopOf="@+id/guideline102"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/formular_train"
+                app:layout_constraintStart_toStartOf="@+id/guideline99"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/formular_train"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Fynnx_Buttons"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/Train"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/guideline102"
+                app:layout_constraintEnd_toStartOf="@+id/guideline99"
+                app:layout_constraintStart_toStartOf="@+id/guideline100"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/formular_back1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/Back"
-                app:layout_constraintEnd_toStartOf="@+id/formular_train"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@mipmap/button_back"
+                app:layout_constraintBottom_toTopOf="@+id/guideline102"
+                app:layout_constraintEnd_toStartOf="@+id/guideline101"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -401,6 +476,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="error"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -416,6 +492,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="TextView"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -433,6 +510,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="TextView"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -449,6 +527,7 @@
                 android:layout_marginEnd="24dp"
                 android:text="TextView"
                 android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/formular_train" />
@@ -499,6 +578,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="TextView"
                     android:textAlignment="center"
+                    android:textColor="@color/TEXT_WHITE"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/formular_guideline"
@@ -513,6 +593,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="TextView"
                     android:textAlignment="center"
+                    android:textColor="@color/TEXT_WHITE"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toStartOf="@+id/formular_guideline"
                     app:layout_constraintStart_toStartOf="parent"
@@ -531,6 +612,7 @@
 
             <Button
                 android:id="@+id/formular_follow"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -545,8 +627,9 @@
 
             <Button
                 android:id="@+id/formular_rate"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
@@ -597,6 +680,7 @@
 
                 <Button
                     android:id="@+id/formular_ShareSearch"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -619,6 +703,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@string/PublicFormularLists"
                     android:textAlignment="center"
+                    android:textColor="@color/TEXT_WHITE"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -639,6 +724,7 @@
                         android:id="@+id/formular_ShareGetList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/TEXT_WHITE"
                         android:hint="@string/SearchConditions"
                         android:textAlignment="center"
                         android:textSize="18sp"
@@ -647,6 +733,7 @@
 
                 <Button
                     android:id="@+id/formular_ShareBack"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
@@ -687,6 +774,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@string/RecommendedFormLists"
                     android:textAlignment="center"
+                    android:textColor="@color/TEXT_WHITE"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -756,7 +844,7 @@
         android:id="@+id/formular_scrollView5"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.934"
@@ -789,6 +877,20 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0">
 
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guideline104"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.14" />
+
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guideline103"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.2" />
+
                     <TextView
                         android:id="@+id/formular_learn_language1"
                         android:layout_width="0dp"
@@ -798,6 +900,7 @@
                         android:layout_marginEnd="8dp"
                         android:text="@string/Language"
                         android:textAlignment="center"
+                        android:textColor="@color/TEXT_WHITE"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -830,6 +933,7 @@
                         android:layout_marginEnd="8dp"
                         android:text="Vokabel"
                         android:textAlignment="center"
+                        android:textColor="@color/TEXT_WHITE"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -842,6 +946,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="0"
+                        android:textColor="@color/TEXT_WHITE"
                         app:layout_constraintEnd_toEndOf="@+id/formular_learn_level4"
                         app:layout_constraintStart_toStartOf="@+id/formular_learn_level4"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_level4" />
@@ -852,6 +957,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="0"
+                        android:textColor="@color/TEXT_WHITE"
                         app:layout_constraintEnd_toEndOf="@+id/formular_learn_level3"
                         app:layout_constraintStart_toStartOf="@+id/formular_learn_level3"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_level3" />
@@ -862,6 +968,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="0"
+                        android:textColor="@color/TEXT_WHITE"
                         app:layout_constraintEnd_toEndOf="@+id/formular_learn_level2"
                         app:layout_constraintStart_toStartOf="@+id/formular_learn_level2"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_level2" />
@@ -872,6 +979,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="0"
+                        android:textColor="@color/TEXT_WHITE"
                         app:layout_constraintEnd_toEndOf="@+id/formular_learn_level1"
                         app:layout_constraintStart_toStartOf="@+id/formular_learn_level1"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_level1" />
@@ -882,6 +990,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="0"
+                        android:textColor="@color/TEXT_WHITE"
                         app:layout_constraintEnd_toEndOf="@+id/formular_learn_level0"
                         app:layout_constraintStart_toStartOf="@+id/formular_learn_level0"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_level0" />
@@ -894,6 +1003,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:text="@string/Unskilled"
+                        android:textColor="@color/TEXT_WHITE"
                         app:layout_constraintEnd_toStartOf="@+id/formular_learn_level1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
@@ -905,6 +1015,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="24dp"
                         android:text="Level 1"
+                        android:textColor="@color/TEXT_WHITE"
                         app:layout_constraintEnd_toStartOf="@+id/formular_learn_level2"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
 
@@ -916,6 +1027,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="32dp"
                         android:text="Level 2"
+                        android:textColor="@color/TEXT_WHITE"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
@@ -927,6 +1039,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="16dp"
                         android:text="Level 3"
+                        android:textColor="@color/TEXT_WHITE"
                         app:layout_constraintStart_toEndOf="@+id/formular_learn_level2"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
 
@@ -938,6 +1051,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:text="@string/Learned"
+                        android:textColor="@color/TEXT_WHITE"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/formular_learn_level3"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_back" />
@@ -951,6 +1065,7 @@
                         android:layout_marginEnd="8dp"
                         android:text="@string/Language"
                         android:textAlignment="center"
+                        android:textColor="@color/TEXT_WHITE"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -972,12 +1087,14 @@
                             android:id="@+id/formular_learn_editText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@color/TEXT_WHITE"
                             android:hint="@string/Translation"
                             android:textAlignment="center" />
                     </android.support.design.widget.TextInputLayout>
 
                     <Button
                         android:id="@+id/formular_learn_showTranslation"
+                        style="@style/Fynnx_Buttons"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -1023,6 +1140,7 @@
 
                     <Button
                         android:id="@+id/formular_learn_enter"
+                        style="@style/Fynnx_Buttons"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -1032,7 +1150,7 @@
                         android:text="@string/ShowTranslation"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.357"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
 
@@ -1045,6 +1163,7 @@
                         android:layout_marginEnd="8dp"
                         android:text="@string/LanguageLanguage"
                         android:textAlignment="center"
+                        android:textColor="@color/TEXT_WHITE"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -1053,11 +1172,14 @@
 
                     <Button
                         android:id="@+id/formular_learn_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="@string/Back"
+                        android:layout_marginEnd="8dp"
+                        android:background="@mipmap/button_back"
+                        app:layout_constraintBottom_toTopOf="@+id/guideline104"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline103"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -1070,6 +1192,7 @@
                         android:layout_marginEnd="8dp"
                         android:text="@string/OriginalTranslation"
                         android:textAlignment="center"
+                        android:textColor="@color/TEXT_WHITE"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
