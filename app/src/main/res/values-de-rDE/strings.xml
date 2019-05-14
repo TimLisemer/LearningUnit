@@ -253,4 +253,8 @@
     <string name="Settingss">Optionen</string>
     <string name="Premium">Premium</string>
     <string name="ReportListText">Liste Gemeldet, wir werden sie uns anschauen</string>
+    <string name="VocabularyTrainer">Vokabeltrainer</string>
+    <string name="CreateVocList">Vokabelliste Erstellen</string>
+    <string name="ImportVocList">Vokabelliste Importieren</string>
+    <string name="VocabularyList">Vokabelliste</string>
 </resources>

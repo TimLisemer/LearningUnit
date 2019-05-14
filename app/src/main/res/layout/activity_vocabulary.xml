@@ -21,6 +21,57 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+        <ImageView
+            android:id="@+id/login_imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/sa_balken_logo" />
+
+        <TextView
+            android:id="@+id/login_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/Vocabularys"
+            android:textAlignment="center"
+            android:textColor="@color/TEXT_WHITE"
+            android:textColorLink="@color/TEXT_WHITE"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/login_imageView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/login_imageView2"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/vocabulary_back"
+            style="@style/back"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/TEXT_WHITE"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/vocabulary_create"
+            style="@style/plus"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/TEXT_WHITE"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/vocabulary_layout2"
             android:layout_width="0dp"
@@ -30,7 +81,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_imageView2"
             app:layout_constraintVertical_bias="0.0">
 
             <android.support.constraint.ConstraintLayout
@@ -41,12 +92,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline70"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.15" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline52"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.85" />
+
                 <TextView
                     android:id="@+id/vocabulary_nolists"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/NoListCreatedYet"
                     android:textAlignment="center"
@@ -59,47 +124,17 @@
 
                 <Button
                     android:id="@+id/vocabulary_all"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/sa_button"
                     android:text="@string/AllVocabularys"
                     android:textColor="@color/TEXT_WHITE"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/vocabulary_create"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/sa_button"
-                    android:text="@string/NewList"
-                    android:textColor="@color/TEXT_WHITE"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/vocabulary_vocabulary1"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/vocabulary_all"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/vocabulary_back"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/sa_button"
-                    android:text="@string/Back"
-                    android:textColor="@color/TEXT_WHITE"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/vocabulary_all"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline52"
+                    app:layout_constraintStart_toStartOf="@+id/guideline70"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
@@ -370,6 +405,61 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.constraint.Guideline
+                android:id="@+id/guideline74"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.15" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline73"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.85" />
+
+            <Button
+                android:id="@+id/vocabulary_back1"
+
+                style="@style/back"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/login_imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.533"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@mipmap/sa_balken_logo" />
+
+            <TextView
+                android:id="@+id/login_textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/VocabularyList"
+                android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
+                android:textColorLink="@color/TEXT_WHITE"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/login_imageView6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <android.support.constraint.Guideline
                 android:id="@+id/vocabulary_guideline0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -378,22 +468,19 @@
 
             <Button
                 android:id="@+id/vocabulary_edit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/sa_button"
-                android:text="@string/Settings"
+                style="@style/settings"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
                 android:textColor="@color/TEXT_WHITE"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/vocabulary_train"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/vocabulary_train"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -402,24 +489,9 @@
                 android:text="@string/Train"
                 android:textColor="@color/TEXT_WHITE"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/vocabulary_back1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/sa_button"
-                android:text="@string/Back"
-                android:textColor="@color/TEXT_WHITE"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/vocabulary_train"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/guideline73"
+                app:layout_constraintStart_toStartOf="@+id/guideline74"
+                app:layout_constraintTop_toBottomOf="@+id/login_imageView6" />
 
             <TextView
                 android:id="@+id/vocabulary_error"
@@ -603,6 +675,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Button
+            android:id="@+id/vocabulary_ShareBack"
+            style="@style/back"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/TEXT_WHITE"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/login_imageView5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/login_imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/sa_balken_logo" />
+
+        <TextView
+            android:id="@+id/login_textView415"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="@string/PublicVocabLists"
+            android:textAlignment="center"
+            android:textColor="@color/TEXT_WHITE"
+            android:textColorLink="@color/TEXT_WHITE"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/login_imageView5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/vocabulary_ShareScollView0"
             android:layout_width="match_parent"
@@ -617,7 +731,9 @@
                 android:id="@+id/vocabulary_FirstShareView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -625,7 +741,7 @@
                     android:id="@+id/vocabulary_ShareSearch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
@@ -635,24 +751,9 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/vocabulary_ShareGuideline0"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/vocabulary_ShareEditView"
                     app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/vocabulary_ShareHeadline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/PublicVocabLists"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/vocabulary_ShareEditView"
@@ -662,10 +763,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_ShareHeadline">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/vocabulary_ShareGetList"
+                        style="@style/sa_textbalken"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/SearchConditions"
@@ -673,23 +775,6 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </android.support.design.widget.TextInputLayout>
-
-                <Button
-                    android:id="@+id/vocabulary_ShareBack"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/sa_button"
-                    android:text="@string/Back"
-                    android:textColor="@color/TEXT_WHITE"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/vocabulary_ShareGuideline0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vocabulary_ShareEditView" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/vocabulary_ShareGuideline0"
@@ -706,9 +791,10 @@
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vocabulary_FirstShareView"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintVertical_bias="1.0">
 
                 <TextView
                     android:id="@+id/vocabulary_ShareRecommended"
@@ -824,6 +910,47 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0">
 
+                    <Button
+                        android:id="@+id/vocabulary_learn_back"
+                        style="@style/back"
+                        android:textColor="@color/TEXT_WHITE"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/login_imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.533"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:srcCompat="@mipmap/sa_balken_logo" />
+
+                    <TextView
+                        android:id="@+id/login_textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/VocabularyTrainer"
+                        android:textAlignment="center"
+                        android:textColor="@color/TEXT_WHITE"
+                        android:textColorLink="@color/TEXT_WHITE"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/login_imageView4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
                     <TextView
                         android:id="@+id/vocabulary_learn_language1"
                         android:layout_width="0dp"
@@ -926,56 +1053,56 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:layout_marginEnd="16dp"
                         android:text="@string/Unskilled"
                         app:layout_constraintEnd_toStartOf="@+id/vocabulary_learn_level1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_back" />
+                        app:layout_constraintTop_toBottomOf="@+id/login_textView3" />
 
                     <TextView
                         android:id="@+id/vocabulary_learn_level1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:layout_marginEnd="24dp"
                         android:text="Level 1"
                         app:layout_constraintEnd_toStartOf="@+id/vocabulary_learn_level2"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_back" />
+                        app:layout_constraintTop_toBottomOf="@+id/login_textView3" />
 
                     <TextView
                         android:id="@+id/vocabulary_learn_level2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:layout_marginEnd="32dp"
                         android:text="Level 2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_back" />
+                        app:layout_constraintTop_toBottomOf="@+id/login_textView3" />
 
                     <TextView
                         android:id="@+id/vocabulary_learn_level3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:text="Level 3"
                         app:layout_constraintStart_toEndOf="@+id/vocabulary_learn_level2"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_back" />
+                        app:layout_constraintTop_toBottomOf="@+id/login_textView3" />
 
                     <TextView
                         android:id="@+id/vocabulary_learn_level4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         android:layout_marginEnd="16dp"
                         android:text="@string/Learned"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/vocabulary_learn_level3"
-                        app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_back" />
+                        app:layout_constraintTop_toBottomOf="@+id/login_textView3" />
 
                     <TextView
                         android:id="@+id/vocabulary_learn_language"
@@ -1005,6 +1132,7 @@
 
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/vocabulary_learn_editText"
+                            style="@style/sa_textbalken"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/Translation"
@@ -1099,19 +1227,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/vocabulary_learn_showTranslation" />
 
-                    <Button
-                        android:id="@+id/vocabulary_learn_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/sa_button"
-                        android:text="@string/Back"
-                        android:textColor="@color/TEXT_WHITE"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                     <TextView
                         android:id="@+id/vocabulary_learn_vocabularys"
                         android:layout_width="0dp"
@@ -1138,7 +1253,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:adSize="SMART_BANNER"
             app:adUnitId="ca-app-pub-2182452775939631/6751260660"
             app:layout_constraintBottom_toBottomOf="parent"

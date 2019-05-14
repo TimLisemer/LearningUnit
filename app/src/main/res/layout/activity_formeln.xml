@@ -13,7 +13,7 @@
         android:id="@+id/formular_scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -59,6 +59,7 @@
 
                 <Button
                     android:id="@+id/formular_all"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -70,6 +71,7 @@
 
                 <Button
                     android:id="@+id/formular_create"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -83,6 +85,7 @@
 
                 <Button
                     android:id="@+id/formular_back"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -95,6 +98,7 @@
 
                 <Button
                     android:id="@+id/formular_nolistsButton"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -303,6 +307,7 @@
 
                 <Button
                     android:id="@+id/formular_import"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="174dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -316,6 +321,7 @@
 
                 <Button
                     android:id="@+id/formular_shared"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -358,6 +364,7 @@
 
             <Button
                 android:id="@+id/formular_edit"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -370,6 +377,7 @@
 
             <Button
                 android:id="@+id/formular_train"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -382,6 +390,7 @@
 
             <Button
                 android:id="@+id/formular_back1"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -531,6 +540,7 @@
 
             <Button
                 android:id="@+id/formular_follow"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -545,6 +555,7 @@
 
             <Button
                 android:id="@+id/formular_rate"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_marginStart="32dp"
@@ -596,7 +607,50 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <Button
+                    android:id="@+id/formular_ShareBack"
+                    style="@style/back"
+
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/login_imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.533"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@mipmap/sa_balken_logo" />
+
+                <TextView
+                    android:id="@+id/login_textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/Formulars"
+                    android:textAlignment="center"
+                    android:textColor="@color/TEXT_WHITE"
+                    android:textColorLink="@color/TEXT_WHITE"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/login_imageView3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
                     android:id="@+id/formular_ShareSearch"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -606,16 +660,16 @@
                     android:text="@string/SearchFormularList"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/formular_ShareGuideline0"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/formular_ShareEditView"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
                     android:id="@+id/formular_ShareHeadline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="68dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/PublicFormularLists"
                     android:textAlignment="center"
@@ -629,14 +683,15 @@
                     android:id="@+id/formular_ShareEditView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/formular_ShareHeadline">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/formular_ShareGetList"
+                        style="@style/sa_textbalken"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/SearchConditions"
@@ -645,26 +700,12 @@
                         android:textStyle="bold" />
                 </android.support.design.widget.TextInputLayout>
 
-                <Button
-                    android:id="@+id/formular_ShareBack"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/Back"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/formular_ShareGuideline0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/formular_ShareEditView" />
-
                 <android.support.constraint.Guideline
                     android:id="@+id/formular_ShareGuideline0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.50" />
+                    app:layout_constraintGuide_percent="0.5" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -756,7 +797,7 @@
         android:id="@+id/formular_scrollView5"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.934"
@@ -788,6 +829,45 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0">
+
+                    <Button
+                        android:id="@+id/formular_learn_back"
+                        style="@style/back"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/login_imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.533"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:srcCompat="@mipmap/sa_balken_logo" />
+
+                    <TextView
+                        android:id="@+id/login_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/Formulars"
+                        android:textAlignment="center"
+                        android:textColor="@color/TEXT_WHITE"
+                        android:textColorLink="@color/TEXT_WHITE"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/login_imageView2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
 
                     <TextView
                         android:id="@+id/formular_learn_language1"
@@ -978,18 +1058,21 @@
 
                     <Button
                         android:id="@+id/formular_learn_showTranslation"
-                        android:layout_width="0dp"
+                        style="@style/Fynnx_Buttons"
+                        android:layout_width="395dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:text="@string/ShowTranslation"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_right" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_enter" />
 
                     <Button
                         android:id="@+id/formular_learn_right"
+                        style="@style/Fynnx_Buttons"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -999,7 +1082,7 @@
                         android:visibility="gone"
                         app:layout_constraintEnd_toStartOf="@+id/guideline55"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_enter" />
 
                     <android.support.constraint.Guideline
                         android:id="@+id/guideline55"
@@ -1009,30 +1092,18 @@
                         app:layout_constraintGuide_percent="0.5" />
 
                     <Button
-                        android:id="@+id/formular_learn_wrong"
+                        android:id="@+id/formular_learn_enter"
+                        style="@style/Fynnx_Buttons"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:text="@string/IWasRight"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/guideline55"
-                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
-
-                    <Button
-                        android:id="@+id/formular_learn_enter"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="8dp"
                         android:enabled="false"
-                        android:text="@string/ShowTranslation"
+                        android:text="@string/Enter"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.357"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/formular_learn_inputlayout" />
 
@@ -1041,7 +1112,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="100dp"
                         android:layout_marginEnd="8dp"
                         android:text="@string/LanguageLanguage"
                         android:textAlignment="center"
@@ -1049,17 +1120,22 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_showTranslation" />
+                        app:layout_constraintTop_toBottomOf="@+id/formular_learn_enter" />
 
                     <Button
-                        android:id="@+id/formular_learn_back"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/formular_learn_wrong"
+                        style="@style/Fynnx_Buttons"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="@string/Back"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/IWasRight"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/guideline55"
+                        app:layout_constraintTop_toTopOf="@+id/formular_learn_showTranslation" />
 
                     <TextView
                         android:id="@+id/formular_learn_formulars"
@@ -1082,7 +1158,7 @@
                 android:id="@+id/FormularTrainer_AdView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:adSize="SMART_BANNER"
                 app:adUnitId="ca-app-pub-2182452775939631/5234589897"
                 app:layout_constraintBottom_toBottomOf="parent"

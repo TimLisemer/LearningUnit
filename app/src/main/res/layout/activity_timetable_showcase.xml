@@ -20,7 +20,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"></com.google.android.gms.ads.doubleclick.PublisherAdView>
+        app:layout_constraintVertical_bias="1.0">
+
+    </com.google.android.gms.ads.doubleclick.PublisherAdView>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -32,13 +34,13 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="65dp"
+            android:layout_height="64dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_dialog_email" />
+            app:srcCompat="@drawable/ic_compare_arrows_black_24dp" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/container"
@@ -57,13 +59,85 @@
             android:id="@+id/timetableShowcase_Layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline76"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.15" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline75"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.85" />
+
+            <Button
+                android:id="@+id/timetableShowcase_Share"
+                style="@style/Fynnx_Buttons"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/Share"
+                app:layout_constraintEnd_toStartOf="@+id/guideline75"
+                app:layout_constraintStart_toStartOf="@+id/guideline76"
+                app:layout_constraintTop_toBottomOf="@+id/login_textView10" />
+
+            <Button
+                android:id="@+id/timetableShowcase_New"
+                style="@style/plus"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/login_imageView12"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/timetableShowcase_Back"
+                style="@style/back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/login_imageView12"
+                android:layout_width="wrap_content"
+                android:layout_height="61dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.533"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@mipmap/sa_balken_logo" />
+
+            <TextView
+                android:id="@+id/login_textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/Timetable"
+                android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
+                android:textColorLink="@color/TEXT_WHITE"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/login_imageView12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline24"
@@ -78,43 +152,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.25" />
-
-            <Button
-                android:id="@+id/timetableShowcase_Back"
-                style="@style/Fynnx_Buttons"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/Back"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline23"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/timetableShowcase_New"
-                style="@style/Fynnx_Buttons"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/ChangeTimetable"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline24"
-                app:layout_constraintStart_toStartOf="@+id/guideline23"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/timetableShowcase_Share"
-                style="@style/Fynnx_Buttons"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@string/Share"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline24"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>

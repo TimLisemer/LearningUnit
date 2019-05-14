@@ -296,6 +296,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Gradefragment_organizer_home_GradeSubSelection_Opt1"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -309,6 +310,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Gradefragment_organizer_home_GradeSubSelection_Opt2"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -354,6 +356,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Grade_Certificate"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -369,6 +372,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Grade_Exam"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -384,6 +388,7 @@
 
         <Button
             android:id="@+id/fragment_organizer_home_Grade_Presentation"
+            style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

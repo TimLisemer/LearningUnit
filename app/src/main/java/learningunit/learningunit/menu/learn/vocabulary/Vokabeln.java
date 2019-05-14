@@ -596,7 +596,6 @@ public class Vokabeln extends AppCompatActivity {
                         listiD = Integer.parseInt(sd);
                         showvocablist.setID(listiD);
 
-                        settings.setText(act.getResources().getString(R.string.Settings));
                         settings.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -604,12 +603,10 @@ public class Vokabeln extends AppCompatActivity {
                             }
                         });
                     }catch(Exception e) {
-                        settings.setText("Einstellungen");
                     }
                 }
             }else{
                 listiD = showvocablist.getID();
-                settings.setText(act.getResources().getString(R.string.Settings));
                 settings.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -657,9 +654,7 @@ public class Vokabeln extends AppCompatActivity {
                 }
             }else{
                 follow.setText("OFFLINE");
-            }
-            settings.setText(act.getResources().getString(R.string.ReportList));
-            settings.setOnClickListener(new View.OnClickListener() {
+            }settings.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(act, act.getResources().getString(R.string.ReportListText), Toast.LENGTH_SHORT).show();

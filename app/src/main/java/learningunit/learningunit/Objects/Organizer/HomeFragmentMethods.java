@@ -162,7 +162,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
         MainLayout.setVisibility(View.GONE);
 
         final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
-        TopBack.setText(activity.getResources().getString(R.string.Back));
         TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -265,7 +264,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
         MainLayout.setVisibility(View.GONE);
 
         final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
-        TopBack.setText(activity.getResources().getString(R.string.Back));
         TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -349,7 +347,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
         MainLayout.setVisibility(View.GONE);
 
         final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
-        TopBack.setText(activity.getResources().getString(R.string.Back));
         TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -420,7 +417,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
         newOne.setText(activity.getResources().getString(R.string.EnterNewHomework));
 
         final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
-        TopBack.setText(activity.getResources().getString(R.string.Back));
         TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1607,7 +1603,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
         final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
         final ConstraintLayout MainLayout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_MainLayout);
-        TopBack.setText(activity.getResources().getString(R.string.Back));
         TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1774,7 +1769,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
         final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
         final ScrollView newEvent = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout);
 
-        TopBack.setText(activity.getResources().getString(R.string.Cancel));
         TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1784,7 +1778,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 FinishHomework.setVisibility(View.GONE);
                 newEvent.setVisibility(View.GONE);
                 MainLayout.setVisibility(View.VISIBLE);
-                TopBack.setText(activity.getResources().getString(R.string.Back));
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1834,7 +1827,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
             public void onClick(View v) {
                 Selection.setVisibility(View.VISIBLE);
                 newEvent.setVisibility(View.GONE);
-                TopBack.setText(activity.getResources().getString(R.string.Back));
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1954,7 +1946,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
         final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
         final ScrollView newEvent = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout);
 
-        TopBack.setText(activity.getResources().getString(R.string.Cancel));
         TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1964,7 +1955,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 FinishHomework.setVisibility(View.GONE);
                 newEvent.setVisibility(View.GONE);
                 MainLayout.setVisibility(View.VISIBLE);
-                TopBack.setText(activity.getResources().getString(R.string.Back));
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -2014,7 +2004,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
             public void onClick(View v) {
                 Selection.setVisibility(View.VISIBLE);
                 newEvent.setVisibility(View.GONE);
-                TopBack.setText(activity.getResources().getString(R.string.Back));
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -2144,7 +2133,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
         final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
         final ScrollView newEvent = (ScrollView) fragmentView.findViewById(R.id.fragment_organizer_home_NewEventLayout);
 
-        TopBack.setText(activity.getResources().getString(R.string.Cancel));
         TopBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2154,7 +2142,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 FinishHomework.setVisibility(View.GONE);
                 newEvent.setVisibility(View.GONE);
                 MainLayout.setVisibility(View.VISIBLE);
-                TopBack.setText(activity.getResources().getString(R.string.Back));
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -2204,7 +2191,6 @@ public class HomeFragmentMethods extends AppCompatActivity {
             public void onClick(View v) {
                 Selection.setVisibility(View.VISIBLE);
                 newEvent.setVisibility(View.GONE);
-                TopBack.setText(activity.getResources().getString(R.string.Back));
                 TopBack.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
