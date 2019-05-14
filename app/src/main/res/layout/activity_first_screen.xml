@@ -209,6 +209,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline77"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
             <ImageView
                 android:id="@+id/login_imageView"
                 android:layout_width="wrap_content"
@@ -259,13 +266,11 @@
             <Button
                 android:id="@+id/login_decline"
                 style="@style/Fynnx_Buttons"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/login_decline"
-                app:layout_constraintEnd_toEndOf="@+id/login_info2"
+                app:layout_constraintEnd_toStartOf="@+id/guideline77"
                 app:layout_constraintHorizontal_bias="0.25"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_info2" />
@@ -273,15 +278,13 @@
             <Button
                 android:id="@+id/login_accept"
                 style="@style/Fynnx_Buttons"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/Ok"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.75"
-                app:layout_constraintStart_toStartOf="@+id/login_info2"
+                app:layout_constraintStart_toStartOf="@+id/guideline77"
                 app:layout_constraintTop_toBottomOf="@+id/login_info2" />
 
             <Button

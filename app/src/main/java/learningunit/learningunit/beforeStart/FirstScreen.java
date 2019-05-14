@@ -286,7 +286,7 @@ public class FirstScreen extends AppCompatActivity {
                                     view1.setVisibility(View.VISIBLE);
                                     view2.setVisibility(View.INVISIBLE);
                                     VocabularyMethods.vocabularylists.clear();
-                                    FirstScreen.tinyDB.remove("VocLists");
+                                    ManageData.RemoveOfflineData();
                                     ManageData.saveVocabularyLists();
                                     backLocation = 0;
                                     open_next();
