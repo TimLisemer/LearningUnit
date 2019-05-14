@@ -257,4 +257,5 @@
     <string name="CreateVocList">Vokabelliste Erstellen</string>
     <string name="ImportVocList">Vokabelliste Importieren</string>
     <string name="VocabularyList">Vokabelliste</string>
+    <string name="FullscreenImage">Vollbild</string>
 </resources>
