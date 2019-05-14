@@ -356,7 +356,7 @@
         android:id="@+id/vocabulary_scrollview1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -369,6 +369,47 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
 
+            <Button
+                android:id="@+id/vocabulary_back1"
+
+                style="@style/back"
+                android:textColor="@color/TEXT_WHITE"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/login_textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/DataTransfer"
+                android:textAlignment="center"
+                android:textColor="@color/TEXT_WHITE"
+                android:textColorLink="@color/TEXT_WHITE"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/login_imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/login_imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.533"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@mipmap/sa_balken_logo" />
+
             <android.support.constraint.Guideline
                 android:id="@+id/vocabulary_guideline0"
                 android:layout_width="wrap_content"
@@ -378,17 +419,14 @@
 
             <Button
                 android:id="@+id/vocabulary_edit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                style="@style/settings"
+                android:layout_width="42dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/sa_button"
-                android:text="@string/Settings"
                 android:textColor="@color/TEXT_WHITE"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/vocabulary_train"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
@@ -403,21 +441,6 @@
                 android:textColor="@color/TEXT_WHITE"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/vocabulary_back1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/sa_button"
-                android:text="@string/Back"
-                android:textColor="@color/TEXT_WHITE"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/vocabulary_train"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -597,7 +620,7 @@
         android:id="@+id/vocabulary_ShareMainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -710,11 +733,11 @@
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/vocabulary_ShareGetList"
+                        style="@style/sa_textbalken"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/SearchConditions"
                         android:textAlignment="center"
-                        style="@style/sa_textbalken"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </android.support.design.widget.TextInputLayout>
