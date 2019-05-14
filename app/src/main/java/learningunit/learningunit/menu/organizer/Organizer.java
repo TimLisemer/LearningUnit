@@ -84,7 +84,7 @@ public class Organizer extends AppCompatActivity{
             return false;
         }
     };
-    //
+
     protected static OnBackPressedListener onBackPressedListener;
 
     public static void setOnBackPressedListener(OnBackPressedListener onBackPressedListeners) {
