@@ -1228,7 +1228,6 @@
                     android:background="@drawable/sa_button1"
                     android:text="Button"
                     android:textColor="@color/TEXT_WHITE"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/guideline20"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1243,7 +1242,6 @@
                     android:background="@drawable/sa_button1"
                     android:text="Button"
                     android:textColor="@color/TEXT_WHITE"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline20"
                     app:layout_constraintTop_toTopOf="parent" />
