@@ -39,7 +39,6 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/login_email_layout"
-            style="@style/Text_Feld"
             android:layout_width="0dp"
             android:layout_height="53dp"
             android:layout_marginStart="8dp"
@@ -54,9 +53,9 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/login_email"
+                style="@style/sa_textbalken"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/sa_textbalken"
+                android:layout_height="38dp"
                 android:fontFamily="@font/poppins"
                 android:gravity="center"
                 android:hint="@string/Credentials"
@@ -67,7 +66,7 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/login_password_layout"
             android:layout_width="0dp"
-            android:layout_height="53dp"
+            android:layout_height="62dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
@@ -80,9 +79,9 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/login_password"
+                style="@style/sa_textbalken"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/sa_textbalken"
+                android:layout_height="42dp"
                 android:fontFamily="@font/poppins"
                 android:gravity="center"
                 android:hint="@string/Password"
