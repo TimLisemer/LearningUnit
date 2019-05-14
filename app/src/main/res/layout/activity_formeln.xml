@@ -13,7 +13,7 @@
         android:id="@+id/formular_scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -59,6 +59,7 @@
 
                 <Button
                     android:id="@+id/formular_all"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -70,6 +71,7 @@
 
                 <Button
                     android:id="@+id/formular_create"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -83,6 +85,7 @@
 
                 <Button
                     android:id="@+id/formular_back"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -95,6 +98,7 @@
 
                 <Button
                     android:id="@+id/formular_nolistsButton"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -303,6 +307,7 @@
 
                 <Button
                     android:id="@+id/formular_import"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="174dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -316,6 +321,7 @@
 
                 <Button
                     android:id="@+id/formular_shared"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -358,6 +364,7 @@
 
             <Button
                 android:id="@+id/formular_edit"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -370,6 +377,7 @@
 
             <Button
                 android:id="@+id/formular_train"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -382,6 +390,7 @@
 
             <Button
                 android:id="@+id/formular_back1"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -531,6 +540,7 @@
 
             <Button
                 android:id="@+id/formular_follow"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -545,6 +555,7 @@
 
             <Button
                 android:id="@+id/formular_rate"
+                style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_marginStart="32dp"
@@ -597,6 +608,7 @@
 
                 <Button
                     android:id="@+id/formular_ShareSearch"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -647,6 +659,7 @@
 
                 <Button
                     android:id="@+id/formular_ShareBack"
+                    style="@style/Fynnx_Buttons"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
@@ -756,7 +769,7 @@
         android:id="@+id/formular_scrollView5"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.934"
@@ -1058,6 +1071,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:text="@string/Back"
+                        style="@style/Fynnx_Buttons"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
