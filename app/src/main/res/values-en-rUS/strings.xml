@@ -256,4 +256,5 @@
     <string name="VocabularyTrainer">Vocabulary Trainer</string>
     <string name="CreateVocList">Create Vocabulary List</string>
     <string name="ImportVocList">Import Vocabulary List</string>
+    <string name="VocabularyList">Vocabulary List</string>
 </resources>
