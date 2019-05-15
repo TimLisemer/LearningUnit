@@ -877,13 +877,15 @@ public class HomeFragmentMethods extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        ConstraintLayout layout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_DOWN1);
-                        for (int i = 0; i < downHour.length; i++) {
-                            layout.removeView(downHour[i]);
-                        }
-                        for (int i = 0; i < downHour1.length; i++) {
-                            layout.removeView(downHour1[i]);
-                        }
+                        try {
+                            ConstraintLayout layout = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_SubjectSelection_DOWN1);
+                            for (int i = 0; i < downHour.length; i++) {
+                                layout.removeView(downHour[i]);
+                            }
+                            for (int i = 0; i < downHour1.length; i++) {
+                                layout.removeView(downHour1[i]);
+                            }
+                        }catch(Exception e){}
 
                         if (Case == 0) {
                             fragmentView.findViewById(R.id.fragment_organizer_home_NewHomeworkLayout).setVisibility(View.VISIBLE);

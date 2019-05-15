@@ -168,7 +168,7 @@
     <string name="PublicVocabLists">Öffentliche Vokabellisten</string>
     <string name="RecommendedVocabList">Empfohlene Vokabellisten</string>
     <string name="SearchVocabularyList">Vokabellisten Suchen</string>
-    <string name="SearchConditions">Zum Suchen ID, Name oder Sprachen eingeben</string>
+    <string name="SearchConditions">Zum Suchen ID, Name, Ersteller, Titel oder Sprache eingeben</string>
     <string name="YourVocabularyList">Deine Vokabellisten</string>
     <string name="FollowedVocabLists">Gefolgte Vokabellisten</string>
     <string name="Language">Sprache</string>
@@ -278,4 +278,6 @@
     <string name="Credit4">Website Entwicklung und Design</string>
     <string name="Credit5">Unter der Leitung von</string>
     <string name="Credit6">Entstanden als Schulprojekt der Erasmus-Kittler-Schule Darmstadt</string>
+    <string name="NoListFound">Es konnte keine Vokabelliste gefunden werden</string>
+    <string name="SearchResults">Suchergebnisse</string>
 </resources>

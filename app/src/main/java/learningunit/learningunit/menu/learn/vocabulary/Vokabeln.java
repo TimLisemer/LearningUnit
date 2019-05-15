@@ -1463,7 +1463,7 @@ public class Vokabeln extends AppCompatActivity {
     }
 
 
-    private static void openShared(Activity act){
+    private static void openShared(final Activity act){
         act.findViewById(R.id.vocabulary_ShareMainView).setVisibility(View.VISIBLE);
         act.findViewById(R.id.vocabulary_scrollView).setVisibility(View.GONE);
 
@@ -1471,14 +1471,97 @@ public class Vokabeln extends AppCompatActivity {
         ShareGetList.setActivated(false);
         MainActivity.hideKeyboard(act);
 
-        RequestHandler requestHandler = new RequestHandler();
-        Gson gson = new Gson();
+        final RequestHandler requestHandler = new RequestHandler();
+        final Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<ArrayList<String>>>() {}.getType();
         String json = requestHandler.sendGetRequest(MainActivity.URL_GetSharedLists);
         ArrayList<ArrayList<String>> SharedLists = gson.fromJson(json, type);
-
         ListView shareListView = (ListView) act.findViewById(R.id.vocabulary_ShareListView);
         shareListView.setAdapter(new PublicListCustomAdapter(act, SharedLists));
+        final TextView publicheading = (TextView) act.findViewById(R.id.vocabulary_ShareRecommended);
+        publicheading.setText(act.getResources().getString(R.string.RecommendedVocabList));
+
+        final EditText searchbar = (EditText) act.findViewById(R.id.vocabulary_ShareGetList);
+        searchbar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Type type = new TypeToken<ArrayList<ArrayList<String>>>() {}.getType();
+                String json;
+                json = requestHandler.sendGetRequest(MainActivity.GetSharedListsSearch + searchbar.getText().toString().trim());
+                String searchbartext = searchbar.getText().toString().trim();
+                if(searchbartext.equalsIgnoreCase("") || searchbartext.equalsIgnoreCase(" ") || searchbartext.equalsIgnoreCase("  ") || searchbartext.equalsIgnoreCase("  ")){
+                    json = requestHandler.sendGetRequest(MainActivity.URL_GetSharedLists);
+                    publicheading.setText(act.getResources().getString(R.string.RecommendedVocabList));
+                    ArrayList<ArrayList<String>> SharedLists = gson.fromJson(json, type);
+                    ListView shareListView = (ListView) act.findViewById(R.id.vocabulary_ShareListView);
+                    shareListView.setAdapter(new PublicListCustomAdapter(act, SharedLists));
+                    act.findViewById(R.id.vocabulary_share_NoListFound).setVisibility(View.GONE);
+                    act.findViewById(R.id.vocabulary_ShareListView).setVisibility(View.VISIBLE);
+                }else {
+                    publicheading.setText(act.getResources().getString(R.string.SearchResults));
+                    try {
+                        act.findViewById(R.id.vocabulary_share_NoListFound).setVisibility(View.GONE);
+                        act.findViewById(R.id.vocabulary_ShareListView).setVisibility(View.VISIBLE);
+                        ArrayList<ArrayList<String>> SharedLists = gson.fromJson(json, type);
+                        ListView shareListView = (ListView) act.findViewById(R.id.vocabulary_ShareListView);
+                        shareListView.setAdapter(new PublicListCustomAdapter(act, SharedLists));
+                        Log.d("Searchbar", MainActivity.GetSharedListsSearch + searchbar.getText().toString().trim());
+                        Log.d("SearchbarJson", json);
+                    } catch (Exception e) {
+                        act.findViewById(R.id.vocabulary_share_NoListFound).setVisibility(View.VISIBLE);
+                        act.findViewById(R.id.vocabulary_ShareListView).setVisibility(View.GONE);
+                        Log.d("Searchbar", MainActivity.GetSharedListsSearch + searchbar.getText().toString().trim());
+                        Log.d("SearchbarJson", json);
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        Button search = (Button) act.findViewById(R.id.vocabulary_ShareSearch);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Type type = new TypeToken<ArrayList<ArrayList<String>>>() {}.getType();
+                String json;
+                json = requestHandler.sendGetRequest(MainActivity.GetSharedListsSearch + searchbar.getText().toString().trim());
+                String searchbartext = searchbar.getText().toString().trim();
+                if(searchbartext.equalsIgnoreCase("") || searchbartext.equalsIgnoreCase(" ") || searchbartext.equalsIgnoreCase("  ") || searchbartext.equalsIgnoreCase("   ")){
+                    json = requestHandler.sendGetRequest(MainActivity.URL_GetSharedLists);
+                    publicheading.setText(act.getResources().getString(R.string.RecommendedVocabList));
+                    ArrayList<ArrayList<String>> SharedLists = gson.fromJson(json, type);
+                    ListView shareListView = (ListView) act.findViewById(R.id.vocabulary_ShareListView);
+                    shareListView.setAdapter(new PublicListCustomAdapter(act, SharedLists));
+                    act.findViewById(R.id.vocabulary_share_NoListFound).setVisibility(View.GONE);
+                    act.findViewById(R.id.vocabulary_ShareListView).setVisibility(View.VISIBLE);
+                }else {
+                    publicheading.setText(act.getResources().getString(R.string.SearchResults));
+                    try {
+                        act.findViewById(R.id.vocabulary_share_NoListFound).setVisibility(View.GONE);
+                        act.findViewById(R.id.vocabulary_ShareListView).setVisibility(View.VISIBLE);
+                        ArrayList<ArrayList<String>> SharedLists = gson.fromJson(json, type);
+                        ListView shareListView = (ListView) act.findViewById(R.id.vocabulary_ShareListView);
+                        shareListView.setAdapter(new PublicListCustomAdapter(act, SharedLists));
+                        Log.d("Searchbar", MainActivity.GetSharedListsSearch + searchbar.getText().toString().trim());
+                        Log.d("SearchbarJson", json);
+                    } catch (Exception e) {
+                        act.findViewById(R.id.vocabulary_share_NoListFound).setVisibility(View.VISIBLE);
+                        act.findViewById(R.id.vocabulary_ShareListView).setVisibility(View.GONE);
+                        Log.d("Searchbar", MainActivity.GetSharedListsSearch + searchbar.getText().toString().trim());
+                        Log.d("SearchbarJson", json);
+                    }
+                }
+            }
+        });
 
     }
 
@@ -1513,22 +1596,6 @@ public class Vokabeln extends AppCompatActivity {
             Vokabeln.publiclist = false;
             Vokabeln.sharedlist = null;
         }
-    }
-
-
-    public void setButtonHeight(final Button Button0,final Button Button1){
-        ViewTreeObserver observer = Button0.getViewTreeObserver();
-        observer.addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        if(Button1.getHeight() > Button0.getHeight()){
-                            Button0.setHeight(Button1.getHeight());
-                        }else if(Button1.getHeight() < Button0.getHeight()){
-                            Button1.setHeight(Button0.getHeight());
-                        }
-                    }
-                });
     }
 
 
