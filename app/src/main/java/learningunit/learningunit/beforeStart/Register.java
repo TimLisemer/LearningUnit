@@ -26,6 +26,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.Objects.Timetable.HourList;
@@ -112,7 +113,12 @@ public class Register extends AppCompatActivity {
         agbs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.learningunit.de"));
+                Intent browserIntent;
+                if(Locale.getDefault().getLanguage().equals("en")) {
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/language/privacy-policy/privacy-terms.html#terms-conditions"));
+                }else{
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/language/de/privacy-policy/privacy-terms.html#allgemeine-geschaeftsbedingungen"));
+                }
                 startActivity(browserIntent);
             }
         });
@@ -121,7 +127,12 @@ public class Register extends AppCompatActivity {
         dataterms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.learningunit.de"));
+                Intent browserIntent;
+                if(Locale.getDefault().getLanguage().equals("en")) {
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/language/privacy-policy/privacy-terms.html"));
+                }else{
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/language/de/privacy-policy/privacy-terms.html"));
+                }
                 startActivity(browserIntent);
             }
         });

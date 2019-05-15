@@ -168,7 +168,7 @@
     <string name="PublicVocabLists">Public Vocabularylists</string>
     <string name="RecommendedVocabList">Recommended Vocabularylists</string>
     <string name="SearchVocabularyList">Search Vocabularylist</string>
-    <string name="SearchConditions">To search, enter ID, name or languages</string>
+    <string name="SearchConditions">To search, enter ID, name, creator, titel or language</string>
     <string name="YourVocabularyList">Your Vocabularylists</string>
     <string name="FollowedVocabLists">Followed Vocabularylists</string>
     <string name="Language">Language</string>
@@ -278,4 +278,6 @@
     <string name="Credit4">Website development and design</string>
     <string name="Credit5">Under the direction of</string>
     <string name="Credit6">Created as a school project of the Erasmus-Kittler-Schule Darmstadt</string>
+    <string name="NoListFound">No vocabulary list could be found</string>
+    <string name="SearchResults">Searchresults</string>
 </resources>
