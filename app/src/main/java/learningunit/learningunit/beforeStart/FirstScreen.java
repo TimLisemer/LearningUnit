@@ -169,8 +169,6 @@ public class FirstScreen extends AppCompatActivity {
                 }
             });
 
-
-
             back = (Button) findViewById(R.id.first_back);
             back.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -178,6 +176,7 @@ public class FirstScreen extends AppCompatActivity {
                     open_back();
                 }
             });
+            ManageData.hideKeyboard(this);
         }else{
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -225,7 +224,7 @@ public class FirstScreen extends AppCompatActivity {
             return true;
         }else{
             errorview.setVisibility(View.VISIBLE);
-            errorview.setText("Unter diesen Daten konnte kein Account gefunden werden");
+            errorview.setText(getResources().getString(R.string.WrongCredentials));
             login.setEnabled(false);
             return false;
         }
@@ -281,12 +280,12 @@ public class FirstScreen extends AppCompatActivity {
                             public void onClick(View v) {
                                 boolean con = login();
                                 if (con == true) {
-                                    ManageData.setOnlineAccount(true);
-                                    ManageData.setOfflineAccount(2);
                                     view1.setVisibility(View.VISIBLE);
                                     view2.setVisibility(View.INVISIBLE);
                                     VocabularyMethods.vocabularylists.clear();
                                     ManageData.RemoveOfflineData();
+                                    ManageData.setOnlineAccount(true);
+                                    ManageData.setOfflineAccount(2);
                                     ManageData.saveVocabularyLists();
                                     backLocation = 0;
                                     open_next();
@@ -301,26 +300,30 @@ public class FirstScreen extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
+                ManageData.RemoveOfflineData();
                 errorview.setVisibility(View.VISIBLE);
                 Log.d("Login", "Kein Internet Verfügbar");
-                errorview.setText("Es konnte keine Verbindung mit dem Internet hergestellt werden.");
+                errorview.setText(getResources().getString(R.string.NoNetworkInfo));
 
+                ManageData.hideKeyboard(FirstScreen.this);
                 AlertDialog.Builder builder = new AlertDialog.Builder(FirstScreen.this);
                 builder.setCancelable(true);
-                builder.setNegativeButton("Zurück", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(getResources().getString(R.string.Cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
-                builder.setTitle("Keine Netzwerkverbindung");
-                builder.setMessage("Es konnte keine Verbindung mit dem Internet hergestellt werden.");
-                builder.setPositiveButton("Erneut Versuchen", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getResources().getString(R.string.TryAgain), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
                         open_login();
                     }
                 });
+
+                builder.setTitle(getResources().getString(R.string.NoNetworkConnection));
+                builder.setMessage(getResources().getString(R.string.NoNetworkInfo));
                 builder.show();
             }
     }

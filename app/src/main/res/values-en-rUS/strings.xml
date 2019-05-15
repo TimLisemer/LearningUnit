@@ -258,4 +258,15 @@
     <string name="ImportVocList">Import Vocabulary List</string>
     <string name="VocabularyList">Vocabulary List</string>
     <string name="FullscreenImage">Fullscreen Image</string>
+    <string name="WrongFormat">Wrong format</string>
+    <string name="PasswordMatchError">Passwords do not match</string>
+    <string name="WrongCredentials">No account could be found under this credentials</string>
+    <string name="TermsOfServiceChech">Yes, I have read and agree to the Terms of Use and the Privacy Policy</string>
+    <string name="Agbs">Terms of Service</string>
+    <string name="DataProcessing">Privacy Policy</string>
+    <string name="NoThanks">No, thanks</string>
+    <string name="LoseDataInfo">Otherwise they will be permanently lost.</string>
+    <string name="KeepDataQuestion">Should your existing data such as vocabularies, calendar entries etc. be transferred to this account?</string>
+    <string name="IncompleteTimetable">Not all hour names have been entered</string>
+    <string name="IncompleteTimetableSolution">To specify the name, press the hour and fill in the form.</string>
 </resources>

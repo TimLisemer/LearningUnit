@@ -234,7 +234,7 @@
     <string name="Status">Status</string>
     <string name="NoAds">Sämtliche Werbung entfernt</string>
     <string name="AllActiveEvents">Alle aktiven Termine:</string>
-    <string name="NoActiveEvents">Keine aktiven Terminen, erstelle jetzt einen im Organizer!</string>
+    <string name="NoActiveEvents">Keine aktiven Termine, erstelle jetzt einen im Organizer!</string>
     <string name="SavedAt">"Gespeichert unter: "</string>
     <string name="TakeAPic">Bild aufnehmen</string>
     <string name="PicOverview">Bilder Übersicht</string>
@@ -258,4 +258,15 @@
     <string name="ImportVocList">Vokabelliste Importieren</string>
     <string name="VocabularyList">Vokabelliste</string>
     <string name="FullscreenImage">Vollbild</string>
+    <string name="WrongFormat">Falsches Format</string>
+    <string name="PasswordMatchError">Passwörter stimmen nicht überein</string>
+    <string name="WrongCredentials">Unter diesen Daten konnte kein Account gefunden werden</string>
+    <string name="TermsOfServiceChech">Ja ich habe die AGB`s sowie die Datenschutzbestimmungen gelesen, und stimme ihnen zu</string>
+    <string name="Agbs">Allgemeine Geschäftsbedingungen</string>
+    <string name="DataProcessing">Datenschutzerklärung</string>
+    <string name="NoThanks">Nein, danke</string>
+    <string name="LoseDataInfo">Andernfalls gehen diese dauerhaft verloren.</string>
+    <string name="KeepDataQuestion">Sollen deine vorhandenen Daten wie Vokabeln, Kalendereinträge usw. in diesen Account übertragen werden?</string>
+    <string name="IncompleteTimetable">Es wurden noch nicht alle Namen der Fächer  für die jeweiligen Stunden angegeben.</string>
+    <string name="IncompleteTimetableSolution">Um den Namen eines Fachs anzugeben drücke auf die jeweilige Stunde, und fülle das aufkommende Formular aus.</string>
 </resources>
