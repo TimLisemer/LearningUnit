@@ -249,7 +249,7 @@
     <string name="DataTransfer">Data Transfer</string>
     <string name="WithoutAccount">Without Account</string>
     <string name="WarningWithoutAccount">An account offers you many advantages such as:\n\nSaving your data to protect it from loss.\n\nRetrieve your data from different devices to learn on even more devices.\n\nSharing information such as timetable and vocabulary lists with your friends.\n\nAccess to public vocabulary lists.</string>
-    <string name="Register">To Register</string>
+    <string name="Register">Register</string>
     <string name="Settingss">Settings</string>
     <string name="Premium">Premium</string>
     <string name="ReportListText">List Reported, thanks for your help!</string>
@@ -269,4 +269,13 @@
     <string name="KeepDataQuestion">Should your existing data such as vocabularies, calendar entries etc. be transferred to this account?</string>
     <string name="IncompleteTimetable">Not all hour names have been entered</string>
     <string name="IncompleteTimetableSolution">To specify the name, press the hour and fill in the form.</string>
+    <string name="Credits">Credits</string>
+    <string name="DeleteAccountQuestion">Delete Account?</string>
+    <string name="NoReturnMessage">This action can not be undone, think well!</string>
+    <string name="Credit1">App Development</string>
+    <string name="Credit2">Database development and administration</string>
+    <string name="Credit3">App Design</string>
+    <string name="Credit4">Website development and design</string>
+    <string name="Credit5">Under the direction of</string>
+    <string name="Credit6">Created as a school project of the Erasmus-Kittler-Schule Darmstadt</string>
 </resources>

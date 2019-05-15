@@ -3,6 +3,7 @@ package learningunit.learningunit.beforeStart;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -104,6 +105,24 @@ public class Register extends AppCompatActivity {
                 }else{
                     register.setEnabled(false);
                 }
+            }
+        });
+
+        Button agbs = (Button) findViewById(R.id.register_agbs);
+        agbs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.learningunit.de"));
+                startActivity(browserIntent);
+            }
+        });
+
+        Button dataterms = (Button) findViewById(R.id.register_data);
+        dataterms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.learningunit.de"));
+                startActivity(browserIntent);
             }
         });
 
