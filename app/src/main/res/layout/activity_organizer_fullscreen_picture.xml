@@ -6,15 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Objects.Organizer.organizer_fullscreen_picture">
 
-    <Button
-        android:id="@+id/organizer_fullscreen_back"
+    <ImageView
+        android:id="@+id/login_imageView13"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/Back"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@mipmap/sa_balken_logo" />
 
     <ImageView
         android:id="@+id/organizer_fullscreen_image"
@@ -24,8 +27,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_imageView13"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@color/bg" />
+
+    <Button
+        android:id="@+id/organizer_fullscreen_back"
+        style="@style/back"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/login_textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/FullscreenImage"
+        android:textAlignment="center"
+        android:textColor="@color/TEXT_WHITE"
+        android:textColorLink="@color/TEXT_WHITE"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/login_imageView13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

@@ -237,6 +237,7 @@ public class Register extends AppCompatActivity {
 
             }
         });
+        ManageData.hideKeyboard(this);
     }
 
     public static String md5(String passwordToHash) {
@@ -269,67 +270,72 @@ public class Register extends AppCompatActivity {
     public int Register(){
         MainActivity.hideKeyboard(Register.this);
         String Username = username.getText().toString().trim(), Email = email.getText().toString().trim(), password1 = md5(editpassword1.getText().toString().trim()), password2 = md5(editpassword2.getText().toString().trim());
-        if(password1.equals(password2)){
-            if(confirm.isChecked() == true){
+        if(Email.contains("@") && Email.contains(".")) {
+            if (password1.equals(password2)) {
+                if (confirm.isChecked() == true) {
 
-                LinkedHashMap<String, String> params = new LinkedHashMap <>();
-                params.put("Benutzername", Username);
-                params.put("Passwort", password1);
-                params.put("Email", Email);
-                params.put("Sprache", 1 + "");
+                    LinkedHashMap<String, String> params = new LinkedHashMap<>();
+                    params.put("Benutzername", Username);
+                    params.put("Passwort", password1);
+                    params.put("Email", Email);
+                    params.put("Sprache", 1 + "");
 
-                RequestHandler requestHandler = new RequestHandler();
-                String sd = requestHandler.sendPostRequest(MainActivity.URL_CreateAccount, params);
+                    RequestHandler requestHandler = new RequestHandler();
+                    String sd = requestHandler.sendPostRequest(MainActivity.URL_CreateAccount, params);
 
-                if(sd.contains("---")){
-                    Log.d("sd", sd);
-                    String[] parts = sd.split("---");
-                    String error = parts[1];
-                    if(parts[0].equals(" E")){
-                        if (error.contains("Benutzernamen")){
-                            username.setError(error);
-                        }else if (error.contains("E-Mail")){
-                            email.setError(error);
-                        }else{
-                            username.setError("Wohin gehörst du");
-                            email.setError(error);
+                    if (sd.contains("---")) {
+                        Log.d("sd", sd);
+                        String[] parts = sd.split("---");
+                        String error = parts[1];
+                        if (parts[0].equals(" E")) {
+                            if (error.contains("Benutzernamen")) {
+                                username.setError(error);
+                            } else if (error.contains("E-Mail")) {
+                                email.setError(error);
+                            } else {
+                                username.setError("Wohin gehörst du");
+                                email.setError(error);
+                            }
+                            return 0;
+                        } else {
+                            Log.d("No", "E");
+                            return 0;
                         }
-                        return 0;
-                    }else{
-                        Log.d("No", "E");
-                        return 0;
+                    } else {
+                        Gson gson = new Gson();
+                        Type type1 = new TypeToken<ArrayList<String>>() {
+                        }.getType();
+                        ArrayList<String> CreateList = new ArrayList<String>();
+                        CreateList = gson.fromJson(sd, type1);
+                        ManageData.Account = new LinkedHashMap<>();
+                        ArrayList list;
+                        String json = requestHandler.sendGetRequest(MainActivity.URL_GetAccount + Integer.parseInt(CreateList.get(0)));
+                        Type type = new TypeToken<ArrayList<String>>() {
+                        }.getType();
+                        list = gson.fromJson(json, type);
+
+                        ManageData.Account.put("id", CreateList.get(0));
+                        ManageData.Account.put("Benutzername", list.get(1).toString());
+                        ManageData.Account.put("Email", list.get(2).toString());
+                        ManageData.Account.put("Sprache", list.get(3).toString());
+                        ManageData.Account.put("SharedID", CreateList.get(1));
+                        ManageData.setOnlineAccount(true);
+                        Log.d("Account", ManageData.Account + "");
+                        return 1;
                     }
-                }else {
-                    Gson gson = new Gson();
-                    Type type1 = new TypeToken<ArrayList<String>>() {}.getType();
-                    ArrayList<String> CreateList = new ArrayList<String>();
-                    CreateList = gson.fromJson(sd, type1);
-                    ManageData.Account = new LinkedHashMap<>();
-                    ArrayList list;
-                    String json = requestHandler.sendGetRequest(MainActivity.URL_GetAccount + Integer.parseInt(CreateList.get(0)));
-                    Type type = new TypeToken<ArrayList<String>>() {}.getType();
-                    list = gson.fromJson(json, type);
 
-                    ManageData.Account.put("id", CreateList.get(0));
-                    ManageData.Account.put("Benutzername", list.get(1).toString());
-                    ManageData.Account.put("Email", list.get(2).toString());
-                    ManageData.Account.put("Sprache", list.get(3).toString());
-                    ManageData.Account.put("SharedID", CreateList.get(1));
-                    ManageData.setOnlineAccount(true);
-                    Log.d("Account", ManageData.Account + "");
-                    return 1;
+                } else {
+                    Log.d("No", "AGBS");
+                    return 0;
                 }
-
-            }else{
-                Log.d("No", "AGBS");
+            } else {
+                editpassword1.setError(getResources().getString(R.string.PasswordMatchError));
+                editpassword2.setError(getResources().getString(R.string.PasswordMatchError));
                 return 0;
             }
         }else{
-            editpassword1.setError("Passwoerter stimmen nicht überein");
-            editpassword2.setError("Passwoerter stimmen nicht überein");
-            Log.d("No", "Passwoerter stimmen nicht überein");
-            Log.d("Ps1", password1);
-            Log.d("Ps2", password2);
+            email.setError(getResources().getString(R.string.WrongFormat));
+            Log.d("Email", Email);
             return 0;
         }
     }
@@ -343,8 +349,6 @@ public class Register extends AppCompatActivity {
 
     public void open_register(){
         try {
-            ManageData.setOnlineAccount(true);
-            ManageData.setOfflineAccount(2);
             error.setVisibility(View.GONE);
             if (ManageData.OfflineDataLeft() == false) {
                 int con = Register();
@@ -371,12 +375,10 @@ public class Register extends AppCompatActivity {
                     public void onClick(View v) {
                         int con = Register();
                         if(con > 0) {
-                            ManageData.setOnlineAccount(true);
-                            ManageData.setOfflineAccount(2);
                             view1.setVisibility(View.VISIBLE);
                             view2.setVisibility(View.INVISIBLE);
                             backLocation = 0;
-                                    open_accept();
+                            open_accept();
                             Log.d("Register", "Accept");
                         }else {
                             open_back1();
@@ -390,12 +392,10 @@ public class Register extends AppCompatActivity {
                     public void onClick(View v) {
                         int con = Register();
                         if(con > 0) {
-                            ManageData.setOnlineAccount(true);
-                            ManageData.setOfflineAccount(2);
                             view1.setVisibility(View.VISIBLE);
                             view2.setVisibility(View.INVISIBLE);
                             VocabularyMethods.vocabularylists.clear();
-                            FirstScreen.tinyDB.remove("VocLists");
+                            ManageData.RemoveOfflineData();
                             ManageData.saveVocabularyLists();
                             backLocation = 0;
                             open_next();
@@ -408,26 +408,30 @@ public class Register extends AppCompatActivity {
                 });
             }
         }catch (Exception e){
+            ManageData.RemoveOfflineData();
             error.setVisibility(View.VISIBLE);
             Log.d("Register", "Kein Internet Verfügbar");
-            error.setText("Es konnte keine Verbindung mit dem Internet hergestellt werden.");
+            error.setText(getResources().getString(R.string.NoNetworkInfo));
 
+            ManageData.hideKeyboard(Register.this);
             AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
             builder.setCancelable(true);
-            builder.setNegativeButton("Zurück", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getResources().getString(R.string.Cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
             });
-            builder.setTitle("Keine Netzwerkverbindung");
-            builder.setMessage("Es konnte keine Verbindung mit dem Internet hergestellt werden.");
-            builder.setPositiveButton("Erneut Versuchen", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getResources().getString(R.string.TryAgain), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
                     open_register();
                 }
             });
+
+            builder.setTitle(getResources().getString(R.string.NoNetworkConnection));
+            builder.setMessage(getResources().getString(R.string.NoNetworkInfo));
             builder.show();
         }
     }
@@ -454,7 +458,6 @@ public class Register extends AppCompatActivity {
             ManageData.uploadVocabularyList(VocabularyMethods.vocabularylists.get(i), Register.this);
         }
         VocabularyMethods.vocabularylists = null;
-
         Gson gson = new Gson();
         String jsona = FirstScreen.tinyDB.getString("WeekA");
         String jsonb = FirstScreen.tinyDB.getString("WeekA");

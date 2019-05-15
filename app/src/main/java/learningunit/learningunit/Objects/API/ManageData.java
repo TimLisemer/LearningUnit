@@ -13,6 +13,7 @@ import java.util.LinkedHashMap;
 import learningunit.learningunit.Objects.Learn.Formular.Formular;
 import learningunit.learningunit.Objects.Learn.Formular.FormularList;
 import learningunit.learningunit.Objects.Learn.Formular.FormularMethods;
+import learningunit.learningunit.Objects.Organizer.EventMethods;
 import learningunit.learningunit.Objects.Organizer.Exam;
 import learningunit.learningunit.Objects.Organizer.Homework;
 import learningunit.learningunit.Objects.Organizer.Presentation;
@@ -93,7 +94,19 @@ public class ManageData extends MainActivity{
                         if((FormularMethods.formularLists.size() - e) == 0){
                             return false;
                         }else{
-                            return true;
+                            if(!(FirstScreen.tinyDB.getString("Homework").equalsIgnoreCase(""))){
+                                return false;
+                            }else{
+                                if(!(FirstScreen.tinyDB.getString("Exam").equalsIgnoreCase(""))){
+                                    return false;
+                                }else{
+                                    if(!(FirstScreen.tinyDB.getString("Presentation").equalsIgnoreCase(""))){
+                                        return false;
+                                    }else{
+                                        return true;
+                                    }
+                                }
+                            }
                         }
                     }else{
                         return false;
@@ -134,6 +147,9 @@ public class ManageData extends MainActivity{
         FirstScreen.tinyDB.remove("VocLists");
         FirstScreen.tinyDB.remove("WeekA");
         FirstScreen.tinyDB.remove("WeekB");
+        FirstScreen.tinyDB.remove("Homework");
+        FirstScreen.tinyDB.remove("Exam");
+        FirstScreen.tinyDB.remove("Presentation");
         saveVocabularyLists();
         Account.clear();
         OfflineAccount = 0;

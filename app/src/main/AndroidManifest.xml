@@ -15,31 +15,29 @@
         android:roundIcon="@mipmap/mylogo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Objects.Organizer.organizer_fullscreen_picture"></activity>
-        <activity android:name=".Objects.Organizer.organizer_pictures" />
-        <activity android:name=".Objects.Organizer.organizer_camera" />
-        <activity android:name=".menu.learn.formular.CreateFormList" />
-        <activity android:name=".menu.learn.formular.Formeln" />
-        <activity
-            android:name=".menu.organizer.Organizer"
-            android:label="@string/title_activity_organizer" />
-        <activity android:name=".menu.MainActivity">
+        <activity android:name=".Objects.Organizer.organizer_fullscreen_picture" android:screenOrientation="portrait"/>
+        <activity android:name=".Objects.Organizer.organizer_pictures" android:screenOrientation="portrait"/>
+        <activity android:name=".Objects.Organizer.organizer_camera" android:screenOrientation="portrait"/>
+        <activity android:name=".menu.learn.formular.CreateFormList" android:screenOrientation="portrait"/>
+        <activity android:name=".menu.learn.formular.Formeln" android:screenOrientation="portrait"/>
+        <activity android:name=".menu.organizer.Organizer" android:label="@string/title_activity_organizer" android:screenOrientation="portrait"/>
+        <activity android:name=".menu.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".menu.organizer.timetable.TimetableShowcase"
             android:label="TimetableShowcase"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".beforeStart.FirstScreen" />
-        <activity android:name=".beforeStart.Register" />
-        <activity android:name=".menu.organizer.timetable.Timetable" />
-        <activity android:name=".menu.learn.vocabulary.Vokabeln" />
-        <activity android:name=".menu.learn.vocabulary.CreateVocList" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".beforeStart.FirstScreen" android:screenOrientation="portrait"/>
+        <activity android:name=".beforeStart.Register" android:screenOrientation="portrait"/>
+        <activity android:name=".menu.organizer.timetable.Timetable" android:screenOrientation="portrait"/>
+        <activity android:name=".menu.learn.vocabulary.Vokabeln" android:screenOrientation="portrait"/>
+        <activity android:name=".menu.learn.vocabulary.CreateVocList" android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
