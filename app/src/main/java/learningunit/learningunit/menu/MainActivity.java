@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Deklarieren der Knöpfe
-    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode, languageBack, german, english, changeLanguage, dellOfflineData, newLogout;
+    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode, languageBack, german, english, changeLanguage, dellOfflineData, newLogout, deleteAccount;
     public static TextView news;
     private Button learnBack, learnVocab;
     Activity a = new Activity();
@@ -207,7 +208,56 @@ public class MainActivity extends AppCompatActivity {
             MainAdView.setVisibility(View.GONE);
         }
 
+        findViewById(R.id.main_mainLayout0).setVisibility(View.VISIBLE);
+        findViewById(R.id.main_settingsNewLayout).setVisibility(View.GONE);
+
         //Initialisieren der Knöpfe und rufen der OnClick methode
+
+        Button credits = (Button) findViewById(R.id.main_newCredentials);
+        credits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findViewById(R.id.main_settingsNewLayout).setVisibility(View.GONE);
+                findViewById(R.id.main_creditsLayout).setVisibility(View.VISIBLE);
+                backLocation = 7;
+            }
+        });
+
+        Button creditsback = (Button) findViewById(R.id.main_creditsback);
+        creditsback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findViewById(R.id.main_settingsNewLayout).setVisibility(View.VISIBLE);
+                findViewById(R.id.main_creditsLayout).setVisibility(View.GONE);
+                backLocation = 0;
+            }
+        });
+
+        Button agbs = (Button) findViewById(R.id.main_newAgbs);
+        agbs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.learningunit.de"));
+                startActivity(browserIntent);
+            }
+        });
+
+        Button dataterms = (Button) findViewById(R.id.main_newData);
+        dataterms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.learningunit.de"));
+                startActivity(browserIntent);
+            }
+        });
+
+        deleteAccount = (Button) findViewById(R.id.main_newDeleteAccount);
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open_deleteAccount();
+            }
+        });
 
         Button newSettingsBack = (Button) findViewById(R.id.main_newSettingsBack);
         newSettingsBack.setOnClickListener(new View.OnClickListener() {
@@ -475,23 +525,34 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //Buttton OnClick Methoden
+
+    public void open_deleteAccount(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+        builder.setCancelable(true);
+        builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setPositiveButton(R.string.DeleteAccount, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                new RequestHandler().sendGetRequest(MainActivity.URL_DeleteAccount + ManageData.getUserID());
+                ManageData.RemoveOfflineData();
+                Intent intent = new Intent(MainActivity.this, FirstScreen.class);
+                startActivity(intent);
+            }
+        });
+        builder.setTitle(R.string.DeleteAccountQuestion);
+        builder.setMessage(R.string.NoReturnMessage);
+        builder.show();
+
+    }
+
     public void open_logout(){
         ManageData.RemoveOfflineData();
         Intent intent = new Intent(this, FirstScreen.class);
@@ -636,10 +697,14 @@ public class MainActivity extends AppCompatActivity {
         }else if(backLocation == 5){
             findViewById(R.id.main_accountLayout).setVisibility(View.VISIBLE);
             findViewById(R.id.main_premiumLayout).setVisibility(View.GONE);
-        }else if(backLocation == 6){
+        }else if(backLocation == 6) {
             findViewById(R.id.main_accountLayout).setVisibility(View.VISIBLE);
             findViewById(R.id.main_premiumSettingsLayout).setVisibility(View.GONE);
+        }else if(backLocation == 7){
+            findViewById(R.id.main_settingsNewLayout).setVisibility(View.VISIBLE);
+            findViewById(R.id.main_creditsLayout).setVisibility(View.GONE);
         }
+        backLocation = 0;
     }
 
 

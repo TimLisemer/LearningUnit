@@ -269,4 +269,13 @@
     <string name="KeepDataQuestion">Sollen deine vorhandenen Daten wie Vokabeln, Kalendereinträge usw. in diesen Account übertragen werden?</string>
     <string name="IncompleteTimetable">Es wurden noch nicht alle Namen der Fächer  für die jeweiligen Stunden angegeben.</string>
     <string name="IncompleteTimetableSolution">Um den Namen eines Fachs anzugeben drücke auf die jeweilige Stunde, und fülle das aufkommende Formular aus.</string>
+    <string name="Credits">Credits</string>
+    <string name="DeleteAccountQuestion">Account Löschen?</string>
+    <string name="NoReturnMessage">Diese Aktion kann nicht Rückgängig gemacht werden, überlege dir sie gut!</string>
+    <string name="Credit1">App Programmierung</string>
+    <string name="Credit2">Datenbankentwicklung und Administration</string>
+    <string name="Credit3">App Design</string>
+    <string name="Credit4">Website Entwicklung und Design</string>
+    <string name="Credit5">Unter der Leitung von</string>
+    <string name="Credit6">Entstanden als Schulprojekt der Erasmus-Kittler-Schule Darmstadt</string>
 </resources>
