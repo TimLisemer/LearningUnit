@@ -1,7 +1,7 @@
 # LearningUnit
 
 Google Play:
-https://play.google.com/apps/internaltest/4697535208566492644
+https://play.google.com/store/apps/details?id=learningunit.learningunit
 
 Website:
 https://LearningUnit.de
