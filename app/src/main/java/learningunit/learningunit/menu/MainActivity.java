@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
                 backLocation = 7;
             }
         });
-//
+
         Button creditsback = (Button) findViewById(R.id.main_creditsback);
         creditsback.setOnClickListener(new View.OnClickListener() {
             @Override
