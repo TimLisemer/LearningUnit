@@ -242,7 +242,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
 
 
-        private void PresentationClick(final View fragmentView, final Activity activity){
+    private void PresentationClick(final View fragmentView, final Activity activity){
         startCondition = 0;
         MainActivity.hideKeyboard(activity);
         final ConstraintLayout Selection = (ConstraintLayout) fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkSelection);
@@ -1323,7 +1323,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
     private void FinishExam(final View fragmentView, final Activity activity, Exam event){
         fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkFinish_ScrollView).setVisibility(View.GONE);
         fragmentView.findViewById(R.id.fragment_organizer_home_HomeworkOverview_Layout).setVisibility(View.VISIBLE);
-        
+
         Gson gson = new Gson();
         ArrayList<Exam> eventlist;
         String json1 = FirstScreen.tinyDB.getString("Exam");
@@ -1443,12 +1443,45 @@ public class HomeFragmentMethods extends AppCompatActivity {
         final Button infoButton = (Button) fragmentView.findViewById(R.id.fragment_organizer_home_Homework_Overview_CreateNow);
         final Button TopNew = (Button) activity.findViewById(R.id.organizer_new);
 
+
+
+
+
+
+
+
+
+
+
         if(Case == 0) {
             OverviewHeading.setText(activity.getResources().getString(R.string.HomeworkOverview));
             infoView.setText(activity.getResources().getString(R.string.NoHomeworkEntered));
             infoButton.setText(activity.getResources().getString(R.string.CreateNow));
 
+            int homcounter = 0;
+
             if (FirstScreen.tinyDB.getString("Homework").equals("")) {
+
+                String jsonhom = FirstScreen.tinyDB.getString("Homework");
+                ArrayList<Homework> homlist = new ArrayList<Homework>();
+                if (json.equals("")) {
+                    homlist = new ArrayList<Homework>();
+                } else {
+                    Type typehome = new TypeToken<ArrayList<Homework>>() {
+                    }.getType();
+                    homlist = gson.fromJson(jsonhom, typehome);
+                }
+
+                for (Homework ho : homlist) {
+                    if ((EventMethods.isYounger((Event) ho, currentTimeEvent))) {
+                        homcounter++;
+                    }
+                }
+
+            }
+
+            if(homcounter == 0){
+
                 infoView.setVisibility(View.VISIBLE);
                 infoButton.setVisibility(View.VISIBLE);
                 infoButton.setOnClickListener(new View.OnClickListener() {
@@ -1458,6 +1491,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
                         NewEventHomework(fragmentView, activity);
                     }
                 });
+
             } else {
                 infoView.setVisibility(View.GONE);
                 infoButton.setVisibility(View.GONE);
@@ -1560,47 +1594,47 @@ public class HomeFragmentMethods extends AppCompatActivity {
             }
         }else if(Case == 3){
 
-                OverviewHeading.setText(activity.getResources().getString(R.string.PresentationOverview));
-                infoView.setText(activity.getResources().getString(R.string.NoPresentationEntered));
-                infoButton.setText(activity.getResources().getString(R.string.CreateNow));
+            OverviewHeading.setText(activity.getResources().getString(R.string.PresentationOverview));
+            infoView.setText(activity.getResources().getString(R.string.NoPresentationEntered));
+            infoButton.setText(activity.getResources().getString(R.string.CreateNow));
 
-                if (FirstScreen.tinyDB.getString("Presentation").equals("")) {
-                    infoView.setVisibility(View.VISIBLE);
-                    infoButton.setVisibility(View.VISIBLE);
-                    infoButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            NewEventPresentation(fragmentView, activity);
-                        }
-                    });
-                } else {
-                    infoView.setVisibility(View.GONE);
-                    infoButton.setVisibility(View.GONE);
-                    ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
-                    HomeCustomAdapter customAdapter;
-                    if(Grade == false) {
-                        ArrayList<Presentation> prlist = new ArrayList<Presentation>();
-                        if (eventlist.size() > 0) {
-                            for (Presentation pa : (ArrayList<Presentation>) eventlist) {
-                                if (EventMethods.isYounger((Event) pa, currentTimeEvent)) {
-                                    prlist.add(pa);
-                                }
-                            }
-                        }
-                        customAdapter = new HomeCustomAdapter(prlist, activity, 88);
-                    }else{
-                        customAdapter = new HomeCustomAdapter((ArrayList<Presentation>) eventlist, activity, 88);
-                    }
-                    listView.setAdapter(customAdapter);
-                }
-                TopNew.setVisibility(View.VISIBLE);
-                TopNew.setOnClickListener(new View.OnClickListener() {
+            if (FirstScreen.tinyDB.getString("Presentation").equals("")) {
+                infoView.setVisibility(View.VISIBLE);
+                infoButton.setVisibility(View.VISIBLE);
+                infoButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         NewEventPresentation(fragmentView, activity);
                     }
                 });
-                TopNew.setVisibility(View.GONE);
+            } else {
+                infoView.setVisibility(View.GONE);
+                infoButton.setVisibility(View.GONE);
+                ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
+                HomeCustomAdapter customAdapter;
+                if(Grade == false) {
+                    ArrayList<Presentation> prlist = new ArrayList<Presentation>();
+                    if (eventlist.size() > 0) {
+                        for (Presentation pa : (ArrayList<Presentation>) eventlist) {
+                            if (EventMethods.isYounger((Event) pa, currentTimeEvent)) {
+                                prlist.add(pa);
+                            }
+                        }
+                    }
+                    customAdapter = new HomeCustomAdapter(prlist, activity, 88);
+                }else{
+                    customAdapter = new HomeCustomAdapter((ArrayList<Presentation>) eventlist, activity, 88);
+                }
+                listView.setAdapter(customAdapter);
+            }
+            TopNew.setVisibility(View.VISIBLE);
+            TopNew.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NewEventPresentation(fragmentView, activity);
+                }
+            });
+            TopNew.setVisibility(View.GONE);
         }
 
         final Button TopBack = (Button) activity.findViewById(R.id.organizer_back);
