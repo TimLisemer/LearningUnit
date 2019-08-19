@@ -6,8 +6,12 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.joda.time.DateTime;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import learningunit.learningunit.Objects.API.ManageData;
 import learningunit.learningunit.Objects.Organizer.Event;
@@ -22,17 +26,15 @@ public class NewsFeed {
 
     public static String NewsString(Activity activity){
         String NewsString = "";
-        ArrayList<Event> eventlist;
         Gson gson = new Gson();
+
         if(ManageData.OfflineAccount == 2 && ManageData.InternetAvailable(activity)) {
-            /////////////////////////////////////
-            //Download
-            //EventList
-            eventlist = new ArrayList<Event>();
-            /////////////////////////////////////
-        }else{
-            eventlist = new ArrayList<Event>();
+            ManageData.LoadOrganizer();
         }
+
+        ArrayList<Homework> hl = new ArrayList<Homework>();
+        ArrayList<Exam> el = new ArrayList<Exam>();
+        ArrayList<Presentation> pl = new ArrayList<Presentation>();
 
         String json = FirstScreen.tinyDB.getString("Homework");
         ArrayList<Homework> homworklist = new ArrayList<Homework>();
@@ -64,40 +66,34 @@ public class NewsFeed {
             presentationlist = gson.fromJson(json2, type);
         }
 
+        Calendar ca = Calendar.getInstance();
+        Date d = ca.getTime();
+        DateTime dateTime = new DateTime(d);
+        Event currentTimeEvent = new Event(dateTime.getDayOfMonth(), dateTime.getMonthOfYear(), dateTime.getYear());
 
-        for(Event event : eventlist){
-            if(event instanceof Homework){
-                Homework homework = (Homework) event;
-                for(Homework h : homworklist){
-                    if(!(h.getTitle().equals(homework.getTitle()) && h.getDescription().equals(homework.getDescription()) && h.getDay() == homework.getDay() && h.getMonth() == homework.getMonth() && h.getYear() == homework.getYear())){
-                        homworklist.add(homework);
-                    }
-                }
-            }else if(event instanceof Exam) {
-                Exam exam = (Exam) event;
-                for(Exam e : examlist){
-                    if(!(e.getTitle().equals(exam.getTitle()) && e.getDescription().equals(exam.getDescription()) && e.getDay() == exam.getDay() && e.getMonth() == exam.getMonth() && e.getYear() == exam.getYear())){
-                        examlist.add(exam);
-                    }
-                }
-            }else if(event instanceof Presentation) {
-                Presentation presentation = (Presentation) event;
-                for(Presentation p : presentationlist){
-                    if(!(p.getTitle().equals(presentation.getTitle()) && p.getDescription().equals(presentation.getDescription()) && p.getDay() == presentation.getDay() && p.getMonth() == presentation.getMonth() && p.getYear() == presentation.getYear())){
-                        presentationlist.add(presentation);
-                    }
-                }
+
+        for(Homework homework : homworklist){
+            if((EventMethods.isYounger((Event) homework, currentTimeEvent))){
+                hl.add(homework);
+            }
+        }
+        for(Exam exam : examlist){
+            if((EventMethods.isYounger((Event) exam, currentTimeEvent))){
+                el.add(exam);
+            }
+        }
+        for(Presentation pre : presentationlist){
+            if((EventMethods.isYounger((Event) pre, currentTimeEvent))){
+                pl.add(pre);
             }
         }
 
-
-        if(homworklist.size() == 0 && examlist.size() == 0 && presentationlist.size() == 0){
+        if(hl.size() == 0 && el.size() == 0 && pl.size() == 0){
             NewsString = activity.getResources().getString(R.string.NoActiveEvents);
         }else{
-            NewsString = allString(homworklist, examlist, presentationlist, activity);
+            NewsString = allString(hl, el, pl, activity);
 
         }
-
 
         return NewsString;
     }
