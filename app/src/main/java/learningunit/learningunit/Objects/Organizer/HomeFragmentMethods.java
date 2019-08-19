@@ -1446,9 +1446,10 @@ public class HomeFragmentMethods extends AppCompatActivity {
 
 
 
-
-
-
+        infoView.setVisibility(View.GONE);
+        infoButton.setVisibility(View.GONE);
+        ListView listViews = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
+        listViews.setVisibility(View.GONE);
 
 
 
@@ -1459,12 +1460,11 @@ public class HomeFragmentMethods extends AppCompatActivity {
             infoButton.setText(activity.getResources().getString(R.string.CreateNow));
 
             int homcounter = 0;
-
-            if (FirstScreen.tinyDB.getString("Homework").equals("")) {
+            if (!(FirstScreen.tinyDB.getString("Homework").equals(""))) {
 
                 String jsonhom = FirstScreen.tinyDB.getString("Homework");
                 ArrayList<Homework> homlist = new ArrayList<Homework>();
-                if (json.equals("")) {
+                if (jsonhom.equals("")) {
                     homlist = new ArrayList<Homework>();
                 } else {
                     Type typehome = new TypeToken<ArrayList<Homework>>() {
@@ -1496,6 +1496,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 infoView.setVisibility(View.GONE);
                 infoButton.setVisibility(View.GONE);
                 ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
+                listView.setVisibility(View.VISIBLE);
                 HomeCustomAdapter customAdapter;
                 if(Grade == false) {
                     ArrayList<Homework> halist = new ArrayList<Homework>();
@@ -1524,7 +1525,30 @@ public class HomeFragmentMethods extends AppCompatActivity {
             infoView.setText(activity.getResources().getString(R.string.NoExamEntered));
             infoButton.setText(activity.getResources().getString(R.string.CreateNow));
 
-            if (FirstScreen.tinyDB.getString("Exam").equals("")) {
+            int exacounter = 0;
+
+            if (!(FirstScreen.tinyDB.getString("Exam").equals(""))) {
+
+
+                String jsonexa = FirstScreen.tinyDB.getString("Exam");
+                ArrayList<Exam> exalist;
+                if (jsonexa.equals("")) {
+                    exalist = new ArrayList<Exam>();
+                } else {
+                    Type typexa = new TypeToken<ArrayList<Exam>>() {
+                    }.getType();
+                    exalist = gson.fromJson(jsonexa, typexa);
+                }
+
+                for (Exam ex : exalist) {
+                    if ((EventMethods.isYounger((Event) ex, currentTimeEvent))) {
+                        exacounter++;
+                    }
+                }
+
+            }
+
+            if (exacounter == 0){
                 infoView.setVisibility(View.VISIBLE);
                 infoButton.setVisibility(View.VISIBLE);
                 infoButton.setOnClickListener(new View.OnClickListener() {
@@ -1534,10 +1558,12 @@ public class HomeFragmentMethods extends AppCompatActivity {
                         NewEventExam(fragmentView, activity);
                     }
                 });
+
             } else {
                 infoView.setVisibility(View.GONE);
                 infoButton.setVisibility(View.GONE);
                 ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
+                listView.setVisibility(View.VISIBLE);
                 HomeCustomAdapter customAdapter;
                 if(Grade == false){
                     ArrayList<Exam> exlist = new ArrayList<Exam>();
@@ -1598,7 +1624,26 @@ public class HomeFragmentMethods extends AppCompatActivity {
             infoView.setText(activity.getResources().getString(R.string.NoPresentationEntered));
             infoButton.setText(activity.getResources().getString(R.string.CreateNow));
 
-            if (FirstScreen.tinyDB.getString("Presentation").equals("")) {
+            int precounter = 0;
+
+            if (!(FirstScreen.tinyDB.getString("Presentation").equals(""))) {
+                String jsonpr = FirstScreen.tinyDB.getString("Presentation");
+                ArrayList<Presentation> prlist = new ArrayList<Presentation>();
+                if (jsonpr.equals("")) {
+                    prlist = new ArrayList<Presentation>();
+                } else {
+                    Type typepr = new TypeToken<ArrayList<Presentation>>() {
+                    }.getType();
+                    prlist = gson.fromJson(jsonpr, typepr);
+                }
+
+                for (Presentation pr : prlist) {
+                    if ((EventMethods.isYounger((Event) pr, currentTimeEvent))) {
+                        precounter++;
+                    }
+                }
+            }
+            if(precounter == 0){
                 infoView.setVisibility(View.VISIBLE);
                 infoButton.setVisibility(View.VISIBLE);
                 infoButton.setOnClickListener(new View.OnClickListener() {
@@ -1611,6 +1656,7 @@ public class HomeFragmentMethods extends AppCompatActivity {
                 infoView.setVisibility(View.GONE);
                 infoButton.setVisibility(View.GONE);
                 ListView listView = (ListView) activity.findViewById(R.id.fragment_organizer_home_Homework_Overview_ListView);
+                listView.setVisibility(View.VISIBLE);
                 HomeCustomAdapter customAdapter;
                 if(Grade == false) {
                     ArrayList<Presentation> prlist = new ArrayList<Presentation>();
