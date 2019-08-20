@@ -65,7 +65,7 @@ public class NewsFeed {
             }.getType();
             presentationlist = gson.fromJson(json2, type);
         }
-//
+
         Calendar ca = Calendar.getInstance();
         Date d = ca.getTime();
         DateTime dateTime = new DateTime(d);
