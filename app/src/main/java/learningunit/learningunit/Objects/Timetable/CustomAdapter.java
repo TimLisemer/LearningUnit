@@ -20,10 +20,15 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.joda.time.DateTime;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import learningunit.learningunit.Objects.Organizer.Event;
+import learningunit.learningunit.Objects.Organizer.EventMethods;
 import learningunit.learningunit.Objects.Organizer.Exam;
 import learningunit.learningunit.Objects.Organizer.HomeFragmentMethods;
 import learningunit.learningunit.Objects.Organizer.Homework;
@@ -127,11 +132,15 @@ public class CustomAdapter extends BaseAdapter {
                     }
 
                     Button img = (Button) view1.findViewById(R.id.timetable_showcaseListViewEdit);
+                    Calendar ca = Calendar.getInstance();
+                    Date d = ca.getTime();
+                    DateTime dateTime = new DateTime(d);
+                    Event currentTimeEvent = new Event(dateTime.getDayOfMonth(), dateTime.getMonthOfYear(), dateTime.getYear());
 
                     String hinfotext = activity.getResources().getString(R.string.NoHomeWork);
                     int eventcount = 0; int hacount = 0; int examcount = 0; int precount = 0;
                     for(Homework h : eventlist){
-                        if(h.getHour().getColorCode().equals(ColorCodes[i]) && h.getHour().getName().equals(HourList[i])){
+                        if(h.getHour().getColorCode().equals(ColorCodes[i]) && h.getHour().getName().equals(HourList[i]) && EventMethods.isYounger((Event) h, currentTimeEvent)){
                             eventcount ++;
                             hacount ++;
                             hinfotext = eventcount + " " + activity.getResources().getString(R.string.Homework);
@@ -146,7 +155,7 @@ public class CustomAdapter extends BaseAdapter {
                         }
                     }
                     for(Exam h : examlist){
-                        if(h.getHour().getColorCode().equals(ColorCodes[i]) && h.getHour().getName().equals(HourList[i])){
+                        if(h.getHour().getColorCode().equals(ColorCodes[i]) && h.getHour().getName().equals(HourList[i]) && EventMethods.isYounger((Event) h, currentTimeEvent)){
                             eventcount ++;
                             examcount ++;
                             if(hacount == 0){
@@ -166,7 +175,7 @@ public class CustomAdapter extends BaseAdapter {
                         }
                     }
                     for(Presentation h : prelist){
-                        if(h.getHour().getColorCode().equals(ColorCodes[i]) && h.getHour().getName().equals(HourList[i])){
+                        if(h.getHour().getColorCode().equals(ColorCodes[i]) && h.getHour().getName().equals(HourList[i]) && EventMethods.isYounger((Event) h, currentTimeEvent)){
                             eventcount ++;
                             precount ++;
                             if(hacount == 0 && examcount == 0){
