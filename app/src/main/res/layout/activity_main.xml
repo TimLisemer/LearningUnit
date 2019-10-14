@@ -121,7 +121,7 @@
                 app:layout_constraintGuide_percent="0.75" />
 
             <Button
-                android:id="@+id/main_learn_vocabulary"
+                android:id="@+id/main_learn"
                 style="@style/Fynnx_Buttons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/hammersmith_one"
-                android:text="@string/Vocabularys"
+                android:text="@string/VocabularyTrainer"
                 android:textColor="@color/TEXT_WHITE"
                 app:layout_constraintBottom_toTopOf="@+id/guideline10"
                 app:layout_constraintEnd_toStartOf="@+id/guideline64"
@@ -1408,7 +1408,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/main_imageView6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            app:layout_constraintVertical_bias="1.0" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline56"
@@ -1439,7 +1440,7 @@
             app:layout_constraintGuide_percent="0.475" />
 
         <Button
-            android:id="@+id/main_learn_formular"
+            android:id="@+id/main_learn_mathematics"
             style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -1447,14 +1448,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/Formulars"
+            android:text="@string/Mathematics"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline56"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline49" />
 
         <Button
-            android:id="@+id/main_learn_vocabulary1"
+            android:id="@+id/main_learn_vocabulary"
             style="@style/Fynnx_Buttons"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

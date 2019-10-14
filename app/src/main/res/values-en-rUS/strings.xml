@@ -125,8 +125,8 @@
     <string name="SetPrivate">Set Private</string>
     <string name="PublishVocabList">Publish Vocabulary List</string>
     <string name="Publish">Publish</string>
-    <string name="ConfirmUnPublication">Your vocabulary list loses all followers and ratings</string>
-    <string name="SetVocabularyListPrivaSte">Auf Privat stellen</string>
+    <string name="ConfirmUnPublication">Your vocabulary list will lose all its followers and ratings</string>
+    <string name="SetVocabularyListPrivaSte">Set Private?</string>
     <string name="SetListPrivate">Make List Private</string>
     <string name="PublishList">Publish List</string>
     <string name="Follow">Follow</string>
@@ -280,4 +280,6 @@
     <string name="Credit6">Created as a school project of the Erasmus-Kittler-Schule Darmstadt</string>
     <string name="NoListFound">No vocabulary list could be found</string>
     <string name="SearchResults">Searchresults</string>
+    <string name="MathOverview">Mathematics overview</string>
+    <string name="Mathematics">Mathematics</string>
 </resources>
