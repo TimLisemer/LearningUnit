@@ -280,4 +280,6 @@
     <string name="Credit6">Entstanden als Schulprojekt der Erasmus-Kittler-Schule Darmstadt</string>
     <string name="NoListFound">Es konnte keine Vokabelliste gefunden werden</string>
     <string name="SearchResults">Suchergebnisse</string>
+    <string name="MathOverview">Mathematik Übersicht</string>
+    <string name="Mathematics">Mathematik</string>
 </resources>

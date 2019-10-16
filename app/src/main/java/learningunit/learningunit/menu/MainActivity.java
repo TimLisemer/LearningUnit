@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.lang.reflect.Type;
@@ -50,6 +49,7 @@ import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.beforeStart.FirstScreen;
 import learningunit.learningunit.menu.learn.formular.Formeln;
+import learningunit.learningunit.menu.learn.math.math;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
 import learningunit.learningunit.menu.organizer.Organizer;
 import learningunit.learningunit.menu.organizer.timetable.Timetable;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     public static int backLocation = 0; // 0 = Main Menu; 1 = Lernen; 2 = Einstellungen, 3 = Sprachauswahl;
 
     //Datenbank
-    private static final String ROOT_URL = "https://learningunit.de/MySQL/v1/Api.php?apicall=";
+    private static final String ROOT_URL = "http://34.65.185.65/MySQL/v1/Api.php?apicall=";
     public static final String URL_CreateAccount = ROOT_URL + "CreateAccount";
     public static final String URL_LoginAccount = ROOT_URL + "Login";
     public static final String URL_GetAccount = ROOT_URL + "GetAccount&id=";
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Deklarieren der Knöpfe
-    private Button logout, forum, learn, organizer, timetable, statistics, settings, settingsBack, darkMode, languageBack, german, english, changeLanguage, dellOfflineData, newLogout, deleteAccount;
+    private Button logout, mathButton, learn, organizer, timetable, statistics, settings, settingsBack, languageBack, german, english, changeLanguage, dellOfflineData, newLogout, deleteAccount;
     public static TextView news;
     private Button learnBack, learnVocab;
     Activity a = new Activity();
@@ -240,9 +240,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent browserIntent;
                 if(Locale.getDefault().getLanguage().equals("en")) {
-                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/language/privacy-policy/privacy-terms.html#terms-conditions"));
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/web/language/en/privacy-policy/privacy-terms.html#terms-conditions"));
                 }else{
-                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/language/de/privacy-policy/privacy-terms.html#allgemeine-geschaeftsbedingungen"));
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/web/language/de/privacy-policy/privacy-terms.html#allgemeine-geschaeftsbedingungen"));
                 }
                 startActivity(browserIntent);
             }
@@ -254,9 +254,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent browserIntent;
                 if(Locale.getDefault().getLanguage().equals("en")) {
-                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/language/privacy-policy/privacy-terms.html"));
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/web/language/en/privacy-policy/privacy-terms.html"));
                 }else{
-                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/language/de/privacy-policy/privacy-terms.html"));
+                    browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://learningunit.de/web/language/de/privacy-policy/privacy-terms.html"));
                 }
                 startActivity(browserIntent);
             }
@@ -303,11 +303,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button formular = (Button) findViewById(R.id.main_learn_formular);
-        formular.setOnClickListener(new View.OnClickListener() {
+        mathButton = (Button) findViewById(R.id.main_learn_mathematics);
+        mathButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //open_formular();
+                open_math();
             }
         });
 
@@ -343,13 +343,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        darkMode = (Button) findViewById(R.id.main_settingsDarkMode);
-        darkMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startDarkMode();
-            }
-        });
 
         learnVocab = (Button) findViewById(R.id.main_learn_vocabulary);
         learnVocab.setOnClickListener(new View.OnClickListener() {
@@ -359,6 +352,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         logout = (Button) findViewById(R.id.main_settingsLogout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -367,18 +361,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+
         learn = (Button) findViewById(R.id.main_learn);
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                backLocation = 1;
+                open_vocabulary();
+                /*backLocation = 1;
                 news.setVisibility(View.GONE);
-                findViewById(R.id.main_mainLayout).setVisibility(View.GONE);
+                findViewById(R.id.main_mainLayout0).setVisibility(View.GONE);
                 findViewById(R.id.main_learnLayout).setVisibility(View.VISIBLE);
+                */
             }
         });
-        */
+
 
         organizer = (Button) findViewById(R.id.main_organizer);
         organizer.setOnClickListener(new View.OnClickListener() {
@@ -577,8 +573,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void open_formular(){
-        Intent intent = new Intent(this, Formeln.class);
+    public void open_math(){
+        Intent intent = new Intent(this, math.class);
         startActivity(intent);
     }
 
@@ -646,7 +642,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openLearnback(){
-        findViewById(R.id.main_mainLayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.main_mainLayout0).setVisibility(View.VISIBLE);
         findViewById(R.id.main_learnLayout).setVisibility(View.GONE);
         news.setVisibility(View.VISIBLE);
         backLocation = 0;
@@ -661,20 +657,6 @@ public class MainActivity extends AppCompatActivity {
     public void openDelOfflineData(){
         FirstScreen.tinyDB.putString("WeekA", "");
         FirstScreen.tinyDB.putString("WeekB", "");
-    }
-
-    public void startDarkMode(){
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-        //SAAAAAAAAAAMMMMMMUUUUUUUUUUUUUUEEEEEEEEEEEEEELLLLLLLLLLLLLLLL
-
     }
 
     public void setLocale(String lang) {
