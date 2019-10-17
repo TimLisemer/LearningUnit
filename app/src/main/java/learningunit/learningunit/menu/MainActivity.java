@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     public static int backLocation = 0; // 0 = Main Menu; 1 = Lernen; 2 = Einstellungen, 3 = Sprachauswahl;
 
     //Datenbank
-    private static final String ROOT_URL = "http://34.65.185.65/MySQL/v1/Api.php?apicall=";
+    private static final String ROOT_URL = "https://learningunit.de/MySQL/v1/Api.php?apicall=";
     public static final String URL_CreateAccount = ROOT_URL + "CreateAccount";
     public static final String URL_LoginAccount = ROOT_URL + "Login";
     public static final String URL_GetAccount = ROOT_URL + "GetAccount&id=";
