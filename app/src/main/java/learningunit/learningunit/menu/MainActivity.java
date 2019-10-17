@@ -48,8 +48,6 @@ import learningunit.learningunit.Objects.MainMethods.NewsFeed;
 import learningunit.learningunit.Objects.PublicAPIs.AnalyticsApplication;
 import learningunit.learningunit.Objects.PublicAPIs.RequestHandler;
 import learningunit.learningunit.beforeStart.FirstScreen;
-import learningunit.learningunit.menu.learn.formular.Formeln;
-import learningunit.learningunit.menu.learn.math.math;
 import learningunit.learningunit.menu.learn.vocabulary.Vokabeln;
 import learningunit.learningunit.menu.organizer.Organizer;
 import learningunit.learningunit.menu.organizer.timetable.Timetable;
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     public static int backLocation = 0; // 0 = Main Menu; 1 = Lernen; 2 = Einstellungen, 3 = Sprachauswahl;
 
     //Datenbank
-    private static final String ROOT_URL = "http://34.65.185.65/MySQL/v1/Api.php?apicall=";
+    private static final String ROOT_URL = "https://learningunit.de/MySQL/v1/Api.php?apicall=";
     public static final String URL_CreateAccount = ROOT_URL + "CreateAccount";
     public static final String URL_LoginAccount = ROOT_URL + "Login";
     public static final String URL_GetAccount = ROOT_URL + "GetAccount&id=";
@@ -303,13 +301,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mathButton = (Button) findViewById(R.id.main_learn_mathematics);
-        mathButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                open_math();
-            }
-        });
 
         Button accountBack = (Button)findViewById(R.id.main_accountBack);
         accountBack.setOnClickListener(new View.OnClickListener() {
@@ -570,11 +561,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void open_vocabulary(){
         Intent intent = new Intent(this, Vokabeln.class);
-        startActivity(intent);
-    }
-
-    public void open_math(){
-        Intent intent = new Intent(this, math.class);
         startActivity(intent);
     }
 
